@@ -5,7 +5,6 @@ import java.util.Stack;
 
 import com.dianping.cat.consumer.problem.model.entity.Duration;
 import com.dianping.cat.consumer.problem.model.entity.Entity;
-import com.dianping.cat.consumer.problem.model.entity.Entry;
 import com.dianping.cat.consumer.problem.model.entity.Machine;
 import com.dianping.cat.consumer.problem.model.entity.ProblemReport;
 import com.dianping.cat.consumer.problem.model.entity.Segment;
@@ -16,23 +15,6 @@ public class ProblemReportMerger extends DefaultMerger {
 
 	public ProblemReportMerger(ProblemReport problemReport) {
 		super(problemReport);
-	}
-
-	protected Entry findOrCreateEntry(Machine machine, Entry entry) {
-		String type = entry.getType();
-		String status = entry.getStatus();
-
-		for (Entry e : machine.getEntries()) {
-			if (e.getType().equals(type) && e.getStatus().equals(status)) {
-				return e;
-			}
-		}
-
-		Entry result = new Entry();
-
-		result.setStatus(status).setType(type);
-		machine.addEntry(result);
-		return result;
 	}
 
 	protected Entity findOrCreateEntity(Machine machine, Entity entity) {
@@ -84,13 +66,6 @@ public class ProblemReportMerger extends DefaultMerger {
 	protected void visitMachineChildren(Machine to, Machine from) {
 		Stack<Object> objs = getObjects();
 
-		for (Entry source : from.getEntries()) {
-			Entry target = findOrCreateEntry(to, source);
-
-			objs.push(target);
-			source.accept(this);
-			objs.pop();
-		}
 		for (Entity source : from.getEntities().values()) {
 			Entity target = findOrCreateEntity(to, source);
 

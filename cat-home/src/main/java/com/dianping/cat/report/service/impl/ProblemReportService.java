@@ -9,7 +9,6 @@ import org.unidal.dal.jdbc.DalNotFoundException;
 
 import com.dianping.cat.Cat;
 import com.dianping.cat.consumer.problem.ProblemAnalyzer;
-import com.dianping.cat.consumer.problem.ProblemReportConvertor;
 import com.dianping.cat.consumer.problem.ProblemReportMerger;
 import com.dianping.cat.consumer.problem.model.entity.ProblemReport;
 import com.dianping.cat.consumer.problem.model.transform.DefaultNativeParser;
@@ -72,11 +71,9 @@ public class ProblemReportService extends AbstractReportService<ProblemReport> {
 			}
 		}
 		ProblemReport problemReport = merger.getProblemReport();
-		ProblemReportConvertor convertor = new ProblemReportConvertor();
 
 		problemReport.setStartTime(start);
 		problemReport.setEndTime(end);
-		problemReport.accept(convertor);
 		return problemReport;
 	}
 
@@ -165,8 +162,6 @@ public class ProblemReportService extends AbstractReportService<ProblemReport> {
 		Set<String> domains = queryAllDomainNames(start, end, ProblemAnalyzer.ID);
 		problemReport.getDomainNames().addAll(domains);
 
-		ProblemReportConvertor convertor = new ProblemReportConvertor();
-		problemReport.accept(convertor);
 		return problemReport;
 	}
 
@@ -189,9 +184,6 @@ public class ProblemReportService extends AbstractReportService<ProblemReport> {
 		} catch (Exception e) {
 			Cat.logError(e);
 		}
-		ProblemReportConvertor convertor = new ProblemReportConvertor();
-
-		problemReport.accept(convertor);
 		return problemReport;
 	}
 
@@ -215,9 +207,6 @@ public class ProblemReportService extends AbstractReportService<ProblemReport> {
 		} catch (Exception e) {
 			Cat.logError(e);
 		}
-		ProblemReportConvertor convertor = new ProblemReportConvertor();
-
-		problemReport.accept(convertor);
 		return problemReport;
 	}
 

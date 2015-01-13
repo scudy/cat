@@ -32,7 +32,7 @@ import com.dianping.cat.consumer.matrix.MatrixAnalyzer;
 import com.dianping.cat.consumer.metric.MetricAnalyzer;
 import com.dianping.cat.consumer.metric.model.entity.MetricReport;
 import com.dianping.cat.consumer.problem.ProblemAnalyzer;
-import com.dianping.cat.consumer.problem.model.entity.Entry;
+import com.dianping.cat.consumer.problem.model.entity.Entity;
 import com.dianping.cat.consumer.problem.model.entity.JavaThread;
 import com.dianping.cat.consumer.problem.model.entity.Machine;
 import com.dianping.cat.consumer.problem.model.entity.Segment;
@@ -412,17 +412,17 @@ public class Handler extends ContainerHolder implements PageHandler<Context> {
 		}
 
 		@Override
-		public void visitEntry(Entry entry) {
+		public void visitEntity(Entity entry) {
 			if (m_type == null) {
-				super.visitEntry(entry);
+				super.visitEntity(entry);
 			} else {
 				if (m_status == null) {
 					if (entry.getType().equals(m_type)) {
-						super.visitEntry(entry);
+						super.visitEntity(entry);
 					}
 				} else {
 					if (entry.getType().equals(m_type) && entry.getStatus().equals(m_status)) {
-						super.visitEntry(entry);
+						super.visitEntity(entry);
 					}
 				}
 			}

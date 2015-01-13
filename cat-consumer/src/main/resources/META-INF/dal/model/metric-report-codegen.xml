@@ -10,7 +10,6 @@
     <attribute name="id" value-type="String" />
     <attribute name="type" value-type="String" />
     <element name="domain" value-type="String" type="list" names="domains" />
-    <entity-ref name="abtest" type="map" names="abtests" method-find-or-create="true" />
     <entity-ref name="segment" type="list" names="segments"/>
   </entity>
   <entity name="segment">

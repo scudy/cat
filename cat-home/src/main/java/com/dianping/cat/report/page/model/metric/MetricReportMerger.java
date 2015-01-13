@@ -1,6 +1,5 @@
 package com.dianping.cat.report.page.model.metric;
 
-import com.dianping.cat.consumer.metric.model.entity.Abtest;
 import com.dianping.cat.consumer.metric.model.entity.Group;
 import com.dianping.cat.consumer.metric.model.entity.MetricItem;
 import com.dianping.cat.consumer.metric.model.entity.MetricReport;
@@ -13,11 +12,6 @@ public class MetricReportMerger extends DefaultMerger {
 
 	public MetricReportMerger(MetricReport metricReport) {
 		super(metricReport);
-	}
-
-	@Override
-	protected void mergeAbtest(Abtest to, Abtest from) {
-		super.mergeAbtest(to, from);
 	}
 
 	@Override

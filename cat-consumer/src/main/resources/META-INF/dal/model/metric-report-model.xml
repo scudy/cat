@@ -12,13 +12,7 @@
   <entity name="metric-item">
     <attribute name="id" value-type="String" key="true"/>
 	<element name="domain" value-type="String" type="set" names="domains" />
-    <entity-ref name="abtest" type="map" names="abtests" method-find-or-create="true" />
     <entity-ref name="segment" type="map" names="segments" method-find-or-create="true"/>
-  </entity>
-  <entity name="abtest">
-    <attribute name="run-id" value-type="String" key="true"/>
-    <attribute name="name" value-type="String" />
-    <entity-ref name="group" type="map" names="groups"  method-find-or-create="true"/>
   </entity>
   <entity name="group">
     <attribute name="name" value-type="String" key="true" />

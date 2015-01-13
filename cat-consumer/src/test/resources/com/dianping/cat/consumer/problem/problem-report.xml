@@ -3,13 +3,7 @@
    <domain>Cat</domain>
    <ip>192.168.63.66</ip>
    <machine ip="192.168.63.66">
-      <entry type="heartbeat" status="192.168.63.66">
-         <duration value="0" count="4">
-            <message>Cat-c0a83f42-1335685175729-0</message>
-            <message>Cat-c0a83f42-1335685235729-0</message>
-            <message>Cat-c0a83f42-1335685295729-0</message>
-            <message>Cat-c0a83f42-1335685415729-0</message>
-         </duration>
+      <entity id="heartbeat:192.168.63.66" type="heartbeat" status="192.168.63.66">
          <thread group-name="Cat" name="Cat-StatusUpdateTask" id="31">
             <segment id="39" count="1">
                <message>Cat-c0a83f42-1335685175729-0</message>
@@ -24,17 +18,14 @@
                <message>Cat-c0a83f42-1335685415729-0</message>
             </segment>
          </thread>
-      </entry>
-      <entry type="url" status="p">
-         <duration value="100" count="1">
-            <message>Cat-c0a83f42-1335685355729-0</message>
+         <duration value="0" count="4">
+            <message>Cat-c0a83f42-1335685175729-0</message>
+            <message>Cat-c0a83f42-1335685235729-0</message>
+            <message>Cat-c0a83f42-1335685295729-0</message>
+            <message>Cat-c0a83f42-1335685415729-0</message>
          </duration>
-         <duration value="500" count="1">
-            <message>Cat-c0a83f42-1335685336107-0</message>
-         </duration>
-         <duration value="0" count="1">
-            <message>Cat-c0a83f42-1335685370053-0</message>
-         </duration>
+      </entity>
+      <entity id="url:p" type="url" status="p">
          <thread group-name="Cat" name="Cat-StatusUpdateTask" id="31">
             <segment id="42" count="1">
                <message>Cat-c0a83f42-1335685355729-0</message>
@@ -46,37 +37,31 @@
                <message>Cat-c0a83f42-1335685370053-0</message>
             </segment>
          </thread>
-      </entry>
-      <entry type="failure" status="MVC:OutboundPhase">
+         <duration value="100" count="1">
+            <message>Cat-c0a83f42-1335685355729-0</message>
+         </duration>
          <duration value="500" count="1">
             <message>Cat-c0a83f42-1335685336107-0</message>
          </duration>
          <duration value="0" count="1">
             <message>Cat-c0a83f42-1335685370053-0</message>
          </duration>
+      </entity>
+      <entity id="failure:MVC:OutboundPhase" type="failure" status="MVC:OutboundPhase">
          <thread group-name="main" name="btpool0-10" id="68">
             <segment id="42" count="2">
                <message>Cat-c0a83f42-1335685336107-0</message>
                <message>Cat-c0a83f42-1335685370053-0</message>
             </segment>
          </thread>
-      </entry>
-      <entry type="long-url" status="p">
-         <duration value="1000" count="1">
-            <message>Cat-c0a83f42-1335685377932-0</message>
+         <duration value="500" count="1">
+            <message>Cat-c0a83f42-1335685336107-0</message>
          </duration>
-         <duration value="200" count="1">
-            <message>Cat-c0a83f42-1335685401046-0</message>
+         <duration value="0" count="1">
+            <message>Cat-c0a83f42-1335685370053-0</message>
          </duration>
-         <duration value="0" count="7">
-            <message>Cat-c0a83f42-1335685439555-0</message>
-            <message>Cat-c0a83f42-1335685440235-0</message>
-            <message>Cat-c0a83f42-1335685440747-0</message>
-            <message>Cat-c0a83f42-1335685441171-0</message>
-            <message>Cat-c0a83f42-1335685441525-0</message>
-            <message>Cat-c0a83f42-1335685441770-0</message>
-            <message>Cat-c0a83f42-1335685441932-0</message>
-         </duration>
+      </entity>
+      <entity id="long-url:p" type="long-url" status="p">
          <thread group-name="main" name="btpool0-10" id="68">
             <segment id="42" count="1">
                <message>Cat-c0a83f42-1335685377932-0</message>
@@ -94,16 +79,31 @@
                <message>Cat-c0a83f42-1335685441932-0</message>
             </segment>
          </thread>
-      </entry>
-      <entry type="long-url" status="h">
-         <duration value="0" count="1">
-            <message>Cat-c0a83f42-1335685396522-0</message>
+         <duration value="1000" count="1">
+            <message>Cat-c0a83f42-1335685377932-0</message>
          </duration>
+         <duration value="200" count="1">
+            <message>Cat-c0a83f42-1335685401046-0</message>
+         </duration>
+         <duration value="0" count="7">
+            <message>Cat-c0a83f42-1335685439555-0</message>
+            <message>Cat-c0a83f42-1335685440235-0</message>
+            <message>Cat-c0a83f42-1335685440747-0</message>
+            <message>Cat-c0a83f42-1335685441171-0</message>
+            <message>Cat-c0a83f42-1335685441525-0</message>
+            <message>Cat-c0a83f42-1335685441770-0</message>
+            <message>Cat-c0a83f42-1335685441932-0</message>
+         </duration>
+      </entity>
+      <entity id="long-url:h" type="long-url" status="h">
          <thread group-name="main" name="btpool0-10" id="68">
             <segment id="43" count="1">
                <message>Cat-c0a83f42-1335685396522-0</message>
             </segment>
          </thread>
-      </entry>
+         <duration value="0" count="1">
+            <message>Cat-c0a83f42-1335685396522-0</message>
+         </duration>
+      </entity>
    </machine>
 </problem-report>

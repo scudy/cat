@@ -27,7 +27,6 @@ import com.dianping.cat.consumer.metric.ProductLineConfigManagerTest;
 import com.dianping.cat.consumer.problem.ProblemAnalyzerTest;
 import com.dianping.cat.consumer.problem.ProblemFilterTest;
 import com.dianping.cat.consumer.problem.ProblemHandlerTest;
-import com.dianping.cat.consumer.problem.ProblemReportConvertorTest;
 import com.dianping.cat.consumer.problem.ProblemReportMergerTest;
 import com.dianping.cat.consumer.problem.ProblemReportTest;
 import com.dianping.cat.consumer.state.StateAnalyzerTest;
@@ -104,8 +103,6 @@ TransactionReportTypeAggergatorTest.class,
 ProblemFilterTest.class,
 
 //MetricAnalyzerTest.class,
-
-ProblemReportConvertorTest.class,
 
 CrossInfoTest.class,
 
