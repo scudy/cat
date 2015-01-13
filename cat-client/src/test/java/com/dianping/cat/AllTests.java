@@ -11,6 +11,7 @@ import com.dianping.cat.message.HeartbeatTest;
 import com.dianping.cat.message.MessageTest;
 import com.dianping.cat.message.TransactionTest;
 import com.dianping.cat.message.internal.CatClientTest;
+import com.dianping.cat.message.internal.MessageNestProducerTest;
 import com.dianping.cat.message.internal.MessageProducerTest;
 import com.dianping.cat.message.internal.MockMessageBuilderTest;
 import com.dianping.cat.message.spi.codec.PlainTextMessageCodecTest;
@@ -48,7 +49,9 @@ CatTest.class,
 
 CatClientTest.class,
 
-MessageProducerTest.class
+MessageProducerTest.class,
+
+MessageNestProducerTest.class
 
 })
 public class AllTests {
