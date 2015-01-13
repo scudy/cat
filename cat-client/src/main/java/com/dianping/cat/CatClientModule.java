@@ -2,7 +2,6 @@ package com.dianping.cat;
 
 import java.io.File;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.locks.LockSupport;
 
 import org.unidal.helper.Threads;
 import org.unidal.helper.Threads.AbstractThreadListener;
@@ -40,16 +39,9 @@ public class CatClientModule extends AbstractModule {
 		// bring up TransportManager
 		ctx.lookup(TransportManager.class);
 
-		if (clientConfigManager.isCatEnabled()) {
-			// start status update task
-			StatusUpdateTask statusUpdateTask = ctx.lookup(StatusUpdateTask.class);
+		StatusUpdateTask statusUpdateTask = ctx.lookup(StatusUpdateTask.class);
 
-			Threads.forGroup("cat").start(statusUpdateTask);
-			LockSupport.parkNanos(10 * 1000 * 1000L); // wait 10 ms
-
-			// MmapConsumerTask mmapReaderTask = ctx.lookup(MmapConsumerTask.class);
-			// Threads.forGroup("cat").start(mmapReaderTask);
-		}
+		Threads.forGroup("cat").start(statusUpdateTask);
 	}
 
 	@Override
