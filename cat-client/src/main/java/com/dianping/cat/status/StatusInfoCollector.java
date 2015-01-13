@@ -251,9 +251,6 @@ public class StatusInfoCollector extends BaseVisitor {
 		thread.setDaemonCount(bean.getDaemonThreadCount());
 		thread.setPeekCount(bean.getPeakThreadCount());
 		thread.setTotalStartedCount((int) bean.getTotalStartedThreadCount());
-		thread.setCatThreadCount(countThreadsByPrefix(threads, "Cat-"));
-		thread.setPigeonThreadCount(countThreadsByPrefix(threads, "Pigeon-", "DPSF-", "Netty-",
-		      "Client-ResponseProcessor"));
 
 		int jbossThreadsCount = countThreadsByPrefix(threads, "http-", "catalina-exec-");
 		int jettyThreadsCount = countThreadsBySubstring(threads, "@qtp");

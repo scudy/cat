@@ -32,33 +32,28 @@
 <br>
 <table class="graph" id="graph">
 <tr>
-	<th	colspan="3" style="text-align:left">Framework Thread Info</th>
+	<th	colspan="3" style="text-align:left">JVM Thread Info</th>
 </tr>
 <tr>
-	
-	<td><div id="HttpStartedThread" class="graph"></div></td>
-	<td><div id="CatStartedThread" class="graph"></div></td>
-	<td><div id="PigeonStartedThread" class="graph"></div></td>
-</tr>
-<tr>
-	<th colspan="3" style="text-align:left"><a  data-status="thread" class="heartbeat_graph_link" href="?op=historyPart&domain=${model.domain}&date=${model.date}&ip=${model.ipAddress}&reportType=${model.reportType}&type=thread">JVM Thread Info</a></th>
-</tr>
-<tr>
-	<td colspan="3"><iframe id="thread" style="display:none;" width="100%" height="400px"></iframe></td>
+	<td><div id="NewGcCount" class="graph"></div></td>
+	<td><div id="OldGcCount" class="graph"></div></td>
+	<td><div id="SystemLoadAverage" class="graph"></div></td>
 </tr>
 
-<tr>
-	<th colspan="3" style="text-align:left"><a  data-status="system" class="heartbeat_graph_link" href="?op=historyPart&domain=${model.domain}&date=${model.date}&ip=${model.ipAddress}&reportType=${model.reportType}&type=system">System Info</a>&nbsp;&nbsp;&nbsp;&nbsp;(New Gc,Old Gc,System Load)</th>
-</tr>
-<tr>
-	<td colspan="3"><iframe id="system" style="display:none;" width="100%" height="400px"></iframe></td>
-</tr>
 <tr>
 	<th colspan="3" style="text-align:left"><a  data-status="memory" class="heartbeat_graph_link" href="?op=historyPart&domain=${model.domain}&date=${model.date}&ip=${model.ipAddress}&reportType=${model.reportType}&type=memory">Memory Info</a>&nbsp;&nbsp;&nbsp;&nbsp;(Memory Free,Heap Usage,None Heap Usage)</th>
 </tr>
 <tr>
 	<td colspan="3"><iframe id="memory" style="display:none;" width="100%" height="400px"></iframe></td>
 </tr>
+
+<tr>
+	<th colspan="3" style="text-align:left"><a  data-status="thread" class="heartbeat_graph_link" href="?op=historyPart&domain=${model.domain}&date=${model.date}&ip=${model.ipAddress}&reportType=${model.reportType}&type=thread">JVM Thread Info</a>&nbsp;&nbsp;&nbsp;&nbsp;(HTTP Active Started Thread)</th>
+</tr>
+<tr>
+	<td colspan="3"><iframe id="thread" style="display:none;" width="100%" height="400px"></iframe></td>
+</tr>
+
 <tr>
 	<th colspan="3" style="text-align:left"><a  data-status="disk" class="heartbeat_graph_link" href="?op=historyPart&domain=${model.domain}&date=${model.date}&ip=${model.ipAddress}&reportType=${model.reportType}&type=disk">Disk Info</a></th>
 </tr>
@@ -85,15 +80,18 @@
 </table>
 	<res:useJs value="${res.js.local['heartbeatHistory_js']}" target="head-buttom"/>
 	<script>
-	//04
-	var httpThreadGraphData = ${model.httpThreadGraph};
-	graphLineChart(document.getElementById('HttpStartedThread'), httpThreadGraphData);
-	//05
-	var catThreadGraphData = ${model.catThreadGraph};
-	graphLineChart(document.getElementById('CatStartedThread'), catThreadGraphData);
-	//06
-	var pigeonThreadGraphData = ${model.pigeonThreadGraph};
-	graphLineChart(document.getElementById('PigeonStartedThread'), pigeonThreadGraphData);
+	
+	//07
+	var newGcCountGraphData = ${model.newGcCountGraph};
+	graphLineChart(document.getElementById('NewGcCount'), newGcCountGraphData);
+	//08
+	var oldGcCountGraphData = ${model.oldGcCountGraph};
+	graphLineChart(document.getElementById('OldGcCount'), oldGcCountGraphData);
+	//09
+	var systemLoadAverageGraphData = ${model.systemLoadAverageGraph};
+	graphLineChart(document.getElementById('SystemLoadAverage'), systemLoadAverageGraphData);
+	
+	
 	</script>
 </jsp:body>
 </a:historyReport>

@@ -181,12 +181,6 @@ public class Handler implements PageHandler<Context> {
 		if ("month".equals(reportType) || "week".equals(reportType)) {
 			payload.setReportType("day");
 		}
-
-		String queryType = payload.getType();
-
-		if (queryType == null || queryType.trim().length() == 0) {
-			payload.setType("frameworkThread");
-		}
 	}
 
 	private HeartbeatSvg showReport(Model model, Payload payload) {

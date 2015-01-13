@@ -11,8 +11,8 @@ public class Payload extends AbstractReportPayload<Action> {
 	private Action m_action;
 
 	@FieldMeta("type")
-	private String m_type;
-	
+	private String m_type = "system";
+
 	@FieldMeta("extensionType")
 	private String m_extensionType;
 

@@ -25,7 +25,7 @@ margin: 4px auto;
 		<tr>
 			<td><div id="ActiveThread" class="graph"></div></td>
 			<td><div id="StartedThread" class="graph"></div></td>
-			<td><div id="TotalStartedThread" class="graph"></div></td>
+			<td><div id="HttpThreadGraphData" class="graph"></div></td>
 		</tr>
 		<script>
 		//01
@@ -35,8 +35,8 @@ margin: 4px auto;
 		var startedThreadGraphData = ${model.startedThreadGraph};
 		graphLineChart(document.getElementById('StartedThread'), startedThreadGraphData);
 		//03
-		var totalThreadGraphData =${model.totalThreadGraph};
-		graphLineChart(document.getElementById('TotalStartedThread'), totalThreadGraphData);
+		var httpThreadGraphData =${model.httpThreadGraph};
+		graphLineChart(document.getElementById('HttpThreadGraphData'), httpThreadGraphData);
 		
 	</script>
 	</c:when>

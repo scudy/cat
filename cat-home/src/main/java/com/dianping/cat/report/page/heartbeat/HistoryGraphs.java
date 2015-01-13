@@ -193,21 +193,12 @@ public class HistoryGraphs extends BaseHistoryGraphs {
 		String queryType = payload.getType();
 
 		if (queryType.equalsIgnoreCase("thread")) {
-			model.setActiveThreadGraph(getGraphItem("Thread (Count) ", "ActiveThread", start, size, graphData)
-			      .getJsonString());
-			model.setDaemonThreadGraph(getGraphItem("Daemon Thread (Count) ", "DaemonThread", start, size, graphData)
-			      .getJsonString());
-			model.setTotalThreadGraph(getGraphItem("Total Started Thread (Count) ", "TotalStartedThread", start, size,
-			      graphData).getJsonString());
-			model.setStartedThreadGraph(getGraphItem("Started Thread (Count) ", "StartedThread", start, size, graphData)
-			      .getJsonString());
-		} else if (queryType.equalsIgnoreCase("frameworkThread")) {
 			model.setHttpThreadGraph(getGraphItem("Http Thread (Count) ", "HttpThread", start, size, graphData)
 			      .getJsonString());
-			model.setCatThreadGraph(getGraphItem("Cat Started Thread (Count) ", "CatThreadCount", start, size, graphData)
+			model.setActiveThreadGraph(getGraphItem("Thread (Count) ", "ActiveThread", start, size, graphData)
 			      .getJsonString());
-			model.setPigeonThreadGraph(getGraphItem("Pigeon Started Thread (Count) ", "PigeonStartedThread", start, size,
-			      graphData).getJsonString());
+			model.setStartedThreadGraph(getGraphItem("Started Thread (Count) ", "StartedThread", start, size, graphData)
+			      .getJsonString());
 		} else if (queryType.equalsIgnoreCase("system")) {
 			model.setNewGcCountGraph(getGraphItem("NewGc Count (Count) ", "NewGcCount", start, size, graphData)
 			      .getJsonString());

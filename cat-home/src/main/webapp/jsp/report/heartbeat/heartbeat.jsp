@@ -57,26 +57,14 @@
 	</td>
 </tr>
 <tr>
-	<th>Framework Thread Info</th>
-</tr>
-<tr>
-	<td>
-		<svg version="1.1" width="1200" height="190" xmlns="http://www.w3.org/2000/svg">
-		  ${model.httpThreadGraph}
-		  ${model.catThreadGraph}
-		  ${model.pigeonThreadGraph}
-		</svg>
-	</td>
-</tr>
-<tr>
 	<th>JVM Thread Info</th>
 </tr>
 <tr>
 	<td>
 		<svg version="1.1" width="1200" height="190" xmlns="http://www.w3.org/2000/svg">
+		  ${model.httpThreadGraph}
 		  ${model.activeThreadGraph}
 		  ${model.startedThreadGraph}
-		  ${model.totalThreadGraph}
 		</svg>
 	</td>
 </tr>

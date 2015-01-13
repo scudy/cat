@@ -424,7 +424,7 @@ public class HeartbeatSvg {
 	}
 
 	public String getHttpTheadGraph() {
-		return m_builder.build(new HeartbeatSvgPayload(0, "HTTP Thread", "Minute", "Count", m_httpThreads));
+		return m_builder.build(new HeartbeatSvgPayload(2, "HTTP Thread", "Minute", "Count", m_httpThreads));
 	}
 
 	public double[] getHttpThreads() {
