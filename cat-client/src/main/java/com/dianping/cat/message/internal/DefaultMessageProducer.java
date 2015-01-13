@@ -94,8 +94,7 @@ public class DefaultMessageProducer implements MessageProducer {
 	}
 
 	@Override
-	public void logMetric(String name, String status, String nameValuePairs) {
-		String type = "";
+	public void logMetric(String type, String name, String status, String nameValuePairs) {
 		Metric metric = newMetric(type, name);
 
 		if (nameValuePairs != null && nameValuePairs.length() > 0) {
@@ -179,7 +178,7 @@ public class DefaultMessageProducer implements MessageProducer {
 		}
 
 		if (m_manager.isMessageEnabled()) {
-			DefaultHeartbeat heartbeat = new DefaultHeartbeat(type, name,m_manager);
+			DefaultHeartbeat heartbeat = new DefaultHeartbeat(type, name, m_manager);
 
 			return heartbeat;
 		} else {

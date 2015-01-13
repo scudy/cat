@@ -219,7 +219,7 @@ public interface MessageProducer {
 	 * @param nameValuePairs
 	 *           name value pairs in the format of "a=1&b=2&..."
 	 */
-	public void logMetric(String name, String status, String nameValuePairs);
+	public void logMetric(String type, String name, String status, String nameValuePairs);
 
 	/**
 	 * Create a new event with given type and name.

@@ -17,9 +17,9 @@ public class TestSendMessage {
 			Transaction t = Cat.newTransaction("Midas", "XXName");
 			try {
 				t.setStatus("Fail");
-				
-				DefaultMessageTree	tree =(DefaultMessageTree) Cat.getManager().getThreadLocalMessageTree();
-			
+
+				DefaultMessageTree tree = (DefaultMessageTree) Cat.getManager().getThreadLocalMessageTree();
+
 				tree.setDomain("rs-mapi-web");
 			} catch (Exception e) {
 				t.setStatus(Transaction.SUCCESS);
@@ -31,7 +31,7 @@ public class TestSendMessage {
 		}
 		Thread.sleep(10000);
 	}
-	
+
 	@Test
 	public void sendSendUrlErrorMessage() throws Exception {
 		for (int i = 0; i < 100; i++) {
@@ -39,11 +39,10 @@ public class TestSendMessage {
 
 			Event e1 = Cat.newEvent("test2", "success");
 			e1.addData("_count", 100);
-			
+
 			Event e2 = Cat.newEvent("test2", "fail");
 			e2.addData("_count", 100);
-			
-			
+
 			t.addData("key and value");
 			t.setStatus(new NullPointerException());
 			t.complete();
@@ -105,19 +104,6 @@ public class TestSendMessage {
 			t.addData("key and value");
 			t.complete();
 		}
-		Thread.sleep(1000);
-	}
-
-	@Test
-	public void sendMetric() throws Exception {
-		for (int i = 0; i < 100; i++) {
-			Transaction t = Cat.getProducer().newTransaction("Type", "Name");
-
-			Cat.logMetric("name", "key1", "value1", "key2", "value2");
-
-			t.complete();
-		}
-
 		Thread.sleep(1000);
 	}
 
@@ -450,12 +436,12 @@ public class TestSendMessage {
 			t.complete();
 		}
 	}
-	
+
 	@Test
 	public void sendTraceInfo() throws Exception {
 
 		for (int i = 0; i < 10; i++) {
-			Transaction t = Cat.newTransaction("Trace", "Test"+i);
+			Transaction t = Cat.newTransaction("Trace", "Test" + i);
 			try {
 				Cat.logTrace("Trace", "Info");
 				Cat.logTrace("Trace", "Dubug", Trace.SUCCESS, "sss");

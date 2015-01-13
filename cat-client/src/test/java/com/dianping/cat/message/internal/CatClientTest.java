@@ -6,9 +6,9 @@ import java.util.Queue;
 
 import junit.framework.Assert;
 
-import org.codehaus.plexus.personality.plexus.lifecycle.phase.Initializable;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.unidal.helper.Files;
@@ -17,11 +17,13 @@ import org.unidal.helper.Reflects;
 import com.dianping.cat.Cat;
 import com.dianping.cat.configuration.client.entity.ClientConfig;
 import com.dianping.cat.configuration.client.entity.Domain;
+import com.dianping.cat.configuration.client.entity.Server;
 import com.dianping.cat.message.CatTestCase;
 import com.dianping.cat.message.Message;
 import com.dianping.cat.message.MessageProducer;
 import com.dianping.cat.message.Transaction;
 import com.dianping.cat.message.io.TransportManager;
+import com.dianping.cat.message.spi.MessageQueue;
 import com.dianping.cat.message.spi.MessageTree;
 
 @RunWith(JUnit4.class)
@@ -34,6 +36,7 @@ public class CatClientTest extends CatTestCase {
 
 		clientConfig.setMode("client");
 		clientConfig.addDomain(new Domain("Test").setEnabled(true));
+		clientConfig.addServer(new Server("127.0.0.1").setPort(2280));
 
 		File configFile = new File("/data/appdatas/cat/client.xml").getCanonicalFile();
 
@@ -41,20 +44,19 @@ public class CatClientTest extends CatTestCase {
 
 		Files.forIO().writeTo(configFile, clientConfig.toString());
 
-		// Cat.destroy();
 		Cat.initialize(configFile);
 	}
 
 	@Before
 	public void before() throws Exception {
-		TransportManager manager = Cat.lookup(TransportManager.class);
-		Initializable queue = Reflects.forField().getDeclaredFieldValue(manager.getSender().getClass(), "m_queue",
+		TransportManager manager = lookup(TransportManager.class);
+		MessageQueue queue = Reflects.forField().getDeclaredFieldValue(manager.getSender().getClass(), "m_queue",
 		      manager.getSender());
 
-		queue.initialize();
 		m_queue = Reflects.forField().getDeclaredFieldValue(queue.getClass(), "m_queue", queue);
 	}
 
+	@Test
 	public void testNormal() throws Exception {
 		MessageProducer producer = Cat.getProducer();
 		Transaction t = producer.newTransaction("URL", "MyPage");

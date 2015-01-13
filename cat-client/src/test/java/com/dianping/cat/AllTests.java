@@ -10,6 +10,8 @@ import com.dianping.cat.message.EventTest;
 import com.dianping.cat.message.HeartbeatTest;
 import com.dianping.cat.message.MessageTest;
 import com.dianping.cat.message.TransactionTest;
+import com.dianping.cat.message.internal.CatClientTest;
+import com.dianping.cat.message.internal.MessageProducerTest;
 import com.dianping.cat.message.internal.MockMessageBuilderTest;
 import com.dianping.cat.message.spi.codec.PlainTextMessageCodecTest;
 import com.dianping.cat.servlet.CatFilterTest;
@@ -42,7 +44,11 @@ ToolsTest.class,
 
 NetworkInterfaceManagerTest.class,
 
-CatTest.class
+CatTest.class,
+
+CatClientTest.class,
+
+MessageProducerTest.class
 
 })
 public class AllTests {

@@ -43,7 +43,10 @@ public class Cat {
 			synchronized (s_instance) {
 				if (s_instance.m_container == null) {
 					initialize(new File(getCatHome(), "client.xml"));
-					log("WARN", "Cat is lazy initialized!");
+					MessageFormat format = new MessageFormat("[{0,date,MM-dd HH:mm:ss.sss}] [{1}] [{2}] {3}");
+
+					System.out
+					      .println(format.format(new Object[] { new Date(), "WARN", "cat", "Cat is lazy initialized!" }));
 				}
 			}
 		}
@@ -51,11 +54,6 @@ public class Cat {
 
 	public static String createMessageId() {
 		return Cat.getProducer().createMessageId();
-	}
-
-	public static void destroy() {
-		s_instance.m_container.dispose();
-		s_instance = new Cat();
 	}
 
 	public static String getCatHome() {
@@ -66,7 +64,7 @@ public class Cat {
 
 	public static Cat getInstance() {
 		checkAndInitialize();
-		
+
 		return s_instance;
 	}
 
@@ -125,12 +123,6 @@ public class Cat {
 		}
 	}
 
-	static void log(String severity, String message) {
-		MessageFormat format = new MessageFormat("[{0,date,MM-dd HH:mm:ss.sss}] [{1}] [{2}] {3}");
-
-		System.out.println(format.format(new Object[] { new Date(), severity, "cat", message }));
-	}
-
 	public static void logError(String message, Throwable cause) {
 		Cat.getProducer().logError(message, cause);
 	}
@@ -151,70 +143,66 @@ public class Cat {
 		Cat.getProducer().logHeartbeat(type, name, status, nameValuePairs);
 	}
 
-	public static void logMetric(String name, Object... keyValues) {
-		//TO REMOVE ME
+	/**
+	 * Increase the counter specified by <code>name</code> by one.
+	 * 
+	 * @param name
+	 *           the type is the first category the name of the metric default count value is 1
+	 */
+	public static void logMetricForCount(String type, String name) {
+		logMetricInternal(type, name, "C", "1");
 	}
 
 	/**
 	 * Increase the counter specified by <code>name</code> by one.
 	 * 
 	 * @param name
-	 *           the name of the metric default count value is 1
+	 *           the type is the first category the name of the metric
 	 */
-	public static void logMetricForCount(String name) {
-		logMetricInternal(name, "C", "1");
-	}
-
-	/**
-	 * Increase the counter specified by <code>name</code> by one.
-	 * 
-	 * @param name
-	 *           the name of the metric
-	 */
-	public static void logMetricForCount(String name, int quantity) {
-		logMetricInternal(name, "C", String.valueOf(quantity));
+	public static void logMetricForCount(String type, String name, int quantity) {
+		logMetricInternal(type, name, "C", String.valueOf(quantity));
 	}
 
 	/**
 	 * Increase the metric specified by <code>name</code> by <code>durationInMillis</code>.
 	 * 
 	 * @param name
-	 *           the name of the metric
+	 *           the type is the first category the name of the metric
 	 * @param durationInMillis
 	 *           duration in milli-second added to the metric
 	 */
-	public static void logMetricForDuration(String name, long durationInMillis) {
-		logMetricInternal(name, "T", String.valueOf(durationInMillis));
+	public static void logMetricForDuration(String type, String name, long durationInMillis) {
+		logMetricInternal(type, name, "T", String.valueOf(durationInMillis));
 	}
 
 	/**
 	 * Increase the sum specified by <code>name</code> by <code>value</code> only for one item.
 	 * 
 	 * @param name
-	 *           the name of the metric
+	 *           the type is the first category the name of the metric
 	 * @param value
 	 *           the value added to the metric
 	 */
-	public static void logMetricForSum(String name, double value) {
-		logMetricInternal(name, "S", String.format("%.2f", value));
+	public static void logMetricForSum(String type, String name, double value) {
+		logMetricInternal(type, name, "S", String.format("%.2f", value));
 	}
 
 	/**
 	 * Increase the metric specified by <code>name</code> by <code>sum</code> for multiple items.
 	 * 
 	 * @param name
-	 *           the name of the metric
+	 *           the type is the first category the name of the metric
 	 * @param sum
 	 *           the sum value added to the metric
 	 * @param quantity
 	 *           the quantity to be accumulated
 	 */
-	public static void logMetricForSum(String name, double sum, int quantity) {
-		logMetricInternal(name, "S,C", String.format("%.2f,%s", sum, quantity));
+	public static void logMetricForSum(String type, String name, double sum, int quantity) {
+		logMetricInternal(type, name, "S,C", String.format("%.2f,%s", sum, quantity));
 	}
 
-	private static void logMetricInternal(String name, String status, String keyValuePairs) {
-		Cat.getProducer().logMetric(name, status, keyValuePairs);
+	private static void logMetricInternal(String type, String name, String status, String keyValuePairs) {
+		Cat.getProducer().logMetric(type, name, status, keyValuePairs);
 	}
 
 	public static void logTrace(String type, String name) {
@@ -223,14 +211,6 @@ public class Cat {
 
 	public static void logTrace(String type, String name, String status, String nameValuePairs) {
 		Cat.getProducer().logTrace(type, name, status, nameValuePairs);
-	}
-
-	public static <T> T lookup(Class<T> role) throws ComponentLookupException {
-		return lookup(role, null);
-	}
-
-	public static <T> T lookup(Class<T> role, String hint) throws ComponentLookupException {
-		return s_instance.m_container.lookup(role, hint);
 	}
 
 	public static Event newEvent(String type, String name) {
@@ -257,16 +237,6 @@ public class Cat {
 		return Cat.getProducer().newTransaction(type, name);
 	}
 
-	// this should be called when a thread ends to clean some thread local data
-	public static void reset() {
-		// remove me
-	}
-
-	// this should be called when a thread starts to create some thread local data
-	public static void setup(String sessionToken) {
-		// remove me
-	}
-
 	private Cat() {
 	}
 
@@ -287,5 +257,5 @@ public class Cat {
 			      + "please make sure the environment was setup correctly!", e);
 		}
 	}
-	
+
 }

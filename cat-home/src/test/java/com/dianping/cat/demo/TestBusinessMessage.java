@@ -47,7 +47,6 @@ public class TestBusinessMessage {
 			try {
 				m_latch.await();
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -87,9 +86,9 @@ public class TestBusinessMessage {
 				Cat.logEvent("RemoteLink", "sina", Event.SUCCESS, "http://sina.com.cn/");
 				t.addData("channel=channel" + i % 5);
 
-				Cat.logMetricForCount("Receipt Verify Success");
-				Cat.logMetricForDuration("Receipt Verify Druation", 10);
-				Cat.logMetricForSum("sum Value", 20);
+				Cat.logMetricForCount(PayOrder, "Receipt Verify Success");
+				Cat.logMetricForDuration(PayOrder, "Receipt Verify Druation", 10);
+				Cat.logMetricForSum(PayOrder, "sum Value", 20);
 
 				MessageTree tree = (MessageTree) Cat.getManager().getThreadLocalMessageTree();
 				tree.setDomain(Puma);
@@ -105,18 +104,6 @@ public class TestBusinessMessage {
 				t.complete();
 			}
 
-			for (int i = 0; i < 500; i++) {
-				Transaction t = Cat.newTransaction("URL", "/order/submitOrder");
-				MessageTree tree = (MessageTree) Cat.getManager().getThreadLocalMessageTree();
-
-				tree.setDomain(PayOrder);
-				Cat.logMetric("order", "quantity", 1, "channel", "channel" + i % 5);
-				Cat.logMetric("payment.pending", "amount", i, "channel", "channel" + i % 5);
-				Cat.logMetric("payment.success", "amount", i, "channel", "channel" + i % 5);
-				t.addData("channel=channel" + i % 5);
-				t.complete();
-			}
-
 			for (int i = 0; i < 1000; i++) {
 				Transaction t = Cat.newTransaction("URL", "t");
 				Cat.logEvent("RemoteLink", "sina", Event.SUCCESS, "http://sina.com.cn/");
@@ -124,13 +111,6 @@ public class TestBusinessMessage {
 			}
 			for (int i = 0; i < 900; i++) {
 				Transaction t = Cat.newTransaction("URL", "e");
-				t.complete();
-			}
-			for (int i = 0; i < 500; i++) {
-				Transaction t = Cat.newTransaction("URL", "home");
-				Cat.logMetric("order", "quantity", 1, "channel", "channel" + i % 5);
-				Cat.logMetric("payment.pending", "amount", i, "channel", "channel" + i % 5);
-				Cat.logMetric("payment.success", "amount", i, "channel", "channel" + i % 5);
 				t.complete();
 			}
 
@@ -154,14 +134,6 @@ public class TestBusinessMessage {
 				t.addData("channel=channel" + i % 5);
 				t.complete();
 			}
-			for (int i = 0; i < 500; i++) {
-				Transaction t = Cat.newTransaction("URL", "/order/submitOrder");
-				Cat.logMetric("order", "quantity", 1, "channel", "channel" + i % 5);
-				Cat.logMetric("payment.pending", "amount", i, "channel", "channel" + i % 5);
-				Cat.logMetric("payment.success", "amount", i, "channel", "channel" + i % 5);
-				t.addData("channel=channel" + i % 5);
-				t.complete();
-			}
 
 			Thread.sleep(1000);
 			break;
@@ -173,8 +145,8 @@ public class TestBusinessMessage {
 		for (int i = 0; i < 500; i++) {
 			Transaction t = Cat.newTransaction("test", "test");
 
-			Cat.logMetricForCount("MemberCardSuccess");
-			Cat.logMetricForCount("MemberCardFail", 2);
+			Cat.logMetricForCount(PayOrder, "MemberCardSuccess");
+			Cat.logMetricForCount(PayOrder, "MemberCardFail", 2);
 
 			MessageTree tree = Cat.getManager().getThreadLocalMessageTree();
 			((DefaultMessageTree) tree).setDomain("MobileMembercardMainApiWeb");
@@ -193,9 +165,9 @@ public class TestBusinessMessage {
 			// 记录一个事件
 			Cat.logEvent("URL.Server", serverIp, Event.SUCCESS, "ip=" + serverIp + "&...");
 			// 记录一个业务指标，记录订单次数
-			Cat.logMetricForCount("OrderCount");
+			Cat.logMetricForCount(PayOrder, "OrderCount");
 			// 记录一个业务指标，记录支付次数
-			Cat.logMetricForCount("PayCount");
+			Cat.logMetricForCount(PayOrder, "PayCount");
 
 			yourBusiness();// 自己业务代码
 

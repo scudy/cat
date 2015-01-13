@@ -21,7 +21,6 @@ public class CatEnvironmentTest {
 
 		Thread.sleep(100);
 		Assert.assertEquals(true, Cat.isInitialized());
-		Cat.destroy();
 	}
 
 	@Test
@@ -37,7 +36,6 @@ public class CatEnvironmentTest {
 		Thread.sleep(100);
 
 		Assert.assertEquals(true, Cat.isInitialized());
-		Cat.destroy();
 	}
 
 	@Test
@@ -53,7 +51,6 @@ public class CatEnvironmentTest {
 		Thread.sleep(100);
 
 		Assert.assertEquals(true, Cat.isInitialized());
-		Cat.destroy();
 	}
 	
 	
@@ -66,6 +63,6 @@ public class CatEnvironmentTest {
 		t.setStatus("TestStatus");
 		t.complete();
 
-		Thread.sleep(10000);
+		Thread.sleep(1000);
 	}
 }

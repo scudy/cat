@@ -20,12 +20,11 @@ public class CatTest {
 		Cat.logError("message", cause);
 		Cat.logTrace("logTrace", "<trace>");
 		Cat.logTrace("logTrace", "<trace>", Trace.SUCCESS, "data");
-		Cat.logMetric("logMetric", "test", "test");
-		Cat.logMetricForCount("logMetricForCount");
-		Cat.logMetricForCount("logMetricForCount", 4);
-		Cat.logMetricForDuration("logMetricForDuration", 100);
-		Cat.logMetricForSum("logMetricForSum", 100);
-		Cat.logMetricForSum("logMetricForSum", 100, 100);
+		Cat.logMetricForCount("tuangou", "logMetricForCount");
+		Cat.logMetricForCount("tuangou", "logMetricForCount", 4);
+		Cat.logMetricForDuration("tuangou", "logMetricForDuration", 100);
+		Cat.logMetricForSum("tuangou", "logMetricForSum", 100);
+		Cat.logMetricForSum("tuangou", "logMetricForSum", 100, 100);
 		Cat.logEvent("RemoteLink", "Call", Message.SUCCESS, "Cat-0a010680-384736-2061");
 		Cat.logEvent("EventType", "EventName");
 		Cat.logHeartbeat("logHeartbeat", "logHeartbeat", Message.SUCCESS, null);
