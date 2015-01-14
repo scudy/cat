@@ -75,7 +75,7 @@ public class HeartbeatAnalyzerTest extends ComponentTestCase {
 
 		t.complete();
 		t.setDurationInMillis(i * 2);
-		t.setTimestamp(m_timestamp + 1000);
+		t.setTimestamp(m_timestamp + i * 1000 * 60);
 		tree.setMessage(t);
 
 		return tree;

@@ -13,7 +13,7 @@ import org.unidal.test.jetty.JettyServer;
 public class TestServer extends JettyServer {
 	public static void main(String[] args) throws Exception {
 		TestServer server = new TestServer();
-		System.setProperty("devMode", "true");
+		//System.setProperty("devMode", "true");
 		server.startServer();
 		server.startWebApp();
 		server.stopServer();
@@ -21,7 +21,7 @@ public class TestServer extends JettyServer {
 	
 	@Before
 	public void before() throws Exception {
-		System.setProperty("devMode", "true");
+		//System.setProperty("devMode", "true");
 		super.startServer();
 	}
 
