@@ -17,14 +17,6 @@ public enum JspFile {
 
 	TOPO_GRAPH_CONFIG_UPDATE("/jsp/system/topology/topoGraphFormatConfig.jsp"),
 
-	NETWORK_RULE_CONFIG_LIST("/jsp/system/networkRule/networkConfigs.jsp"),
-
-	NETWORK_RULE_ADD_OR_UPDATE("/jsp/system/networkRule/networkRuleAdd.jsp"),
-
-	NETWORK_RULE_ADD_OR_UPDATE_SUBMIT("/jsp/system/networkRule/networkConfigs.jsp"),
-
-	NETWORK_RULE_DELETE("/jsp/system/networkRule/networkConfigs.jsp"),
-
 	DATABASE_RULE_CONFIG_LIST("/jsp/system/databaseRule/databaseConfigs.jsp"),
 
 	DATABASE_RULE_ADD_OR_UPDATE("/jsp/system/databaseRule/databaseRuleAdd.jsp"),
@@ -68,8 +60,6 @@ public enum JspFile {
 	BUG_CONFIG_UPDATE("/jsp/system/bug/bugConfig.jsp"),
 
 	UTILIZATION_CONFIG_UPDATE("/jsp/system/utilization/utilizationConfig.jsp"),
-
-	NET_GRAPH_CONFIG_UPDATE("/jsp/system/netGraphConfig/netGraphConfig.jsp"),
 
 	TRANSACTION_RULE("/jsp/system/transactionRule/transactionRule.jsp"),
 

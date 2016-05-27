@@ -45,14 +45,6 @@ public class JspViewer extends BaseJspViewer<SystemPage, Action, Context, Model>
 			return JspFile.TOPOLOGY_GRAPH_PRODUCT_LINE.getPath();
 		case TOPO_GRAPH_FORMAT_CONFIG_UPDATE:
 			return JspFile.TOPO_GRAPH_CONFIG_UPDATE.getPath();
-		case NETWORK_RULE_CONFIG_LIST:
-			return JspFile.NETWORK_RULE_CONFIG_LIST.getPath();
-		case NETWORK_RULE_ADD_OR_UPDATE:
-			return JspFile.NETWORK_RULE_ADD_OR_UPDATE.getPath();
-		case NETWORK_RULE_ADD_OR_UPDATE_SUBMIT:
-			return JspFile.NETWORK_RULE_ADD_OR_UPDATE_SUBMIT.getPath();
-		case NETWORK_RULE_DELETE:
-			return JspFile.NETWORK_RULE_DELETE.getPath();
 		case DATABASE_RULE_CONFIG_LIST:
 			return JspFile.DATABASE_RULE_CONFIG_LIST.getPath();
 		case DATABASE_RULE_ADD_OR_UPDATE:
@@ -91,8 +83,6 @@ public class JspViewer extends BaseJspViewer<SystemPage, Action, Context, Model>
 		case EXCEPTION_THRESHOLD_UPDATE:
 		case EXCEPTION_THRESHOLD_ADD:
 			return JspFile.EXCEPTION_THRESHOLD_CONFIG.getPath();
-		case NET_GRAPH_CONFIG_UPDATE:
-			return JspFile.NET_GRAPH_CONFIG_UPDATE.getPath();
 			// Exception Exclude Config
 		case EXCEPTION_EXCLUDE_UPDATE_SUBMIT:
 		case EXCEPTION_EXCLUDE_DELETE:

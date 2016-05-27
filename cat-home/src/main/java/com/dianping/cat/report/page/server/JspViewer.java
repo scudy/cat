@@ -44,6 +44,8 @@ public class JspViewer extends BaseJspViewer<ReportPage, Action, Context, Model>
 			return JspFile.SERVER_ALARM_RULE.getPath();
 		case SERVER_ALARM_RULE_UPDATE:
 			return JspFile.SERVER_ALARM_RULE_UPDATE.getPath();
+		case NET_GRAPH_CONFIG_UPDATE:
+			return JspFile.NET_GRAPH_CONFIG_UPDATE.getPath();
 		}
 
 		throw new RuntimeException("Unknown action: " + action);

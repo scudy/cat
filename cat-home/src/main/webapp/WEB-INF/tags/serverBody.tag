@@ -57,6 +57,10 @@
 								<i class="menu-icon fa fa-caret-right"></i>influxDB配置</a>
 								<b class="arrow"></b>
 						</li>
+						<li id="netGraphConfigUpdate"><a href="/cat/r/server?op=netGraphConfigUpdate">
+								<i class="menu-icon fa fa-caret-right"></i>网络拓扑配置</a>
+								<b class="arrow"></b>
+						</li>
 						<li id="server_network"><a href="/cat/r/server?op=serverAlarmRule&type=network">
 								<i class="menu-icon fa fa-caret-right"></i>网络告警规则</a>
 								<b class="arrow"></b>

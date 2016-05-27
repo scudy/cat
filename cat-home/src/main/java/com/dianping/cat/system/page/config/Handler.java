@@ -26,7 +26,6 @@ import com.dianping.cat.system.page.config.processor.EventConfigProcessor;
 import com.dianping.cat.system.page.config.processor.ExceptionConfigProcessor;
 import com.dianping.cat.system.page.config.processor.GlobalConfigProcessor;
 import com.dianping.cat.system.page.config.processor.HeartbeatConfigProcessor;
-import com.dianping.cat.system.page.config.processor.NetworkConfigProcessor;
 import com.dianping.cat.system.page.config.processor.StorageConfigProcessor;
 import com.dianping.cat.system.page.config.processor.SystemConfigProcessor;
 import com.dianping.cat.system.page.config.processor.ThirdPartyConfigProcessor;
@@ -47,9 +46,6 @@ public class Handler implements PageHandler<Context> {
 
 	@Inject
 	private ExceptionConfigProcessor m_exceptionConfigProcessor;
-
-	@Inject
-	private NetworkConfigProcessor m_networkConfigProcessor;
 
 	@Inject
 	private DatabaseConfigProcessor m_databaseConfigProcessor;
@@ -145,14 +141,6 @@ public class Handler implements PageHandler<Context> {
 		case EXCEPTION_EXCLUDE_ADD:
 		case EXCEPTION_EXCLUDE_UPDATE_SUBMIT:
 			m_exceptionConfigProcessor.process(action, payload, model);
-			break;
-
-		case NETWORK_RULE_CONFIG_LIST:
-		case NETWORK_RULE_ADD_OR_UPDATE:
-		case NETWORK_RULE_ADD_OR_UPDATE_SUBMIT:
-		case NETWORK_RULE_DELETE:
-		case NET_GRAPH_CONFIG_UPDATE:
-			m_networkConfigProcessor.process(action, payload, model);
 			break;
 
 		case DATABASE_RULE_CONFIG_LIST:

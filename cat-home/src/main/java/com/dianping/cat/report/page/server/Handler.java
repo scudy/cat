@@ -44,6 +44,7 @@ import com.dianping.cat.mvc.PayloadNormalizer;
 import com.dianping.cat.report.ReportPage;
 import com.dianping.cat.report.graph.LineChart;
 import com.dianping.cat.report.graph.metric.DataExtractor;
+import com.dianping.cat.report.page.network.config.NetGraphConfigManager;
 import com.dianping.cat.report.page.server.config.ServerMetricConfigManager;
 import com.dianping.cat.report.page.server.display.LineChartBuilder;
 import com.dianping.cat.report.page.server.display.MetricScreenInfo;
@@ -93,6 +94,9 @@ public class Handler implements PageHandler<Context> {
 
 	@Inject
 	private ServerRuleFTLDecorator m_ftlDecorator;
+
+	@Inject
+	private NetGraphConfigManager m_netGraphConfigManager;
 
 	private JsonBuilder m_jsonBuilder = new JsonBuilder();
 
@@ -366,6 +370,13 @@ public class Handler implements PageHandler<Context> {
 		case SERVER_ALARM_RULE_SUBMIT:
 			model.setOpState(submitServerRule(payload));
 			model.setServerAlarmRules(m_ruleService.queryRules(payload.getType()));
+			break;
+		case NET_GRAPH_CONFIG_UPDATE:
+			String netGraphConfig = payload.getContent();
+			if (!StringUtils.isEmpty(netGraphConfig)) {
+				model.setOpState(m_netGraphConfigManager.insert(netGraphConfig));
+			}
+			model.setContent(m_configHtmlParser.parse(m_netGraphConfigManager.getConfig().toString()));
 			break;
 		}
 

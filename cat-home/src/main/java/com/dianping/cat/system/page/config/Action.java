@@ -33,14 +33,6 @@ public enum Action implements org.unidal.web.mvc.Action {
 
 	TOPO_GRAPH_FORMAT_CONFIG_UPDATE("topoGraphFormatUpdate"),
 
-	NETWORK_RULE_CONFIG_LIST("networkRuleConfigList"),
-
-	NETWORK_RULE_ADD_OR_UPDATE("networkRuleUpdate"),
-
-	NETWORK_RULE_ADD_OR_UPDATE_SUBMIT("networkRuleSubmit"),
-
-	NETWORK_RULE_DELETE("networkRulDelete"),
-
 	DATABASE_RULE_CONFIG_LIST("databaseRuleConfigList"),
 
 	DATABASE_RULE_ADD_OR_UPDATE("databaseRuleUpdate"),
@@ -86,8 +78,6 @@ public enum Action implements org.unidal.web.mvc.Action {
 	EXCEPTION_EXCLUDE_UPDATE_SUBMIT("exceptionExcludeUpdateSubmit"),
 
 	EXCEPTION_EXCLUDE_DELETE("exceptionExcludeDelete"),
-
-	NET_GRAPH_CONFIG_UPDATE("netGraphConfigUpdate"),
 
 	TRANSACTION_RULE("transactionRule"),
 

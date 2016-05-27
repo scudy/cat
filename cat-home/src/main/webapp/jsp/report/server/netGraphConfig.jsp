@@ -3,8 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="res" uri="http://www.unidal.org/webres"%>
 <%@ taglib prefix="w" uri="http://www.unidal.org/web/core"%>
+<jsp:useBean id="ctx" type="com.dianping.cat.report.page.server.Context" scope="request"/>
+<jsp:useBean id="payload" type="com.dianping.cat.report.page.server.Payload" scope="request"/>
+<jsp:useBean id="model" type="com.dianping.cat.report.page.server.Model" scope="request"/>
 
-<a:config>
+<a:serverBody>
 	<res:useJs value="${res.js.local['jquery.validate.min.js']}" target="head-js" />
 	<res:useJs value="${res.js.local['editor.js']}" target="head-js" />
 	<script src='${model.webapp}/assets/js/editor/ace.js'></script>
@@ -23,10 +26,10 @@
 				</table>
 			</form>
 			<h4 class="text-center text-danger" id="state">&nbsp;</h4>
-</a:config>
+</a:serverBody>
 <script type="text/javascript">
 		$(document).ready(function() {
-			$('#alert_config').addClass('active open');
+			$('#serverConfig').addClass('active open');
 			$('#netGraphConfigUpdate').addClass('active');
 			var state = '${model.opState}';
 			if(state=='Success'){

@@ -46,6 +46,8 @@ public enum Action implements org.unidal.web.mvc.Action {
 
 	SERVER_ALARM_RULE_DELETE("serverAlarmRuleDelete"),
 
+	NET_GRAPH_CONFIG_UPDATE("netGraphConfigUpdate"),
+
 	;
 
 	public static Action getByName(String name, Action defaultAction) {
