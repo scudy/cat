@@ -3,8 +3,8 @@ package org.unidal.cat.message.storage.hdfs;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -23,7 +23,7 @@ public class HdfsMessageConsumerFinder implements MessageConsumerFinder {
 	@Inject
 	private HdfsSystemManager m_fileSystemManager;
 
-	private Map<String, Set<String>> m_caches = new LinkedHashMap<String, Set<String>>();
+	private Map<String, Set<String>> m_caches = new HashMap<String, Set<String>>();
 
 	@Override
 	public Set<String> findConsumerIps(final String domain, int hour) {
@@ -36,6 +36,7 @@ public class HdfsMessageConsumerFinder implements MessageConsumerFinder {
 
 				if (ips == null) {
 					ips = findfromHdfs(domain, hour);
+					m_caches.put(key, ips);
 				}
 			}
 		}
