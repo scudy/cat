@@ -11,6 +11,7 @@ import com.dianping.cat.alarm.spi.decorator.Decorator;
 import com.dianping.cat.alarm.spi.receiver.Contactor;
 import com.dianping.cat.config.app.AppCommandConfigManager;
 import com.dianping.cat.config.app.MobileConfigManager;
+import com.dianping.cat.config.app.SdkConfigManager;
 import com.dianping.cat.report.alert.app.AppAlert;
 import com.dianping.cat.report.alert.app.AppContactor;
 import com.dianping.cat.report.alert.app.AppDecorator;
@@ -53,6 +54,8 @@ public class AppComponentConfigurator extends AbstractResourceConfigurator {
 		      MobileConfigManager.class));
 
 		all.add(A(AppAlert.class));
+		
+		all.add(A(SdkConfigManager.class));
 
 		return all;
 	}

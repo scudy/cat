@@ -334,6 +334,8 @@ public class MobileConfigManager implements Initializable, LogEnabled {
 				config.setName(CONFIG_NAME);
 				config.setContent(m_config.toString());
 				m_configDao.updateByPK(config, ConfigEntity.UPDATESET_FULL);
+				
+				refreshData();
 			} catch (Exception e) {
 				Cat.logError(e);
 				return false;
