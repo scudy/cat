@@ -14,6 +14,7 @@ import java.util.Set;
 
 import org.unidal.lookup.annotation.Inject;
 import org.unidal.lookup.util.StringUtils;
+import org.unidal.tuple.Pair;
 
 import com.dianping.cat.Cat;
 import com.dianping.cat.alarm.spi.AlertEntity;
@@ -59,21 +60,26 @@ public class BusinessGraphCreator extends AbstractGraphCreator {
 	@Inject
 	private CustomDataCalculator m_customDataCalculator;
 
-	private String buidlTitle(BusinessReportConfig businessReportConfig, String itemId, String type) {
+	private Pair<String, Boolean> buidlTitleAndPrivilege(BusinessReportConfig businessReportConfig, String itemId,
+	      String type) {
+		boolean isPrivilege = false;
 		String title = null;
 		String des = MetricType.getDesByName(type);
 		BusinessItemConfig config = businessReportConfig.findBusinessItemConfig(itemId);
 
 		if (config != null) {
 			title = config.getTitle() + des;
+			isPrivilege = config.isPrivilege();
 		} else {
 			CustomConfig customConfig = businessReportConfig.findCustomConfig(itemId);
 
 			if (customConfig != null) {
 				title = customConfig.getTitle() + des;
+				isPrivilege = customConfig.isPrivilege();
 			}
 		}
-		return title;
+
+		return new Pair<String, Boolean>(title, isPrivilege);
 	}
 
 	private Map<String, LineChart> buildCharts(final Map<String, double[]> datas, Map<String, double[]> baseLines,
@@ -97,6 +103,7 @@ public class BusinessGraphCreator extends AbstractGraphCreator {
 				lineChart.setStart(start);
 				lineChart.setSize(value.length);
 				lineChart.setStep(step * TimeHelper.ONE_MINUTE);
+
 				double[] baselines = baseLines.get(key);
 				Map<Long, Double> all = convertToMap(datas.get(key), start, 1);
 				Map<Long, Double> current = convertToMap(dataWithOutFutures.get(key), start, step);
@@ -246,7 +253,7 @@ public class BusinessGraphCreator extends AbstractGraphCreator {
 	private Map<String, double[]> buildGraphData(BusinessReport report, BusinessReportConfig config) {
 		Map<String, double[]> values = new LinkedHashMap<String, double[]>();
 		Map<String, double[]> datas = m_dataFetcher.buildGraphData(report);
-		Map<String, BusinessItemConfig> businessItemConfigs= config.getBusinessItemConfigs();
+		Map<String, BusinessItemConfig> businessItemConfigs = config.getBusinessItemConfigs();
 		List<BusinessItemConfig> items = new ArrayList<BusinessItemConfig>(businessItemConfigs.values());
 
 		Collections.sort(items, new Comparator<BusinessItemConfig>() {
@@ -281,10 +288,15 @@ public class BusinessGraphCreator extends AbstractGraphCreator {
 	      BusinessReportConfig businessReportConfig) {
 		String itemId = m_keyHelper.getBusinessItemId(key);
 		String type = m_keyHelper.getType(key);
-		String title = buidlTitle(businessReportConfig, itemId, type);
+		Pair<String, Boolean> titleAndPrivilege = buidlTitleAndPrivilege(businessReportConfig, itemId, type);
+		String title = titleAndPrivilege.getKey();
 
 		chart.setTitle(title);
 		chart.setId(key);
+
+		if (titleAndPrivilege.getValue()) {
+			chart.setyEnabled(false);
+		}
 
 		if (containMetric(alertKeys, itemId)) {
 			String domain = businessReportConfig.getId();
