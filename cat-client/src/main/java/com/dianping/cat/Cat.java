@@ -46,7 +46,7 @@ public class Cat {
 	private static volatile boolean s_init = false;
 
 	private static int m_errorCount;
-
+	
 	private static void checkAndInitialize() {
 		try {
 			if (!s_init) {
