@@ -99,6 +99,21 @@
 					</td>
 				</tr>
 				<tr>
+				<td style="text-align:right" class="text-success">是否为敏感数据</td>
+					<td colspan='3'>
+						<c:choose>
+							<c:when test="${model.businessItemConfig.privilege}">
+								<input type="radio" name="businessItemConfig.privilege" value="true" checked />是&nbsp;&nbsp;&nbsp;	
+								<input type="radio" name="businessItemConfig.privilege" value="false" />否
+							</c:when>
+							<c:otherwise>
+						    	<input type="radio" name="businessItemConfig.privilege" value="true" />是&nbsp;&nbsp;&nbsp;
+								<input type="radio" name="businessItemConfig.privilege" value="false" checked />否
+							</c:otherwise>
+						</c:choose>
+					</td>
+				</tr>
+				<tr>
 					<td style="text-align:center" colspan='4'><input class='btn btn-primary btn-xs' id="addOrUpdateNodeSubmit" type="submit" name="submit" value="提交" /></td>
 				</tr>
 			</table>

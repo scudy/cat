@@ -32,6 +32,7 @@ import com.dianping.cat.config.app.AppSpeedConfigManager;
 import com.dianping.cat.config.app.CrashLogConfigManager;
 import com.dianping.cat.config.app.MobileConfigManager;
 import com.dianping.cat.config.app.MobileConstants;
+import com.dianping.cat.config.app.SdkConfigManager;
 import com.dianping.cat.config.app.command.CommandFormatConfigManager;
 import com.dianping.cat.configuration.app.speed.entity.Speed;
 import com.dianping.cat.configuration.mobile.entity.Item;
@@ -65,6 +66,9 @@ public class AppConfigProcessor implements Initializable {
 
 	@Inject
 	private MobileConfigManager m_mobileConfigManager;
+	
+	@Inject
+	private SdkConfigManager m_sdkConfigManager;
 
 	@Inject
 	private ConfigHtmlParser m_configHtmlParser;
@@ -402,6 +406,13 @@ public class AppConfigProcessor implements Initializable {
 				model.setOpState(m_mobileConfigManager.insert(brokerConfig));
 			}
 			model.setContent(m_configHtmlParser.parse(m_mobileConfigManager.getConfig().toString()));
+			break;
+		case SDK_CONFIG_UPDATE:
+			String sdkConfig = payload.getContent();
+			if (!StringUtils.isEmpty(sdkConfig)) {
+				model.setOpState(m_sdkConfigManager.insert(sdkConfig));
+			}
+			model.setContent(m_configHtmlParser.parse(m_sdkConfigManager.getConfig().toString()));
 			break;
 		case CRASH_LOG_CONFIG_UPDATE:
 			String crashLogConfig = payload.getContent();

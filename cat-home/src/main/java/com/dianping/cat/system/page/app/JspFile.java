@@ -26,6 +26,8 @@ public enum JspFile {
 	MOBILE_CONFIG_UPDATE("/jsp/system/appConfig/mobileConfigUpdate.jsp"),
 
 	CRASH_LOG_CONFIG_UPDATE("/jsp/system/appConfig/crashLogConfigUpdate.jsp"),
+	
+	SDK_CONFIG_UPDATE("/jsp/system/appConfig/sdkConfigUpdate.jsp"),
 
 	APP_COMMAND_BATCH("/jsp/system/appConfig/appCommandBatch.jsp"),
 

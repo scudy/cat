@@ -42,4 +42,7 @@
    <model package="com.dianping.cat.configuration.server" name="server-config">
       <sample-model>src/main/resources/config/server-config.xml</sample-model>
    </model>
+   <model package="com.dianping.cat.configuration.app.sdk" name="sdk-config">
+      <sample-model>src/main/resources/config/sdk-config.xml</sample-model>
+   </model>
 </wizard>

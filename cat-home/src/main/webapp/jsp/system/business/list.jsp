@@ -102,11 +102,12 @@
      	<table class="table table-striped table-condensed table-bordered table-hover">
      		<tr class="text-success">
      			<th width="9%"><h5 class='text-center'>项目</h5></th>
-     			<th width="6%"><h5 class='text-center'>显示顺序</h5></th>
-     			<th width="6%"><h5 class='text-center'>是否告警</h5></th>
-     			<th width="14%"><h5 class='text-center'>BusinessKey</h5></th>
+     			<th width="4%"><h5 class='text-center'>显示顺序</h5></th>
+     			<th width="4%"><h5 class='text-center'>敏感数据</h5></th>
+     			<th width="4%"><h5 class='text-center'>是否告警</h5></th>
+     			<th width="12%"><h5 class='text-center'>BusinessKey</h5></th>
      			<th width="16%"><h5 class='text-center'>标题</h5></th>
-     			<th width="20%"><h5 class='text-center'>标签</h5></th>
+     			<th width="18%"><h5 class='text-center'>标签</h5></th>
      			<th width="9%"><h5 class='text-center'>次数</h5></th>
      			<th width="9%"><h5 class='text-center'>平均值</h5></th>
      			<th width="9%"><h5 class='text-center'>总和</h5></th>
@@ -118,6 +119,14 @@
      			<tr>
      			<td>${payload.domain}</td>
      			<td>${config.viewOrder}</td>
+     			<td>
+     				<c:if test="${config.privilege}">
+     					<span class="text-danger">是</span>
+     				</c:if>
+     				<c:if test="${config.privilege == false}">
+     					<span>否</span>
+     				</c:if>
+     			</td>
      			<td>
      				<c:if test="${config.alarm}">
      					<span class="text-danger">是</span>
@@ -165,6 +174,14 @@
      			<tr>
      			<td>${payload.domain}</td>
      			<td>${config.viewOrder}</td>
+     			<td>
+     				<c:if test="${config.privilege}">
+     					<span class="text-danger">是</span>
+     				</c:if>
+     				<c:if test="${config.privilege == false}">
+     					<span>否</span>
+     				</c:if>
+     			</td>
      			<td>
 					<c:if test="${config.alarm}">
      					<span class="text-danger">是</span>
