@@ -48,7 +48,6 @@ public class AppAlarmRuleParamBuilderTest extends ComponentTestCase {
 
 	}
 
-	@Test
 	public void test1() throws IOException, SAXException {
 		String xml = Files.forIO().readFrom(getClass().getResourceAsStream("app-alarm-rule1.xml"), "utf-8");
 		Rule rule = DefaultSaxParser.parseEntity(Rule.class, xml);
@@ -60,10 +59,8 @@ public class AppAlarmRuleParamBuilderTest extends ComponentTestCase {
 		for (AppAlarmRuleParam p : params) {
 			System.out.println(p);
 		}
-
 	}
 
-	@Test
 	public void test2() throws IOException, SAXException {
 		String xml = Files.forIO().readFrom(getClass().getResourceAsStream("app-alarm-rule2.xml"), "utf-8");
 		Rule rule = DefaultSaxParser.parseEntity(Rule.class, xml);
