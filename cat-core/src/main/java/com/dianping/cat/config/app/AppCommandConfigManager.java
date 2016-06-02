@@ -61,6 +61,10 @@ public class AppCommandConfigManager implements Initializable {
 
 	public static final int ALL_COMMAND_ID = 0;
 
+	public static final int NETWORK_SUCCESS = 0;
+
+	public static final int BUSINESS_SUCCESS = 2;
+
 	public boolean addCode(String namespace, Code code) {
 		m_config.findOrCreateCodes(namespace).addCode(code);
 
@@ -261,6 +265,17 @@ public class AppCommandConfigManager implements Initializable {
 		}
 	}
 
+	public boolean isBusinessSuccessCode(int commandId, int code) {
+		Map<Integer, Code> codes = queryCodeByCommand(commandId);
+
+		for (Code c : codes.values()) {
+			if (c.getId() == code) {
+				return (c.getStatus() == BUSINESS_SUCCESS);
+			}
+		}
+		return false;
+	}
+
 	public boolean isNameDuplicate(String name) {
 		return m_commands.containsKey(name);
 	}
@@ -270,7 +285,7 @@ public class AppCommandConfigManager implements Initializable {
 
 		for (Code c : codes.values()) {
 			if (c.getId() == code) {
-				return (c.getStatus() == 0);
+				return (c.getStatus() == NETWORK_SUCCESS || c.getStatus() == BUSINESS_SUCCESS);
 			}
 		}
 		return false;

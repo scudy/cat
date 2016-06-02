@@ -18,4 +18,9 @@ public class RemoteMetricService extends BaseRemoteModelService<MetricReport> {
 	protected MetricReport buildModel(String xml) throws SAXException, IOException {
 		return DefaultSaxParser.parse(xml);
 	}
+
+	@Override
+	public boolean isServersFixed() {
+		return true;
+	}
 }

@@ -79,12 +79,12 @@
 	
 	<table class="table table-striped table-condensed table-bordered table-hover">
 		<tr>
-			<td>名称</td><td><input name="name" value="${model.updateCommand.name}" id="commandName" /><br/>
+			<td>名称</td><td><input name="name" value="${model.updateCommand.name}"  style="width:50%" id="commandName" /><br/>
 		</td>
 		</tr>
 		<tr>
 			<td>App</td><td>
-			<select id="commandNamespace" style="width: 150px;">
+			<select id="commandNamespace" style="width: 200px;">
 				<c:forEach var="item" items="${model.apps}" varStatus="status">
 					<option value='${item.value.value}'>${item.value.value}</option>
 				</c:forEach>
@@ -93,10 +93,10 @@
 			</td>
 		</tr>
 		<tr>
-			<td>项目名</td><td><input name="domain" value="${model.updateCommand.domain}" id="commandDomain" /><span class="text-danger">&nbsp;&nbsp;后续配置在这个规则的告警，会根据此项目名查找需要发送告警的联系人信息(告警人信息来源CMDB)</span><br/>
+			<td>项目名</td><td><input name="domain" value="${model.updateCommand.domain}"  style="width:300px" id="commandDomain" /><span class="text-danger">&nbsp;&nbsp;后续配置在这个规则的告警，会根据此项目名查找需要发送告警的联系人信息(告警人信息来源CMDB)</span><br/>
 			</td>
 		</tr>
-		<tr><td>标题</td><td><input name="title" value="${model.updateCommand.title}" id="commandTitle" /><span class="text-danger">（支持数字、字符）</span><br/>
+		<tr><td>标题</td><td><input name="title" value="${model.updateCommand.title}" style="width: 300px;" id="commandTitle" /><span class="text-danger">（支持数字、字符）</span><br/>
 			</td>
 		</tr>
 		<tr><td>默认过滤时间</td><td><input name="threshold" value="${model.updateCommand.threshold}" id="threshold" /><span class="text-danger">（支持数字）</span><br/>
