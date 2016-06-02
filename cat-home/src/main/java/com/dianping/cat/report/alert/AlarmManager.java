@@ -11,15 +11,12 @@ import com.dianping.cat.report.alert.app.AppAlert;
 import com.dianping.cat.report.alert.browser.AjaxAlert;
 import com.dianping.cat.report.alert.browser.JsAlert;
 import com.dianping.cat.report.alert.business.BusinessAlert;
-import com.dianping.cat.report.alert.database.DatabaseAlert;
 import com.dianping.cat.report.alert.event.EventAlert;
 import com.dianping.cat.report.alert.exception.ExceptionAlert;
 import com.dianping.cat.report.alert.heartbeat.HeartbeatAlert;
-import com.dianping.cat.report.alert.network.NetworkAlert;
 import com.dianping.cat.report.alert.storage.cache.StorageCacheAlert;
 import com.dianping.cat.report.alert.storage.rpc.StorageRPCAlert;
 import com.dianping.cat.report.alert.storage.sql.StorageSQLAlert;
-import com.dianping.cat.report.alert.system.SystemAlert;
 import com.dianping.cat.report.alert.thirdParty.ThirdPartyAlert;
 import com.dianping.cat.report.alert.thirdParty.ThirdPartyAlertBuilder;
 import com.dianping.cat.report.alert.transaction.TransactionAlert;
@@ -35,9 +32,6 @@ public class AlarmManager extends ContainerHolder {
 		}
 
 		BusinessAlert businessAlert = lookup(BusinessAlert.class);
-		NetworkAlert networkAlert = lookup(NetworkAlert.class);
-		DatabaseAlert databaseAlert = lookup(DatabaseAlert.class);
-		SystemAlert systemAlert = lookup(SystemAlert.class);
 		ExceptionAlert exceptionAlert = lookup(ExceptionAlert.class);
 		HeartbeatAlert heartbeatAlert = lookup(HeartbeatAlert.class);
 		ThirdPartyAlert thirdPartyAlert = lookup(ThirdPartyAlert.class);
@@ -52,9 +46,6 @@ public class AlarmManager extends ContainerHolder {
 		AjaxAlert ajaxAlert = lookup(AjaxAlert.class);
 
 		Threads.forGroup("cat").start(businessAlert);
-		Threads.forGroup("cat").start(networkAlert);
-		Threads.forGroup("cat").start(databaseAlert);
-		Threads.forGroup("cat").start(systemAlert);
 		Threads.forGroup("cat").start(exceptionAlert);
 		Threads.forGroup("cat").start(heartbeatAlert);
 		Threads.forGroup("cat").start(thirdPartyAlert);

@@ -15,8 +15,6 @@ import org.unidal.lookup.annotation.Inject;
 import org.unidal.lookup.annotation.Named;
 
 import com.dianping.cat.Cat;
-import com.dianping.cat.consumer.metric.MetricAnalyzer;
-import com.dianping.cat.helper.MetricType;
 import com.dianping.cat.helper.TimeHelper;
 import com.dianping.cat.home.dal.report.Baseline;
 import com.dianping.cat.home.dal.report.BaselineDao;
@@ -130,14 +128,6 @@ public class DefaultBaselineService implements BaselineService {
 			result[i + index] = to[i];
 		}
 		return result;
-	}
-
-	@Override
-	public double[] queryBaseline(int currentMinute, int ruleMinute, String metricKey, MetricType type) {
-		String key = metricKey + ":" + type;
-		String name = MetricAnalyzer.ID;
-
-		return queryBaseline(currentMinute, ruleMinute, key, name);
 	}
 
 	@Override

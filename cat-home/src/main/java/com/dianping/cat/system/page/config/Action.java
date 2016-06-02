@@ -23,31 +23,7 @@ public enum Action implements org.unidal.web.mvc.Action {
 
 	TOPOLOGY_GRAPH_EDGE_CONFIG_LIST("topologyGraphEdgeConfigList"),
 
-	TOPOLOGY_GRAPH_PRODUCT_LINE("topologyProductLines"),
-
-	TOPOLOGY_GRAPH_PRODUCT_LINE_ADD_OR_UPDATE("topologyProductLineAdd"),
-
-	TOPOLOGY_GRAPH_PRODUCT_LINE_ADD_OR_UPDATE_SUBMIT("topologyProductLineAddSubmit"),
-
-	TOPOLOGY_GRAPH_PRODUCT_LINE_DELETE("topologyProductLineDelete"),
-
 	TOPO_GRAPH_FORMAT_CONFIG_UPDATE("topoGraphFormatUpdate"),
-
-	DATABASE_RULE_CONFIG_LIST("databaseRuleConfigList"),
-
-	DATABASE_RULE_ADD_OR_UPDATE("databaseRuleUpdate"),
-
-	DATABASE_RULE_ADD_OR_UPDATE_SUBMIT("databaseRuleSubmit"),
-
-	DATABASE_RULE_DELETE("databaseRulDelete"),
-
-	SYSTEM_RULE_CONFIG_LIST("systemRuleConfigList"),
-
-	SYSTEM_RULE_ADD_OR_UPDATE("systemRuleUpdate"),
-
-	SYSTEM_RULE_ADD_OR_UPDATE_SUBMIT("systemRuleSubmit"),
-
-	SYSTEM_RULE_DELETE("systemRulDelete"),
 
 	HEARTBEAT_RULE_CONFIG_LIST("heartbeatRuleConfigList"),
 

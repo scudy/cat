@@ -25,9 +25,6 @@
 							<li id="projects"><a href="/cat/s/config?op=projects">
 								<i class="menu-icon fa fa-caret-right"></i>项目基本信息</a>
 								<b class="arrow"></b></li>
-							<li id="topologyProductLines"><a href="/cat/s/config?op=topologyProductLines">
-								<i class="menu-icon fa fa-caret-right"></i>项目分组配置</a>
-								<b class="arrow"></b></li>
 							<li id="domainGroupConfigUpdate"><a href="/cat/s/config?op=domainGroupConfigs">
 								<i class="menu-icon fa fa-caret-right"></i>机器分组配置</a>
 								<b class="arrow"></b></li>
