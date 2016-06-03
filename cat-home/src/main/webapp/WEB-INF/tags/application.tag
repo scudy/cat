@@ -76,14 +76,17 @@
 						<span class="menu-text">Business</span>
 					</a>
 				</li>
-				<li id="RPC_report" class="hsub"><a href="#" class="dropdown-toggle"> <i class="menu-icon fa fa-cloud"></i> <span class="menu-text">Service</span>
-						<b class="arrow fa fa-angle-down"></b>
-					</a> <b class="arrow"></b>
-					<ul class="submenu">
-						<li id="rpc_operation"><a href="/cat/r/storage?id=shop-server&type=RPC&domain=${model.domain}&ip=${model.ipAddress}&date=${model.date}&reportType=${payload.reportType}">
-							<i class="menu-icon fa fa-caret-right"></i>访问趋势</a>
-							<b class="arrow"></b></li>
-					</ul>
+				<li id="RPC_report" >
+					<a href="/cat/r/storage?id=shop-server&type=RPC&domain=${model.domain}&ip=${model.ipAddress}&date=${model.date}&reportType=${payload.reportType}">
+						<i class="menu-icon fa fa-cloud"></i>
+						<span class="menu-text">Service</span>
+					</a>
+				</li>
+				<li id="Database_report" >
+					<a href="/cat/r/storage?id=cat&domain=${model.domain}&ip=${model.ipAddress}&date=${model.date}&reportType=${payload.reportType}">
+						<i class="menu-icon fa fa-lemon-o"></i>
+						<span class="menu-text">Database</span>
+					</a>
 				</li>
 				<li id="Cache_report" class="hsub"><a href="#" class="dropdown-toggle"> <i class="menu-icon glyphicon glyphicon-flash"></i> <span class="menu-text">Cache</span>
 						<b class="arrow fa fa-angle-down"></b>
@@ -94,15 +97,6 @@
 							<b class="arrow"></b></li>
 						<li id="cache_info"><a href="/cat/r/cache?domain=${model.domain}&ip=${model.ipAddress}&date=${model.date}&reportType=${payload.reportType}&op=view">
 							<i class="menu-icon fa fa-caret-right"></i>访问情况</a>
-							<b class="arrow"></b></li>
-					</ul>
-				</li>
-				<li id="Database_report" class="hsub"><a href="#" class="dropdown-toggle"> <i class="menu-icon fa fa-lemon-o"></i> <span class="menu-text">Database</span>
-						<b class="arrow fa fa-angle-down"></b>
-					</a> <b class="arrow"></b>
-					<ul class="submenu">
-						<li id="database_operation"><a href="/cat/r/storage?id=cat&domain=${model.domain}&ip=${model.ipAddress}&date=${model.date}&reportType=${payload.reportType}">
-							<i class="menu-icon fa fa-caret-right"></i>访问趋势</a>
 							<b class="arrow"></b></li>
 					</ul>
 				</li>
