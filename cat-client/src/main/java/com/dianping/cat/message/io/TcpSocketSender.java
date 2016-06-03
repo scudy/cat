@@ -199,7 +199,6 @@ public class TcpSocketSender implements Task, MessageSender, LogEnabled {
 						try {
 							Thread.sleep(5);
 						} catch (Exception e) {
-							// ignore it
 							m_active = false;
 						}
 						break;
@@ -211,7 +210,6 @@ public class TcpSocketSender implements Task, MessageSender, LogEnabled {
 				try {
 					Thread.sleep(5);
 				} catch (Exception e) {
-					// ignore it
 					m_active = false;
 				}
 			}
