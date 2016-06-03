@@ -92,14 +92,6 @@ public class AlertEntity {
 		return m_paras;
 	}
 
-	public String getRealMetricId() {
-		StringBuilder sb = new StringBuilder();
-
-		sb.append(m_domain).append(":Metric:").append(m_metric);
-
-		return sb.toString();
-	}
-
 	public AlertType getType() {
 		return AlertType.getTypeByName(m_type);
 	}
