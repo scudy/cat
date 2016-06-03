@@ -11,29 +11,9 @@ public enum JspFile {
 
 	TOPOLOGY_GRAPH_EDGE_CONFIG_LIST("/jsp/system/topology/topologyGraphEdgeConfigs.jsp"),
 
-	TOPOLOGY_GRAPH_PRODUCT_LINE("/jsp/system/productLine/topologyProductLines.jsp"),
-
-	TOPOLOGY_GRAPH_PRODUCT_ADD_OR_UPDATE("/jsp/system/productLine/topologyProductLineAdd.jsp"),
-
 	TOPO_GRAPH_CONFIG_UPDATE("/jsp/system/topology/topoGraphFormatConfig.jsp"),
 
-	DATABASE_RULE_CONFIG_LIST("/jsp/system/databaseRule/databaseConfigs.jsp"),
-
-	DATABASE_RULE_ADD_OR_UPDATE("/jsp/system/databaseRule/databaseRuleAdd.jsp"),
-
-	DATABASE_RULE_ADD_OR_UPDATE_SUBMIT("/jsp/system/databaseRule/databaseConfigs.jsp"),
-
-	DATABASE_RULE_DELETE("/jsp/system/databaseRule/databaseConfigs.jsp"),
-
 	STORAGE_GROUP_CONFIG_UPDATE("/jsp/system/storage/storageGroupConfig.jsp"),
-
-	SYSTEM_RULE_CONFIG_LIST("/jsp/system/systemRule/systemConfigs.jsp"),
-
-	SYSTEM_RULE_ADD_OR_UPDATE("/jsp/system/systemRule/systemRuleAdd.jsp"),
-
-	SYSTEM_RULE_ADD_OR_UPDATE_SUBMIT("/jsp/system/systemRule/systemConfigs.jsp"),
-
-	SYSTEM_RULE_DELETE("/jsp/system/systemRule/systemConfigs.jsp"),
 
 	HEARTBEAT_RULE_CONFIG_LIST("/jsp/system/heartbeat/heartbeatConfigs.jsp"),
 

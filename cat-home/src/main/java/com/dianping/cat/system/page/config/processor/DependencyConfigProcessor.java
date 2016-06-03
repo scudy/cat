@@ -1,12 +1,9 @@
 package com.dianping.cat.system.page.config.processor;
 
-import org.unidal.lookup.util.StringUtils;
 import org.unidal.lookup.annotation.Inject;
-import org.unidal.tuple.Pair;
+import org.unidal.lookup.util.StringUtils;
 
 import com.dianping.cat.Constants;
-import com.dianping.cat.consumer.company.model.entity.ProductLine;
-import com.dianping.cat.consumer.config.ProductLineConfigManager;
 import com.dianping.cat.home.dependency.config.entity.DomainConfig;
 import com.dianping.cat.home.dependency.config.entity.EdgeConfig;
 import com.dianping.cat.report.page.dependency.config.TopoGraphFormatConfigManager;
@@ -17,9 +14,6 @@ import com.dianping.cat.system.page.config.Model;
 import com.dianping.cat.system.page.config.Payload;
 
 public class DependencyConfigProcessor {
-
-	@Inject
-	private ProductLineConfigManager m_productLineConfigManger;
 
 	@Inject
 	private GlobalConfigProcessor m_globalConfigManager;
@@ -84,23 +78,6 @@ public class DependencyConfigProcessor {
 		return m_topologyConfigManager.deleteDomainConfig(payload.getType(), payload.getDomain());
 	}
 
-	private Pair<Boolean, String> graphProductLineConfigAddOrUpdateSubmit(Payload payload, Model model) {
-		ProductLine line = payload.getProductLine();
-		String[] domains = payload.getDomains();
-		String type = payload.getType();
-
-		return m_productLineConfigManger.insertProductLine(line, domains, type);
-	}
-
-	private void graphPruductLineAddOrUpdate(Payload payload, Model model) {
-		String name = payload.getProductLineName();
-		String type = payload.getType();
-
-		if (!StringUtils.isEmpty(name)) {
-			model.setProductLine(m_productLineConfigManger.findProductLine(name, type));
-		}
-	}
-
 	public void process(Action action, Payload payload, Model model) {
 		switch (action) {
 		case TOPOLOGY_GRAPH_NODE_CONFIG_LIST:
@@ -135,30 +112,6 @@ public class DependencyConfigProcessor {
 			model.setGraphConfig(m_topologyConfigManager.getConfig());
 			model.setOpState(graphEdgeConfigDelete(payload));
 			model.buildEdgeInfo();
-			break;
-		case TOPOLOGY_GRAPH_PRODUCT_LINE:
-			model.setProductLines(m_productLineConfigManger.queryAllProductLines());
-			model.setTypeToProductLines(m_productLineConfigManger.queryTypeProductLines());
-			break;
-		case TOPOLOGY_GRAPH_PRODUCT_LINE_ADD_OR_UPDATE:
-			graphPruductLineAddOrUpdate(payload, model);
-			model.setProjects(m_globalConfigManager.queryAllProjects());
-			break;
-		case TOPOLOGY_GRAPH_PRODUCT_LINE_DELETE:
-			model.setOpState(m_productLineConfigManger.deleteProductLine(payload.getProductLineName(), payload.getType()));
-			model.setProductLines(m_productLineConfigManger.queryAllProductLines());
-			model.setTypeToProductLines(m_productLineConfigManger.queryTypeProductLines());
-			break;
-		case TOPOLOGY_GRAPH_PRODUCT_LINE_ADD_OR_UPDATE_SUBMIT:
-			Pair<Boolean, String> addProductlineResult = graphProductLineConfigAddOrUpdateSubmit(payload, model);
-			String duplicateDomains = addProductlineResult.getValue();
-
-			model.setOpState(addProductlineResult.getKey());
-			if (!StringUtils.isEmpty(duplicateDomains)) {
-				model.setDuplicateDomains(addProductlineResult.getValue());
-			}
-			model.setProductLines(m_productLineConfigManger.queryAllProductLines());
-			model.setTypeToProductLines(m_productLineConfigManger.queryTypeProductLines());
 			break;
 		case TOPO_GRAPH_FORMAT_CONFIG_UPDATE:
 			String topoGraphFormat = payload.getContent();

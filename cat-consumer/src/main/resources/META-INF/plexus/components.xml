@@ -612,59 +612,6 @@
 			</requirements>
 		</component>
 		<component>
-			<role>com.dianping.cat.analysis.MessageAnalyzer</role>
-			<role-hint>metric</role-hint>
-			<implementation>com.dianping.cat.consumer.metric.MetricAnalyzer</implementation>
-			<instantiation-strategy>per-lookup</instantiation-strategy>
-			<requirements>
-				<requirement>
-					<role>com.dianping.cat.report.ReportBucketManager</role>
-				</requirement>
-				<requirement>
-					<role>com.dianping.cat.consumer.dal.BusinessReportDao</role>
-				</requirement>
-				<requirement>
-					<role>com.dianping.cat.consumer.metric.MetricConfigManager</role>
-				</requirement>
-				<requirement>
-					<role>com.dianping.cat.consumer.config.ProductLineConfigManager</role>
-				</requirement>
-				<requirement>
-					<role>com.dianping.cat.task.TaskManager</role>
-				</requirement>
-				<requirement>
-					<role>com.dianping.cat.config.server.ServerConfigManager</role>
-				</requirement>
-			</requirements>
-		</component>
-		<component>
-			<role>com.dianping.cat.consumer.config.ProductLineConfigManager</role>
-			<implementation>com.dianping.cat.consumer.config.ProductLineConfigManager</implementation>
-			<requirements>
-				<requirement>
-					<role>com.dianping.cat.core.config.ConfigDao</role>
-				</requirement>
-				<requirement>
-					<role>com.dianping.cat.config.content.ContentFetcher</role>
-				</requirement>
-			</requirements>
-		</component>
-		<component>
-			<role>com.dianping.cat.consumer.metric.MetricConfigManager</role>
-			<implementation>com.dianping.cat.consumer.metric.MetricConfigManager</implementation>
-			<requirements>
-				<requirement>
-					<role>com.dianping.cat.core.config.ConfigDao</role>
-				</requirement>
-				<requirement>
-					<role>com.dianping.cat.config.content.ContentFetcher</role>
-				</requirement>
-				<requirement>
-					<role>com.dianping.cat.consumer.config.ProductLineConfigManager</role>
-				</requirement>
-			</requirements>
-		</component>
-		<component>
 			<role>com.dianping.cat.consumer.storage.StorageReportUpdater</role>
 			<implementation>com.dianping.cat.consumer.storage.StorageReportUpdater</implementation>
 		</component>
@@ -827,25 +774,6 @@
 			<role>org.unidal.initialization.Module</role>
 			<role-hint>cat-consumer</role-hint>
 			<implementation>com.dianping.cat.consumer.CatConsumerModule</implementation>
-		</component>
-		<component>
-			<role>org.unidal.dal.jdbc.mapping.TableProvider</role>
-			<role-hint>business-report</role-hint>
-			<implementation>org.unidal.dal.jdbc.mapping.SimpleTableProvider</implementation>
-			<configuration>
-				<logical-table-name>business-report</logical-table-name>
-				<physical-table-name>businessReport</physical-table-name>
-				<data-source-name>cat</data-source-name>
-			</configuration>
-		</component>
-		<component>
-			<role>com.dianping.cat.consumer.dal.BusinessReportDao</role>
-			<implementation>com.dianping.cat.consumer.dal.BusinessReportDao</implementation>
-			<requirements>
-				<requirement>
-					<role>org.unidal.dal.jdbc.QueryEngine</role>
-				</requirement>
-			</requirements>
 		</component>
 	</components>
 </plexus>

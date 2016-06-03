@@ -29,8 +29,6 @@ com.dianping.cat.report.page.cache.Handler.class,
 
 com.dianping.cat.report.page.state.Handler.class,
 
-com.dianping.cat.report.page.metric.Handler.class,
-
 com.dianping.cat.report.page.dependency.Handler.class,
 
 com.dianping.cat.report.page.statistics.Handler.class,
@@ -41,15 +39,11 @@ com.dianping.cat.report.page.monitor.Handler.class,
 
 com.dianping.cat.report.page.network.Handler.class,
 
-com.dianping.cat.report.page.system.Handler.class,
-
 com.dianping.cat.report.page.app.Handler.class,
 
 com.dianping.cat.report.page.alert.Handler.class,
 
 com.dianping.cat.report.page.overload.Handler.class,
-
-com.dianping.cat.report.page.database.Handler.class,
 
 com.dianping.cat.report.page.storage.Handler.class,
 
