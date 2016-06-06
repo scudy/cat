@@ -8,7 +8,7 @@
 	   
 	2) 命令字可以配置别名，别名在页面左侧的Config/App监控/API命令字中进行配置。
 	3) 为了便于查找，命令字输入框中加入了模糊匹配辅助功能，输入命令字的一部分可以快速提示匹配的命令字搜索列表。
-	4) all表示全部的命令字，如果有些命令字不希望加入all统计中，可以在Config/App监控/API命令中进行修改，将是否加入全量统计的选择框选择为否。
+	4) 每个命令字的数据可以合并到某个命令字里，即分组的概念。意义在于，方便统计一个命令字集合内的所有数据的汇总统计。<a href="/cat/s/app?op=appCommandGroup" target="_blank">点此配置</a>
 	
 </pre>
 	<img  class="img-polaroid"  width='80%'  src="${model.webapp}/images/userMonitor/userMonitor05.png"/>

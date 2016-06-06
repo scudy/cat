@@ -508,7 +508,7 @@ public class AppConfigProcessor {
 			model.setCommandGroupConfig(m_appCommandGroupManager.getConfig());
 			break;
 		case APP_COMMAND_GROUP_ADD:
-			String command = payload.getName();
+			String command = payload.getName().split("\\|")[0];
 			com.dianping.cat.configuration.group.entity.Command cmd = m_appCommandGroupManager.getConfig().getCommands()
 			      .get(command);
 
@@ -516,8 +516,8 @@ public class AppConfigProcessor {
 				Map<String, SubCommand> subCommands = cmd.getSubCommands();
 
 				model.setSubCommands(new ArrayList<String>(subCommands.keySet()));
-				model.setCommands(m_appConfigManager.queryCommands());
 			}
+			model.setCommands(m_appConfigManager.queryCommands());
 			break;
 		case APP_COMMAND_GROUP_DELETE:
 			model.setOpState(m_appCommandGroupManager.deleteByName(payload.getParent(), payload.getName()));

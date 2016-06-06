@@ -18,11 +18,11 @@
 		});
 		
 		$(document).delegate('#updateSubmit', 'click', function(e){
-			var name = $("#commandName").val();
-			var title = $("#commandTitle").val();
-			var domain = $("#commandDomain").val();
+			var name = $("#commandName").val().trim().toLowerCase();
+			var title = $("#commandTitle").val().trim();
+			var domain = $("#commandDomain").val().trim();
 			var id = $("#commandId").val();
-			var threshold = $("#threshold").val();
+			var threshold = $("#threshold").val().trim();
 			var namespace = $("#commandNamespace").val();
 			
 			if(name == undefined || name == ""){
