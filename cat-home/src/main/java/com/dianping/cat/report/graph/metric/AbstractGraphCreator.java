@@ -13,8 +13,6 @@ import org.codehaus.plexus.logging.Logger;
 import org.unidal.lookup.annotation.Inject;
 
 import com.dianping.cat.alarm.spi.AlertManager;
-import com.dianping.cat.consumer.config.ProductLineConfigManager;
-import com.dianping.cat.consumer.metric.MetricConfigManager;
 import com.dianping.cat.helper.TimeHelper;
 import com.dianping.cat.report.graph.LineChart;
 import com.dianping.cat.report.page.metric.service.BaselineService;
@@ -25,18 +23,6 @@ public abstract class AbstractGraphCreator implements LogEnabled {
 
 	@Inject
 	protected DataExtractor m_dataExtractor;
-
-	@Inject
-	protected MetricDataFetcher m_pruductDataFetcher;
-
-	@Inject
-	protected CachedMetricReportService m_metricReportService;
-
-	@Inject
-	protected MetricConfigManager m_metricConfigManager;
-
-	@Inject
-	protected ProductLineConfigManager m_productLineConfigManager;
 
 	@Inject
 	protected AlertManager m_alertManager;

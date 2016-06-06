@@ -26,7 +26,7 @@
 						<li id="dashbord_metric"><a href="/cat/r/business?name=业务大盘&type=tag">
 							<i class="menu-icon fa fa-caret-right"></i>业务大盘</a>
 							<b class="arrow"></b></li>
-						<li id="dashbord_network"><a href="/cat/r/network?op=view&domain=${model.domain}">
+						<li id="dashbord_network"><a href="/cat/r/network?op=dashboard&domain=${model.domain}">
 							<i class="menu-icon fa fa-caret-right"></i>网络大盘</a>
 							<b class="arrow"></b></li>
 						<li id="dashbord_rpc"><a href="/cat/r/storage?op=dashboard&domain=${model.domain}&type=RPC">
@@ -76,14 +76,17 @@
 						<span class="menu-text">Business</span>
 					</a>
 				</li>
-				<li id="RPC_report" class="hsub"><a href="#" class="dropdown-toggle"> <i class="menu-icon fa fa-cloud"></i> <span class="menu-text">Service</span>
-						<b class="arrow fa fa-angle-down"></b>
-					</a> <b class="arrow"></b>
-					<ul class="submenu">
-						<li id="rpc_operation"><a href="/cat/r/storage?id=shop-server&type=RPC&domain=${model.domain}&ip=${model.ipAddress}&date=${model.date}&reportType=${payload.reportType}">
-							<i class="menu-icon fa fa-caret-right"></i>访问趋势</a>
-							<b class="arrow"></b></li>
-					</ul>
+				<li id="RPC_report" >
+					<a href="/cat/r/storage?id=shop-server&type=RPC&domain=${model.domain}&ip=${model.ipAddress}&date=${model.date}&reportType=${payload.reportType}">
+						<i class="menu-icon fa fa-cloud"></i>
+						<span class="menu-text">Service</span>
+					</a>
+				</li>
+				<li id="Database_report" >
+					<a href="/cat/r/storage?id=cat&domain=${model.domain}&ip=${model.ipAddress}&date=${model.date}&reportType=${payload.reportType}">
+						<i class="menu-icon fa fa-lemon-o"></i>
+						<span class="menu-text">Database</span>
+					</a>
 				</li>
 				<li id="Cache_report" class="hsub"><a href="#" class="dropdown-toggle"> <i class="menu-icon glyphicon glyphicon-flash"></i> <span class="menu-text">Cache</span>
 						<b class="arrow fa fa-angle-down"></b>
@@ -94,18 +97,6 @@
 							<b class="arrow"></b></li>
 						<li id="cache_info"><a href="/cat/r/cache?domain=${model.domain}&ip=${model.ipAddress}&date=${model.date}&reportType=${payload.reportType}&op=view">
 							<i class="menu-icon fa fa-caret-right"></i>访问情况</a>
-							<b class="arrow"></b></li>
-					</ul>
-				</li>
-				<li id="Database_report" class="hsub"><a href="#" class="dropdown-toggle"> <i class="menu-icon fa fa-lemon-o"></i> <span class="menu-text">Database</span>
-						<b class="arrow fa fa-angle-down"></b>
-					</a> <b class="arrow"></b>
-					<ul class="submenu">
-						<li id="database_operation"><a href="/cat/r/storage?id=cat&domain=${model.domain}&ip=${model.ipAddress}&date=${model.date}&reportType=${payload.reportType}">
-							<i class="menu-icon fa fa-caret-right"></i>访问趋势</a>
-							<b class="arrow"></b></li>
-						<li id="database_system"><a href="/cat/r/database?domain=${model.domain}&ip=${model.ipAddress}&date=${model.date}&reportType=${payload.reportType}&op=view">
-							<i class="menu-icon fa fa-caret-right"></i>系统指标</a>
 							<b class="arrow"></b></li>
 					</ul>
 				</li>
@@ -189,12 +180,6 @@
 						<b class="arrow fa fa-angle-down"></b>
 				</a> <b class="arrow"></b>
 					<ul class="submenu">
-						<li id="system_network"><a href="/cat/r/network?op=metric&product=&domain=${model.domain}&ip=${model.ipAddress}&date=${model.date}&reportType=${payload.reportType}&op=${payload.action.name}">
-							<i class="menu-icon fa fa-caret-right"></i>网络监控</a>
-							<b class="arrow"></b></li>
-						<li id="system_paas"><a href="/cat/r/system?domain=${model.domain}&ip=${model.ipAddress}&date=${model.date}&reportType=${payload.reportType}&op=${payload.action.name}">
-							<i class="menu-icon fa fa-caret-right"></i>PAAS监控</a>
-							<b class="arrow"></b></li>
 						<li id="system_alteration"><a href="/cat/r/alteration?domain=${model.domain}&ip=${model.ipAddress}&date=${model.date}&reportType=${payload.reportType}&op=${payload.action.name}">
 							<i class="menu-icon fa fa-caret-right"></i>线上变更</a>
 							<b class="arrow"></b></li>

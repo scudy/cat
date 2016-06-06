@@ -5,8 +5,10 @@ public enum Action implements org.unidal.web.mvc.Action {
 	APP_CONFIG_UPDATE("appConfigUpdate"),
 
 	MOBILE_CONFIG_UPDATE("mobileConfigUpdate"),
-
+	
 	CRASH_LOG_CONFIG_UPDATE("crashLogConfigUpdate"),
+	
+	SDK_CONFIG_UPDATE("sdkConfigUpdate"),
 
 	APP_NAME_CHECK("appNameCheck"),
 

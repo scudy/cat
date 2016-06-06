@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -423,6 +424,24 @@ public class AppCommandConfigManager implements Initializable {
 				refreshData();
 			}
 		}
+	}
+
+	public Map<String, List<Command>> queryNamespace2Commands() {
+		Map<String, List<Command>> results = new HashMap<String, List<Command>>();
+
+		for (Entry<Integer, Command> entry : m_config.getCommands().entrySet()) {
+			Command command = entry.getValue();
+			String namespace = command.getNamespace();
+			List<Command> commands = results.get(namespace);
+
+			if (commands == null) {
+				commands = new LinkedList<Command>();
+
+				results.put(namespace, commands);
+			}
+			commands.add(command);
+		}
+		return results;
 	}
 
 	private void refreshData() {

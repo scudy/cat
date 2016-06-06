@@ -25,6 +25,8 @@ public enum JspFile {
 
 	SERVER_ALARM_RULE_UPDATE("/jsp/report/server/serverRuleUpdate.jsp"),
 
+	NET_GRAPH_CONFIG_UPDATE("/jsp/report/server/netGraphConfig.jsp"),
+
 	;
 
 	private String m_path;

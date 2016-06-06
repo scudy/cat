@@ -306,6 +306,9 @@ function graphMetricChart(container, data) {
 					min : ylabelMin,
 					title : {
 						text : data.unit,
+					},
+					labels : {
+						enabled: data.yEnabled
 					}
 				},
 				credits : {
@@ -338,9 +341,14 @@ function graphMetricChart(container, data) {
 							number = number0;
 						}
 
-						return Highcharts.dateFormat('%Y-%m-%d %H:%M', this.x)
-								+ '<br/>[' + this.series.name + '] ' + '<b>'
-								+ number + '</b>';
+						if (data.yEnabled) {
+							return Highcharts.dateFormat('%Y-%m-%d %H:%M', this.x)
+							+ '<br/>[' + this.series.name + '] ' + '<b>'
+							+ number + '</b>';
+						} else {
+							return  Highcharts.dateFormat('%Y-%m-%d %H:%M', this.x);
+						}
+						
 					}
 				},
 				series : _data

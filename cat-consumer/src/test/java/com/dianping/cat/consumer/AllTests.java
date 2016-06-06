@@ -18,8 +18,6 @@ import com.dianping.cat.consumer.heartbeat.HeartbeatReportMergerTest;
 import com.dianping.cat.consumer.matrix.MatrixAnalyzerTest;
 import com.dianping.cat.consumer.matrix.MatrixModelTest;
 import com.dianping.cat.consumer.matrix.MatrixReportMergerTest;
-import com.dianping.cat.consumer.metric.MetricAnalyzerTest;
-import com.dianping.cat.consumer.metric.ProductLineConfigManagerTest;
 import com.dianping.cat.consumer.problem.ProblemAnalyzerTest;
 import com.dianping.cat.consumer.problem.ProblemFilterTest;
 import com.dianping.cat.consumer.problem.ProblemHandlerTest;
@@ -40,8 +38,6 @@ import com.dianping.cat.consumer.transaction.TransactionReportTypeAggergatorTest
 @SuiteClasses({
 
 ProblemHandlerTest.class,
-
-MetricAnalyzerTest.class,
 
 /* transaction */
 
@@ -109,9 +105,7 @@ MatrixAnalyzerTest.class,
 
 DependencyAnalyzerTest.class,
 
-DependencyReportMergerTest.class,
-
-ProductLineConfigManagerTest.class })
+DependencyReportMergerTest.class})
 public class AllTests {
 
 }

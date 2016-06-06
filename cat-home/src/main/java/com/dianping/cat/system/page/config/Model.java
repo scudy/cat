@@ -12,9 +12,6 @@ import org.unidal.web.mvc.view.annotation.ModelMeta;
 
 import com.dianping.cat.alarm.rule.entity.Rule;
 import com.dianping.cat.configuration.web.js.entity.AggregationRule;
-import com.dianping.cat.consumer.company.model.entity.Domain;
-import com.dianping.cat.consumer.company.model.entity.ProductLine;
-import com.dianping.cat.consumer.metric.config.entity.MetricItemConfig;
 import com.dianping.cat.core.dal.Project;
 import com.dianping.cat.home.alert.thirdparty.entity.Http;
 import com.dianping.cat.home.alert.thirdparty.entity.Socket;
@@ -58,23 +55,11 @@ public class Model extends ViewModel<SystemPage, Action, Context> {
 
 	private EdgeConfig m_edgeConfig;
 
-	private ProductLine m_productLine;
-
-	private Map<String, ProductLine> m_productLines;
-
-	private Map<String, List<ProductLine>> m_typeToProductLines;
-
-	private MetricItemConfig m_metricItemConfig;
-
-	private Map<ProductLine, List<MetricItemConfig>> m_productMetricConfigs;
-
 	private String m_bug;
 
 	private String m_content;
 
 	private String m_metricItemConfigRule;
-
-	private Map<String, Domain> m_productLineToDomains;
 
 	private List<String> m_domainList;
 
@@ -235,32 +220,12 @@ public class Model extends ViewModel<SystemPage, Action, Context> {
 		return "";
 	}
 
-	public MetricItemConfig getMetricItemConfig() {
-		return m_metricItemConfig;
-	}
-
 	public String getMetricItemConfigRule() {
 		return m_metricItemConfigRule;
 	}
 
 	public String getOpState() {
 		return m_opState;
-	}
-
-	public ProductLine getProductLine() {
-		return m_productLine;
-	}
-
-	public Map<String, ProductLine> getProductLines() {
-		return m_productLines;
-	}
-
-	public Map<String, Domain> getProductLineToDomains() {
-		return m_productLineToDomains;
-	}
-
-	public Map<ProductLine, List<MetricItemConfig>> getProductMetricConfigs() {
-		return m_productMetricConfigs;
 	}
 
 	public Project getProject() {
@@ -293,10 +258,6 @@ public class Model extends ViewModel<SystemPage, Action, Context> {
 
 	public ThirdPartyConfig getThirdPartyConfig() {
 		return m_thirdPartyConfig;
-	}
-
-	public Map<String, List<ProductLine>> getTypeToProductLines() {
-		return m_typeToProductLines;
 	}
 
 	public void setAggregationRule(AggregationRule aggregationRule) {
@@ -387,10 +348,6 @@ public class Model extends ViewModel<SystemPage, Action, Context> {
 		m_id = id;
 	}
 
-	public void setMetricItemConfig(MetricItemConfig metricItemConfig) {
-		m_metricItemConfig = metricItemConfig;
-	}
-
 	public void setMetricItemConfigRule(String metricItemConfigRule) {
 		m_metricItemConfigRule = metricItemConfigRule;
 	}
@@ -401,22 +358,6 @@ public class Model extends ViewModel<SystemPage, Action, Context> {
 		} else {
 			m_opState = FAIL;
 		}
-	}
-
-	public void setProductLine(ProductLine productLine) {
-		m_productLine = productLine;
-	}
-
-	public void setProductLines(Map<String, ProductLine> productLines) {
-		m_productLines = productLines;
-	}
-
-	public void setProductLineToDomains(Map<String, Domain> productLineToDomains) {
-		m_productLineToDomains = productLineToDomains;
-	}
-
-	public void setProductMetricConfigs(Map<ProductLine, List<MetricItemConfig>> productMetricConfigs) {
-		m_productMetricConfigs = productMetricConfigs;
 	}
 
 	public void setProject(Project project) {
@@ -445,10 +386,6 @@ public class Model extends ViewModel<SystemPage, Action, Context> {
 
 	public void setThirdPartyConfig(ThirdPartyConfig thirdPartyConfig) {
 		m_thirdPartyConfig = thirdPartyConfig;
-	}
-
-	public void setTypeToProductLines(Map<String, List<ProductLine>> typeToProductLines) {
-		m_typeToProductLines = typeToProductLines;
 	}
 
 	public static class Edge {

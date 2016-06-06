@@ -25,9 +25,6 @@
 							<li id="projects"><a href="/cat/s/config?op=projects">
 								<i class="menu-icon fa fa-caret-right"></i>项目基本信息</a>
 								<b class="arrow"></b></li>
-							<li id="topologyProductLines"><a href="/cat/s/config?op=topologyProductLines">
-								<i class="menu-icon fa fa-caret-right"></i>项目分组配置</a>
-								<b class="arrow"></b></li>
 							<li id="domainGroupConfigUpdate"><a href="/cat/s/config?op=domainGroupConfigs">
 								<i class="menu-icon fa fa-caret-right"></i>机器分组配置</a>
 								<b class="arrow"></b></li>
@@ -91,28 +88,8 @@
 								<b class="arrow"></b></li>
 						</ul>
 					</li>
-					<li id="alert_config" class="hsub">
-					<a href="/cat/s/config?op=networkRuleConfigList" class="dropdown-toggle"> <i class="menu-icon fa fa-bullhorn"></i> <span class="menu-text">系统告警配置</span>
-						<b class="arrow fa fa-angle-down"></b>
-					</a> <b class="arrow"></b>
-						<ul class="submenu">
-							<li id="networkRuleConfigList"><a href="/cat/s/config?op=networkRuleConfigList">
-								<i class="menu-icon fa fa-caret-right"></i>网络告警</a>
-								<b class="arrow"></b></li>
-							<li id="netGraphConfigUpdate"><a href="/cat/s/config?op=netGraphConfigUpdate">
-								<i class="menu-icon fa fa-caret-right"></i>网络拓扑</a>
-								<b class="arrow"></b></li>
-							<li id="databaseRuleConfigList"><a href="/cat/s/config?op=databaseRuleConfigList">
-								<i class="menu-icon fa fa-caret-right"></i>数据库告警</a>
-								<b class="arrow"></b></li>
-							<li id="systemRuleConfigList"><a href="/cat/s/config?op=systemRuleConfigList">
-								<i class="menu-icon fa fa-caret-right"></i>PaaS告警</a>
-								<b class="arrow"></b></li>
-							</li>
-						</ul>
-					</li>
 					<li id="overall_config" class="hsub">
-					<a href="/cat/s/config?op=networkRuleConfigList" class="dropdown-toggle"> <i class="menu-icon glyphicon glyphicon-cog"></i> <span class="menu-text">全局告警配置</span>
+					<a href="/cat/s/config?op=networkRuleConfigList" class="dropdown-toggle"> <i class="menu-icon glyphicon glyphicon-cog"></i> <span class="menu-text">系统配置</span>
 						<b class="arrow fa fa-angle-down"></b>
 					</a> <b class="arrow"></b>
 						<ul class="submenu">

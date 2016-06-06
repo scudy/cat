@@ -14,16 +14,12 @@ import com.dianping.cat.report.alert.MetricIdAndRuleMappingTest;
 import com.dianping.cat.report.alert.RuleConfigTest;
 import com.dianping.cat.report.graph.ValueTranslaterTest;
 import com.dianping.cat.report.page.cross.CrossReportMergerTest;
-import com.dianping.cat.report.page.database.DatabaseReportFilterTest;
 import com.dianping.cat.report.page.dependency.DependencyReportMergerTest;
 import com.dianping.cat.report.page.event.EventReportFilterTest;
 import com.dianping.cat.report.page.event.EventTrendGraphBuilderTest;
-import com.dianping.cat.report.page.metric.MetricReportMergerTest;
-import com.dianping.cat.report.page.metric.MetricReportParseTest;
 import com.dianping.cat.report.page.problem.ProblemReportMergerTest;
 import com.dianping.cat.report.page.problem.ProblemTrendGraphBuilderTest;
 import com.dianping.cat.report.page.state.StateReportMergerTest;
-import com.dianping.cat.report.page.system.SystemReportConvertorTest;
 import com.dianping.cat.report.page.transaction.PayloadTest;
 import com.dianping.cat.report.page.transaction.TransactionReportFilterTest;
 import com.dianping.cat.report.page.transaction.TransactionTrendGraphBuilderTest;
@@ -34,8 +30,8 @@ import com.dianping.cat.report.task.event.HistoryEventMergerTest;
 import com.dianping.cat.report.task.heartbeat.HeartbeatDailyMergerTest;
 import com.dianping.cat.report.task.heavy.HeavyReportBuilderTest;
 import com.dianping.cat.report.task.metric.AlertConfigTest;
-import com.dianping.cat.report.task.problem.ProblemReportHourlyGraphCreatorTest;
 import com.dianping.cat.report.task.problem.ProblemReportDailyGraphCreatorTest;
+import com.dianping.cat.report.task.problem.ProblemReportHourlyGraphCreatorTest;
 import com.dianping.cat.report.task.service.ServiceReportMergerTest;
 import com.dianping.cat.report.task.storage.HistoryStorageReportMergerTest;
 import com.dianping.cat.report.task.transaction.HistoryTransactionMergerTest;
@@ -86,15 +82,8 @@ ProblemTrendGraphBuilderTest.class,
 
 TransactionTrendGraphBuilderTest.class,
 
-/* Metric */
-MetricReportParseTest.class,
-
-MetricReportMergerTest.class,
-
 /* Dependency */
 DependencyReportMergerTest.class,
-
-MetricReportParseTest.class,
 
 /* service */
 ServiceReportMergerTest.class,
@@ -108,10 +97,6 @@ HeavyReportBuilderTest.class,
 RuleConfigTest.class,
 
 AlertConfigTest.class,
-
-SystemReportConvertorTest.class,
-
-DatabaseReportFilterTest.class,
 
 HeartbeatDailyMergerTest.class,
 

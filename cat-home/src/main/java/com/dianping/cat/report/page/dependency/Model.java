@@ -7,7 +7,6 @@ import java.util.Map;
 import org.unidal.web.mvc.view.annotation.EntityMeta;
 import org.unidal.web.mvc.view.annotation.ModelMeta;
 
-import com.dianping.cat.consumer.company.model.entity.ProductLine;
 import com.dianping.cat.consumer.dependency.DependencyAnalyzer;
 import com.dianping.cat.consumer.dependency.model.entity.DependencyReport;
 import com.dianping.cat.consumer.dependency.model.entity.Segment;
@@ -44,8 +43,6 @@ public class Model extends AbstractReportModel<Action, ReportPage, Context> {
 	private String m_dashboardGraph;
 
 	private ProductLinesDashboard m_dashboardGraphData;
-
-	private List<ProductLine> m_productLines;
 
 	private String m_productLineGraph;
 
@@ -113,10 +110,6 @@ public class Model extends AbstractReportModel<Action, ReportPage, Context> {
 		return m_productLineGraph;
 	}
 
-	public List<ProductLine> getProductLines() {
-		return m_productLines;
-	}
-
 	public DependencyReport getReport() {
 		return m_report;
 	}
@@ -179,10 +172,6 @@ public class Model extends AbstractReportModel<Action, ReportPage, Context> {
 
 	public void setProductLineGraph(String productLineGraph) {
 		m_productLineGraph = productLineGraph;
-	}
-
-	public void setProductLines(List<ProductLine> productLines) {
-		m_productLines = productLines;
 	}
 
 	public void setReport(DependencyReport report) {

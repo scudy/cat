@@ -20,15 +20,12 @@ import com.dianping.cat.home.dal.report.ConfigModification;
 import com.dianping.cat.home.dal.report.ConfigModificationDao;
 import com.dianping.cat.system.SystemPage;
 import com.dianping.cat.system.page.config.processor.AlertConfigProcessor;
-import com.dianping.cat.system.page.config.processor.DatabaseConfigProcessor;
 import com.dianping.cat.system.page.config.processor.DependencyConfigProcessor;
 import com.dianping.cat.system.page.config.processor.EventConfigProcessor;
 import com.dianping.cat.system.page.config.processor.ExceptionConfigProcessor;
 import com.dianping.cat.system.page.config.processor.GlobalConfigProcessor;
 import com.dianping.cat.system.page.config.processor.HeartbeatConfigProcessor;
-import com.dianping.cat.system.page.config.processor.NetworkConfigProcessor;
 import com.dianping.cat.system.page.config.processor.StorageConfigProcessor;
-import com.dianping.cat.system.page.config.processor.SystemConfigProcessor;
 import com.dianping.cat.system.page.config.processor.ThirdPartyConfigProcessor;
 import com.dianping.cat.system.page.config.processor.TransactionConfigProcessor;
 
@@ -47,15 +44,6 @@ public class Handler implements PageHandler<Context> {
 
 	@Inject
 	private ExceptionConfigProcessor m_exceptionConfigProcessor;
-
-	@Inject
-	private NetworkConfigProcessor m_networkConfigProcessor;
-
-	@Inject
-	private DatabaseConfigProcessor m_databaseConfigProcessor;
-
-	@Inject
-	private SystemConfigProcessor m_systemConfigProcessor;
 
 	@Inject
 	private HeartbeatConfigProcessor m_heartbeatConfigProcessor;
@@ -128,10 +116,6 @@ public class Handler implements PageHandler<Context> {
 		case TOPOLOGY_GRAPH_EDGE_CONFIG_ADD_OR_UPDATE:
 		case TOPOLOGY_GRAPH_EDGE_CONFIG_ADD_OR_UPDATE_SUBMIT:
 		case TOPOLOGY_GRAPH_EDGE_CONFIG_DELETE:
-		case TOPOLOGY_GRAPH_PRODUCT_LINE:
-		case TOPOLOGY_GRAPH_PRODUCT_LINE_ADD_OR_UPDATE:
-		case TOPOLOGY_GRAPH_PRODUCT_LINE_DELETE:
-		case TOPOLOGY_GRAPH_PRODUCT_LINE_ADD_OR_UPDATE_SUBMIT:
 		case TOPO_GRAPH_FORMAT_CONFIG_UPDATE:
 			m_topologyConfigProcessor.process(action, payload, model);
 			break;
@@ -145,28 +129,6 @@ public class Handler implements PageHandler<Context> {
 		case EXCEPTION_EXCLUDE_ADD:
 		case EXCEPTION_EXCLUDE_UPDATE_SUBMIT:
 			m_exceptionConfigProcessor.process(action, payload, model);
-			break;
-
-		case NETWORK_RULE_CONFIG_LIST:
-		case NETWORK_RULE_ADD_OR_UPDATE:
-		case NETWORK_RULE_ADD_OR_UPDATE_SUBMIT:
-		case NETWORK_RULE_DELETE:
-		case NET_GRAPH_CONFIG_UPDATE:
-			m_networkConfigProcessor.process(action, payload, model);
-			break;
-
-		case DATABASE_RULE_CONFIG_LIST:
-		case DATABASE_RULE_ADD_OR_UPDATE:
-		case DATABASE_RULE_ADD_OR_UPDATE_SUBMIT:
-		case DATABASE_RULE_DELETE:
-			m_databaseConfigProcessor.process(action, payload, model);
-			break;
-
-		case SYSTEM_RULE_CONFIG_LIST:
-		case SYSTEM_RULE_ADD_OR_UPDATE:
-		case SYSTEM_RULE_ADD_OR_UPDATE_SUBMIT:
-		case SYSTEM_RULE_DELETE:
-			m_systemConfigProcessor.process(action, payload, model);
 			break;
 
 		case HEARTBEAT_RULE_CONFIG_LIST:

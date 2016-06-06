@@ -4,17 +4,16 @@
 <%@ taglib prefix="res" uri="http://www.unidal.org/webres"%>
 <%@ taglib prefix="w" uri="http://www.unidal.org/web/core"%>
 
-<a:config>
+<a:mobile>
 	<res:useJs value="${res.js.local['jquery.validate.min.js']}" target="head-js" />
 	<res:useJs value="${res.js.local['editor.js']}" target="head-js" />
 	<script src='${model.webapp}/assets/js/editor/ace.js'></script>
-	
-			<form name="netGraphConfigUpdate" id="form" method="post"
-				action="${model.pageUri}?op=netGraphConfigUpdate">
+			<form name="sdkConfigUpdate" id="form" method="post"
+				action="${model.pageUri}?op=sdkConfigUpdate">
 				<table class="table table-striped table-condensed   table-hover">
 					<tr><td>
-					<input id="content" name="content" value="" type="hidden"/>
-					<div id="editor" class="editor">${model.content}</div>
+						<input id="content" name="content" value="" type="hidden"/>
+						<div id="editor" class="editor">${model.content}</div>
 					</td></tr>
 					<tr>
 						<td style="text-align:center"><input class='btn btn-primary' 
@@ -23,11 +22,12 @@
 				</table>
 			</form>
 			<h4 class="text-center text-danger" id="state">&nbsp;</h4>
-</a:config>
+			
+</a:mobile>
 <script type="text/javascript">
 		$(document).ready(function() {
-			$('#alert_config').addClass('active open');
-			$('#netGraphConfigUpdate').addClass('active');
+			$('#userMonitor_config').addClass('active open');
+			$('#sdkConfigUpdate').addClass('active');
 			var state = '${model.opState}';
 			if(state=='Success'){
 				$('#state').html('操作成功');

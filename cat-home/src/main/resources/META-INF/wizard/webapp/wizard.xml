@@ -35,9 +35,6 @@
          <page name="state" title="State" path="state" view="/jsp/report/state/state.jsp">
             <description>State</description>
          </page>
-         <page name="metric" title="Metric" path="metric" view="/jsp/report/metric/metric.jsp">
-            <description>Metric</description>
-         </page>
          <page name="dependency" title="Dependency" path="dependency" view="/jsp/report/dependency/dependency.jsp" template="default">
             <description>Dependency</description>
          </page>
@@ -49,12 +46,6 @@
          </page>
          <page name="monitor" title="Monitor" path="monitor" template="default">
             <description>Monitor</description>
-         </page>
-         <page name="network" title="Network" path="network" view="/jsp/report/network/nettopology.jsp" standalone="false" template="default">
-            <description>Network</description>
-         </page>
-         <page name="system" title="System" path="system" standalone="false" template="default">
-            <description>System</description>
          </page>
          <page name="app" title="App" path="app" template="default">
             <description>App</description>
@@ -106,13 +97,11 @@
          <page name="project" title="Project" path="project" template="default">
             <description>Project</description>
          </page>
-<<<<<<< HEAD
          <page name="app" title="App" path="app" template="default">
             <description>App</description>
-=======
+         </page>
          <page name="business" title="Business" path="business" template="default">
             <description>Business</description>
->>>>>>> web
          </page>
       </module>
    </webapp>

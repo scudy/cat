@@ -64,7 +64,9 @@ public class TcpSocketSender implements Task, MessageSender, LogEnabled {
 
 	private AtomicInteger m_sampleCount = new AtomicInteger();
 
-	private MergeAtomicTask m_mergeTask;
+	private static final int MAX_CHILD_NUMBER = 200;
+
+	private static final int MAX_DURATION = 1000 * 30;
 
 	@Override
 	public void enableLogging(Logger logger) {
@@ -79,11 +81,9 @@ public class TcpSocketSender implements Task, MessageSender, LogEnabled {
 	@Override
 	public void initialize(List<InetSocketAddress> addresses) {
 		m_channelManager = new ChannelManager(m_logger, addresses, m_configManager, m_factory);
-		m_mergeTask = new MergeAtomicTask();
 
 		Threads.forGroup("cat").start(this);
 		Threads.forGroup("cat").start(m_channelManager);
-		Threads.forGroup("cat").start(m_mergeTask);
 
 		Runtime.getRuntime().addShutdownHook(new Thread() {
 			@Override
@@ -96,12 +96,8 @@ public class TcpSocketSender implements Task, MessageSender, LogEnabled {
 		StatusExtensionRegister.getInstance().register(new StatusExtension() {
 
 			@Override
-			public Map<String, String> getProperties() {
-				Map<String, String> map = new HashMap<String, String>();
-
-				map.put("msg-queue", String.valueOf(m_queue.size()));
-				map.put("atomic-queue", String.valueOf(m_queue.size()));
-				return map;
+			public String getDescription() {
+				return "client-send-queue";
 			}
 
 			@Override
@@ -110,8 +106,12 @@ public class TcpSocketSender implements Task, MessageSender, LogEnabled {
 			}
 
 			@Override
-			public String getDescription() {
-				return "client-send-queue";
+			public Map<String, String> getProperties() {
+				Map<String, String> map = new HashMap<String, String>();
+
+				map.put("msg-queue", String.valueOf(m_queue.size()));
+				map.put("atomic-queue", String.valueOf(m_queue.size()));
+				return map;
 			}
 		});
 	}
@@ -130,6 +130,29 @@ public class TcpSocketSender implements Task, MessageSender, LogEnabled {
 		tree = null;
 	}
 
+	private MessageTree mergeTree(MessageQueue handler) {
+		int max = MAX_CHILD_NUMBER;
+		DefaultTransaction tran = new DefaultTransaction("_CatMergeTree", "_CatMergeTree", null);
+		MessageTree first = handler.poll();
+
+		tran.setStatus(Transaction.SUCCESS);
+		tran.setCompleted(true);
+		tran.setDurationInMicros(0);
+		tran.addChild(first.getMessage());
+
+		while (max >= 0) {
+			MessageTree tree = handler.poll();
+
+			if (tree == null) {
+				break;
+			}
+			tran.addChild(tree.getMessage());
+			max--;
+		}
+		((DefaultMessageTree) first).setMessage(tran);
+		return first;
+	}
+
 	private void offer(MessageTree tree) {
 		if (m_configManager.isAtomicMessage(tree)) {
 			boolean result = m_atomicQueue.offer(tree);
@@ -146,34 +169,56 @@ public class TcpSocketSender implements Task, MessageSender, LogEnabled {
 		}
 	}
 
+	private void processAtomicMessage() {
+		while (true) {
+			if (shouldMerge(m_atomicQueue)) {
+				MessageTree tree = mergeTree(m_atomicQueue);
+				boolean result = m_queue.offer(tree);
+
+				if (!result) {
+					logQueueFullInfo(tree);
+				}
+			} else {
+				break;
+			}
+		}
+	}
+
+	private void processNormalMessage() {
+		ChannelFuture channel = m_channelManager.channel();
+
+		if (channel != null) {
+			try {
+				MessageTree tree = m_queue.poll();
+
+				if (tree != null) {
+					sendInternal(channel, tree);
+					tree.setMessage(null);
+				}
+
+			} catch (Throwable t) {
+				m_logger.error("Error when sending message over TCP socket!", t);
+			}
+		} else {
+			try {
+				Thread.sleep(5);
+			} catch (Exception e) {
+				// ignore it
+				m_active = false;
+			}
+		}
+	}
+
 	@Override
 	public void run() {
 		m_active = true;
 
 		while (m_active) {
-			ChannelFuture channel = m_channelManager.channel();
-
-			if (channel != null) {
-				try {
-					MessageTree tree = m_queue.poll();
-
-					if (tree != null) {
-						sendInternal(channel, tree);
-						tree.setMessage(null);
-					}
-
-				} catch (Throwable t) {
-					m_logger.error("Error when sending message over TCP socket!", t);
-				}
-			} else {
-				try {
-					Thread.sleep(5);
-				} catch (Exception e) {
-					// ignore it
-					m_active = false;
-				}
-			}
+			processAtomicMessage();
+			processNormalMessage();
 		}
+
+		processAtomicMessage();
 
 		while (true) {
 			MessageTree tree = m_queue.poll();
@@ -262,88 +307,22 @@ public class TcpSocketSender implements Task, MessageSender, LogEnabled {
 		}
 	}
 
-	@Override
-	public void shutdown() {
-		m_mergeTask.shutdown();
-		m_active = false;
-		m_channelManager.shutdown();
+	private boolean shouldMerge(MessageQueue queue) {
+		MessageTree tree = queue.peek();
+
+		if (tree != null) {
+			long firstTime = tree.getMessage().getTimestamp();
+
+			if (System.currentTimeMillis() - firstTime > MAX_DURATION || queue.size() >= MAX_CHILD_NUMBER) {
+				return true;
+			}
+		}
+		return false;
 	}
 
-	public class MergeAtomicTask implements Task {
-
-		private static final int MAX_CHILD_NUMBER = 200;
-
-		private static final int MAX_DURATION = 1000 * 30;
-
-		@Override
-		public String getName() {
-			return "merge-atomic-task";
-		}
-
-		private MessageTree mergeTree(MessageQueue handler) {
-			int max = MAX_CHILD_NUMBER;
-			DefaultTransaction tran = new DefaultTransaction("_CatMergeTree", "_CatMergeTree", null);
-			MessageTree first = handler.poll();
-
-			tran.setStatus(Transaction.SUCCESS);
-			tran.setCompleted(true);
-			tran.setDurationInMicros(0);
-			tran.addChild(first.getMessage());
-
-			while (max >= 0) {
-				MessageTree tree = handler.poll();
-
-				if (tree == null) {
-					break;
-				}
-				tran.addChild(tree.getMessage());
-				max--;
-			}
-			((DefaultMessageTree) first).setMessage(tran);
-			return first;
-		}
-
-		@Override
-		public void run() {
-			boolean m_active = true;
-			while (m_active) {
-				if (shouldMerge(m_atomicQueue)) {
-					MessageTree tree = mergeTree(m_atomicQueue);
-					boolean result = m_queue.offer(tree);
-
-					if (!result) {
-						logQueueFullInfo(tree);
-					}
-				} else {
-					try {
-						Thread.sleep(5);
-					} catch (InterruptedException e) {
-						break;
-					}
-				}
-			}
-
-			MessageTree tree = mergeTree(m_atomicQueue);
-
-			m_queue.offer(tree);
-		}
-
-		private boolean shouldMerge(MessageQueue queue) {
-			MessageTree tree = queue.peek();
-
-			if (tree != null) {
-				long firstTime = tree.getMessage().getTimestamp();
-
-				if (System.currentTimeMillis() - firstTime > MAX_DURATION || queue.size() >= MAX_CHILD_NUMBER) {
-					return true;
-				}
-			}
-			return false;
-		}
-
-		@Override
-		public void shutdown() {
-			m_active = false;
-		}
+	@Override
+	public void shutdown() {
+		m_active = false;
+		m_channelManager.shutdown();
 	}
 }

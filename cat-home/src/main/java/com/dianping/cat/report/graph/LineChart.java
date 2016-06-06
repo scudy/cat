@@ -43,6 +43,8 @@ public class LineChart {
 	private Double m_maxYlabel;
 	
 	private long m_minTickInterval;
+	
+	private boolean m_yEnabled = true;
 
 	public LineChart() {
 	}
@@ -142,6 +144,14 @@ public class LineChart {
 
 	public double[] getYlable() {
 		return m_ylabel;
+	}
+
+	public boolean isyEnabled() {
+		return m_yEnabled;
+	}
+
+	public void setyEnabled(boolean yEnabled) {
+		m_yEnabled = yEnabled;
 	}
 
 	public LineChart setDatas(List<Map<Long, Double>> datas) {

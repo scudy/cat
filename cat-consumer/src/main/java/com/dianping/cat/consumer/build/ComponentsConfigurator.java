@@ -15,7 +15,6 @@ import com.dianping.cat.consumer.DatabaseParser;
 import com.dianping.cat.consumer.business.BusinessAnalyzer;
 import com.dianping.cat.consumer.business.BusinessDelegate;
 import com.dianping.cat.consumer.config.AllReportConfigManager;
-import com.dianping.cat.consumer.config.ProductLineConfigManager;
 import com.dianping.cat.consumer.cross.CrossAnalyzer;
 import com.dianping.cat.consumer.cross.CrossDelegate;
 import com.dianping.cat.consumer.cross.IpConvertManager;
@@ -29,8 +28,6 @@ import com.dianping.cat.consumer.heartbeat.HeartbeatAnalyzer;
 import com.dianping.cat.consumer.heartbeat.HeartbeatDelegate;
 import com.dianping.cat.consumer.matrix.MatrixAnalyzer;
 import com.dianping.cat.consumer.matrix.MatrixDelegate;
-import com.dianping.cat.consumer.metric.MetricAnalyzer;
-import com.dianping.cat.consumer.metric.MetricConfigManager;
 import com.dianping.cat.consumer.problem.DefaultProblemHandler;
 import com.dianping.cat.consumer.problem.LongExecutionProblemHandler;
 import com.dianping.cat.consumer.problem.ProblemAnalyzer;
@@ -80,13 +77,11 @@ public class ComponentsConfigurator extends AbstractResourceConfigurator {
 		all.addAll(defineCrossComponents());
 		all.addAll(defineMatrixComponents());
 		all.addAll(defineDependencyComponents());
-		all.addAll(defineMetricComponents());
 		all.addAll(defineStorageComponents());
 		all.addAll(defineBusinessComponents());
 
 		all.add(A(AllReportConfigManager.class));
 		all.add(C(Module.class, CatConsumerModule.ID, CatConsumerModule.class));
-		all.addAll(new CatDatabaseConfigurator().defineComponents());
 
 		return all;
 	}
@@ -174,16 +169,6 @@ public class ComponentsConfigurator extends AbstractResourceConfigurator {
 		      .req(ReportDelegate.class, ID) //
 		      .req(ReportBucketManager.class, HourlyReportDao.class, HourlyReportContentDao.class, DomainValidator.class) //
 		      .config(E("name").value(ID)));
-
-		return all;
-	}
-
-	private Collection<Component> defineMetricComponents() {
-		final List<Component> all = new ArrayList<Component>();
-
-		all.add(A(MetricAnalyzer.class));
-		all.add(A(ProductLineConfigManager.class));
-		all.add(A(MetricConfigManager.class));
 
 		return all;
 	}

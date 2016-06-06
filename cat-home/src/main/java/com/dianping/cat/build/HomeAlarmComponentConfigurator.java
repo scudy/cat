@@ -19,18 +19,7 @@ import com.dianping.cat.report.alert.browser.JsContactor;
 import com.dianping.cat.report.alert.browser.JsDecorator;
 import com.dianping.cat.report.alert.browser.JsRuleConfigManager;
 import com.dianping.cat.report.alert.config.BaseRuleHelper;
-import com.dianping.cat.report.alert.database.DatabaseAlert;
-import com.dianping.cat.report.alert.database.DatabaseContactor;
-import com.dianping.cat.report.alert.database.DatabaseDecorator;
-import com.dianping.cat.report.alert.network.NetworkAlert;
-import com.dianping.cat.report.alert.network.NetworkContactor;
-import com.dianping.cat.report.alert.network.NetworkDecorator;
-import com.dianping.cat.report.alert.network.NetworkRuleConfigManager;
 import com.dianping.cat.report.alert.spi.config.UserDefinedRuleManager;
-import com.dianping.cat.report.alert.system.SystemAlert;
-import com.dianping.cat.report.alert.system.SystemContactor;
-import com.dianping.cat.report.alert.system.SystemDecorator;
-import com.dianping.cat.report.alert.system.SystemRuleConfigManager;
 import com.dianping.cat.report.alert.thirdParty.HttpConnector;
 import com.dianping.cat.report.alert.thirdParty.ThirdPartyAlert;
 import com.dianping.cat.report.alert.thirdParty.ThirdPartyAlertBuilder;
@@ -49,26 +38,6 @@ public class HomeAlarmComponentConfigurator extends AbstractResourceConfigurator
 		all.add(A(AlertConfigManager.class));
 		all.add(A(BaseRuleHelper.class));
 		all.add(A(UserDefinedRuleManager.class));
-
-		// network
-		all.add(A(NetworkRuleConfigManager.class));
-		all.add(C(Decorator.class, NetworkDecorator.ID, NetworkDecorator.class));
-		all.add(C(Contactor.class, NetworkContactor.ID, NetworkContactor.class).req(ProjectService.class,
-		      AlertConfigManager.class));
-		all.add(A(NetworkAlert.class));
-
-		// database
-		all.add(C(Decorator.class, DatabaseDecorator.ID, DatabaseDecorator.class));
-		all.add(C(Contactor.class, DatabaseContactor.ID, DatabaseContactor.class).req(ProjectService.class,
-		      AlertConfigManager.class));
-		all.add(A(DatabaseAlert.class));
-
-		// system
-		all.add(A(SystemRuleConfigManager.class));
-		all.add(C(Decorator.class, SystemDecorator.ID, SystemDecorator.class));
-		all.add(C(Contactor.class, SystemContactor.ID, SystemContactor.class).req(ProjectService.class,
-		      AlertConfigManager.class));
-		all.add(A(SystemAlert.class));
 
 		// third-party
 		all.add(C(Decorator.class, ThirdpartyDecorator.ID, ThirdpartyDecorator.class).req(ProjectService.class));

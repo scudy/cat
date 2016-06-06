@@ -44,7 +44,7 @@
 				</tr>
 				<tr>
 					<td style="text-align:right" class="text-success">是否告警</td>
-					<td colspan='3'>
+					<td>
 						<c:choose>
 							<c:when test="${model.customConfig.alarm}">
 								<input type="radio" name="customConfig.alarm" value="true" checked />是&nbsp;&nbsp;&nbsp;	
@@ -53,6 +53,19 @@
 							<c:otherwise>
 						    	<input type="radio" name="customConfig.alarm" value="true" />是&nbsp;&nbsp;&nbsp;
 								<input type="radio" name="customConfig.alarm" value="false" checked />否
+							</c:otherwise>
+						</c:choose>
+					</td>
+					<td style="text-align:right" class="text-success">是否为敏感数据</td>
+					<td>
+						<c:choose>
+							<c:when test="${model.customConfig.privilege}">
+								<input type="radio" name="customConfig.privilege" value="true" checked />是&nbsp;&nbsp;&nbsp;	
+								<input type="radio" name="customConfig.privilege" value="false" />否
+							</c:when>
+							<c:otherwise>
+						    	<input type="radio" name="customConfig.privilege" value="true" />是&nbsp;&nbsp;&nbsp;
+								<input type="radio" name="customConfig.privilege" value="false" checked />否
 							</c:otherwise>
 						</c:choose>
 					</td>
