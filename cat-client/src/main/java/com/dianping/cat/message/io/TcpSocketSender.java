@@ -185,26 +185,33 @@ public class TcpSocketSender implements Task, MessageSender, LogEnabled {
 	}
 
 	private void processNormalMessage() {
-		ChannelFuture channel = m_channelManager.channel();
+		while (true) {
+			ChannelFuture channel = m_channelManager.channel();
 
-		if (channel != null) {
-			try {
-				MessageTree tree = m_queue.poll();
+			if (channel != null) {
+				try {
+					MessageTree tree = m_queue.poll();
 
-				if (tree != null) {
-					sendInternal(channel, tree);
-					tree.setMessage(null);
+					if (tree != null) {
+						sendInternal(channel, tree);
+						tree.setMessage(null);
+					} else {
+						try {
+							Thread.sleep(5);
+						} catch (Exception e) {
+							m_active = false;
+						}
+						break;
+					}
+				} catch (Throwable t) {
+					m_logger.error("Error when sending message over TCP socket!", t);
 				}
-
-			} catch (Throwable t) {
-				m_logger.error("Error when sending message over TCP socket!", t);
-			}
-		} else {
-			try {
-				Thread.sleep(5);
-			} catch (Exception e) {
-				// ignore it
-				m_active = false;
+			} else {
+				try {
+					Thread.sleep(5);
+				} catch (Exception e) {
+					m_active = false;
+				}
 			}
 		}
 	}

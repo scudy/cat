@@ -286,6 +286,7 @@ public class BusinessGraphCreator extends AbstractGraphCreator {
 
 	private void buildLineChartTitle(List<AlertEntity> alertKeys, LineChart chart, String key,
 	      BusinessReportConfig businessReportConfig) {
+		String domain = businessReportConfig.getId();
 		String itemId = m_keyHelper.getBusinessItemId(key);
 		String type = m_keyHelper.getType(key);
 		Pair<String, Boolean> titleAndPrivilege = buidlTitleAndPrivilege(businessReportConfig, itemId, type);
@@ -298,8 +299,7 @@ public class BusinessGraphCreator extends AbstractGraphCreator {
 			chart.setyEnabled(false);
 		}
 
-		if (containMetric(alertKeys, itemId)) {
-			String domain = businessReportConfig.getId();
+		if (containMetric(alertKeys, itemId, domain)) {
 			String contactInfo = buildContactInfo(domain);
 
 			chart.setHtmlTitle("<span style='color:red'>" + title + "<br><small>" + contactInfo + "</small></span>");
@@ -308,9 +308,9 @@ public class BusinessGraphCreator extends AbstractGraphCreator {
 		}
 	}
 
-	private boolean containMetric(List<AlertEntity> alertKeys, String metricId) {
+	private boolean containMetric(List<AlertEntity> alertKeys, String metricId, String domain) {
 		for (AlertEntity alertMetric : alertKeys) {
-			if (alertMetric.getRealMetricId().equals(metricId)) {
+			if (alertMetric.getDomain().equals(domain) && alertMetric.getMetric().equals(metricId)) {
 				return true;
 			}
 		}
