@@ -15,7 +15,6 @@ import org.unidal.web.mvc.annotation.OutboundActionMeta;
 import org.unidal.web.mvc.annotation.PayloadMeta;
 
 import com.dianping.cat.Cat;
-import com.dianping.cat.Constants;
 import com.dianping.cat.config.sample.SampleConfigManager;
 import com.dianping.cat.config.server.ServerFilterConfigManager;
 import com.dianping.cat.configuration.KVConfig;
@@ -27,13 +26,13 @@ import com.dianping.cat.home.router.entity.Server;
 import com.dianping.cat.report.task.TaskBuilder;
 import com.dianping.cat.system.page.router.config.RouterConfigHandler;
 import com.dianping.cat.system.page.router.config.RouterConfigManager;
-import com.dianping.cat.system.page.router.service.RouterConfigService;
+import com.dianping.cat.system.page.router.service.CachedRouterConfigService;
 import com.dianping.cat.system.page.router.task.RouterConfigBuilder;
 
 public class Handler implements PageHandler<Context> {
 
 	@Inject
-	private RouterConfigService m_reportService;
+	private CachedRouterConfigService m_cachedReportService;
 
 	@Inject
 	private RouterConfigManager m_configManager;
@@ -115,7 +114,7 @@ public class Handler implements PageHandler<Context> {
 		Model model = new Model(ctx);
 		Payload payload = ctx.getPayload();
 		Action action = payload.getAction();
-		RouterConfig report = m_reportService.queryLastReport(Constants.CAT);
+		RouterConfig report = m_cachedReportService.queryLastRouterConfig();
 		String domain = payload.getDomain();
 		String ip = payload.getIp();
 
