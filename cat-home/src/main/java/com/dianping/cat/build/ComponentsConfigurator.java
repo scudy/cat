@@ -33,7 +33,6 @@ import com.dianping.cat.report.HourlyReportTableProvider;
 import com.dianping.cat.report.graph.svg.DefaultGraphBuilder;
 import com.dianping.cat.report.graph.svg.DefaultValueTranslater;
 import com.dianping.cat.report.page.DomainGroupConfigManager;
-import com.dianping.cat.report.page.eslog.EsServerConfigManager;
 import com.dianping.cat.report.page.network.config.NetGraphConfigManager;
 import com.dianping.cat.report.page.server.config.ServerMetricConfigManager;
 import com.dianping.cat.report.server.RemoteServersManager;
@@ -128,7 +127,6 @@ public class ComponentsConfigurator extends AbstractJdbcResourceConfigurator {
 
 		all.add(A(DomainGroupConfigManager.class));
 		all.add(A(NetGraphConfigManager.class));
-		all.add(A(EsServerConfigManager.class));
 		all.add(A(ServerMetricConfigManager.class));
 
 		return all;
