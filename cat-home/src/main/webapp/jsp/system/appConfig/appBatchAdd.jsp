@@ -19,11 +19,11 @@
 		});
 		
 		$(document).delegate('#updateSubmit', 'click', function(e){
-			var name = $("#commandName").val()
-			var domain = $("#commandDomain").val();
+			var name = $("#commandName").val().trim().toLowerCase();
+			var domain = $("#commandDomain").val().trim();
 			var id = $("#commandId").val();
-			var threshold = $("#threshold").val();
-			var namespace = $("#commandNamespace").val();
+			var threshold = $("#threshold").val().trim();
+			var namespace = $("#commandNamespace").val().trim();
 			
 			if(name == undefined || name == ""){
 				if($("#errorMessage").length == 0){

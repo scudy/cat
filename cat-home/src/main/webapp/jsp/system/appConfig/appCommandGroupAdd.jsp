@@ -71,6 +71,17 @@
 						$(this).closest('tr').toggleClass('selected');
 					});
 				});
+				
+				$("#search_go").bind("click",function(e){
+					window.location.href = "/cat/s/app?op=appCommandGroupAdd&name="+$("#command").val();
+				});
+				
+				$('#wrap_search').submit(
+						function(){
+							window.location.href = "/cat/s/app?op=appCommandGroupAdd&name="+$("#command").val();
+							return false;
+						}		
+					);
 		});
 		
 		var namespaceChange = function namespaceChange() {
@@ -85,7 +96,7 @@
  				$("#commandsBody").find('tr').remove();	
  				
 				for ( var prop in cmds) {
-					if(subCommands.indexOf(cmds[prop].name) > -1){
+					if(subCommands != null && subCommands.indexOf(cmds[prop].name) > -1){
 						t.row.add(["<label class=\"position-relative\"> <input type=\"checkbox\" class=\"ace\" id="+ cmds[prop].id +" checked> "+
 									"<span class=\"lbl\"></span></label>", cmds[prop].name]).draw();
 					}else{
@@ -126,9 +137,11 @@
 					commands.push($(this).attr("id"));
 				}
 			});
-			var parent = $("#command").val();
+			var parent = $("#command").val().split('|')[0];
 			
-			window.location.href = "/cat/s/app?op=appCommandGroupSubmit&type=group&parent="+parent+"&name="+commands;
+			if(typeof parent != "undefined" && parent != "undefined"){
+				window.location.href = "/cat/s/app?op=appCommandGroupSubmit&type=group&parent="+parent+"&name="+commands;
+			}
 		}) 
 	</script>
 	
@@ -140,7 +153,12 @@
 							<input type="text" placeholder="" class="search-input search-input form-control ui-autocomplete-input" id="command" autocomplete="on" value="${payload.name}"/>
 							<i class="ace-icon fa fa-search nav-search-icon"></i>
 						</span>
-					</form> <span class="input-group-addon">找不到想要的命令字？可以添加！</span>
+					</form> 
+					<span class="input-group-btn">
+						<button class="btn btn-sm btn-pink" type="button" id="search_go">
+							Go
+						</button> 
+					</span><span class="input-group-addon">找不到想要的命令字？试试先<a href="/cat/s/app?op=appList" target="_blank">添加！</a></span>
 	            </div></td>
 		<tr>
 			<td>子命令字</td><td>
