@@ -20,4 +20,9 @@ public class RemoteBusinessService extends BaseRemoteModelService<BusinessReport
 		return DefaultSaxParser.parse(xml);
 	}
 
+	@Override
+	public boolean isServersFixed() {
+		return true;
+	}
+
 }

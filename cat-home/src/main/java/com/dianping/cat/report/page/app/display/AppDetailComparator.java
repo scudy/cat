@@ -27,8 +27,10 @@ public class AppDetailComparator implements Comparator<AppDataDetail> {
 			return (int) ((o2.getRequestPackageAvg() - o1.getRequestPackageAvg()) * 1000);
 		case RESPONSE_PACKAGE:
 			return (int) ((o2.getResponsePackageAvg() - o1.getResponsePackageAvg()) * 1000);
-		case SUCCESS:
+		case NETWORK_SUCCESS:
 			return (int) ((o2.getSuccessRatio() - o1.getSuccessRatio()) * 1000);
+		case BUSINESS_SUCCESS:
+			return (int) ((o2.getBusinessSuccessRatio() - o1.getBusinessSuccessRatio()) * 1000);
 		}
 		return 0;
 	}

@@ -334,7 +334,7 @@ public class AppConnectionService {
 
 		try {
 			switch (type) {
-			case SUCCESS:
+			case NETWORK_SUCCESS:
 				List<AppConnectionData> datas = m_dao.findDataByMinuteCode(commandId, period, city, operator, network,
 				      appVersion, connnectType, code, platform, AppConnectionDataEntity.READSET_SUCCESS_DATA);
 				DataSequence<AppConnectionData> s = buildAppSequence(datas, entity.getDate());

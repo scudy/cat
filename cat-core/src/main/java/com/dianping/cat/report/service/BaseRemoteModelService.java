@@ -120,9 +120,7 @@ public abstract class BaseRemoteModelService<T> extends ModelServiceWithCalSuppo
 		}
 	}
 
-	protected boolean isServersFixed() {
-		return true;
-	}
+	public abstract boolean isServersFixed();
 
 	public void setHost(String host) {
 		m_host = host;

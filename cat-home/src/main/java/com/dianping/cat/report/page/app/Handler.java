@@ -137,7 +137,8 @@ public class Handler implements PageHandler<Context> {
 		List<AppDataDetail> appDetails = new ArrayList<AppDataDetail>();
 
 		try {
-			appDetails = m_appDataService.buildAppDataDetailInfos(payload.getQueryEntity1(), payload.getGroupByField());
+			appDetails = m_appDataService.buildAppDataDetailInfos(payload.getQueryEntity1(), payload.getGroupByField(),
+			      payload.getQueryType());
 
 			Collections.sort(appDetails, new AppDetailComparator(payload.getSort()));
 		} catch (Exception e) {
@@ -165,11 +166,11 @@ public class Handler implements PageHandler<Context> {
 		return new AppCommandDisplayInfo();
 	}
 
-	private AppDataDetail buildComparisonInfo(CommandQueryEntity entity) {
+	private AppDataDetail buildComparisonInfo(CommandQueryEntity entity, QueryType type) {
 		AppDataDetail appDetail = null;
 
 		try {
-			List<AppDataDetail> appDetails = m_appDataService.buildAppDataDetailInfos(entity, AppDataField.CODE);
+			List<AppDataDetail> appDetails = m_appDataService.buildAppDataDetailInfos(entity, AppDataField.CODE, type);
 
 			if (appDetails.size() >= 1) {
 				appDetail = appDetails.iterator().next();
@@ -186,7 +187,7 @@ public class Handler implements PageHandler<Context> {
 		Map<String, AppDataDetail> result = new HashMap<String, AppDataDetail>();
 
 		if (currentEntity != null) {
-			AppDataDetail detail = buildComparisonInfo(currentEntity);
+			AppDataDetail detail = buildComparisonInfo(currentEntity, payload.getQueryType());
 
 			if (detail != null) {
 				result.put(Constants.CURRENT_STR, detail);
@@ -194,7 +195,7 @@ public class Handler implements PageHandler<Context> {
 		}
 
 		if (comparisonEntity != null) {
-			AppDataDetail detail = buildComparisonInfo(comparisonEntity);
+			AppDataDetail detail = buildComparisonInfo(comparisonEntity, payload.getQueryType());
 
 			if (detail != null) {
 				result.put(Constants.COMPARISION_STR, detail);

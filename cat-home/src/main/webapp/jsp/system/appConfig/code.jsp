@@ -133,7 +133,7 @@
 							<tr >
 								<th width="20%" class="text-info">返回码</th>
 								<th width="50%" class="text-info">局部设置</th>
-								<th width="20%" class="text-info">局部状态</th>
+								<th width="20%" class="text-info center">局部状态</th>
 								<th width="10%" class="text-info">操作 <a href="?op=appCodeAdd&id=${model.id eq '0' ? '1' : model.id}&domain=${payload.domain}&type=code&namespace=${item.key}" class="btn btn-primary btn-xs" >
 												<i class="ace-icon glyphicon glyphicon-plus bigger-120"></i></a></th>
 							</tr></thead>
@@ -168,7 +168,7 @@
 							<tr >
 								<th width="20%" class="text-info">返回码</th>
 								<th width="50%" class="text-info">全局设置</th>
-								<th width="20%" class="text-info">全局状态</th>
+								<th width="20%" class="text-info center">全局状态</th>
 								<th width="10%" class="text-info">操作 <a href="?op=appCodeAdd&id=${model.id eq '0' ? '1' : model.id}&domain=${payload.domain}&type=code&constant=true&namespace=${item.key}" class="btn btn-primary btn-xs" >
 												<i class="ace-icon glyphicon glyphicon-plus bigger-120"></i></a></th>
 							</tr></thead>
@@ -179,7 +179,12 @@
 										<td class="center">
 											<c:choose>
 											<c:when test="${code.value.status eq 0}">
-												<button class="btn btn-xs btn-success">
+												<button class="btn btn-xs btn-success">网络
+												<i class="ace-icon glyphicon glyphicon-ok bigger-120 btn-success"></i>
+												</button>
+											</c:when>
+											<c:when test="${code.value.status eq 2}">
+												<button class="btn btn-xs btn-success">业务
 												<i class="ace-icon glyphicon glyphicon-ok bigger-120 btn-success"></i>
 												</button>
 											</c:when>

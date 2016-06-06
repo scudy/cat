@@ -103,7 +103,8 @@
 		</tr>
 		<tr>
 			<td>返回码状态</td><td><select id="codeStatus" />
-									<option value='0'>成功</option>
+									<option value='0'>网络成功</option>
+									<option value='2'>业务成功</option>
 									<option value='1'>失败</option>
 									</select><br/>
 </td>

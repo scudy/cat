@@ -182,9 +182,6 @@
 				t.clear();
    			  	$.each( data, function( key, val ) {
    			  		$.each(val, function (index, data) {
-   			  			var tr = "<tr> <td class=\"center\">" +
-							"<label class=\"position-relative\"> <input type=\"checkbox\" class=\"ace\" id="+ data +"> "+
-							"<span class=\"lbl\"></span></label></td><td>" + data + "</td></tr>";
 						t.row.add(["<label class=\"position-relative\"> <input type=\"checkbox\" class=\"ace\" id="+ data +"> "+
 										"<span class=\"lbl\"></span></label>", data]).draw();
    			    	});
