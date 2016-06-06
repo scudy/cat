@@ -67,39 +67,39 @@
 						<b class="arrow fa fa-angle-down"></b>
 						</a><b class="arrow"></b>
 						<ul class="submenu">
+							<li id="appSources"><a href="/cat/s/app?op=appSources">
+								<i class="menu-icon fa fa-caret-right"></i>AppId注册</a>
+								<b class="arrow"></b></li>
 							<li id="appList"><a href="/cat/s/app?op=appList">
 								<i class="menu-icon fa fa-caret-right"></i>App命令字</a>
-								<b class="arrow"></b></li>
-							<li id="appCodes"><a href="/cat/s/app?op=appCodes">
-								<i class="menu-icon fa fa-caret-right"></i>App返回码</a>
-								<b class="arrow"></b></li>
-							<li id="appSources"><a href="/cat/s/app?op=appSources">
-								<i class="menu-icon fa fa-caret-right"></i>App来源</a>
-								<b class="arrow"></b></li>
-							<li id="appConstants"><a href="/cat/s/app?op=appConstants">
-								<i class="menu-icon fa fa-caret-right"></i>App常量</a>
-								<b class="arrow"></b></li>
-							<li id="appCommandGroup"><a href="/cat/s/app?op=appCommandGroup">
-								<i class="menu-icon fa fa-caret-right"></i>App分组</a>
-								<b class="arrow"></b></li>
-							<li id="appSpeedList"><a href="/cat/s/app?op=appSpeedList">
-								<i class="menu-icon fa fa-caret-right"></i>App测速</a>
-								<b class="arrow"></b></li>
-							<li id="brokerConfigUpdate"><a href="/cat/s/app?op=mobileConfigUpdate">
-								<i class="menu-icon fa fa-caret-right"></i>Mobile配置</a>
 								<b class="arrow"></b></li>
 							<li id="appCommandBatch"  style="display:none"><a href="/cat/s/app?op=appCommandBatch">
 								<i class="menu-icon fa fa-caret-right"></i>批量添加</a>
 								<b class="arrow"></b></li>
+							<li id="appCommandGroup"><a href="/cat/s/app?op=appCommandGroup">
+								<i class="menu-icon fa fa-caret-right"></i>Api分组</a>
+								<b class="arrow"></b></li>
 							<li id="appCommandFormatConfig"><a href="/cat/s/app?op=appCommandFormatConfig">
 								<i class="menu-icon fa fa-caret-right"></i>Api规则</a>
 								<b class="arrow"></b></li>
-							<li id="appConfigUpdate"><a href="/cat/s/app?op=appConfigUpdate" style="display:none">
-								<i class="menu-icon fa fa-caret-right"></i>App全局</a>
+							<li id="appCodes"><a href="/cat/s/app?op=appCodes">
+								<i class="menu-icon fa fa-caret-right"></i>App返回码</a>
+								<b class="arrow"></b></li>
+							<li id="appSpeedList"><a href="/cat/s/app?op=appSpeedList">
+								<i class="menu-icon fa fa-caret-right"></i>App测速</a>
 								<b class="arrow"></b></li>
 							<li id="appRule"><a href="/cat/s/app?op=appRule">
 								<i class="menu-icon fa fa-caret-right"></i>App告警</a>
 								<b class="arrow"></b>
+							<li id="appConstants"><a href="/cat/s/app?op=appConstants">
+								<i class="menu-icon fa fa-caret-right"></i>App常量</a>
+								<b class="arrow"></b></li>
+							<li id="appConfigUpdate"><a href="/cat/s/app?op=appConfigUpdate" style="display:none">
+								<i class="menu-icon fa fa-caret-right"></i>App全局</a>
+								<b class="arrow"></b></li>
+							<li id="brokerConfigUpdate"><a href="/cat/s/app?op=mobileConfigUpdate">
+								<i class="menu-icon fa fa-caret-right"></i>Mobile配置</a>
+								<b class="arrow"></b></li>
 							<li id="sdkConfigUpdate"><a href="/cat/s/app?op=sdkConfigUpdate">
 								<i class="menu-icon fa fa-caret-right"></i>SDK配置</a>
 								<b class="arrow"></b></li>

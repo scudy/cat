@@ -146,7 +146,6 @@
 								${basedir}/src/main/resources/META-INF/dal/model/client-report-manifest.xml,
 								${basedir}/src/main/resources/META-INF/dal/model/graph-manifest.xml,
 								${basedir}/src/main/resources/META-INF/dal/model/js-rule-config-manifest.xml,
-								${basedir}/src/main/resources/META-INF/dal/model/es-server-config-manifest.xml,
 								${basedir}/src/main/resources/META-INF/dal/model/server-metric-config-manifest.xml,
 								${basedir}/src/main/resources/META-INF/dal/model/business-tag-config-manifest.xml,</manifest>
                   </configuration>

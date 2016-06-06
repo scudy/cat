@@ -96,18 +96,6 @@
 			</requirements>
 		</component>
 		<component>
-			<role>com.dianping.cat.report.page.eslog.EsServerConfigManager</role>
-			<implementation>com.dianping.cat.report.page.eslog.EsServerConfigManager</implementation>
-			<requirements>
-				<requirement>
-					<role>com.dianping.cat.core.config.ConfigDao</role>
-				</requirement>
-				<requirement>
-					<role>com.dianping.cat.config.content.ContentFetcher</role>
-				</requirement>
-			</requirements>
-		</component>
-		<component>
 			<role>com.dianping.cat.report.page.server.config.ServerMetricConfigManager</role>
 			<implementation>com.dianping.cat.report.page.server.config.ServerMetricConfigManager</implementation>
 			<requirements>
@@ -4357,30 +4345,6 @@
 		<component>
 			<role>com.dianping.cat.alarm.spi.decorator.ServerRuleFTLDecorator</role>
 			<implementation>com.dianping.cat.alarm.spi.decorator.ServerRuleFTLDecorator</implementation>
-		</component>
-		<component>
-			<role>com.dianping.cat.report.page.eslog.Handler</role>
-			<implementation>com.dianping.cat.report.page.eslog.Handler</implementation>
-			<requirements>
-				<requirement>
-					<role>com.dianping.cat.report.page.eslog.JspViewer</role>
-				</requirement>
-				<requirement>
-					<role>com.dianping.cat.report.page.eslog.EsServerConfigManager</role>
-				</requirement>
-				<requirement>
-					<role>com.dianping.cat.system.page.config.ConfigHtmlParser</role>
-				</requirement>
-			</requirements>
-		</component>
-		<component>
-			<role>com.dianping.cat.report.page.eslog.JspViewer</role>
-			<implementation>com.dianping.cat.report.page.eslog.JspViewer</implementation>
-			<requirements>
-				<requirement>
-					<role>org.unidal.web.mvc.view.model.ModelHandler</role>
-				</requirement>
-			</requirements>
 		</component>
 		<component>
 			<role>com.dianping.cat.report.page.business.Handler</role>

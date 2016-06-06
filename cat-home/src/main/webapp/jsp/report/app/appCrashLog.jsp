@@ -293,7 +293,7 @@
 							url : anchor.href,
 							success : function(response, textStatus) {
 								cell.style.display = 'block';
-								cell.parentNode.style.display = 'block';
+								cell.parentNode.style.display = 'table-cell';
 								cell.innerHTML = response;
 								
 								var data = $('#appVersionsMeta', cell).text();
