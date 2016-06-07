@@ -7,6 +7,10 @@ import org.unidal.lookup.configuration.AbstractResourceConfigurator;
 import org.unidal.lookup.configuration.Component;
 
 import com.dianping.cat.alarm.app.AppAlarmRuleParamBuilder;
+import com.dianping.cat.alarm.app.crash.CrashAlert;
+import com.dianping.cat.alarm.app.crash.CrashContactor;
+import com.dianping.cat.alarm.app.crash.CrashDecorator;
+import com.dianping.cat.alarm.app.crash.CrashRuleConfigManager;
 import com.dianping.cat.alarm.server.ServerAlarm;
 import com.dianping.cat.alarm.server.database.ServerDatabaseAlarm;
 import com.dianping.cat.alarm.server.database.ServerDatabaseContactor;
@@ -37,6 +41,8 @@ public class AlarmComponentConfigurator extends AbstractResourceConfigurator {
 		all.add(A(ServerAlarmRuleServiceImpl.class));
 		all.add(A(AppAlarmRuleServiceImpl.class));
 		all.add(A(AppAlarmRuleParamBuilder.class));
+		all.add(A(CrashAlert.class));
+		all.add(A(CrashRuleConfigManager.class));
 
 		all.add(C(ServerAlarm.class, ServerSystemAlarm.ID, ServerSystemAlarm.class).req(ServerAlarmRuleService.class)
 		      .req(MetricService.class, InfluxDB.ID));
@@ -50,10 +56,13 @@ public class AlarmComponentConfigurator extends AbstractResourceConfigurator {
 		all.add(C(Contactor.class, ServerNetworkContactor.ID, ServerNetworkContactor.class).req(AlertConfigManager.class));
 		all.add(C(Contactor.class, ServerSystemContactor.ID, ServerSystemContactor.class).req(AlertConfigManager.class,
 		      ProjectService.class));
+		all.add(C(Contactor.class, CrashContactor.ID, CrashContactor.class).req(AlertConfigManager.class,
+		      CrashRuleConfigManager.class));
 
 		all.add(C(Decorator.class, ServerNetworkDecorator.ID, ServerNetworkDecorator.class));
 		all.add(C(Decorator.class, ServerDatabaseDecorator.ID, ServerDatabaseDecorator.class));
 		all.add(C(Decorator.class, ServerSystemDecorator.ID, ServerSystemDecorator.class));
+		all.add(C(Decorator.class, CrashDecorator.ID, CrashDecorator.class));
 
 		return all;
 	}

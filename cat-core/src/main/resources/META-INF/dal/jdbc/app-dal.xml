@@ -2092,7 +2092,7 @@
       </query-defs>
 	</entity>
 	<entity name="crash-log" table="crash_log" alias="cl">
-		<member name="count" value-type="long" all="false" select-expr="count(*)" length="19" nullable="false" />
+		<member name="count" value-type="int" all="false" select-expr="count(*)" length="16" nullable="false" />
 	    <var name="start-time" value-type="Date" />
 	    <var name="end-time" value-type="Date" />
 	    <var name="offset" value-type="int" />
@@ -2100,8 +2100,6 @@
 	   	<readsets>
       	<readset name="COUNT-DATA">
       		<member name="count"/>
-      		<member name="app-name"/>
-      		<member name="module"/>
       	</readset>
       	</readsets>
 	<query-defs>
@@ -2128,14 +2126,24 @@
 		LIMIT ${offset}, ${limit}
          ]]></statement>
 		</query>
-		<query name="find-count-by-time-name-module" type="SELECT" multiple="true">
+		<query name="find-count-by-conditions" type="SELECT">
 			<param name="start-time" />
 			<param name="end-time" />
+			<param name="app-name" />
+			<param name="platform" />
+			<param name="module" />
 		<statement><![CDATA[SELECT <FIELDS/>
         	FROM <TABLE/>
-        	  WHERE <FIELD name='crash-time'/> >= ${start-time} 
+        	  WHERE 
+        	<FIELD name='crash-time'/> >= ${start-time} 
 			AND  <FIELD name='crash-time'/> < ${end-time}
-			GROUP BY app_name, module
+			AND  <FIELD name='app-name'/> = ${app-name}
+			<IF type='NE' field='platform' value='-1'>
+			AND  <FIELD name='platform'/> = ${platform}
+			</IF>
+       		 <IF type='NE' field='module' value='ALL'>
+			AND  <FIELD name='module'/> = ${module}
+			</IF>
          ]]></statement>
 		</query>
 		<query name="delete-before-period" type="DELETE">

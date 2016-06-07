@@ -80,7 +80,15 @@ public enum Action implements org.unidal.web.mvc.Action {
 
 	APP_COMMAND_BATCH_UPDATE("appCommandBatchUpdate"),
 
-	APP_COMMAND_FORMAT_CONFIG("appCommandFormatConfig");
+	APP_COMMAND_FORMAT_CONFIG("appCommandFormatConfig"),
+	
+	CRASH_RULE_LIST("crashRuleList"),
+
+	CRASH_RULE_UPDATE("crashRuleUpdate"),
+
+	CRASH_RULE_DELETE("crashRuleDelete"),
+
+	CRASH_RULE_UPDATE_SUBMIT("crashRuleUpdateSubmit"),;
 
 	private String m_name;
 

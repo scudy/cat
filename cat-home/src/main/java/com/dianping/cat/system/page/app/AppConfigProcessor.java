@@ -17,6 +17,7 @@ import org.unidal.lookup.annotation.Inject;
 import com.dianping.cat.Cat;
 import com.dianping.cat.alarm.AppAlarmRule;
 import com.dianping.cat.alarm.app.AppAlarmRuleParamBuilder;
+import com.dianping.cat.alarm.app.crash.CrashRuleConfigManager;
 import com.dianping.cat.alarm.rule.entity.Config;
 import com.dianping.cat.alarm.rule.entity.Rule;
 import com.dianping.cat.alarm.rule.transform.DefaultJsonBuilder;
@@ -66,7 +67,7 @@ public class AppConfigProcessor implements Initializable {
 
 	@Inject
 	private MobileConfigManager m_mobileConfigManager;
-	
+
 	@Inject
 	private SdkConfigManager m_sdkConfigManager;
 
@@ -75,6 +76,9 @@ public class AppConfigProcessor implements Initializable {
 
 	@Inject
 	private CrashLogConfigManager m_crashLogConfigManager;
+
+	@Inject
+	private CrashRuleConfigManager m_crashRuleConfigManager;
 
 	@Inject
 	private RuleFTLDecorator m_ruleDecorator;
@@ -502,6 +506,20 @@ public class AppConfigProcessor implements Initializable {
 				m_appCommandGroupManager.insert(content);
 			}
 			model.setContent(m_configHtmlParser.parse(m_appCommandGroupManager.getConfig().toString()));
+			break;
+		case CRASH_RULE_LIST:
+			model.setCrashLimits(m_crashRuleConfigManager.queryAllExceptionLimits());
+			break;
+		case CRASH_RULE_UPDATE:
+			model.setCrashRule(m_crashRuleConfigManager.queryExceptionLimit(payload.getRuleId()));
+			break;
+		case CRASH_RULE_DELETE:
+			m_crashRuleConfigManager.deleteExceptionLimit(payload.getRuleId());
+			model.setCrashLimits(m_crashRuleConfigManager.queryAllExceptionLimits());
+			break;
+		case CRASH_RULE_UPDATE_SUBMIT:
+			m_crashRuleConfigManager.insertExceptionLimit(payload.getCrashRule());
+			model.setCrashLimits(m_crashRuleConfigManager.queryAllExceptionLimits());
 			break;
 		}
 	}

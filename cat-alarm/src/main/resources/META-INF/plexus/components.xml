@@ -104,6 +104,39 @@
 			</requirements>
 		</component>
 		<component>
+			<role>com.dianping.cat.alarm.app.crash.CrashAlert</role>
+			<implementation>com.dianping.cat.alarm.app.crash.CrashAlert</implementation>
+			<requirements>
+				<requirement>
+					<role>com.dianping.cat.app.CrashLogDao</role>
+				</requirement>
+				<requirement>
+					<role>com.dianping.cat.alarm.app.crash.CrashRuleConfigManager</role>
+				</requirement>
+				<requirement>
+					<role>com.dianping.cat.config.app.CrashLogConfigManager</role>
+				</requirement>
+				<requirement>
+					<role>com.dianping.cat.config.app.MobileConfigManager</role>
+				</requirement>
+				<requirement>
+					<role>com.dianping.cat.alarm.spi.AlertManager</role>
+				</requirement>
+			</requirements>
+		</component>
+		<component>
+			<role>com.dianping.cat.alarm.app.crash.CrashRuleConfigManager</role>
+			<implementation>com.dianping.cat.alarm.app.crash.CrashRuleConfigManager</implementation>
+			<requirements>
+				<requirement>
+					<role>com.dianping.cat.core.config.ConfigDao</role>
+				</requirement>
+				<requirement>
+					<role>com.dianping.cat.config.content.ContentFetcher</role>
+				</requirement>
+			</requirements>
+		</component>
+		<component>
 			<role>com.dianping.cat.alarm.server.ServerAlarm</role>
 			<role-hint>ServerSystem</role-hint>
 			<implementation>com.dianping.cat.alarm.server.system.ServerSystemAlarm</implementation>
@@ -179,6 +212,19 @@
 			</requirements>
 		</component>
 		<component>
+			<role>com.dianping.cat.alarm.spi.receiver.Contactor</role>
+			<role-hint>Crash</role-hint>
+			<implementation>com.dianping.cat.alarm.app.crash.CrashContactor</implementation>
+			<requirements>
+				<requirement>
+					<role>com.dianping.cat.alarm.spi.config.AlertConfigManager</role>
+				</requirement>
+				<requirement>
+					<role>com.dianping.cat.alarm.app.crash.CrashRuleConfigManager</role>
+				</requirement>
+			</requirements>
+		</component>
+		<component>
 			<role>com.dianping.cat.alarm.spi.decorator.Decorator</role>
 			<role-hint>ServerNetwork</role-hint>
 			<implementation>com.dianping.cat.alarm.server.network.ServerNetworkDecorator</implementation>
@@ -192,6 +238,11 @@
 			<role>com.dianping.cat.alarm.spi.decorator.Decorator</role>
 			<role-hint>ServerSystem</role-hint>
 			<implementation>com.dianping.cat.alarm.server.system.ServerSystemDecorator</implementation>
+		</component>
+		<component>
+			<role>com.dianping.cat.alarm.spi.decorator.Decorator</role>
+			<role-hint>Crash</role-hint>
+			<implementation>com.dianping.cat.alarm.app.crash.CrashDecorator</implementation>
 		</component>
 		<component>
 			<role>com.dianping.cat.alarm.service.AlertService</role>

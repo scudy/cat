@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<crash-alarm-rule>
+	<exception-limit id="1:andorid:ALL" appId="1" platform="android"
+		module="Default" warnings="200" errors="400" mails="chunan.chen@dianping.com" />
+	<exception-limit id="1:ios:ALL" appId="1" platform="ios"
+		module="Default" warnings="200" errors="400" mails="chunan.chen@dianping.com" />
+</crash-alarm-rule>
+

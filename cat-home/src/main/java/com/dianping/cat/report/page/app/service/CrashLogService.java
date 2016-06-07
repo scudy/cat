@@ -444,7 +444,7 @@ public class CrashLogService {
 			}
 
 			info.setAppName(crashLog.getAppName());
-			info.setPlatform(m_mobileConfigManager.getPlatformStr(crashLog.getPlatform()).getValue());
+			info.setPlatform(m_mobileConfigManager.getPlatformStr(crashLog.getPlatform()));
 			info.setAppVersion(crashLog.getAppVersion());
 			info.setPlatformVersion(crashLog.getPlatformVersion());
 			info.setModule(crashLog.getModule());

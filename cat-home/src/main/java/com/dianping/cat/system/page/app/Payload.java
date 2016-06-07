@@ -3,7 +3,9 @@ package com.dianping.cat.system.page.app;
 import org.unidal.web.mvc.ActionContext;
 import org.unidal.web.mvc.ActionPayload;
 import org.unidal.web.mvc.payload.annotation.FieldMeta;
+import org.unidal.web.mvc.payload.annotation.ObjectMeta;
 
+import com.dianping.cat.alarm.crash.entity.ExceptionLimit;
 import com.dianping.cat.system.SystemPage;
 
 public class Payload implements ActionPayload<SystemPage, Action> {
@@ -56,6 +58,9 @@ public class Payload implements ActionPayload<SystemPage, Action> {
 
 	@FieldMeta("namespace")
 	private String m_namespace;
+	
+	@ObjectMeta("crashRule")
+	private ExceptionLimit m_crashRule = new ExceptionLimit();
 
 	@Override
 	public Action getAction() {
@@ -121,6 +126,14 @@ public class Payload implements ActionPayload<SystemPage, Action> {
 
 	public String getType() {
 		return m_type;
+	}
+	
+	public ExceptionLimit getCrashRule() {
+		return m_crashRule;
+	}
+
+	public void setCrashRule(ExceptionLimit crashRule) {
+		m_crashRule = crashRule;
 	}
 
 	public boolean isAll() {

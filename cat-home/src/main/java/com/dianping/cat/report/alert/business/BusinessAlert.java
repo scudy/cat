@@ -288,7 +288,7 @@ public class BusinessAlert implements Task {
 		boolean active = TimeHelper.sleepToNextMinute();
 
 		while (active) {
-			Transaction t = Cat.newTransaction("AlertBusiness2", TimeHelper.getMinuteStr());
+			Transaction t = Cat.newTransaction("AlertBusiness", TimeHelper.getMinuteStr());
 			long current = System.currentTimeMillis();
 
 			try {

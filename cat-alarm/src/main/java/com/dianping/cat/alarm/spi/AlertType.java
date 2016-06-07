@@ -38,7 +38,9 @@ public enum AlertType {
 
 	SERVER_SYSTEM("ServerSystem", "系统告警"),
 
-	SERVER_DATABASE("ServerDatabase", "数据库告警");
+	SERVER_DATABASE("ServerDatabase", "数据库告警"),
+	
+	CRASH("Crash", "Crash告警");
 
 	private String m_name;
 

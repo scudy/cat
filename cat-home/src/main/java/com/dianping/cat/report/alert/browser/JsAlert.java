@@ -61,6 +61,7 @@ public class JsAlert implements Task {
 						entity.setDate(startTime).setContent(buildContent(module, level, count))
 						      .setLevel(level.toLowerCase());
 						entity.setMetric(limit.getId()).setType(getName()).setGroup(module);
+						entity.setContactGroup(limit.getId());
 
 						Map<String, Object> paras = new HashMap<String, Object>();
 

@@ -100,11 +100,14 @@
 							<li id="brokerConfigUpdate"><a href="/cat/s/app?op=mobileConfigUpdate">
 								<i class="menu-icon fa fa-caret-right"></i>Mobile配置</a>
 								<b class="arrow"></b></li>
-							<li id="sdkConfigUpdate"><a href="/cat/s/app?op=sdkConfigUpdate">
-								<i class="menu-icon fa fa-caret-right"></i>SDK配置</a>
-								<b class="arrow"></b></li>
+							<li id="crashRule"><a href="/cat/s/app?op=crashRuleList">
+								<i class="menu-icon fa fa-caret-right"></i>CrashLog告警</a>
+						 		<b class="arrow"></b></li>
 						 	<li id="crashLogConfigUpdate"><a href="/cat/s/app?op=crashLogConfigUpdate">
 								<i class="menu-icon fa fa-caret-right"></i>CrashLog配置</a>
+								<b class="arrow"></b></li>
+							<li id="sdkConfigUpdate"><a href="/cat/s/app?op=sdkConfigUpdate">
+								<i class="menu-icon fa fa-caret-right"></i>SDK配置</a>
 								<b class="arrow"></b></li></li>
 						</ul>
 					</li>

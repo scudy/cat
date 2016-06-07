@@ -47,6 +47,10 @@ public enum JspFile {
 
 	APP_COMMAND_GROUP_UPDATE("/jsp/system/appConfig/appCommandGroupUpdate.jsp"),
 
+	CRASH_RULE_LIST("/jsp/system/appRule/crashRuleList.jsp"),
+
+	CRASH_RULE_UPDATE("/jsp/system/appRule/crashRuleUpdate.jsp"),
+
 	;
 
 	private String m_path;

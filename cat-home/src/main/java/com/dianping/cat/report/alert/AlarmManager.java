@@ -6,6 +6,7 @@ import org.unidal.helper.Threads;
 import org.unidal.lookup.ContainerHolder;
 import org.unidal.lookup.annotation.Named;
 
+import com.dianping.cat.alarm.app.crash.CrashAlert;
 import com.dianping.cat.alarm.server.ServerAlarm;
 import com.dianping.cat.report.alert.app.AppAlert;
 import com.dianping.cat.report.alert.browser.AjaxAlert;
@@ -44,6 +45,7 @@ public class AlarmManager extends ContainerHolder {
 		StorageRPCAlert storageRpcAlert = lookup(StorageRPCAlert.class);
 		JsAlert jsAlert = lookup(JsAlert.class);
 		AjaxAlert ajaxAlert = lookup(AjaxAlert.class);
+		CrashAlert crashAlert = lookup(CrashAlert.class);
 
 		Threads.forGroup("cat").start(businessAlert);
 		Threads.forGroup("cat").start(exceptionAlert);
@@ -58,5 +60,6 @@ public class AlarmManager extends ContainerHolder {
 		Threads.forGroup("cat").start(storageRpcAlert);
 		Threads.forGroup("cat").start(jsAlert);
 		Threads.forGroup("cat").start(ajaxAlert);
+		Threads.forGroup("cat").start(crashAlert);
 	}
 }

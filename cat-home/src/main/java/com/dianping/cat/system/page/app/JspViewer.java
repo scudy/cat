@@ -72,6 +72,12 @@ public class JspViewer extends BaseJspViewer<SystemPage, Action, Context, Model>
 			return JspFile.APP_COMMAND_GROUP_ADD.getPath();
 		case APP_COMMAND_GROUP_UPDATE:
 			return JspFile.APP_COMMAND_GROUP_UPDATE.getPath();
+		case CRASH_RULE_LIST:
+		case CRASH_RULE_DELETE:
+		case CRASH_RULE_UPDATE_SUBMIT:
+			return JspFile.CRASH_RULE_LIST.getPath();
+		case CRASH_RULE_UPDATE:
+			return JspFile.CRASH_RULE_UPDATE.getPath();
 		}
 
 		throw new RuntimeException("Unknown action: " + action);

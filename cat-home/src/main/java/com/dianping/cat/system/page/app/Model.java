@@ -8,6 +8,7 @@ import org.unidal.web.mvc.ViewModel;
 import org.unidal.web.mvc.view.annotation.ModelMeta;
 
 import com.dianping.cat.Cat;
+import com.dianping.cat.alarm.crash.entity.ExceptionLimit;
 import com.dianping.cat.alarm.service.AppAlarmRuleInfo;
 import com.dianping.cat.command.entity.Code;
 import com.dianping.cat.command.entity.Codes;
@@ -88,6 +89,10 @@ public class Model extends ViewModel<SystemPage, Action, Context> {
 	private Map<String, Codes> m_globalCodes;
 
 	private Map<String, Command> m_command2Id;
+
+	private List<ExceptionLimit> m_crashLimits;
+
+	private ExceptionLimit m_crashRule;
 
 	public Model(Context ctx) {
 		super(ctx);
@@ -254,6 +259,22 @@ public class Model extends ViewModel<SystemPage, Action, Context> {
 
 	public Map<Integer, Item> getVersions() {
 		return m_versions;
+	}
+
+	public List<ExceptionLimit> getCrashLimits() {
+		return m_crashLimits;
+	}
+
+	public ExceptionLimit getCrashRule() {
+		return m_crashRule;
+	}
+
+	public void setCrashRule(ExceptionLimit crashRule) {
+		m_crashRule = crashRule;
+	}
+
+	public void setCrashLimits(List<ExceptionLimit> crashLimits) {
+		m_crashLimits = crashLimits;
 	}
 
 	public void setAppItem(Item appItem) {

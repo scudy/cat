@@ -182,10 +182,11 @@ public class MobileConfigManager implements Initializable, LogEnabled {
 		return m_platforms.get(platform);
 	}
 
-	public Item getPlatformStr(int platform) {
+	public String getPlatformStr(int platform) {
 		ConstantItem configItem = m_config.findConstantItem(MobileConstants.PLATFORM);
+		Item item = configItem.findItem(platform);
 
-		return configItem.findItem(platform);
+		return item.getValue();
 	}
 
 	public String getTooLongCommand() {
@@ -334,7 +335,7 @@ public class MobileConfigManager implements Initializable, LogEnabled {
 				config.setName(CONFIG_NAME);
 				config.setContent(m_config.toString());
 				m_configDao.updateByPK(config, ConfigEntity.UPDATESET_FULL);
-				
+
 				refreshData();
 			} catch (Exception e) {
 				Cat.logError(e);
