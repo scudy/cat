@@ -145,7 +145,7 @@ public class CrossAnalyzer extends AbstractMessageAnalyzer<CrossReport> implemen
 		crossInfo.setDetailType("PigeonCall");
 		return crossInfo;
 	}
-	
+
 	private CrossInfo parsePigeonServerTransaction(Transaction t, MessageTree tree) {
 		CrossInfo crossInfo = new CrossInfo();
 		String localAddress = tree.getIpAddress();
@@ -192,7 +192,8 @@ public class CrossAnalyzer extends AbstractMessageAnalyzer<CrossReport> implemen
 
 			String targetDomain = crossInfo.getApp();
 
-			if (m_serverConfigManager.isRpcClient(t.getType()) && !DEFAULT.equals(targetDomain)) {
+			if (m_serverConfigManager.isRpcClient(t.getType()) && !DEFAULT.equals(targetDomain)
+			      && !"null".equals(targetDomain.toLowerCase())) {
 				CrossInfo serverCrossInfo = convertCrossInfo(tree.getDomain(), crossInfo);
 
 				if (serverCrossInfo != null) {
