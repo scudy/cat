@@ -18,6 +18,8 @@
     <attribute name="id" value-type="int" />
     <attribute name="name" value-type="String" />
     <attribute name="status" value-type="int" />
+    <attribute name="network-status" value-type="int" />
+    <attribute name="business-status" value-type="int" />
   </entity>
   <entity name="codes">
     <attribute name="namespace" value-type="String" />

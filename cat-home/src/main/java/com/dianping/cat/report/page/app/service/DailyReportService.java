@@ -38,7 +38,7 @@ public class DailyReportService {
 		lineChart.setStart(entity.getDate());
 		lineChart.add(Constants.CURRENT_STR, graphData);
 
-		if (QueryType.SUCCESS.equals(type)) {
+		if (QueryType.NETWORK_SUCCESS.equals(type)) {
 			lineChart.setMaxYlabel(100D);
 		}
 		return lineChart;
@@ -50,7 +50,7 @@ public class DailyReportService {
 		Double[] graphData = new Double[size];
 
 		switch (type) {
-		case SUCCESS:
+		case NETWORK_SUCCESS:
 			Map<Long, List<AppCommandDataDaily>> dataMap = buildDataMap(datas);
 
 			for (Entry<Long, List<AppCommandDataDaily>> entry : dataMap.entrySet()) {
@@ -129,7 +129,7 @@ public class DailyReportService {
 
 		try {
 			switch (type) {
-			case SUCCESS:
+			case NETWORK_SUCCESS:
 				datas = m_commandDailyDao.findDataByPeriodCode(commandId, start, end, city, operator, network, appVersion,
 				      connnectType, code, platform, AppCommandDataDailyEntity.READSET_SUCCESS_DATA);
 				break;

@@ -32,7 +32,8 @@ public class AppDataService {
 	@Inject
 	private AppCommandConfigManager m_appConfigManager;
 
-	public List<AppDataDetail> buildAppDataDetailInfos(CommandQueryEntity entity, AppDataField groupByField) {
+	public List<AppDataDetail> buildAppDataDetailInfos(CommandQueryEntity entity, AppDataField groupByField,
+	      QueryType type) {
 		List<AppDataDetail> infos = new LinkedList<AppDataDetail>();
 		List<AppCommandData> datas = queryByFieldCode(entity, groupByField);
 		Map<Integer, List<AppCommandData>> field2Datas = buildFields2Datas(datas, groupByField);
@@ -40,7 +41,7 @@ public class AppDataService {
 		for (Entry<Integer, List<AppCommandData>> entry : field2Datas.entrySet()) {
 			List<AppCommandData> datalst = entry.getValue();
 			AppDataDetail info = new AppDataDetail();
-			double ratio = computeSuccessRatio(entity.getId(), datalst);
+			double ratio = computeSuccessRatio(entity.getId(), datalst, type);
 
 			info.setSuccessRatio(ratio);
 			updateAppDataDetailInfo(info, entry, groupByField, entity);
@@ -135,7 +136,7 @@ public class AppDataService {
 		return value;
 	}
 
-	public Double[] computeSuccessRatio(int commandId, DataSequence<AppCommandData> convertedData) {
+	public Double[] computeSuccessRatio(int commandId, DataSequence<AppCommandData> convertedData, QueryType type) {
 		int n = convertedData.getDuration();
 		Double[] value = new Double[n];
 
@@ -149,7 +150,7 @@ public class AppDataService {
 				int index = key / 5;
 
 				if (index < n) {
-					value[index] = computeSuccessRatio(commandId, entry.getValue());
+					value[index] = computeSuccessRatio(commandId, entry.getValue(), type);
 				}
 			}
 		} catch (Exception e) {
@@ -158,15 +159,28 @@ public class AppDataService {
 		return value;
 	}
 
-	public double computeSuccessRatio(int commandId, List<AppCommandData> datas) {
+	public double computeSuccessRatio(int commandId, List<AppCommandData> datas, QueryType type) {
 		long success = 0;
 		long sum = 0;
 
 		for (AppCommandData data : datas) {
 			long number = data.getAccessNumberSum();
 
-			if (m_appConfigManager.isSuccessCode(commandId, data.getCode())) {
-				success += number;
+			switch (type) {
+			case REQUEST:
+			case NETWORK_SUCCESS:
+			case DELAY:
+				if (m_appConfigManager.isSuccessCode(commandId, data.getCode())) {
+					success += number;
+				}
+				break;
+			case BUSINESS_SUCCESS:
+				if (m_appConfigManager.isBusinessSuccessCode(commandId, data.getCode())) {
+					success += number;
+				}
+				break;
+			default:
+				throw new RuntimeException("unexpected query type, type:" + type);
 			}
 			sum += number;
 		}
@@ -364,7 +378,8 @@ public class AppDataService {
 
 		try {
 			switch (type) {
-			case SUCCESS:
+			case NETWORK_SUCCESS:
+			case BUSINESS_SUCCESS:
 				datas = m_dao.findDataByMinuteCode(commandId, period, city, operator, network, appVersion, connnectType,
 				      code, platform, source, start, end, AppCommandDataEntity.READSET_SUCCESS_DATA);
 				break;
@@ -390,8 +405,9 @@ public class AppDataService {
 		DataSequence<AppCommandData> s = buildAppSequence(datas, entity.getDate());
 
 		switch (type) {
-		case SUCCESS:
-			return computeSuccessRatio(entity.getId(), s);
+		case NETWORK_SUCCESS:
+		case BUSINESS_SUCCESS:
+			return computeSuccessRatio(entity.getId(), s, type);
 		case REQUEST:
 			return computeRequestCount(s);
 		case DELAY:
@@ -406,12 +422,12 @@ public class AppDataService {
 		int i = 0;
 
 		switch (type) {
-		case SUCCESS:
+		case NETWORK_SUCCESS:
 			Map<Integer, List<AppCommandData>> dataMap = buildDataMap(datas);
 			double[] successRatios = new double[dataMap.size()];
 
 			for (Entry<Integer, List<AppCommandData>> entry : dataMap.entrySet()) {
-				successRatios[i] = computeSuccessRatio(entity.getId(), entry.getValue());
+				successRatios[i] = computeSuccessRatio(entity.getId(), entry.getValue(), type);
 				i++;
 			}
 			return successRatios;

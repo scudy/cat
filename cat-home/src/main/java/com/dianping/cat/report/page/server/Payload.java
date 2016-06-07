@@ -131,10 +131,10 @@ public class Payload extends AbstractReportPayload<Action, ReportPage> {
 			if (m_customEnd != null && m_customEnd.length() > 0) {
 				return m_format.parse(m_customEnd);
 			} else {
-				return TimeHelper.getCurrentMinute();
+				return new Date();
 			}
 		} catch (Exception e) {
-			return TimeHelper.getCurrentMinute();
+			return new Date();
 		}
 	}
 
@@ -144,10 +144,10 @@ public class Payload extends AbstractReportPayload<Action, ReportPage> {
 
 				return m_format.parse(m_customStart);
 			} else {
-				return TimeHelper.getCurrentHour(-2);
+				return new Date(System.currentTimeMillis() - TimeHelper.ONE_HOUR);
 			}
 		} catch (Exception e) {
-			return TimeHelper.getCurrentHour(-2);
+			return new Date(System.currentTimeMillis() - TimeHelper.ONE_HOUR);
 		}
 	}
 

@@ -208,7 +208,8 @@
 			<label class="btn btn-info btn-sm"><input type="radio"
 				name="typeCheckbox" value="request">请求数
 			</label><label class="btn btn-info btn-sm"> <input type="radio"
-				name="typeCheckbox" value="success">成功率
+				name="typeCheckbox" value="success">网络成功率</label><label class="btn btn-info btn-sm">
+			<input type="radio" name="typeCheckbox" value="businessSuccess">业务成功率
 			</label><label class="btn btn-info btn-sm">  <input type="radio"
 				name="typeCheckbox" value="delay">成功延时
 			</label>

@@ -34,7 +34,7 @@
 					    <thead>
 					    <tr>
 							<th width="90%">命令字</th>
-							<th width="10%" class="center"><a href="?op=appCommandGroupAdd&type=group" class="btn btn-primary btn-xs" >
+							<th width="10%" class="center"><a href="?op=appCommandGroupAdd&name=${entry.key}" class="btn btn-primary btn-xs" >
 							<i class="ace-icon glyphicon glyphicon-plus bigger-120"></i></a></th>
 						</tr>
 						</thead>

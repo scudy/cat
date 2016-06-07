@@ -17,7 +17,9 @@
   <entity name="code">
     <attribute name="id" value-type="int" primitive="true" key="true" />
     <attribute name="name" value-type="String" />
-    <attribute name="status" value-type="int"  primitive="true"/>
+    <attribute name="status" value-type="int" primitive="true"/>
+    <attribute name="network-status" value-type="int" primitive="true"/>
+    <attribute name="business-status" value-type="int" primitive="true"/>
   </entity>
   <entity name="codes">
     <attribute name="namespace" value-type="String" key="true" />

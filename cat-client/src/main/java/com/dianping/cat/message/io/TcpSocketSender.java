@@ -64,6 +64,8 @@ public class TcpSocketSender implements Task, MessageSender, LogEnabled {
 
 	private AtomicInteger m_sampleCount = new AtomicInteger();
 
+	private long m_lastFlushTime;
+
 	private static final int MAX_CHILD_NUMBER = 200;
 
 	private static final int MAX_DURATION = 1000 * 30;
@@ -276,8 +278,9 @@ public class TcpSocketSender implements Task, MessageSender, LogEnabled {
 
 		channel.channel().write(buf);
 
-		if (m_count.incrementAndGet() % 10 == 0) {
+		if (m_count.incrementAndGet() % 10 == 0 || (System.currentTimeMillis() - m_lastFlushTime) > 30 * 1000) {
 			channel.channel().flush();
+			m_lastFlushTime = System.currentTimeMillis();
 		}
 
 		if (m_statistics != null) {

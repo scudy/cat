@@ -280,11 +280,12 @@ public class AppAlert implements Task {
 		Map<Integer, Double> results = new LinkedHashMap<Integer, Double>();
 
 		switch (type) {
-		case SUCCESS:
+		case NETWORK_SUCCESS:
+		case BUSINESS_SUCCESS:
 			Map<Integer, List<AppCommandData>> dataMap = buildDataMap(datas, appDataField);
 
 			for (Entry<Integer, List<AppCommandData>> entry : dataMap.entrySet()) {
-				double value = m_appDataService.computeSuccessRatio(query.getId(), entry.getValue());
+				double value = m_appDataService.computeSuccessRatio(query.getId(), entry.getValue(), type);
 
 				results.put(entry.getKey(), value);
 			}
@@ -323,7 +324,8 @@ public class AppAlert implements Task {
 
 		try {
 			switch (type) {
-			case SUCCESS:
+			case NETWORK_SUCCESS:
+			case BUSINESS_SUCCESS:
 				datas = m_appDataService.queryByFieldCode(entity, groupByField);
 				break;
 			case REQUEST:

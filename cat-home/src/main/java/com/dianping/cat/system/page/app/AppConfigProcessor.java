@@ -8,8 +8,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import org.codehaus.plexus.personality.plexus.lifecycle.phase.Initializable;
-import org.codehaus.plexus.personality.plexus.lifecycle.phase.InitializationException;
 import org.codehaus.plexus.util.StringUtils;
 import org.unidal.helper.Splitters;
 import org.unidal.lookup.annotation.Inject;
@@ -36,6 +34,7 @@ import com.dianping.cat.config.app.MobileConstants;
 import com.dianping.cat.config.app.SdkConfigManager;
 import com.dianping.cat.config.app.command.CommandFormatConfigManager;
 import com.dianping.cat.configuration.app.speed.entity.Speed;
+import com.dianping.cat.configuration.group.entity.SubCommand;
 import com.dianping.cat.configuration.mobile.entity.Item;
 import com.dianping.cat.consumer.event.model.entity.EventName;
 import com.dianping.cat.consumer.event.model.entity.EventReport;
@@ -45,7 +44,7 @@ import com.dianping.cat.helper.TimeHelper;
 import com.dianping.cat.report.page.event.service.EventReportService;
 import com.dianping.cat.system.page.config.ConfigHtmlParser;
 
-public class AppConfigProcessor implements Initializable {
+public class AppConfigProcessor {
 
 	@Inject
 	private AppAlarmRuleService m_appAlarmRuleService;
@@ -151,6 +150,36 @@ public class AppConfigProcessor implements Initializable {
 		model.setCommands(m_appConfigManager.queryCommands());
 	}
 
+	private Rule buildRuleAttributes(String ruleId) {
+		String[] fields = ruleId.split(";");
+		String command = fields[0];
+		int commandId = Integer.parseInt(command);
+		String code = fields[1];
+		String network = fields[2];
+		String version = fields[3];
+		String connectType = fields[4];
+		String platform = fields[5];
+		String city = fields[6];
+		String operator = fields[7];
+		String metric = fields[8];
+		String name = fields[9];
+		Rule rule = new Rule(name);
+
+		rule.setDynamicAttribute(AppAlarmRuleParamBuilder.COMMAND, command);
+		rule.setDynamicAttribute(AppAlarmRuleParamBuilder.COMMAND_NAME, m_appConfigManager.getRawCommands()
+		      .get(commandId).getName());
+		rule.setDynamicAttribute(AppAlarmRuleParamBuilder.CODE, code);
+		rule.setDynamicAttribute(AppAlarmRuleParamBuilder.NETWORK, network);
+		rule.setDynamicAttribute(AppAlarmRuleParamBuilder.VERSION, version);
+		rule.setDynamicAttribute(AppAlarmRuleParamBuilder.CONNECT_TYPE, connectType);
+		rule.setDynamicAttribute(AppAlarmRuleParamBuilder.PLATFORM, platform);
+		rule.setDynamicAttribute(AppAlarmRuleParamBuilder.CITY, city);
+		rule.setDynamicAttribute(AppAlarmRuleParamBuilder.OPERATOR, operator);
+		rule.setDynamicAttribute(AppAlarmRuleParamBuilder.METRIC, metric);
+
+		return rule;
+	}
+
 	public String generateRuleConfigContent(int id) {
 		String configsStr = "";
 
@@ -162,10 +191,6 @@ public class AppConfigProcessor implements Initializable {
 			}
 		}
 		return m_ruleDecorator.generateConfigsHtml(configsStr);
-	}
-
-	@Override
-	public void initialize() throws InitializationException {
 	}
 
 	public void process(Action action, Payload payload, Model model) {
@@ -318,10 +343,11 @@ public class AppConfigProcessor implements Initializable {
 				List<String> strs = Splitters.by(":").split(codeStr);
 				codeId = Integer.parseInt(strs.get(0));
 				name = strs.get(1);
-				int status = Integer.parseInt(strs.get(2));
+				int networkStatus = Integer.parseInt(strs.get(2));
+				int businessStatus = Integer.parseInt(strs.get(3));
 
 				Code code = new Code(codeId);
-				code.setName(name).setStatus(status);
+				code.setName(name).setNetworkStatus(networkStatus).setBusinessStatus(businessStatus);
 
 				if (payload.isConstant()) {
 					m_appConfigManager.updateCode(payload.getNamespace(), code);
@@ -487,6 +513,16 @@ public class AppConfigProcessor implements Initializable {
 			model.setCommandGroupConfig(m_appCommandGroupManager.getConfig());
 			break;
 		case APP_COMMAND_GROUP_ADD:
+			String command = payload.getName().split("\\|")[0];
+			com.dianping.cat.configuration.group.entity.Command cmd = m_appCommandGroupManager.getConfig().getCommands()
+			      .get(command);
+
+			if (cmd != null) {
+				Map<String, SubCommand> subCommands = cmd.getSubCommands();
+
+				model.setSubCommands(new ArrayList<String>(subCommands.keySet()));
+			}
+			model.setCommands(m_appConfigManager.queryCommands());
 			break;
 		case APP_COMMAND_GROUP_DELETE:
 			model.setOpState(m_appCommandGroupManager.deleteByName(payload.getParent(), payload.getName()));
@@ -495,8 +531,15 @@ public class AppConfigProcessor implements Initializable {
 		case APP_COMMAND_GROUP_SUBMIT:
 			String parent = payload.getParent();
 			name = payload.getName();
+			List<String> ids = Splitters.by(",").noEmptyItem().split(name);
 
-			model.setOpState(m_appCommandGroupManager.insert(parent, name));
+			for (String commandId : ids) {
+				int cmdId = Integer.parseInt(commandId);
+				Command cmmd = m_appConfigManager.getRawCommands().get(cmdId);
+
+				m_appCommandGroupManager.insert(parent, cmmd.getName());
+			}
+
 			model.setCommandGroupConfig(m_appCommandGroupManager.getConfig());
 			break;
 		case APP_COMMAND_GROUP_UPDATE:
@@ -559,36 +602,6 @@ public class AppConfigProcessor implements Initializable {
 			Cat.logError(e);
 			return false;
 		}
-	}
-
-	private Rule buildRuleAttributes(String ruleId) {
-		String[] fields = ruleId.split(";");
-		String command = fields[0];
-		int commandId = Integer.parseInt(command);
-		String code = fields[1];
-		String network = fields[2];
-		String version = fields[3];
-		String connectType = fields[4];
-		String platform = fields[5];
-		String city = fields[6];
-		String operator = fields[7];
-		String metric = fields[8];
-		String name = fields[9];
-		Rule rule = new Rule(name);
-
-		rule.setDynamicAttribute(AppAlarmRuleParamBuilder.COMMAND, command);
-		rule.setDynamicAttribute(AppAlarmRuleParamBuilder.COMMAND_NAME, m_appConfigManager.getRawCommands()
-		      .get(commandId).getName());
-		rule.setDynamicAttribute(AppAlarmRuleParamBuilder.CODE, code);
-		rule.setDynamicAttribute(AppAlarmRuleParamBuilder.NETWORK, network);
-		rule.setDynamicAttribute(AppAlarmRuleParamBuilder.VERSION, version);
-		rule.setDynamicAttribute(AppAlarmRuleParamBuilder.CONNECT_TYPE, connectType);
-		rule.setDynamicAttribute(AppAlarmRuleParamBuilder.PLATFORM, platform);
-		rule.setDynamicAttribute(AppAlarmRuleParamBuilder.CITY, city);
-		rule.setDynamicAttribute(AppAlarmRuleParamBuilder.OPERATOR, operator);
-		rule.setDynamicAttribute(AppAlarmRuleParamBuilder.METRIC, metric);
-
-		return rule;
 	}
 
 	private void submitConstant(Payload payload, Model model) {

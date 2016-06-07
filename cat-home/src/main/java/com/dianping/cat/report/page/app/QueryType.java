@@ -2,7 +2,9 @@ package com.dianping.cat.report.page.app;
 
 public enum QueryType {
 
-	SUCCESS("success", "成功率（%/5分钟）"),
+	NETWORK_SUCCESS("success", "网络成功率（%/5分钟）"),
+
+	BUSINESS_SUCCESS("businessSuccess", "业务成功率（%/5分钟）"),
 
 	REQUEST("request", "请求数（个/5分钟）"),
 

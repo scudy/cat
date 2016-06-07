@@ -42,7 +42,7 @@ public class AppConnectionGraphCreator {
 		lineChart.setUnit("");
 		lineChart.setHtmlTitle(type.getTitle());
 
-		if (QueryType.SUCCESS.equals(type)) {
+		if (QueryType.NETWORK_SUCCESS.equals(type)) {
 			lineChart.setMinYlable(lineChart.queryMinYlable(datas));
 			lineChart.setMaxYlabel(100D);
 		}
@@ -170,7 +170,7 @@ public class AppConnectionGraphCreator {
 
 			if (codes != null && (code = codes.get(keyValue)) != null) {
 				title = code.getName();
-				int status = code.getStatus();
+				int status = code.getNetworkStatus();
 				if (status == 0) {
 					title = "<span class='text-success'>【成功】</span>" + title;
 				} else {

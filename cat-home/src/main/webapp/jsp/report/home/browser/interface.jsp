@@ -89,7 +89,7 @@
 <p>参数说明</p>
 <table style="width:90%" class="table table-bordered table-striped table-condensed  ">
 		<tr><th style="width:10%">query名</th><th style="width:15%">实际名称</th><th style="width:15%">描述</th><th style="width:60%">类型</th></tr>	
-		<tr><td>v</td><td>version</td><td>API版本号</td><td>暂定为1</td></tr>
+		<tr><td>v</td><td>version</td><td>API版本号</td><td>暂定为2</td></tr>
 		<tr><td>t</td><td>timestamp</td><td>发生时间</td><td>long型，1970到现在的毫秒数</td></tr>
 		<tr><td>n</td><td>network</td><td>网络类型</td><td>整型, 2G,3G,4G,WIFI(iOS只有3G和WIFI)，1=wifi, 2=2G, 3=3G, 4=4G, 0=Unknown</td></tr>
 		<tr><td>p</td><td>platform</td><td>平台类型</td><td>整型</td></tr>

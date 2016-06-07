@@ -57,7 +57,8 @@ public class DashBoardBuilder {
 		executor.execute(new Runnable() {
 			@Override
 			public void run() {
-				List<AppDataDetail> cities = m_appDataService.buildAppDataDetailInfos(entity, AppDataField.CITY);
+				List<AppDataDetail> cities = m_appDataService.buildAppDataDetailInfos(entity, AppDataField.CITY,
+				      QueryType.NETWORK_SUCCESS);
 				dashboard.setMapChart(buildResponseMapChart(cities));
 				dashboard.setSuccessMapChart(buildSuccessMapChart(cities));
 			}
@@ -67,7 +68,8 @@ public class DashBoardBuilder {
 		executor.execute(new Runnable() {
 			@Override
 			public void run() {
-				List<AppDataDetail> operators = m_appDataService.buildAppDataDetailInfos(entity, AppDataField.OPERATOR);
+				List<AppDataDetail> operators = m_appDataService.buildAppDataDetailInfos(entity, AppDataField.OPERATOR,
+				      QueryType.NETWORK_SUCCESS);
 				dashboard.setOperatorChart(buildResponseBarChart(operators, AppDataField.OPERATOR));
 				dashboard.setOperatorSuccessChart(buildSuccessRatioBarChart(operators, AppDataField.OPERATOR));
 			}
@@ -76,7 +78,8 @@ public class DashBoardBuilder {
 		executor.execute(new Runnable() {
 			@Override
 			public void run() {
-				List<AppDataDetail> version = m_appDataService.buildAppDataDetailInfos(entity, AppDataField.APP_VERSION);
+				List<AppDataDetail> version = m_appDataService.buildAppDataDetailInfos(entity, AppDataField.APP_VERSION,
+				      QueryType.NETWORK_SUCCESS);
 				version = buildTops(version, 15);
 				dashboard.setVersionChart(buildResponseBarChart(version, AppDataField.APP_VERSION));
 				dashboard.setVersionSuccessChart(buildSuccessRatioBarChart(version, AppDataField.APP_VERSION));
@@ -86,7 +89,8 @@ public class DashBoardBuilder {
 		executor.execute(new Runnable() {
 			@Override
 			public void run() {
-				List<AppDataDetail> platform = m_appDataService.buildAppDataDetailInfos(entity, AppDataField.PLATFORM);
+				List<AppDataDetail> platform = m_appDataService.buildAppDataDetailInfos(entity, AppDataField.PLATFORM,
+				      QueryType.NETWORK_SUCCESS);
 				dashboard.setPlatformChart(buildResponseBarChart(platform, AppDataField.PLATFORM));
 				dashboard.setPlatformSuccessChart(buildSuccessRatioBarChart(platform, AppDataField.PLATFORM));
 			}
@@ -103,7 +107,7 @@ public class DashBoardBuilder {
 		executor.execute(new Runnable() {
 			@Override
 			public void run() {
-				LineChart lineChart = buildLineChart(entity, QueryType.SUCCESS);
+				LineChart lineChart = buildLineChart(entity, QueryType.NETWORK_SUCCESS);
 				lineChart.setMinYlable(95.0);
 				dashboard.setSuccessLineChart(lineChart);
 			}
@@ -125,7 +129,7 @@ public class DashBoardBuilder {
 		Double[] data = null;
 
 		switch (type) {
-		case SUCCESS:
+		case NETWORK_SUCCESS:
 			data = buildSuccessRatios(datas, size, entity);
 			break;
 		case DELAY:
