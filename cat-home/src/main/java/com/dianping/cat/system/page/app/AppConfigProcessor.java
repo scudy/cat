@@ -254,20 +254,15 @@ public class AppConfigProcessor {
 					int index = cmd.lastIndexOf("|");
 
 					if (index > 0) {
-						name = cmd.substring(0, index).toLowerCase();
-						title = cmd.substring(index + 1);
+						name = cmd.substring(0, index).toLowerCase().trim();
+						title = cmd.substring(index + 1).trim();
 					} else {
-						name = title = cmd;
-						name = name.toLowerCase();
+						name = title = cmd.toLowerCase().trim();
 					}
 					Command command = new Command().setDomain(domain).setTitle(title).setName(name).setNamespace(namespace)
 					      .setThreshold(timeThreshold);
 
-					if (m_appConfigManager.addCommand(command).getKey()) {
-						model.setOpState(true);
-					} else {
-						model.setOpState(false);
-					}
+					model.setOpState(m_appConfigManager.addCommand(command).getKey());
 				} catch (Exception e) {
 					model.setOpState(false);
 				}

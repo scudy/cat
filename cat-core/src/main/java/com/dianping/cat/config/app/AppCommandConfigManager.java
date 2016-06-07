@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -71,40 +72,52 @@ public class AppCommandConfigManager implements Initializable {
 	}
 
 	public Pair<Boolean, Integer> addCommand(Command command) throws Exception {
-		int commandId = 0;
+		if (!containCommand(command.getName())) {
+			int commandId = 0;
 
-		commandId = findAvailableId(1, m_maxCommandId);
-		command.setId(commandId);
-		m_config.addCommand(command);
+			commandId = findAvailableId(1, m_maxCommandId);
+			command.setId(commandId);
+			m_config.addCommand(command);
 
-		return new Pair<Boolean, Integer>(storeConfig(), commandId);
+			return new Pair<Boolean, Integer>(storeConfig(), commandId);
+		} else {
+			return new Pair<Boolean, Integer>(false, -1);
+		}
 	}
 
-	private Map<String, List<Command>> buildSortedCommands(Map<String, List<Command>> commands) {
-		Map<String, List<Command>> results = new LinkedHashMap<String, List<Command>>();
-		List<String> domains = new ArrayList<String>(commands.keySet());
+	public Map<String, AppCommandInfo> buildNamespace2Commands() {
+		return buildNamespace2Commands(queryCommands());
+	}
 
-		Collections.sort(domains);
-		CommandComparator comparator = new CommandComparator();
+	private Map<String, AppCommandInfo> buildNamespace2Commands(Map<Integer, Command> commands) {
+		Map<String, AppCommandInfo> results = new LinkedHashMap<String, AppCommandInfo>();
 
-		for (String domain : domains) {
-			List<Command> cmds = commands.get(domain);
+		for (Command command : commands.values()) {
+			String domain = command.getDomain();
 
-			Collections.sort(cmds, comparator);
-			results.put(domain, cmds);
+			if (StringUtils.isEmpty(domain)) {
+				domain = "default";
+			}
+
+			String namespace = command.getNamespace();
+			AppCommandInfo appCommandDisplayInfo = results.get(namespace);
+
+			if (appCommandDisplayInfo == null) {
+				appCommandDisplayInfo = new AppCommandInfo();
+
+				results.put(namespace, appCommandDisplayInfo);
+			}
+			appCommandDisplayInfo.addCommand(domain, command);
 		}
-
 		return results;
 	}
 
 	public boolean containCommand(int id) {
-		Set<Integer> keys = m_config.getCommands().keySet();
+		return m_config.getCommands().containsKey(id);
+	}
 
-		if (keys.contains(id)) {
-			return true;
-		} else {
-			return false;
-		}
+	public boolean containCommand(String name) {
+		return m_commands.containsKey(name);
 	}
 
 	private AppCommandConfig copyAppCommandConfig() throws SAXException, IOException {
@@ -354,40 +367,6 @@ public class AppCommandConfigManager implements Initializable {
 		return Collections.emptyMap();
 	}
 
-	public Map<String, AppCommandDisplayInfo> queryDomain2Commands() {
-		return queryDomain2Commands(queryCommands());
-	}
-
-	public Map<String, AppCommandDisplayInfo> queryDomain2Commands(Map<Integer, Command> commands) {
-		Map<String, AppCommandDisplayInfo> map = new LinkedHashMap<String, AppCommandDisplayInfo>();
-		Map<String, AppCommandDisplayInfo> results = new LinkedHashMap<String, AppCommandDisplayInfo>();
-
-		for (Command command : commands.values()) {
-			String domain = command.getDomain();
-
-			if (StringUtils.isEmpty(domain)) {
-				domain = "default";
-			}
-
-			String namespace = command.getNamespace();
-			AppCommandDisplayInfo appCommandDisplayInfo = map.get(namespace);
-
-			if (appCommandDisplayInfo == null) {
-				appCommandDisplayInfo = new AppCommandDisplayInfo();
-
-				map.put(namespace, appCommandDisplayInfo);
-			}
-			appCommandDisplayInfo.addCommand(domain, command);
-		}
-
-		for (Entry<String, AppCommandDisplayInfo> entry : map.entrySet()) {
-			Map<String, List<Command>> cmds = buildSortedCommands(entry.getValue().getCommands());
-
-			results.put(entry.getKey(), new AppCommandDisplayInfo(cmds));
-		}
-		return results;
-	}
-
 	public List<String> queryDuplicateNames(List<String> names) {
 		List<String> results = new ArrayList<String>();
 
@@ -424,6 +403,15 @@ public class AppCommandConfigManager implements Initializable {
 			commands.add(command);
 		}
 		return results;
+	}
+
+	public Set<String> queryNamespaces() {
+		Set<String> namespaces = new HashSet<String>();
+
+		for (Entry<Integer, Command> entry : m_config.getCommands().entrySet()) {
+			namespaces.add(entry.getValue().getNamespace());
+		}
+		return namespaces;
 	}
 
 	private void refreshConfig() throws DalException, SAXException, IOException {
@@ -518,15 +506,15 @@ public class AppCommandConfigManager implements Initializable {
 		return storeConfig();
 	}
 
-	public static class AppCommandDisplayInfo {
+	public static class AppCommandInfo {
 
 		private Map<String, List<Command>> m_commands = new HashMap<String, List<Command>>();
 
-		public AppCommandDisplayInfo() {
+		public AppCommandInfo() {
 
 		}
 
-		public AppCommandDisplayInfo(Map<String, List<Command>> commands) {
+		public AppCommandInfo(Map<String, List<Command>> commands) {
 			m_commands = commands;
 		}
 
@@ -550,25 +538,5 @@ public class AppCommandConfigManager implements Initializable {
 			return "AppCommandDisplayInfo [m_commands=" + m_commands + "]";
 		}
 
-	}
-
-	public static class CommandComparator implements Comparator<Command> {
-
-		@Override
-		public int compare(Command o1, Command o2) {
-			String c1 = o1.getName();
-			String title1 = o1.getTitle();
-			String c2 = o2.getName();
-			String title2 = o2.getTitle();
-
-			if (StringUtils.isNotEmpty(title1)) {
-				c1 = title1;
-			}
-
-			if (StringUtils.isNotEmpty(title2)) {
-				c2 = title2;
-			}
-			return c1.compareTo(c2);
-		}
 	}
 }

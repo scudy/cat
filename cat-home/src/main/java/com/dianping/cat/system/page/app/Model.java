@@ -14,7 +14,7 @@ import com.dianping.cat.command.entity.Code;
 import com.dianping.cat.command.entity.Codes;
 import com.dianping.cat.command.entity.Command;
 import com.dianping.cat.config.app.AppCommandConfigManager;
-import com.dianping.cat.config.app.AppCommandConfigManager.AppCommandDisplayInfo;
+import com.dianping.cat.config.app.AppCommandConfigManager.AppCommandInfo;
 import com.dianping.cat.config.app.MobileConfigManager;
 import com.dianping.cat.configuration.app.speed.entity.Speed;
 import com.dianping.cat.configuration.group.entity.AppCommandGroupConfig;
@@ -106,8 +106,8 @@ public class Model extends ViewModel<SystemPage, Action, Context> {
 		}
 	}
 
-	public Map<String, AppCommandDisplayInfo> getApiCommands() {
-		return m_appConfigManager.queryDomain2Commands();
+	public Map<String, AppCommandInfo> getApiCommands() {
+		return m_appConfigManager.buildNamespace2Commands();
 	}
 
 	public Item getAppItem() {
@@ -192,7 +192,7 @@ public class Model extends ViewModel<SystemPage, Action, Context> {
 	}
 
 	public String getDomain2CommandsJson() {
-		return new JsonBuilder().toJson(m_appConfigManager.queryDomain2Commands());
+		return new JsonBuilder().toJson(m_appConfigManager.buildNamespace2Commands());
 	}
 
 	public String getGlobalCodesJson() {

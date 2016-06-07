@@ -31,7 +31,6 @@ import com.dianping.cat.report.page.matrix.service.HistoricalMatrixService;
 import com.dianping.cat.report.page.matrix.service.LocalMatrixService;
 import com.dianping.cat.report.page.matrix.service.MatrixReportService;
 import com.dianping.cat.report.page.matrix.task.MatrixReportBuilder;
-import com.dianping.cat.report.page.network.service.NetTopologyReportService;
 import com.dianping.cat.report.page.state.StateGraphBuilder;
 import com.dianping.cat.report.page.state.service.CompositeStateService;
 import com.dianping.cat.report.page.state.service.HistoricalStateService;
@@ -74,8 +73,6 @@ public class ReportComponentConfigurator extends AbstractResourceConfigurator {
 
 		all.add(A(HeavyReportService.class));
 		all.add(A(HeavyReportBuilder.class));
-
-		all.add(A(NetTopologyReportService.class));
 
 		all.add(A(RouterConfigManager.class));
 		all.add(A(RouterConfigHandler.class));
