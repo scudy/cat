@@ -170,7 +170,7 @@ public class AppConnectionGraphCreator {
 
 			if (codes != null && (code = codes.get(keyValue)) != null) {
 				title = code.getName();
-				int status = code.getStatus();
+				int status = code.getNetworkStatus();
 				if (status == 0) {
 					title = "<span class='text-success'>【成功】</span>" + title;
 				} else {

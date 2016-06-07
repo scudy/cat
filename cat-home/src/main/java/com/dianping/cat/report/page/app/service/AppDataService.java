@@ -166,11 +166,21 @@ public class AppDataService {
 		for (AppCommandData data : datas) {
 			long number = data.getAccessNumberSum();
 
-			if (QueryType.NETWORK_SUCCESS.equals(type) && m_appConfigManager.isSuccessCode(commandId, data.getCode())) {
-				success += number;
-			} else if (QueryType.BUSINESS_SUCCESS.equals(type)
-			      && m_appConfigManager.isBusinessSuccessCode(commandId, data.getCode())) {
-				success += number;
+			switch (type) {
+			case REQUEST:
+			case NETWORK_SUCCESS:
+			case DELAY:
+				if (m_appConfigManager.isSuccessCode(commandId, data.getCode())) {
+					success += number;
+				}
+				break;
+			case BUSINESS_SUCCESS:
+				if (m_appConfigManager.isBusinessSuccessCode(commandId, data.getCode())) {
+					success += number;
+				}
+				break;
+			default:
+				throw new RuntimeException("unexpected query type, type:" + type);
 			}
 			sum += number;
 		}

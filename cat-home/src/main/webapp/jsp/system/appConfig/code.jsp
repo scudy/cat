@@ -133,8 +133,9 @@
 							<tr >
 								<th width="20%" class="text-info">返回码</th>
 								<th width="50%" class="text-info">局部设置</th>
-								<th width="20%" class="text-info center">局部状态</th>
-								<th width="10%" class="text-info">操作 <a href="?op=appCodeAdd&id=${model.id eq '0' ? '1' : model.id}&domain=${payload.domain}&type=code&namespace=${item.key}" class="btn btn-primary btn-xs" >
+								<th width="10%" class="text-info center">网络状态</th>
+								<th width="10%" class="text-info center">业务状态</th>
+								<th width="8%" class="text-info">操作 <a href="?op=appCodeAdd&id=${model.id eq '0' ? '1' : model.id}&domain=${payload.domain}&type=code&namespace=${item.key}" class="btn btn-primary btn-xs" >
 												<i class="ace-icon glyphicon glyphicon-plus bigger-120"></i></a></th>
 							</tr></thead>
 							
@@ -145,17 +146,29 @@
 											<td>${code.value.id}</td>
 											<td>${code.value.name}</td>
 											<td class="center">
-												<c:choose>
-												<c:when test="${code.value.status eq 0}">
-													<button class="btn btn-xs btn-success">
-													<i class="ace-icon glyphicon glyphicon-ok bigger-120 btn-success"></i>
-													</button>
-												</c:when>
-												<c:otherwise>
-													<i class="ace-icon glyphicon glyphicon-remove bigger-120"></i>
-												</c:otherwise>
-												</c:choose>
-											</td>
+											<c:choose>
+											<c:when test="${code.value.networkStatus eq 0}">
+												<button class="btn btn-xs btn-success">
+												<i class="ace-icon glyphicon glyphicon-ok bigger-120 btn-success"></i>
+												</button>
+											</c:when>
+											<c:otherwise>
+												<i class="ace-icon glyphicon glyphicon-remove bigger-120"></i>
+											</c:otherwise>
+											</c:choose>
+										</td>
+										<td class="center">
+											<c:choose>
+											<c:when test="${code.value.businessStatus eq 0}">
+												<button class="btn btn-xs btn-success">
+												<i class="ace-icon glyphicon glyphicon-ok bigger-120 btn-success"></i>
+												</button>
+											</c:when>
+											<c:otherwise>
+												<i class="ace-icon glyphicon glyphicon-remove bigger-120"></i>
+											</c:otherwise>
+											</c:choose>
+										</td>
 											<td><a href="?op=appCodeUpdate&id=${model.id}&domain=${payload.domain}&code=${code.value.id}&type=code&namespace=${item.key }" class="btn btn-primary btn-xs">
 													<i class="ace-icon fa fa-pencil-square-o bigger-120"></i></a>
 													<a href="?op=appCodeDelete&id=${model.id}&domain=${payload.domain}&code=${code.value.id}&type=code&namespace=${item.key }" class="btn btn-danger btn-xs delete" >
@@ -168,8 +181,9 @@
 							<tr >
 								<th width="20%" class="text-info">返回码</th>
 								<th width="50%" class="text-info">全局设置</th>
-								<th width="20%" class="text-info center">全局状态</th>
-								<th width="10%" class="text-info">操作 <a href="?op=appCodeAdd&id=${model.id eq '0' ? '1' : model.id}&domain=${payload.domain}&type=code&constant=true&namespace=${item.key}" class="btn btn-primary btn-xs" >
+								<th width="10%" class="text-info center">网络状态</th>
+								<th width="10%" class="text-info center">业务状态</th>
+								<th width="8%" class="text-info">操作 <a href="?op=appCodeAdd&id=${model.id eq '0' ? '1' : model.id}&domain=${payload.domain}&type=code&constant=true&namespace=${item.key}" class="btn btn-primary btn-xs" >
 												<i class="ace-icon glyphicon glyphicon-plus bigger-120"></i></a></th>
 							</tr></thead>
 								<c:forEach var="code" items="${item.value.codes}">
@@ -178,13 +192,20 @@
 										<td>${code.value.name}</td>
 										<td class="center">
 											<c:choose>
-											<c:when test="${code.value.status eq 0}">
-												<button class="btn btn-xs btn-success">网络
+											<c:when test="${code.value.networkStatus eq 0}">
+												<button class="btn btn-xs btn-success">
 												<i class="ace-icon glyphicon glyphicon-ok bigger-120 btn-success"></i>
 												</button>
 											</c:when>
-											<c:when test="${code.value.status eq 2}">
-												<button class="btn btn-xs btn-success">业务
+											<c:otherwise>
+												<i class="ace-icon glyphicon glyphicon-remove bigger-120"></i>
+											</c:otherwise>
+											</c:choose>
+										</td>
+										<td class="center">
+											<c:choose>
+											<c:when test="${code.value.businessStatus eq 0}">
+												<button class="btn btn-xs btn-success">
 												<i class="ace-icon glyphicon glyphicon-ok bigger-120 btn-success"></i>
 												</button>
 											</c:when>

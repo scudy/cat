@@ -339,10 +339,11 @@ public class AppConfigProcessor {
 				List<String> strs = Splitters.by(":").split(codeStr);
 				codeId = Integer.parseInt(strs.get(0));
 				name = strs.get(1);
-				int status = Integer.parseInt(strs.get(2));
+				int networkStatus = Integer.parseInt(strs.get(2));
+				int businessStatus = Integer.parseInt(strs.get(3));
 
 				Code code = new Code(codeId);
-				code.setName(name).setStatus(status);
+				code.setName(name).setNetworkStatus(networkStatus).setBusinessStatus(businessStatus);
 
 				if (payload.isConstant()) {
 					m_appConfigManager.updateCode(payload.getNamespace(), code);

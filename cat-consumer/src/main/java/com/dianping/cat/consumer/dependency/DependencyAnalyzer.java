@@ -153,7 +153,7 @@ public class DependencyAnalyzer extends AbstractMessageAnalyzer<DependencyReport
 			String target = parseServerName(t);
 			String callType = "PigeonCall";
 
-			if (target != null) {
+			if (target != null && !"null".equalsIgnoreCase(target)) {
 				updateDependencyInfo(report, t, target, callType);
 				DependencyReport serverReport = findOrCreateReport(target);
 

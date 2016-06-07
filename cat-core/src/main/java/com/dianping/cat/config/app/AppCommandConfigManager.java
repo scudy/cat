@@ -62,9 +62,7 @@ public class AppCommandConfigManager implements Initializable {
 
 	public static final int ALL_COMMAND_ID = 0;
 
-	public static final int NETWORK_SUCCESS = 0;
-
-	public static final int BUSINESS_SUCCESS = 2;
+	public static final int SUCCESS_STATUS = 0;
 
 	public boolean addCode(String namespace, Code code) {
 		m_config.findOrCreateCodes(namespace).addCode(code);
@@ -271,7 +269,7 @@ public class AppCommandConfigManager implements Initializable {
 
 		for (Code c : codes.values()) {
 			if (c.getId() == code) {
-				return (c.getStatus() == BUSINESS_SUCCESS);
+				return (c.getBusinessStatus() == SUCCESS_STATUS);
 			}
 		}
 		return false;
@@ -286,7 +284,7 @@ public class AppCommandConfigManager implements Initializable {
 
 		for (Code c : codes.values()) {
 			if (c.getId() == code) {
-				return (c.getStatus() == NETWORK_SUCCESS || c.getStatus() == BUSINESS_SUCCESS);
+				return (c.getNetworkStatus() == SUCCESS_STATUS);
 			}
 		}
 		return false;
@@ -410,22 +408,6 @@ public class AppCommandConfigManager implements Initializable {
 		return new HashMap<Integer, Code>();
 	}
 
-	private void refreshConfig() throws DalException, SAXException, IOException {
-		Config config = m_configDao.findByName(CONFIG_NAME, ConfigEntity.READSET_FULL);
-		long modifyTime = config.getModifyDate().getTime();
-
-		synchronized (this) {
-			if (modifyTime > m_modifyTime) {
-				String content = config.getContent();
-				AppCommandConfig appConfig = DefaultSaxParser.parse(content);
-
-				m_config = appConfig;
-				m_modifyTime = modifyTime;
-				refreshData();
-			}
-		}
-	}
-
 	public Map<String, List<Command>> queryNamespace2Commands() {
 		Map<String, List<Command>> results = new HashMap<String, List<Command>>();
 
@@ -442,6 +424,22 @@ public class AppCommandConfigManager implements Initializable {
 			commands.add(command);
 		}
 		return results;
+	}
+
+	private void refreshConfig() throws DalException, SAXException, IOException {
+		Config config = m_configDao.findByName(CONFIG_NAME, ConfigEntity.READSET_FULL);
+		long modifyTime = config.getModifyDate().getTime();
+
+		synchronized (this) {
+			if (modifyTime > m_modifyTime) {
+				String content = config.getContent();
+				AppCommandConfig appConfig = DefaultSaxParser.parse(content);
+
+				m_config = appConfig;
+				m_modifyTime = modifyTime;
+				refreshData();
+			}
+		}
 	}
 
 	private void refreshData() {

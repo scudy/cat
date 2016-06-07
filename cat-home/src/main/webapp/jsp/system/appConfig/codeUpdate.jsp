@@ -14,7 +14,8 @@
 		$(document).ready(function() {
 			$('#userMonitor_config').addClass('active open');
 			$('#appCodes').addClass('active');
-			$('#codeStatus').val(${model.code.status});
+			$('#networkStatus').val(${model.code.networkStatus});
+			$('#businessStatus').val(${model.code.businessStatus});
 			
 			var namespace = '${payload.namespace}';
 			if (namespace != '') {
@@ -26,7 +27,8 @@
 			var commandId = $("#commandId").val();
 			var codeId = $("#codeId").val();
 			var codeName = $("#codeName").val();
-			var codeStatus = $("#codeStatus").val();
+			var networkStatus = $("#networkStatus").val();
+			var businessStatus = $("#businessStatus").val();
 			var codeNamespace = $("#codeNamespace").val();
 			
 			if(codeId == "undefined" || codeId.trim().length == 0){
@@ -48,14 +50,20 @@
 				}
 				return;
 			}
-			if(codeStatus == "undefined" || codeStatus.trim().length == 0){
+			if(networkStatus == "undefined" || networkStatus.trim().length == 0){
+				if($("#errorMessage").length == 0){
+					$("#codeStatus").after($("<span class=\"text-danger\" id=\"errorMessage\">  该字段不能为空</span>"));
+				}
+				return;
+			}
+			if(businessStatus == "undefined" || businessStatus.trim().length == 0){
 				if($("#errorMessage").length == 0){
 					$("#codeStatus").after($("<span class=\"text-danger\" id=\"errorMessage\">  该字段不能为空</span>"));
 				}
 				return;
 			}
 			
-			window.location.href = "/cat/s/app?op=appCodeSubmit&constant=${payload.constant}&id="+${payload.id}+"&domain=${payload.domain}&content="+codeId.trim()+":"+codeName.trim()+":"+codeStatus+"&namespace="+codeNamespace;
+			window.location.href = "/cat/s/app?op=appCodeSubmit&constant=${payload.constant}&id="+${payload.id}+"&domain=${payload.domain}&content="+codeId.trim()+":"+codeName.trim()+":"+networkStatus+":"+businessStatus+"&namespace="+codeNamespace;
 		}) 
 	</script>
 	
@@ -102,9 +110,15 @@
 		</td>
 		</tr>
 		<tr>
-			<td>返回码状态</td><td><select id="codeStatus" />
-									<option value='0'>网络成功</option>
-									<option value='2'>业务成功</option>
+			<td>网络状态</td><td><select id="networkStatus" />
+									<option value='0'>成功</option>
+									<option value='1'>失败</option>
+									</select><br/>
+</td>
+		</tr>
+		<tr>
+			<td>业务状态</td><td><select id="businessStatus" />
+									<option value='0'>成功</option>
 									<option value='1'>失败</option>
 									</select><br/>
 </td>

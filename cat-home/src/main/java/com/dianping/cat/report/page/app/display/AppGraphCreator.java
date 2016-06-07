@@ -251,8 +251,7 @@ public class AppGraphCreator {
 
 			if (codes != null && (code = codes.get(keyValue)) != null) {
 				title = code.getName();
-				int status = code.getStatus();
-				if (status == 0) {
+				if (code.getNetworkStatus() == 0) {
 					title = "<span class='text-success'>【成功】</span>" + title;
 				} else {
 					title = "<span class='text-error'>【失败】</span>" + title;
@@ -265,5 +264,4 @@ public class AppGraphCreator {
 		}
 		return new Pair<Integer, String>(keyValue, title);
 	}
-
 }
