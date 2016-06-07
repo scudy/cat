@@ -68,6 +68,7 @@ public class JsAlert implements Task {
 						paras.put("end", endTime);
 						paras.put("limit", limit.getLimit());
 						paras.put("count", count);
+						paras.put("level", level);
 						entity.setParas(paras);
 
 						m_sendManager.addAlert(entity);

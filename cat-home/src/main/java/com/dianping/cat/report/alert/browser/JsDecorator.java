@@ -23,7 +23,7 @@ public class JsDecorator extends Decorator implements Initializable {
 	public static final String ID = AlertType.JS.getName();
 
 	public Configuration m_configuration;
-	
+
 	protected DateFormat m_dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
 	protected DateFormat m_timeFormat = new SimpleDateFormat("HH:mm");
@@ -56,23 +56,23 @@ public class JsDecorator extends Decorator implements Initializable {
 
 	private Map<Object, Object> generateExceptionMap(AlertEntity alert) {
 		Map<Object, Object> map = new HashMap<Object, Object>();
-		map.put("level", alert.getLevel().getLevel().toUpperCase());
-		map.put("module", alert.getGroup());
-		
 		Date startTime = alert.getDate();
+
 		map.put("date", m_dateFormat.format(startTime));
 		map.put("start", m_timeFormat.format(startTime));
+		map.put("module", alert.getGroup());
 		map.put("end", m_timeFormat.format(alert.getParas().get("end")));
 		map.put("limit", alert.getParas().get("limit"));
 		map.put("count", alert.getParas().get("count"));
-	
+		map.put("level", alert.getParas().get("level"));
+
 		return map;
 	}
 
 	@Override
 	public String generateTitle(AlertEntity alert) {
 		StringBuilder sb = new StringBuilder();
-		
+
 		sb.append("[JS异常告警]").append(alert.getContent());
 		return sb.toString();
 	}
