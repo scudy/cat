@@ -2041,6 +2041,15 @@
 			</requirements>
 		</component>
 		<component>
+			<role>com.dianping.cat.system.page.router.service.CachedRouterConfigService</role>
+			<implementation>com.dianping.cat.system.page.router.service.CachedRouterConfigService</implementation>
+			<requirements>
+				<requirement>
+					<role>com.dianping.cat.system.page.router.service.RouterConfigService</role>
+				</requirement>
+			</requirements>
+		</component>
+		<component>
 			<role>com.dianping.cat.system.page.router.config.RouterConfigAdjustor</role>
 			<implementation>com.dianping.cat.system.page.router.config.RouterConfigAdjustor</implementation>
 			<requirements>
@@ -4749,7 +4758,7 @@
 			<implementation>com.dianping.cat.system.page.router.Handler</implementation>
 			<requirements>
 				<requirement>
-					<role>com.dianping.cat.system.page.router.service.RouterConfigService</role>
+					<role>com.dianping.cat.system.page.router.service.CachedRouterConfigService</role>
 				</requirement>
 				<requirement>
 					<role>com.dianping.cat.system.page.router.config.RouterConfigManager</role>

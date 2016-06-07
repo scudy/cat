@@ -42,7 +42,7 @@ public class AppConnectionGraphCreator {
 		lineChart.setUnit("");
 		lineChart.setHtmlTitle(type.getTitle());
 
-		if (QueryType.SUCCESS.equals(type)) {
+		if (QueryType.NETWORK_SUCCESS.equals(type)) {
 			lineChart.setMinYlable(lineChart.queryMinYlable(datas));
 			lineChart.setMaxYlabel(100D);
 		}

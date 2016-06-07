@@ -89,6 +89,8 @@ public class Model extends ViewModel<SystemPage, Action, Context> {
 
 	private Map<String, Command> m_command2Id;
 
+	private List<String> m_subCommands;
+
 	public Model(Context ctx) {
 		super(ctx);
 		try {
@@ -204,6 +206,14 @@ public class Model extends ViewModel<SystemPage, Action, Context> {
 		return "";
 	}
 
+	public Map<String, List<Command>> getNamespace2Commands() {
+		return m_appConfigManager.queryNamespace2Commands();
+	}
+
+	public String getNamespace2CommandsJson() {
+		return new JsonBuilder().toJson(m_appConfigManager.queryNamespace2Commands());
+	}
+
 	public String getNameUniqueResult() {
 		return m_nameUniqueResult;
 	}
@@ -242,6 +252,14 @@ public class Model extends ViewModel<SystemPage, Action, Context> {
 
 	public Map<Integer, Speed> getSpeeds() {
 		return m_speeds;
+	}
+
+	public List<String> getSubCommands() {
+		return m_subCommands;
+	}
+
+	public String getSubCommandsJson() {
+		return new JsonBuilder().toJson(m_subCommands);
 	}
 
 	public Command getUpdateCommand() {
@@ -358,6 +376,10 @@ public class Model extends ViewModel<SystemPage, Action, Context> {
 
 	public void setSpeeds(Map<Integer, Speed> speeds) {
 		m_speeds = speeds;
+	}
+
+	public void setSubCommands(List<String> subCommands) {
+		m_subCommands = subCommands;
 	}
 
 	public void setUpdateCommand(Command updateCommand) {

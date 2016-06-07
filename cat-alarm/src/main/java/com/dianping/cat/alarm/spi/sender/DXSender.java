@@ -6,8 +6,8 @@ import org.codehaus.plexus.personality.plexus.lifecycle.phase.Initializable;
 import org.codehaus.plexus.personality.plexus.lifecycle.phase.InitializationException;
 
 import com.dianping.cat.alarm.spi.AlertChannel;
-import com.sankuai.xm.pub.push.Pusher;
-import com.sankuai.xm.pub.push.PusherBuilder;
+import com.dianping.cat.alarm.spi.dx.Pusher;
+import com.dianping.cat.alarm.spi.dx.PusherBuilder;
 
 public class DXSender extends AbstractSender implements Initializable {
 

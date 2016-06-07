@@ -38,7 +38,7 @@ public class Payload extends AbstractReportPayload<Action, ReportPage> {
 	private AppDataField m_groupByField = AppDataField.CODE;
 
 	@FieldMeta("sort")
-	private String m_sort = QueryType.SUCCESS.getName();
+	private String m_sort = QueryType.NETWORK_SUCCESS.getName();
 
 	@FieldMeta("codeId")
 	private int m_codeId;

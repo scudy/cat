@@ -2100,8 +2100,8 @@
 	   	<readsets>
       	<readset name="COUNT-DATA">
       		<member name="count"/>
+      		<member name="app-name"/>
       		<member name="module"/>
-      		<member name="level"/>
       	</readset>
       	</readsets>
 	<query-defs>
@@ -2128,6 +2128,16 @@
 		LIMIT ${offset}, ${limit}
          ]]></statement>
 		</query>
+		<query name="find-count-by-time-name-module" type="SELECT" multiple="true">
+			<param name="start-time" />
+			<param name="end-time" />
+		<statement><![CDATA[SELECT <FIELDS/>
+        	FROM <TABLE/>
+        	  WHERE <FIELD name='crash-time'/> >= ${start-time} 
+			AND  <FIELD name='crash-time'/> < ${end-time}
+			GROUP BY app_name, module
+         ]]></statement>
+		</query>
 		<query name="delete-before-period" type="DELETE">
 			<param name="updatetime" />
 			<statement><![CDATA[DELETE FROM <TABLE/>
@@ -2135,14 +2145,13 @@
 		</query>
 		<query name="find-by-tag" type="SELECT">
 			<param name="tag" />
-			<param name="id" />
 			<param name="platform" />
 			<statement><![CDATA[SELECT <FIELDS/>
         FROM <TABLE/>
         WHERE 
         	<FIELD name='tag'/> = ${tag} 
-			AND  <FIELD name='id'/> >= ${id}
 			AND <FIELD name='platform'/> = ${platform}
+		ORDER BY id DESC
 		LIMIT 1
          ]]></statement>
 		</query>
