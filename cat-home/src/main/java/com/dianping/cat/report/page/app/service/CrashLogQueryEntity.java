@@ -20,11 +20,11 @@ public class CrashLogQueryEntity {
 
 	private String m_endTime;
 
-	private String m_appName = "AndroidCrashLog";
+	private String m_appName = "1";
 
 	private String m_module;
 
-	private int m_platform = -1;
+	private int m_platform = 1;
 
 	private String m_dpid = null;
 
@@ -61,6 +61,7 @@ public class CrashLogQueryEntity {
 			m_appVersion = strs.get(4);
 			m_platformVersion = strs.get(5);
 			m_module = strs.get(6);
+			m_platform = Integer.valueOf(strs.get(7));
 		} catch (Exception e) {
 			Cat.logError(e);
 		}
@@ -117,7 +118,7 @@ public class CrashLogQueryEntity {
 
 	public Date buildDay() {
 		Date date = null;
-		
+
 		if (StringUtils.isNotBlank(m_day)) {
 			try {
 				date = m_day_format.parse(m_day);

@@ -174,6 +174,20 @@ public class MobileConfigManager implements Initializable, LogEnabled {
 		}
 	}
 
+	public String getAppName(int appId) {
+		Map<Integer, Item> sources = queryConstantItem(MobileConstants.SOURCE);
+		Item item = sources.get(appId);
+		String appName = null;
+
+		if (item != null) {
+			appName = item.getValue();
+		} else {
+			appName = String.valueOf(appId);
+		}
+
+		return appName;
+	}
+
 	public Map<String, Integer> getOperators() {
 		return m_operators;
 	}

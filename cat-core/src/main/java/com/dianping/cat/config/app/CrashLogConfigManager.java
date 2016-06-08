@@ -37,13 +37,13 @@ public class CrashLogConfigManager implements Initializable {
 
 	private CrashLogConfig m_config;
 
-	private Map<Integer, Map<String, String>> m_apps;
-
 	private int m_configId;
 
 	private long m_modifyTime;
 
 	private static final String CONFIG_NAME = "crash-log-config";
+
+	private Map<String, Integer> m_apps;
 
 	public String findServerUrl(String id) {
 		Server server = m_config.findServer(id);
@@ -65,15 +65,6 @@ public class CrashLogConfigManager implements Initializable {
 
 	public Modules findModules(String id) {
 		return m_config.findModules(id);
-	}
-
-	public String findAppName(int appId, String platform) {
-		Map<String, String> theApp = m_apps.get(appId);
-
-		if (theApp != null) {
-			return theApp.get(platform);
-		}
-		return null;
 	}
 
 	public CrashLogConfig getConfig() {
@@ -140,19 +131,16 @@ public class CrashLogConfigManager implements Initializable {
 			}
 		}
 	}
+	
+	public Integer findAppId(String appName) {
+		return m_apps.get(appName);
+	}
 
 	private void buildApps() {
-		Map<Integer, Map<String, String>> apps = new HashMap<Integer, Map<String, String>>();
+		Map<String, Integer> apps = new HashMap<String, Integer>();
 
 		for (App app : m_config.getApps().values()) {
-			Map<String, String> theApp = apps.get(app.getAppId());
-
-			if (theApp == null) {
-				theApp = new HashMap<String, String>();
-				apps.put(app.getAppId(), theApp);
-			}
-
-			theApp.put(app.getPlatform(), app.getName());
+			apps.put(app.getName(), app.getAppId());
 		}
 		m_apps = apps;
 	}

@@ -17,7 +17,7 @@
 		<div class="report">
 		<table class="table ">
 		<tr>
-		<td colspan="2">
+			<td colspan="2">
 				<div class="input-group" style="float:left;">
 	              <span class="input-group-addon">开始</span>
 	              <input type="text" id="time" style="width:130px"/>
@@ -25,11 +25,17 @@
 				<div class="input-group" style="float:left;width:60px">
 	              <span class="input-group-addon">结束</span>
         	      <input type="text" id="time2" style="width:60px;"/></div>
+        	    <div class="input-group" style="float:left;width:60px">
+	              <span class="input-group-addon">平台</span>  
+				<select id="platform" style="width: 100px; height:33px">
+					<option value="1">Android</option>
+					<option value="2">IOS</option>
+				</select></div>
 				  <div class="input-group" style="float:left;width:60px">
 	              <span class="input-group-addon">APP Name</span>  
 				<select id="appName" style="width: 200px; height:33px">
 						<c:forEach var="appName" items="${model.crashLogDisplayInfo.appNames}">
-							<option value="${appName.name}">${appName.desc}</option>
+							<option value="${appName.id}">${appName.value}</option>
 						</c:forEach>
 				</select></div>
 				    <div class="input-group" style="float:left;">
@@ -39,45 +45,46 @@
 					&nbsp;&nbsp;&nbsp;<input class="btn btn-primary btn-sm "
 					value="&nbsp;&nbsp;&nbsp;查询&nbsp;&nbsp;&nbsp;" onclick="query()"
 					type="submit" /></td>
-					<td>
-						<div class="nav-search nav" id="nav-search">
-						&nbsp;[ <a href="${model.baseUri}?op=appCrashLog&crashLogQuery.day=${payload.crashLogQuery.day}&crashLogQuery.appName=${payload.crashLogQuery.appName}&crashLogQuery.dpid=${payload.crashLogQuery.dpid}&crashLogQuery.query=${payload.crashLogQuery.query}&crashLogQuery.step=-1">-1d</a> ]&nbsp;
-						&nbsp;[ <a href="${model.baseUri}?op=appCrashLog&crashLogQuery.day=${payload.crashLogQuery.day}&crashLogQuery.appName=${payload.crashLogQuery.appName}&crashLogQuery.dpid=${payload.crashLogQuery.dpid}&crashLogQuery.query=${payload.crashLogQuery.query}&crashLogQuery.step=1">+1d</a> ]&nbsp;
-						&nbsp;[ <a href="${model.baseUri}?op=appCrashLog&crashLogQuery.appName=${payload.crashLogQuery.appName}&crashLogQuery.dpid=${payload.crashLogQuery.dpid}&crashLogQuery.query=${payload.crashLogQuery.query}">now</a> ]&nbsp;
-						</div>
-					</td></tr>
-					<tr><td width="100px;">APP版本</td><td>
-						<div>
-						<label class="btn btn-info btn-sm">
-		    				<input type="checkbox" id="appVersionAll" onclick="clickAll('${model.crashLogDisplayInfo.fieldsInfo.appVersions}', 'appVersion')" unchecked>All
-		  				</label><c:forEach var="item" items="${model.crashLogDisplayInfo.fieldsInfo.appVersions}" varStatus="status"><label class="btn btn-info btn-sm"><input type="checkbox" id="appVersion_${item}" value="${item}" onclick="clickMe('${model.crashLogDisplayInfo.fieldsInfo.appVersions}', 'appVersion')" unchecked>${item}</label></c:forEach>
-						</div>
-						</td></tr>
-					<tr><td width="60px;">平台版本</td><td><div><label class="btn btn-info btn-sm">
-		    				<input type="checkbox" id="platformVersionAll" onclick="clickAll('${model.crashLogDisplayInfo.fieldsInfo.platVersions}', 'platformVersion')" unchecked>All
-		  				</label><c:forEach var="item" items="${model.crashLogDisplayInfo.fieldsInfo.platVersions}" varStatus="status"><label class="btn btn-info btn-sm"><input type="checkbox" id="platformVersion_${item}" value="${item}" onclick="clickMe('${model.crashLogDisplayInfo.fieldsInfo.platVersions}', 'platformVersion')" unchecked>${item}</label></c:forEach>
-						</div>
-						</td></tr>
-					<tr><td width="60px;"> 模块</td><td><div>
-						<label class="btn btn-info btn-sm">
-		    				<input type="checkbox" id="moduleAll" onclick="clickAll('${model.crashLogDisplayInfo.fieldsInfo.modules}', 'module')" unchecked>All
-		  				</label><c:forEach var="item" items="${model.crashLogDisplayInfo.fieldsInfo.modules}" varStatus="status"><label class="btn btn-info btn-sm"><input type="checkbox" id="module_${item}" value="${item}" onclick="clickMe('${model.crashLogDisplayInfo.fieldsInfo.modules}', 'module')" unchecked>${item}</label></c:forEach>
-						</div>
-						</td></tr>
-					<tr><td width="60px;"> 级别</td><td><div>
-						<label class="btn btn-info btn-sm">
-		    				<input type="checkbox" id="levelAll" onclick="clickAll('${model.crashLogDisplayInfo.fieldsInfo.levels}', 'level')"  unchecked>All
-		  				</label><c:forEach var="item" items="${model.crashLogDisplayInfo.fieldsInfo.levels}" varStatus="status"><label class="btn btn-info btn-sm"><input type="checkbox" id="level_${item}" value="${item}" onclick="clickMe('${model.crashLogDisplayInfo.fieldsInfo.levels}', 'level')" unchecked>${item}</label></c:forEach>
-						</div>
-						</td></tr>
-					<tr><td width="60px;">设备</td><td>
-						<select multiple="true"	class="chosen-select tag-input-style" id="device_select" name="devices"  data-placeholder="Choose devices...">
-						<option id="device_all" value="device_all">ALL</option>
-						<c:forEach var="item" items="${model.crashLogDisplayInfo.fieldsInfo.devices}">
-							<option id="${item}" value="${item}">${item}</option>
-						</c:forEach>
-						</select>
-						</td></tr>
+			</tr>
+			<tr>
+			<td colspan="2" align="right">
+				&nbsp;[ <a href="${model.baseUri}?op=appCrashLog&crashLogQuery.day=${payload.crashLogQuery.day}&crashLogQuery.appName=${payload.crashLogQuery.appName}&crashLogQuery.dpid=${payload.crashLogQuery.dpid}&crashLogQuery.query=${payload.crashLogQuery.query}&crashLogQuery.step=-1&crashLogQuery.platform=${payload.crashLogQuery.platform}">-1d</a> ]&nbsp;
+				&nbsp;[ <a href="${model.baseUri}?op=appCrashLog&crashLogQuery.day=${payload.crashLogQuery.day}&crashLogQuery.appName=${payload.crashLogQuery.appName}&crashLogQuery.dpid=${payload.crashLogQuery.dpid}&crashLogQuery.query=${payload.crashLogQuery.query}&crashLogQuery.step=1&crashLogQuery.platform=${payload.crashLogQuery.platform}">+1d</a> ]&nbsp;
+				&nbsp;[ <a href="${model.baseUri}?op=appCrashLog&crashLogQuery.appName=${payload.crashLogQuery.appName}&crashLogQuery.dpid=${payload.crashLogQuery.dpid}&crashLogQuery.query=${payload.crashLogQuery.query}&crashLogQuery.platform=${payload.crashLogQuery.platform}">now</a> ]&nbsp;
+			</td>
+			</tr>
+			<tr><td width="100px;">APP版本</td><td>
+				<div>
+				<label class="btn btn-info btn-sm">
+    				<input type="checkbox" id="appVersionAll" onclick="clickAll('${model.crashLogDisplayInfo.fieldsInfo.appVersions}', 'appVersion')" unchecked>All
+  				</label><c:forEach var="item" items="${model.crashLogDisplayInfo.fieldsInfo.appVersions}" varStatus="status"><label class="btn btn-info btn-sm"><input type="checkbox" id="appVersion_${item}" value="${item}" onclick="clickMe('${model.crashLogDisplayInfo.fieldsInfo.appVersions}', 'appVersion')" unchecked>${item}</label></c:forEach>
+				</div>
+				</td></tr>
+			<tr><td width="60px;">平台版本</td><td><div><label class="btn btn-info btn-sm">
+    				<input type="checkbox" id="platformVersionAll" onclick="clickAll('${model.crashLogDisplayInfo.fieldsInfo.platVersions}', 'platformVersion')" unchecked>All
+  				</label><c:forEach var="item" items="${model.crashLogDisplayInfo.fieldsInfo.platVersions}" varStatus="status"><label class="btn btn-info btn-sm"><input type="checkbox" id="platformVersion_${item}" value="${item}" onclick="clickMe('${model.crashLogDisplayInfo.fieldsInfo.platVersions}', 'platformVersion')" unchecked>${item}</label></c:forEach>
+				</div>
+				</td></tr>
+			<tr><td width="60px;"> 模块</td><td><div>
+				<label class="btn btn-info btn-sm">
+    				<input type="checkbox" id="moduleAll" onclick="clickAll('${model.crashLogDisplayInfo.fieldsInfo.modules}', 'module')" unchecked>All
+  				</label><c:forEach var="item" items="${model.crashLogDisplayInfo.fieldsInfo.modules}" varStatus="status"><label class="btn btn-info btn-sm"><input type="checkbox" id="module_${item}" value="${item}" onclick="clickMe('${model.crashLogDisplayInfo.fieldsInfo.modules}', 'module')" unchecked>${item}</label></c:forEach>
+				</div>
+				</td></tr>
+			<tr><td width="60px;"> 级别</td><td><div>
+				<label class="btn btn-info btn-sm">
+    				<input type="checkbox" id="levelAll" onclick="clickAll('${model.crashLogDisplayInfo.fieldsInfo.levels}', 'level')"  unchecked>All
+  				</label><c:forEach var="item" items="${model.crashLogDisplayInfo.fieldsInfo.levels}" varStatus="status"><label class="btn btn-info btn-sm"><input type="checkbox" id="level_${item}" value="${item}" onclick="clickMe('${model.crashLogDisplayInfo.fieldsInfo.levels}', 'level')" unchecked>${item}</label></c:forEach>
+				</div>
+				</td></tr>
+			<tr><td width="60px;">设备</td><td>
+				<select multiple="true"	class="chosen-select tag-input-style" id="device_select" name="devices"  data-placeholder="Choose devices...">
+				<option id="device_all" value="device_all">ALL</option>
+				<c:forEach var="item" items="${model.crashLogDisplayInfo.fieldsInfo.devices}">
+					<option id="${item}" value="${item}">${item}</option>
+				</c:forEach>
+				</select>
+				</td></tr>
 	</table>
 	</div>
 
@@ -141,7 +148,7 @@
 		var end = converTimeFormat($("#time2").val());
 		var dpid = $("#dpid").val();
 		var appName = $("#appName").val();
-		var platform = -1;
+		var platform = $("#platform").val();
 		
  		var appVersion = queryField('${model.crashLogDisplayInfo.fieldsInfo.appVersions}','appVersion');
 		var platVersion = queryField('${model.crashLogDisplayInfo.fieldsInfo.platVersions}','platformVersion');
@@ -178,7 +185,7 @@
 			var end = converTimeFormat($("#time2").val());
 			var dpid = $("#dpid").val();
 			var appName = $("#appName").val();
-			var platform = -1;
+			var platform = $("#platform").val();
 			
 	 		window.location.href = "?op=appCrashLog&crashLogQuery.day=" + period + "&crashLogQuery.startTime=" + start + "&crashLogQuery.endTime=" + end
 			 + "&crashLogQuery.appName=" + appName + "&crashLogQuery.platform=" + platform + "&crashLogQuery.dpid=" + dpid ;
@@ -213,6 +220,11 @@
 			}else{
 				$("#time2").val(endTime);
 			}
+			
+			var platform = '${payload.crashLogQuery.platform}';
+			if (platform != null && platform.length != 0) {
+				$("#platform").val(platform);
+			}	
 			
 			var appName = '${payload.crashLogQuery.appName}';
 			if (appName != null && appName.length != 0) {
