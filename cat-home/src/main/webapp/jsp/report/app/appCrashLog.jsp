@@ -31,26 +31,26 @@
 					<option value="1">Android</option>
 					<option value="2">IOS</option>
 				</select></div>
-				  <div class="input-group" style="float:left;width:60px">
-	              <span class="input-group-addon">APP Name</span>  
-				<select id="appName" style="width: 200px; height:33px">
+				  <div class="input-group" style="float:left;width:30px">
+	              <span class="input-group-addon">App</span>  
+				<select id="appName" style="width: 120px; height:33px">
 						<c:forEach var="appName" items="${model.crashLogDisplayInfo.appNames}">
 							<option value="${appName.id}">${appName.value}</option>
 						</c:forEach>
 				</select></div>
 				    <div class="input-group" style="float:left;">
-					<span class="input-group-addon">Dpid</span>
+					<span class="input-group-addon">UnionId</span>
 					<input type="text"  id="dpid" />
 	            </div>
 					&nbsp;&nbsp;&nbsp;<input class="btn btn-primary btn-sm "
 					value="&nbsp;&nbsp;&nbsp;查询&nbsp;&nbsp;&nbsp;" onclick="query()"
 					type="submit" /></td>
-			</tr>
-			<tr>
-			<td colspan="2" align="right">
+			<td>
+				<div class="nav-search nav" id="nav-search">
 				&nbsp;[ <a href="${model.baseUri}?op=appCrashLog&crashLogQuery.day=${payload.crashLogQuery.day}&crashLogQuery.appName=${payload.crashLogQuery.appName}&crashLogQuery.dpid=${payload.crashLogQuery.dpid}&crashLogQuery.query=${payload.crashLogQuery.query}&crashLogQuery.step=-1&crashLogQuery.platform=${payload.crashLogQuery.platform}">-1d</a> ]&nbsp;
 				&nbsp;[ <a href="${model.baseUri}?op=appCrashLog&crashLogQuery.day=${payload.crashLogQuery.day}&crashLogQuery.appName=${payload.crashLogQuery.appName}&crashLogQuery.dpid=${payload.crashLogQuery.dpid}&crashLogQuery.query=${payload.crashLogQuery.query}&crashLogQuery.step=1&crashLogQuery.platform=${payload.crashLogQuery.platform}">+1d</a> ]&nbsp;
 				&nbsp;[ <a href="${model.baseUri}?op=appCrashLog&crashLogQuery.appName=${payload.crashLogQuery.appName}&crashLogQuery.dpid=${payload.crashLogQuery.dpid}&crashLogQuery.query=${payload.crashLogQuery.query}&crashLogQuery.platform=${payload.crashLogQuery.platform}">now</a> ]&nbsp;
+				</div>
 			</td>
 			</tr>
 			<tr><td width="100px;">APP版本</td><td>

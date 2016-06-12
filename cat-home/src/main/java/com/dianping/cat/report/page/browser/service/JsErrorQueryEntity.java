@@ -23,13 +23,21 @@ public class JsErrorQueryEntity {
 
 	private String m_dpid;
 
+	private int m_step;
+
 	private static final String ALL = "ALL";
 
 	private String m_day;
 
 	private SimpleDateFormat m_format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
+	private SimpleDateFormat m_day_format = new SimpleDateFormat("yyyy-MM-dd");
+
 	public Date buildEndTime() {
+		if (m_step != 0) {
+			m_endTime = "23:59";
+		}
+
 		if (StringUtils.isNotBlank(m_day) && StringUtils.isNotBlank(m_endTime)) {
 			try {
 				Date date = m_format.parse(m_day + " " + m_endTime);
@@ -49,6 +57,11 @@ public class JsErrorQueryEntity {
 	}
 
 	public Date buildStartTime() {
+		if (m_step != 0) {
+			m_day = m_day_format.format(buildDay());
+			m_startTime = "00:00";
+		}
+
 		if (StringUtils.isNotBlank(m_day) && StringUtils.isNotBlank(m_startTime)) {
 			try {
 				Date date = m_format.parse(m_day + " " + m_startTime);
@@ -57,6 +70,25 @@ public class JsErrorQueryEntity {
 			}
 		}
 		return TimeHelper.getCurrentHour();
+	}
+
+	private Date buildDay() {
+		Date date = null;
+
+		if (StringUtils.isNotBlank(m_day)) {
+			try {
+				date = m_day_format.parse(m_day);
+			} catch (ParseException e) {
+				date = TimeHelper.getCurrentDay();
+			}
+		} else {
+			date = TimeHelper.getCurrentDay();
+		}
+
+		if (m_step != 0) {
+			date = new Date(date.getTime() + m_step * TimeHelper.ONE_DAY);
+		}
+		return date;
 	}
 
 	public String getDpid() {
@@ -121,6 +153,14 @@ public class JsErrorQueryEntity {
 
 	public void setDay(String day) {
 		m_day = day;
+	}
+
+	public int getStep() {
+		return m_step;
+	}
+
+	public void setStep(int step) {
+		m_step = step;
 	}
 
 }

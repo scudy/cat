@@ -17,7 +17,7 @@
 </style> 
 <table>
 	<tr>
-			<th>
+			<td>
 				<div class="input-group" style="float:left;">
 	              <span class="input-group-addon">开始</span>
 	              <input type="text" id="time" style="width:130px"/>
@@ -25,9 +25,9 @@
 				<div class="input-group" style="float:left;width:60px">
 	              <span class="input-group-addon">结束</span>
         	      <input type="text" id="time2" style="width:60px;"/></div>
-	             <div class="input-group" style="float:left;width:120px">
+	             <div class="input-group" style="float:left;width:40px">
 	              	<span class="input-group-addon">level</span>
-					<select id="level" style="width:100px;height:32px">
+					<select id="level" style="width:80px;height:32px">
 						<option value=''>ALL</option>
 						<c:forEach var="level" items="${model.jsErrorDisplayInfo.levels}">
 							<option value="${level}">${level}</option>
@@ -42,22 +42,30 @@
 	            </div> -->
 	            <div class="input-group" style="float:left;">
 					<span class="input-group-addon">模块</span>
-						<span class="input-icon" style="width:250px;height:33px">
+						<span class="input-icon" style="width:200px;height:33px">
 							<input type="text" placeholder="" class="search-input search-input form-control ui-autocomplete-input" id="module" autocomplete="on" data=""/>
 							<i class="ace-icon fa fa-search nav-search-icon"></i>
 						</span>
 	            </div>
 	            <div class="input-group" style="float:left;">
 					<span class="input-group-addon">Dpid</span>
-					<input type="text"  id="dpid" />
+					<input type="text"  id="dpid" style="width:130px;height:33px"/>
 	            </div>
-	              <input class="btn btn-primary btn-sm"
+	             &nbsp;<input class="btn btn-primary btn-sm"
 					value="&nbsp;&nbsp;&nbsp;查询&nbsp;&nbsp;&nbsp;" onclick="query()"
 					type="submit" />
-			</th>
+				
+			</td>
+			<td>
+				<div class="nav-search nav">
+				&nbsp;[ <a href="${model.baseUri}?op=jsError&jsErrorQuery.day=${payload.jsErrorQuery.day}&jsErrorQuery.startTime=${payload.jsErrorQuery.startTime}&jsErrorQuery.endTime=${payload.jsErrorQuery.endTime}&jsErrorQuery.level=${payload.jsErrorQuery.level}&jsErrorQuery.step=-1&jsErrorQuery.module=${payload.jsErrorQuery.module}&jsErrorQuery.dpid=${payload.jsErrorQuery.dpid}">-1d</a> ]&nbsp;
+				&nbsp;[ <a href="${model.baseUri}?op=jsError&jsErrorQuery.day=${payload.jsErrorQuery.day}&jsErrorQuery.startTime=${payload.jsErrorQuery.startTime}&jsErrorQuery.endTime=${payload.jsErrorQuery.endTime}&jsErrorQuery.level=${payload.jsErrorQuery.level}&jsErrorQuery.step=1&jsErrorQuery.module=${payload.jsErrorQuery.module}&jsErrorQuery.dpid=${payload.jsErrorQuery.dpid}">+1d</a> ]&nbsp;
+				&nbsp;[ <a href="${model.baseUri}?op=jsError&jsErrorQuery.level=${payload.jsErrorQuery.level}&jsErrorQuery.module=${payload.jsErrorQuery.module}&jsErrorQuery.dpid=${payload.jsErrorQuery.dpid}">now</a> ]&nbsp;
+				</div>	
+			</td>
 			</tr>
 	</table>
-
+	<br/>
 	<div class="tabbable">
 		<ul class="nav nav-tabs padding-12 tab-color-blue background-blue"
 			style="height: 50px;">
