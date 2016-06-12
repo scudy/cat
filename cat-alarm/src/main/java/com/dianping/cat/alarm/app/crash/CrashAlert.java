@@ -86,6 +86,8 @@ public class CrashAlert implements Task {
 						paras.put("warning", limit.getWarnings());
 						paras.put("error", limit.getErrors());
 						paras.put("count", count);
+						paras.put("appId", appId);
+						paras.put("platform", platform);
 						entity.setParas(paras);
 
 						m_sendManager.addAlert(entity);

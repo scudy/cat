@@ -66,7 +66,9 @@ public class CrashDecorator extends Decorator implements Initializable {
 		map.put("warning", alert.getParas().get("warning"));
 		map.put("error", alert.getParas().get("error"));
 		map.put("count", alert.getParas().get("count"));
-
+		map.put("appId", alert.getParas().get("appId"));
+		map.put("platform", alert.getParas().get("platform"));
+		
 		return map;
 	}
 
