@@ -204,7 +204,7 @@ public class AppReportBuilder implements TaskBuilder {
 			AppDailyReport report = new AppDailyReport();
 
 			report.setCreationDate(new Date());
-			report.setNamespace(m_mobileConfigManager.queryNamespaceIdByTitle(namespace));
+			report.setAppId(m_mobileConfigManager.queryNamespaceIdByTitle(namespace));
 			report.setIp(NetworkInterfaceManager.INSTANCE.getLocalHostAddress());
 			report.setName(name);
 			report.setPeriod(period);

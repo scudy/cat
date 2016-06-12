@@ -329,7 +329,7 @@
     <member name="id" field="id" value-type="int" length="10" nullable="false" key="true" auto-increment="true" />
     <member name="name" field="name" value-type="String" length="20" nullable="false" />
     <member name="ip" field="ip" value-type="String" length="50" nullable="false" />
-    <member name="namespace" field="namespace" value-type="int" length="3" nullable="false" />
+    <member name="app-id" field="app_id" value-type="int" length="10" nullable="false" />
     <member name="period" field="period" value-type="Date" nullable="false" />
     <member name="type" field="type" value-type="int" length="3" nullable="false" />
     <member name="creation-date" field="creation_date" value-type="Date" nullable="false" />

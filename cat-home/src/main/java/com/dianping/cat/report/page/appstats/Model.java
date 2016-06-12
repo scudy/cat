@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.unidal.web.mvc.view.annotation.EntityMeta;
+import org.unidal.web.mvc.view.annotation.ModelMeta;
 
 import com.dianping.cat.configuration.mobile.entity.ConstantItem;
 import com.dianping.cat.home.app.entity.AppReport;
@@ -12,6 +13,7 @@ import com.dianping.cat.report.ReportPage;
 import com.dianping.cat.report.graph.PieChart;
 import com.dianping.cat.report.page.appstats.display.DisplayCommands;
 
+@ModelMeta("AppStats")
 public class Model extends AbstractReportModel<Action, ReportPage, Context> {
 
 	@EntityMeta

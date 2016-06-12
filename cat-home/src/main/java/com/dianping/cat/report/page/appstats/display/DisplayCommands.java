@@ -7,6 +7,14 @@ public class DisplayCommands {
 
 	private Map<Integer, DisplayCommand> m_commands = new LinkedHashMap<Integer, DisplayCommand>();
 
+	public DisplayCommands() {
+		
+	}
+
+	public DisplayCommands(Map<Integer, DisplayCommand> commands) {
+		m_commands = commands;
+	}
+
 	public DisplayCommand findCommand(int id) {
 		return m_commands.get(id);
 	}
@@ -31,5 +39,4 @@ public class DisplayCommands {
 	public Map<Integer, DisplayCommand> getCommands() {
 		return m_commands;
 	}
-
 }

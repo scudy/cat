@@ -91,7 +91,7 @@
 	        var codes=$('#tag_codes').val();
 	        var top=$('#top').val();
 	        
-	        window.location.href="?op=statistics&namespace="+app+"&day="+time+"&domain=${model.domain}&type=${payload.type}&codes="+codes+"&top="+top;
+	        window.location.href="?namespace="+app+"&day="+time+"&domain=${model.domain}&type=${payload.type}&codes="+codes+"&top="+top;
 	      }
 		</script>
 </a:mobile>

@@ -1,16 +1,13 @@
 package com.dianping.cat.report.page.appstats.display;
 
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import org.unidal.lookup.util.StringUtils;
 
 import com.dianping.cat.Constants;
+import com.dianping.cat.helper.SortHelper;
 
 public class AppCommandsSorter {
 
@@ -49,18 +46,11 @@ public class AppCommandsSorter {
 	}
 
 	public DisplayCommands getSortedCommands() {
-		Map<Integer, DisplayCommand> commands = m_commands.getCommands();
-		List<Entry<Integer, DisplayCommand>> tmp = new LinkedList<Entry<Integer, DisplayCommand>>(commands.entrySet());
-		Map<Integer, DisplayCommand> results = new LinkedHashMap<Integer, DisplayCommand>();
+		System.out.println(m_commands.getCommands());
+		Map<Integer, DisplayCommand> commands = SortHelper.sortMap(m_commands.getCommands(), new AppComparator());
+		System.out.println(commands);
 
-		Collections.sort(tmp, new AppComparator());
-
-		for (Entry<Integer, DisplayCommand> command : tmp) {
-			results.put(command.getKey(), command.getValue());
-		}
-		m_commands.getCommands().clear();
-		m_commands.getCommands().putAll(results);
-		return m_commands;
+		return new DisplayCommands(commands);
 	}
 
 	public class AppComparator implements Comparator<Entry<Integer, DisplayCommand>> {
@@ -78,7 +68,8 @@ public class AppCommandsSorter {
 				} else if (Constants.ALL.equals(str2)) {
 					return 1;
 				} else {
-					return sortValue(command1, command2);
+					int sortValue = sortValue(command1, command2);
+					return sortValue;
 				}
 			} else {
 				return sortStr(command1, command2);

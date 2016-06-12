@@ -40,6 +40,7 @@ public abstract class AbstractAppReportService<T> implements LogEnabled, AppRepo
 
 			proto.setReportId(id);
 			proto.setContent(content);
+			proto.setCreationDate(new Date());
 			m_dailyReportContentDao.insert(proto);
 			return true;
 		} catch (DalException e) {
