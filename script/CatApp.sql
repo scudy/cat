@@ -98,9 +98,9 @@ CREATE TABLE `map_file` (
 
 CREATE TABLE `app_daily_report` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(20) NOT NULL COMMENT '报表名称, transaction, problem...',
+  `name` varchar(20) NOT NULL COMMENT '报表名称, app访问统计, crash统计...',
   `ip` varchar(50) NOT NULL COMMENT '报表来自于哪台cat-consumer机器',
-  `namespace` tinyint(4) DEFAULT NULL,
+  `namespace` tinyint(4) NOT NULL COMMENT '报表数据来自于哪个APP',
   `period` datetime NOT NULL COMMENT '报表时间段',
   `type` tinyint(4) NOT NULL COMMENT '报表数据格式, 1/xml, 2/json, 默认1',
   `creation_date` datetime NOT NULL COMMENT '报表创建时间',
