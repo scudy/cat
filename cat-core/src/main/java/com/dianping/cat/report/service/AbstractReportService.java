@@ -65,6 +65,57 @@ public abstract class AbstractReportService<T> implements LogEnabled, ReportServ
 	@Inject
 	protected MonthlyReportContentDao m_monthlyReportContentDao;
 
+	private Map<String, Set<String>> m_domains = new LinkedHashMap<String, Set<String>>() {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		protected boolean removeEldestEntry(Entry<String, Set<String>> eldest) {
+			return size() > 1000;
+		}
+	};
+
+	protected Logger m_logger;
+
+	public static final int s_hourly = 1;
+
+	public static final int s_daily = 2;
+
+	public static final int s_weekly = 3;
+
+	public static final int s_monthly = 4;
+
+	public static final int s_customer = 5;
+
+	public int computeQueryType(Date start, Date end) {
+		long duration = end.getTime() - start.getTime();
+
+		if (duration == TimeHelper.ONE_HOUR) {
+			return s_hourly;
+		}
+		if (duration == TimeHelper.ONE_DAY) {
+			return s_daily;
+		}
+		Calendar startCal = Calendar.getInstance();
+		startCal.setTime(start);
+
+		if (duration == TimeHelper.ONE_WEEK && startCal.get(Calendar.DAY_OF_WEEK) == 7) {
+			return s_weekly;
+		}
+		Calendar endCal = Calendar.getInstance();
+		endCal.setTime(end);
+
+		if (startCal.get(Calendar.DAY_OF_MONTH) == 1 && endCal.get(Calendar.DAY_OF_MONTH) == 1) {
+			return s_monthly;
+		}
+		return s_customer;
+	}
+
+	@Override
+	public void enableLogging(Logger logger) {
+		m_logger = logger;
+	}
+
 	@Override
 	public boolean insertDailyReport(DailyReport report, byte[] content) {
 		try {
@@ -171,57 +222,6 @@ public abstract class AbstractReportService<T> implements LogEnabled, ReportServ
 			Cat.logError(e);
 			return false;
 		}
-	}
-
-	private Map<String, Set<String>> m_domains = new LinkedHashMap<String, Set<String>>() {
-
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		protected boolean removeEldestEntry(Entry<String, Set<String>> eldest) {
-			return size() > 1000;
-		}
-	};
-
-	protected Logger m_logger;
-
-	public static final int s_hourly = 1;
-
-	public static final int s_daily = 2;
-
-	public static final int s_weekly = 3;
-
-	public static final int s_monthly = 4;
-
-	public static final int s_customer = 5;
-
-	public int computeQueryType(Date start, Date end) {
-		long duration = end.getTime() - start.getTime();
-
-		if (duration == TimeHelper.ONE_HOUR) {
-			return s_hourly;
-		}
-		if (duration == TimeHelper.ONE_DAY) {
-			return s_daily;
-		}
-		Calendar startCal = Calendar.getInstance();
-		startCal.setTime(start);
-
-		if (duration == TimeHelper.ONE_WEEK && startCal.get(Calendar.DAY_OF_WEEK) == 7) {
-			return s_weekly;
-		}
-		Calendar endCal = Calendar.getInstance();
-		endCal.setTime(end);
-
-		if (startCal.get(Calendar.DAY_OF_MONTH) == 1 && endCal.get(Calendar.DAY_OF_MONTH) == 1) {
-			return s_monthly;
-		}
-		return s_customer;
-	}
-
-	@Override
-	public void enableLogging(Logger logger) {
-		m_logger = logger;
 	}
 
 	public abstract T makeReport(String domain, Date start, Date end);

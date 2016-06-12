@@ -15,15 +15,15 @@ import com.dianping.cat.config.app.SdkConfigManager;
 import com.dianping.cat.report.alert.app.AppAlert;
 import com.dianping.cat.report.alert.app.AppContactor;
 import com.dianping.cat.report.alert.app.AppDecorator;
-import com.dianping.cat.report.page.app.display.AppStatisticBuilder;
 import com.dianping.cat.report.page.app.service.AppConnectionService;
 import com.dianping.cat.report.page.app.service.AppDataService;
-import com.dianping.cat.report.page.app.service.AppReportService;
 import com.dianping.cat.report.page.app.service.AppSpeedDataBuilder;
 import com.dianping.cat.report.page.app.service.AppSpeedService;
 import com.dianping.cat.report.page.app.task.AppCommandAutoCompleter;
 import com.dianping.cat.report.page.app.task.AppDatabasePruner;
 import com.dianping.cat.report.page.app.task.AppReportBuilder;
+import com.dianping.cat.report.page.appstats.service.AppStatisticBuilder;
+import com.dianping.cat.report.page.appstats.service.AppStatisticReportService;
 import com.dianping.cat.service.ProjectService;
 
 public class AppComponentConfigurator extends AbstractResourceConfigurator {
@@ -38,7 +38,7 @@ public class AppComponentConfigurator extends AbstractResourceConfigurator {
 
 		all.add(A(AppConnectionService.class));
 
-		all.add(A(AppReportService.class));
+		all.add(A(AppStatisticReportService.class));
 
 		all.add(A(AppDatabasePruner.class));
 

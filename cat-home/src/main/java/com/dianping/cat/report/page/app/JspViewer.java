@@ -40,8 +40,6 @@ public class JspViewer extends BaseJspViewer<ReportPage, Action, Context, Model>
 			return JspFile.SPEED_GRAPH.getPath();
 		case APP_COMMAND_DAILY:
 			return JspFile.APP_COMMAND_DAILY.getPath();
-		case STATISTICS:
-			return JspFile.STATISTICS.getPath();
 		case DASHBOARD:
 			return JspFile.DASHBOARD.getPath();
 		}

@@ -42,7 +42,7 @@
 							<li id="speedGraph"><a href="/cat/r/app?op=speedGraph">
 								<i class="menu-icon fa fa-caret-right"></i>App测速分布</a>
 								<b class="arrow"></b></li>
-							<li id="statistics"><a href="/cat/r/app?op=statistics&domain=${model.domain}&type=all">
+							<li id="statistics"><a href="/cat/r/appstats?domain=${model.domain}&type=all">
 								<i class="menu-icon fa fa-caret-right"></i>每天报表统计</a>
 								<b class="arrow"></b></li>
 							<li id="connTrend"><a href="/cat/r/app?op=connLinechart&domain=${model.domain}">

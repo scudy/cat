@@ -9,7 +9,6 @@ import org.unidal.dal.jdbc.DalException;
 import org.unidal.helper.Threads;
 import org.unidal.lookup.annotation.Inject;
 import org.unidal.lookup.annotation.Named;
-import org.unidal.lookup.util.StringUtils;
 
 import com.dianping.cat.Cat;
 import com.dianping.cat.Constants;
@@ -17,23 +16,21 @@ import com.dianping.cat.alarm.service.AppAlarmRuleService;
 import com.dianping.cat.app.AppCommandData;
 import com.dianping.cat.app.AppCommandDataDao;
 import com.dianping.cat.app.AppCommandDataEntity;
+import com.dianping.cat.app.AppDailyReport;
 import com.dianping.cat.command.entity.Command;
 import com.dianping.cat.config.app.AppCommandConfigManager;
 import com.dianping.cat.config.app.MobileConfigManager;
 import com.dianping.cat.configuration.NetworkInterfaceManager;
 import com.dianping.cat.consumer.transaction.model.entity.Machine;
 import com.dianping.cat.consumer.transaction.model.entity.TransactionName;
-import com.dianping.cat.consumer.transaction.model.entity.TransactionReport;
 import com.dianping.cat.consumer.transaction.model.entity.TransactionType;
 import com.dianping.cat.consumer.transaction.model.transform.BaseVisitor;
-import com.dianping.cat.core.dal.DailyReport;
-import com.dianping.cat.helper.TimeHelper;
 import com.dianping.cat.home.app.entity.AppReport;
 import com.dianping.cat.home.app.entity.Code;
 import com.dianping.cat.home.app.entity.Transaction;
 import com.dianping.cat.home.app.transform.DefaultNativeBuilder;
 import com.dianping.cat.message.Event;
-import com.dianping.cat.report.page.app.service.AppReportService;
+import com.dianping.cat.report.page.appstats.service.AppStatisticReportService;
 import com.dianping.cat.report.page.transaction.service.TransactionReportService;
 import com.dianping.cat.report.page.transaction.transform.TransactionMergeHelper;
 import com.dianping.cat.report.task.TaskBuilder;
@@ -49,7 +46,7 @@ public class AppReportBuilder implements TaskBuilder {
 	private AppCommandConfigManager m_appConfigManager;
 
 	@Inject
-	private AppReportService m_appReportService;
+	private AppStatisticReportService m_appReportService;
 
 	@Inject
 	private TransactionReportService m_transactionReportService;
@@ -73,8 +70,10 @@ public class AppReportBuilder implements TaskBuilder {
 	private AppReport buildDailyReport(String id, Date period) {
 		AppReport report = m_appReportService.makeReport(id, period, TaskHelper.tomorrowZero(period));
 
-		for (Command command : m_appConfigManager.queryCommands().values()) {
-			processCommand(period, command, report);
+		for (Command command : m_appConfigManager.getRawCommands().values()) {
+			if (id.equals(command.getNamespace())) {
+				processCommand(period, command, report);
+			}
 		}
 		return report;
 	}
@@ -82,19 +81,19 @@ public class AppReportBuilder implements TaskBuilder {
 	@Override
 	public boolean buildDailyTask(String name, String domain, Date period) {
 		final String reportName = name;
-		final String reportDomain = domain;
+		final String namespace = domain;
 		final Date reportPeriod = period;
 
 		Threads.forGroup("cat").start(new Threads.Task() {
 
 			@Override
 			public String getName() {
-				return "app-report-task";
+				return "app-report-task-" + namespace;
 			}
 
 			@Override
 			public void run() {
-				runDailyTask(reportName, reportDomain, reportPeriod);
+				runDailyTask(reportName, namespace, reportPeriod);
 			}
 
 			@Override
@@ -135,12 +134,6 @@ public class AppReportBuilder implements TaskBuilder {
 		} catch (DalException e) {
 			Cat.logError(e);
 		}
-
-		String domain = command.getDomain();
-
-		if (StringUtils.isNotEmpty(domain) && commandId != AppCommandConfigManager.ALL_COMMAND_ID) {
-			processTransactionInfo(cmd, domain, period);
-		}
 	}
 
 	private void processRecord(int commandId, com.dianping.cat.home.app.entity.Command cmd, AppCommandData data) {
@@ -175,20 +168,6 @@ public class AppReportBuilder implements TaskBuilder {
 		}
 	}
 
-	private void processTransactionInfo(com.dianping.cat.home.app.entity.Command command, String domain, Date period) {
-		Date end = TimeHelper.addDays(period, 1);
-		TransactionReport report = m_transactionReportService.queryDailyReport(domain, period, end);
-
-		report = m_mergeHelper.mergeAllMachines(report, Constants.ALL);
-
-		TransactionReportVisitor visitor = new TransactionReportVisitor(command.getName());
-
-		visitor.visitTransactionReport(report);
-		Transaction transaction = visitor.getTransaction();
-
-		command.setTransaction(transaction);
-	}
-
 	private void pruneAppCommand(AppReport appReport) {
 		for (Entry<Integer, com.dianping.cat.home.app.entity.Command> command : appReport.getCommands().entrySet()) {
 			if (command.getValue().getCount() < COMMAND_MIN_COUNT) {
@@ -208,7 +187,7 @@ public class AppReportBuilder implements TaskBuilder {
 		}
 	}
 
-	private boolean runDailyTask(String name, String domain, Date period) {
+	public boolean runDailyTask(String name, String namespace, Date period) {
 		try {
 			m_autoCompleter.autoCompleteDomain(period);
 		} catch (Exception e) {
@@ -216,16 +195,16 @@ public class AppReportBuilder implements TaskBuilder {
 		}
 
 		try {
-			AppReport appReport = buildDailyReport(domain, period);
+			AppReport appReport = buildDailyReport(namespace, period);
 
 			if (m_mobileConfigManager.shouldAutoPrune()) {
 				pruneAppCommand(appReport);
 			}
 
-			DailyReport report = new DailyReport();
+			AppDailyReport report = new AppDailyReport();
 
 			report.setCreationDate(new Date());
-			report.setDomain(domain);
+			report.setNamespace(m_mobileConfigManager.queryNamespaceIdByTitle(namespace));
 			report.setIp(NetworkInterfaceManager.INSTANCE.getLocalHostAddress());
 			report.setName(name);
 			report.setPeriod(period);

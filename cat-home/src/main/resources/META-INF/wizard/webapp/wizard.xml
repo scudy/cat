@@ -47,6 +47,9 @@
          <page name="monitor" title="Monitor" path="monitor" template="default">
             <description>Monitor</description>
          </page>
+         <page name="network" title="Network" path="network" view="/jsp/report/network/nettopology.jsp" standalone="false" template="default">
+            <description>Network</description>
+         </page>
          <page name="app" title="App" path="app" template="default">
             <description>App</description>
          </page>
@@ -55,9 +58,6 @@
          </page>
          <page name="overload" title="Overload" path="overload" template="default">
             <description>Overload</description>
-         </page>
-         <page name="database" title="Database" path="database" template="default">
-            <description>Database</description>
          </page>
          <page name="storage" title="Storage" path="storage" template="default">
             <description>Storage</description>
@@ -73,6 +73,9 @@
          </page>
          <page name="business" title="Business" path="business" template="default">
             <description>Business</description>
+         </page>
+         <page name="appstats" title="Appstats" path="appstats" template="default">
+            <description>Appstats</description>
          </page>
       </module>
       <module name="system" path="s" default="false">

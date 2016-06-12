@@ -8,6 +8,7 @@ import org.unidal.lookup.annotation.Inject;
 import org.unidal.lookup.annotation.Named;
 
 import com.dianping.cat.Constants;
+import com.dianping.cat.config.app.AppCommandConfigManager;
 import com.dianping.cat.consumer.state.model.entity.StateReport;
 import com.dianping.cat.consumer.state.model.transform.DefaultNativeBuilder;
 import com.dianping.cat.consumer.state.model.transform.DefaultNativeParser;
@@ -25,6 +26,9 @@ public class StateDelegate implements ReportDelegate<StateReport> {
 
 	@Inject
 	private ReportBucketManager m_bucketManager;
+
+	@Inject
+	private AppCommandConfigManager m_appConfigManager;
 
 	@Override
 	public void afterLoad(Map<String, StateReport> reports) {
@@ -68,7 +72,10 @@ public class StateDelegate implements ReportDelegate<StateReport> {
 		if (hour >= 4) {
 			m_taskManager.createTask(startTime, domain, Constants.CURRENT_REPORT, TaskProlicy.DAILY);
 			m_taskManager.createTask(startTime, domain, Constants.REPORT_CLIENT, TaskProlicy.DAILY);
-			m_taskManager.createTask(startTime, domain, Constants.APP, TaskProlicy.DAILY);
+
+			for (String namespace : m_appConfigManager.queryNamespaces()) {
+				m_taskManager.createTask(startTime, namespace, Constants.APP, TaskProlicy.DAILY);
+			}
 		}
 		// clear local report
 		m_bucketManager.clearOldReports();

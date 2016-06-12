@@ -4,9 +4,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="res" uri="http://www.unidal.org/webres"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<jsp:useBean id="ctx" type="com.dianping.cat.report.page.app.Context" scope="request" />
-<jsp:useBean id="payload" type="com.dianping.cat.report.page.app.Payload" scope="request" />
-<jsp:useBean id="model" type="com.dianping.cat.report.page.app.Model" scope="request" />
+<jsp:useBean id="ctx" type="com.dianping.cat.report.page.appstats.Context" scope="request" />
+<jsp:useBean id="payload" type="com.dianping.cat.report.page.appstats.Payload" scope="request" />
+<jsp:useBean id="model" type="com.dianping.cat.report.page.appstats.Model" scope="request" />
 
 <a:mobile>
 	<link rel="stylesheet" type="text/css" href="${model.webapp}/js/jquery.datetimepicker.css"/>
@@ -17,7 +17,13 @@
 		<div id="queryBar">
 		<table>
 		<tr>
-	        <td><div style="float:left;">日期
+	        <td>
+	        <div style="float:left;">
+	        &nbsp;&nbsp;App&nbsp;&nbsp;<select id="app">
+	        <c:forEach var="item" items="${model.constantsItem.items}">
+	        	<option value="${item.key}">${item.value.value}</option>
+	        </c:forEach>
+	        </select>&nbsp;&nbsp;日期
 			<input type="text" id="time" style="width:100px;" value="<fmt:formatDate value='${payload.dayDate}' pattern='yyyy-MM-dd'/>"/>
 			</div></td>
 			<td>&nbsp;&nbsp;查询返回码分布</td>
@@ -37,6 +43,7 @@
 		<script type="text/javascript">
 		  $(document).ready(function(){
 			  $('[data-rel=tooltip]').tooltip();
+			  $('#App_report').addClass("active open");
 			  $('#statistics').addClass("active");
 			  $('#time').datetimepicker({
 					format:'Y-m-d',
@@ -50,6 +57,8 @@
 			  }
 			  $("#li-"+type).addClass("active");
 			  $("#tabContent-"+type).addClass("active");
+			  
+			  $('#app').val("${payload.namespace}");
 			  
 			  var tag_input = $('#tag_codes');
 				try{
@@ -77,11 +86,12 @@
 	      });
 	      
 	      function queryNew(){
+	      	var app=$('#app').val();
 	        var time=$("#time").val();
 	        var codes=$('#tag_codes').val();
 	        var top=$('#top').val();
 	        
-	        window.location.href="?op=statistics&day="+time+"&domain=${model.domain}&type=${payload.type}&codes="+codes+"&top="+top;
+	        window.location.href="?op=statistics&namespace="+app+"&day="+time+"&domain=${model.domain}&type=${payload.type}&codes="+codes+"&top="+top;
 	      }
 		</script>
 </a:mobile>

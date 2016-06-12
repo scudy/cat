@@ -285,6 +285,17 @@ public class MobileConfigManager implements Initializable, LogEnabled {
 		return null;
 	}
 
+	public int queryNamespaceIdByTitle(String namespace) {
+		ConstantItem item = m_config.findConstantItem(MobileConstants.SOURCE);
+
+		for (Item i : item.getItems().values()) {
+			if (namespace.equalsIgnoreCase(i.getValue())) {
+				return i.getId();
+			}
+		}
+		return -1;
+	}
+
 	private void refreshConfig() throws Exception {
 		Config config = m_configDao.findByName(CONFIG_NAME, ConfigEntity.READSET_FULL);
 		long modifyTime = config.getModifyDate().getTime();

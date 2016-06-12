@@ -211,32 +211,17 @@
 			</requirements>
 		</component>
 		<component>
-			<role>com.dianping.cat.report.page.app.service.AppReportService</role>
-			<implementation>com.dianping.cat.report.page.app.service.AppReportService</implementation>
+			<role>com.dianping.cat.report.page.appstats.service.AppStatisticReportService</role>
+			<implementation>com.dianping.cat.report.page.appstats.service.AppStatisticReportService</implementation>
 			<requirements>
 				<requirement>
-					<role>com.dianping.cat.core.dal.HourlyReportDao</role>
+					<role>com.dianping.cat.config.app.MobileConfigManager</role>
 				</requirement>
 				<requirement>
-					<role>com.dianping.cat.core.dal.HourlyReportContentDao</role>
+					<role>com.dianping.cat.app.AppDailyReportDao</role>
 				</requirement>
 				<requirement>
-					<role>com.dianping.cat.core.dal.DailyReportDao</role>
-				</requirement>
-				<requirement>
-					<role>com.dianping.cat.core.dal.DailyReportContentDao</role>
-				</requirement>
-				<requirement>
-					<role>com.dianping.cat.core.dal.WeeklyReportDao</role>
-				</requirement>
-				<requirement>
-					<role>com.dianping.cat.core.dal.WeeklyReportContentDao</role>
-				</requirement>
-				<requirement>
-					<role>com.dianping.cat.core.dal.MonthlyReportDao</role>
-				</requirement>
-				<requirement>
-					<role>com.dianping.cat.core.dal.MonthlyReportContentDao</role>
+					<role>com.dianping.cat.app.AppDailyReportContentDao</role>
 				</requirement>
 			</requirements>
 		</component>
@@ -289,7 +274,7 @@
 					<role>com.dianping.cat.config.app.AppCommandConfigManager</role>
 				</requirement>
 				<requirement>
-					<role>com.dianping.cat.report.page.app.service.AppReportService</role>
+					<role>com.dianping.cat.report.page.appstats.service.AppStatisticReportService</role>
 				</requirement>
 				<requirement>
 					<role>com.dianping.cat.report.page.transaction.service.TransactionReportService</role>
@@ -309,11 +294,11 @@
 			</requirements>
 		</component>
 		<component>
-			<role>com.dianping.cat.report.page.app.display.AppStatisticBuilder</role>
-			<implementation>com.dianping.cat.report.page.app.display.AppStatisticBuilder</implementation>
+			<role>com.dianping.cat.report.page.appstats.service.AppStatisticBuilder</role>
+			<implementation>com.dianping.cat.report.page.appstats.service.AppStatisticBuilder</implementation>
 			<requirements>
 				<requirement>
-					<role>com.dianping.cat.report.page.app.service.AppReportService</role>
+					<role>com.dianping.cat.report.page.appstats.service.AppStatisticReportService</role>
 				</requirement>
 				<requirement>
 					<role>com.dianping.cat.service.ProjectService</role>
@@ -3790,7 +3775,7 @@
 					<role>com.dianping.cat.report.page.app.service.DailyReportService</role>
 				</requirement>
 				<requirement>
-					<role>com.dianping.cat.report.page.app.display.AppStatisticBuilder</role>
+					<role>com.dianping.cat.report.page.appstats.service.AppStatisticBuilder</role>
 				</requirement>
 				<requirement>
 					<role>com.dianping.cat.config.app.MobileConfigManager</role>
@@ -4429,6 +4414,30 @@
 			<requirements>
 				<requirement>
 					<role>com.dianping.cat.report.page.business.task.BusinessKeyHelper</role>
+				</requirement>
+			</requirements>
+		</component>
+		<component>
+			<role>com.dianping.cat.report.page.appstats.Handler</role>
+			<implementation>com.dianping.cat.report.page.appstats.Handler</implementation>
+			<requirements>
+				<requirement>
+					<role>com.dianping.cat.report.page.appstats.JspViewer</role>
+				</requirement>
+				<requirement>
+					<role>com.dianping.cat.report.page.appstats.service.AppStatisticBuilder</role>
+				</requirement>
+				<requirement>
+					<role>com.dianping.cat.config.app.MobileConfigManager</role>
+				</requirement>
+			</requirements>
+		</component>
+		<component>
+			<role>com.dianping.cat.report.page.appstats.JspViewer</role>
+			<implementation>com.dianping.cat.report.page.appstats.JspViewer</implementation>
+			<requirements>
+				<requirement>
+					<role>org.unidal.web.mvc.view.model.ModelHandler</role>
 				</requirement>
 			</requirements>
 		</component>

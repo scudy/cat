@@ -1,4 +1,4 @@
-package com.dianping.cat.report.page.app.display;
+package com.dianping.cat.report.page.appstats.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,7 +16,6 @@ import java.util.TreeSet;
 import org.unidal.lookup.annotation.Inject;
 import org.unidal.lookup.annotation.Named;
 
-import com.dianping.cat.Constants;
 import com.dianping.cat.command.entity.Command;
 import com.dianping.cat.config.app.AppCommandConfigManager;
 import com.dianping.cat.config.app.AppCommandGroupConfigManager;
@@ -25,14 +24,18 @@ import com.dianping.cat.helper.TimeHelper;
 import com.dianping.cat.home.app.entity.AppReport;
 import com.dianping.cat.report.graph.PieChart;
 import com.dianping.cat.report.graph.PieChart.Item;
-import com.dianping.cat.report.page.app.service.AppReportService;
+import com.dianping.cat.report.page.appstats.display.AppCommandsSorter;
+import com.dianping.cat.report.page.appstats.display.CodeDisplayVisitor;
+import com.dianping.cat.report.page.appstats.display.DisplayCode;
+import com.dianping.cat.report.page.appstats.display.DisplayCommand;
+import com.dianping.cat.report.page.appstats.display.DisplayCommands;
 import com.dianping.cat.service.ProjectService;
 
 @Named
 public class AppStatisticBuilder {
 
 	@Inject
-	private AppReportService m_appReportService;
+	private AppStatisticReportService m_appReportService;
 
 	@Inject
 	private ProjectService m_projectService;
@@ -188,9 +191,9 @@ public class AppStatisticBuilder {
 		return sorted;
 	}
 
-	public AppReport queryAppReport(Date startDate) {
+	public AppReport queryAppReport(int namespace, Date startDate) {
 		Date endDate = TimeHelper.addDays(startDate, 1);
-		AppReport report = m_appReportService.queryDailyReport(Constants.CAT, startDate, endDate);
+		AppReport report = m_appReportService.queryDailyReport(namespace, startDate, endDate);
 
 		return report;
 	}

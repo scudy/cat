@@ -2174,4 +2174,68 @@
       		</query>
       	</query-defs>
 	</entity>
+	<entity name="app-daily-report" table="app_daily_report" alias="adr">
+		<member name="count" value-type="int" select-expr="COUNT(*)" all="false" />
+		<var name="start-date" value-type="Date" />
+		<var name="end-date" value-type="Date" />
+		<var name="limits" value-type="int" />
+		<query-defs>
+			<query name="insert" type="INSERT">
+				<statement><![CDATA[
+					INSERT INTO <TABLE/>
+						(<FIELDS/>) 
+					VALUES
+						(<VALUES/>)
+					]]></statement>
+			</query>
+			<query name="find-by-App-name-period" type="SELECT">
+				<param name="namespace" />
+				<param name="name" />
+				<param name="period" />
+				<statement><![CDATA[
+					SELECT <FIELDS/> 
+					FROM <TABLE/> 
+					WHERE <FIELD name='period'/> = ${period}
+					AND <FIELD name='namespace'/> = ${namespace}
+					AND <FIELD name='name'/> = ${name} 
+					]]></statement>
+			</query>
+			<query name="delete-by-App-name-period" type="DELETE">
+				<param name="namespace" />
+				<param name="name" />
+				<param name="period" />
+				<statement><![CDATA[
+					DELETE 
+					FROM <TABLE/> 
+					WHERE <FIELD name='period'/> = ${period}
+					AND <FIELD name='namespace'/> = ${namespace}
+					AND <FIELD name='name'/> = ${name} 
+					]]></statement>
+			</query>
+		</query-defs>
+	</entity>
+	<entity name="app-daily-report-content" table="app_daily_report_content" alias="adrc">
+	 <member name="creation-date" insert-expr="NOW()" />
+	 <member name="content-length" value-type="double" all="false" select-expr="length(content)/1024/1024" length="19" nullable="false" />
+	 <var name="start-id" value-type="int" />
+	 <var name="end-id" value-type="int" />
+	 <var name="capacity" value-type="double" />
+	 <readsets>
+		<readset name="LENGTH">
+			<member name="report-id" />
+			<member name="content-length" />
+		</readset>
+	 </readsets>
+     <query-defs>
+     	<query name="find-overload-report" type="SELECT" multiple="true">
+			<param name="start-id" />
+			<statement><![CDATA[
+				SELECT <FIELDS/> 
+				FROM <TABLE/> 
+				WHERE <FIELD name='report-id'/> > ${start-id}
+				ORDER BY <FIELD name='report-id'/> asc  limit 1000
+				]]></statement>
+		</query>
+     </query-defs>
+    </entity>
 </entities>

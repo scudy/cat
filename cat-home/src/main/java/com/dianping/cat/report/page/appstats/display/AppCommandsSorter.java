@@ -1,4 +1,4 @@
-package com.dianping.cat.report.page.app.display;
+package com.dianping.cat.report.page.appstats.display;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -30,15 +30,7 @@ public class AppCommandsSorter {
 
 	public static final String COUNT = "count";
 
-	public static final String TRANSACTION_COUNT = "transactionCount";
-
 	public static final String AVG = "avg";
-
-	public static final String TRANSACTION_AVG = "transactionAvg";
-
-	public static final String COUNT_COMPARISON = "countComparison";
-
-	public static final String AVG_COMPARISON = "avgComparison";
 
 	public static final String REQUEST = "request";
 
@@ -183,26 +175,6 @@ public class AppCommandsSorter {
 				double avg2 = command2.getResponseAvg();
 
 				return avg2 > avg1 ? 1 : (avg2 < avg1 ? -1 : 0);
-			} else if (TRANSACTION_COUNT.equals(m_sortBy)) {
-				long count1 = command1.getTransactionCount();
-				long count2 = command2.getTransactionCount();
-
-				return count2 > count1 ? 1 : (count2 < count1 ? -1 : 0);
-			} else if (TRANSACTION_AVG.equals(m_sortBy)) {
-				double avg1 = command1.getTransactionAvg();
-				double avg2 = command2.getTransactionAvg();
-
-				return avg2 > avg1 ? 1 : (avg2 < avg1 ? -1 : 0);
-			} else if ((COUNT_COMPARISON.equals(m_sortBy))) {
-				double avg1 = command1.getCountComparison();
-				double avg2 = command2.getCountComparison();
-
-				return avg2 > avg1 ? -1 : (avg2 < avg1 ? 1 : 0);
-			} else if ((AVG_COMPARISON.equals(m_sortBy))) {
-				double avg1 = command1.getAvgComparison();
-				double avg2 = command2.getAvgComparison();
-
-				return avg2 > avg1 ? -1 : (avg2 < avg1 ? 1 : 0);
 			} else {
 				DisplayCode code1 = command1.findOrCreateCode(m_sortBy);
 				DisplayCode code2 = command2.findOrCreateCode(m_sortBy);

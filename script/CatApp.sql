@@ -95,3 +95,22 @@ CREATE TABLE `map_file` (
   PRIMARY KEY (`map_id`),
   KEY `updatetime` (`updatetime`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `app_daily_report` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) NOT NULL COMMENT '报表名称, transaction, problem...',
+  `ip` varchar(50) NOT NULL COMMENT '报表来自于哪台cat-consumer机器',
+  `namespace` tinyint(4) DEFAULT NULL,
+  `period` datetime NOT NULL COMMENT '报表时间段',
+  `type` tinyint(4) NOT NULL COMMENT '报表数据格式, 1/xml, 2/json, 默认1',
+  `creation_date` datetime NOT NULL COMMENT '报表创建时间',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `period` (`period`,`namespace`,`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED COMMENT='天报表';
+
+CREATE TABLE `app_daily_report_content` (
+  `report_id` int(11) NOT NULL COMMENT '报表ID',
+  `content` longblob NOT NULL COMMENT '二进制报表内容',
+  `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
+  PRIMARY KEY (`report_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED COMMENT='天报表二进制内容';

@@ -27,8 +27,6 @@ public enum JspFile {
 	
 	APP_COMMAND_DAILY("/jsp/report/app/commandDaily.jsp"),
 
-	STATISTICS("/jsp/report/app/statistics.jsp"),
-	
 	DASHBOARD("/jsp/report/app/dashboard.jsp");
 
 	private String m_path;

@@ -1,4 +1,4 @@
-package com.dianping.cat.report.page.app.display;
+package com.dianping.cat.report.page.appstats.display;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -26,14 +26,6 @@ public class DisplayCommand {
 	private long m_responseSum;
 
 	private double m_responseAvg;
-
-	private long m_transactionCount;
-
-	private double m_transactionAvg;
-
-	private double m_countComparison;
-
-	private double m_avgComparison;
 
 	private String m_domain;
 
@@ -79,10 +71,6 @@ public class DisplayCommand {
 		return m_avg;
 	}
 
-	public double getAvgComparison() {
-		return m_avgComparison;
-	}
-
 	public String getBu() {
 		return m_bu;
 	}
@@ -93,10 +81,6 @@ public class DisplayCommand {
 
 	public long getCount() {
 		return m_count;
-	}
-
-	public double getCountComparison() {
-		return m_countComparison;
 	}
 
 	public String getDepartment() {
@@ -145,14 +129,6 @@ public class DisplayCommand {
 
 	public String getTitle() {
 		return m_title;
-	}
-
-	public double getTransactionAvg() {
-		return m_transactionAvg;
-	}
-
-	public long getTransactionCount() {
-		return m_transactionCount;
 	}
 
 	public DisplayCommand incCount() {
@@ -209,10 +185,6 @@ public class DisplayCommand {
 		m_avg = avg;
 	}
 
-	public void setAvgComparison(double avgComparison) {
-		m_avgComparison = avgComparison;
-	}
-
 	public void setBu(String bu) {
 		m_bu = bu;
 	}
@@ -223,10 +195,6 @@ public class DisplayCommand {
 
 	public void setCount(long count) {
 		m_count = count;
-	}
-
-	public void setCountComparison(double countComparison) {
-		m_countComparison = countComparison;
 	}
 
 	public void setDepartment(String department) {
@@ -275,14 +243,6 @@ public class DisplayCommand {
 
 	public void setTitle(String title) {
 		m_title = title;
-	}
-
-	public void setTransactionAvg(double transactionAvg) {
-		m_transactionAvg = transactionAvg;
-	}
-
-	public void setTransactionCount(long transactionCount) {
-		m_transactionCount = transactionCount;
 	}
 
 }
