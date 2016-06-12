@@ -46,9 +46,7 @@ public class AppCommandsSorter {
 	}
 
 	public DisplayCommands getSortedCommands() {
-		System.out.println(m_commands.getCommands());
 		Map<Integer, DisplayCommand> commands = SortHelper.sortMap(m_commands.getCommands(), new AppComparator());
-		System.out.println(commands);
 
 		return new DisplayCommands(commands);
 	}
@@ -59,18 +57,10 @@ public class AppCommandsSorter {
 		public int compare(Entry<Integer, DisplayCommand> o1, Entry<Integer, DisplayCommand> o2) {
 			DisplayCommand command1 = o1.getValue();
 			DisplayCommand command2 = o2.getValue();
-			String str1 = command1.getDomain();
-			String str2 = command2.getDomain();
 
 			if (m_sortValue) {
-				if (Constants.ALL.equals(str1)) {
-					return -1;
-				} else if (Constants.ALL.equals(str2)) {
-					return 1;
-				} else {
-					int sortValue = sortValue(command1, command2);
-					return sortValue;
-				}
+				int sortValue = sortValue(command1, command2);
+				return sortValue;
 			} else {
 				return sortStr(command1, command2);
 			}
@@ -145,7 +135,13 @@ public class AppCommandsSorter {
 				long count1 = command1.getCount();
 				long count2 = command2.getCount();
 
-				return count2 > count1 ? 1 : (count2 < count1 ? -1 : 0);
+				if (count2 > count1) {
+					return 1;
+				} else if (count2 < count1) {
+					return -1;
+				} else {
+					return 0;
+				}
 			} else if (AVG.equals(m_sortBy)) {
 				double avg1 = command1.getAvg();
 				double avg2 = command2.getAvg();
