@@ -35,6 +35,7 @@ import com.dianping.cat.config.Level;
 import com.dianping.cat.config.app.AppCommandConfigManager;
 import com.dianping.cat.config.app.CrashLogConfigManager;
 import com.dianping.cat.config.app.MobileConfigManager;
+import com.dianping.cat.config.app.MobileConstants;
 import com.dianping.cat.helper.Status;
 import com.dianping.cat.helper.TimeHelper;
 import com.dianping.cat.report.ErrorMsg;
@@ -232,7 +233,7 @@ public class CrashLogService {
 		CrashLogDisplayInfo info = new CrashLogDisplayInfo();
 
 		buildCrashLogData(entity, info);
-		info.setAppNames(m_crashLogConfig.findApps());
+		info.setAppNames(m_mobileConfigManager.queryConstantItem(MobileConstants.SOURCE).values());
 
 		return info;
 	}
@@ -253,7 +254,7 @@ public class CrashLogService {
 		if (!fieldsMap.isEmpty()) {
 			info.setFieldsInfo(buildFiledsInfo(fieldsMap));
 		}
-		info.setAppNames(m_crashLogConfig.findApps());
+		info.setAppNames(m_mobileConfigManager.queryConstantItem(MobileConstants.SOURCE).values());
 		return info;
 	}
 
@@ -388,6 +389,7 @@ public class CrashLogService {
 		String appVersion = entity.getAppVersion();
 		String platVersion = entity.getPlatformVersion();
 		String module = entity.getModule();
+		int platform = entity.getPlatform();
 		long day = entity.buildDay().getTime();
 		long step = TimeHelper.ONE_MINUTE * 5;
 		int duration = (int) ((endTime.getTime() - day) / step);
@@ -396,7 +398,7 @@ public class CrashLogService {
 
 		try {
 			while (true) {
-				List<CrashLog> result = m_crashLogDao.findDataByConditions(startTime, endTime, appName, -1, null, offset,
+				List<CrashLog> result = m_crashLogDao.findDataByConditions(startTime, endTime, appName, platform, null, offset,
 				      LIMIT, CrashLogEntity.READSET_FULL);
 
 				for (CrashLog log : result) {
@@ -443,7 +445,7 @@ public class CrashLogService {
 				}
 			}
 
-			info.setAppName(crashLog.getAppName());
+			info.setAppName(m_mobileConfigManager.getAppName(Integer.valueOf(crashLog.getAppName())));
 			info.setPlatform(m_mobileConfigManager.getPlatformStr(crashLog.getPlatform()));
 			info.setAppVersion(crashLog.getAppVersion());
 			info.setPlatformVersion(crashLog.getPlatformVersion());

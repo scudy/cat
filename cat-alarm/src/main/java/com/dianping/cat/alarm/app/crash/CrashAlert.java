@@ -60,19 +60,20 @@ public class CrashAlert implements Task {
 					int appId = limit.getAppId();
 					String platformStr = limit.getPlatform();
 					String module = limit.getModule();
-					String appName = m_crashLogConfigManager.findAppName(appId, platformStr);
 					int platform = m_mobileConfigManager.getPlatformId(platformStr);
 
-					CrashLog result = m_crashLogDao.findCountByConditions(startTime, endTime, appName, platform, module,
-					      CrashLogEntity.READSET_COUNT_DATA);
+					CrashLog result = m_crashLogDao.findCountByConditions(startTime, endTime, String.valueOf(appId),
+					      platform, module, CrashLogEntity.READSET_COUNT_DATA);
 					int count = result.getCount();
 
 					if (count >= limit.getWarnings()) {
 						AlertEntity entity = new AlertEntity();
+						String appName = m_mobileConfigManager.getAppName(appId);
+
 						entity.setDate(startTime).setContent(buildContent(appName, module, count));
 						entity.setMetric(limit.getId()).setType(getName()).setGroup(module).setDomain(appName);
 						entity.setContactGroup(limit.getId());
-						
+
 						if (count >= limit.getErrors()) {
 							entity.setLevel(AlertLevel.ERROR);
 						} else {
@@ -113,8 +114,7 @@ public class CrashAlert implements Task {
 	private String buildContent(String appName, String module, long count) {
 		StringBuilder sb = new StringBuilder();
 
-		sb.append("[AppName: ").append(appName).append(" 模块: ").append(module).append(" 数量: ").append(count)
-		      .append("]");
+		sb.append("[AppName: ").append(appName).append(" 模块: ").append(module).append(" 数量: ").append(count).append("]");
 		return sb.toString();
 	}
 

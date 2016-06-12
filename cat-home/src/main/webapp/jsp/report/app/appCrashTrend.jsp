@@ -22,8 +22,8 @@
 				$("#appVersion2").val($("#appVersion").val());
 				$("#platVersion2").val($("#platVersion").val());
 				$("#modules2").val($("#modules").val());
-				$("#level2").val($("#level").val());
 				$("#device2").val($("#device").val());
+				$("#platform2").val($("#platform").val());
 			} else {
 				$('#history').slideUp();
 			}
@@ -67,12 +67,10 @@
 			var appVersion = $("#appVersion").val();
 			var platVersion = $("#platVersion").val();
 			var module = $("#modules").val();
-			var level = $("#level").val();
-			var device = "";
+			var platform = $("#platform").val();
 			var split = ";";
 			var query1 = period + split + startTime + split + endTime + split + appName + split + appVersion
-					+ split + platVersion + split + module + split + level + split
-					+ device;
+					+ split + platVersion + split + module + split  + platform;
 			var query2 = "";
 			var value = document.getElementById("checkbox").checked;
 
@@ -85,11 +83,9 @@
 				var appVersion2 = $("#appVersion2").val();
 				var platVersion2 = $("#platVersion2").val();
 				var module2 = $("#modules2").val();
-				var level2 = $("#level2").val();
-				var device2 = "";
+				var platform2 = $("#platform2").val();
 				query2 = period2 + split + startTime2 + split + endTime2 + split + appName2 + split + appVersion2
-				+ split + platVersion2 + split + module2 + split + level2 + split
-				+ device2;
+				+ split + platVersion2 + split + module2 + split + platform2;
 			}
 
 			window.location.href = "?op=appCrashTrend&query1=" + query1 + "&query2=" + query2;
@@ -139,15 +135,19 @@
 				}
 			
 				if (typeof(words[3]) == 'undefined' || words[3] == ''){
-					$("#appName").val("AndroidCrashLog");
+					$("#appName").val("1");
 				} else {
 					$("#appName").val(words[3]);
 				}
 				$("#appVersion").val(words[4]);
 				$("#platVersion").val(words[5]);
 				$("#modules").val(words[6]);
-				$("#level").val(words[7]);
-				//$("#device").val(words[8]);
+				
+				if (typeof(words[7]) == 'undefined' || words[7] == ''){
+					$("#platform").val("1");
+				} else {
+					$("#platform").val(words[7]);
+				}
 
 				var datePair = {};
 				datePair["当前值"]=$("#startTime").val().split(" ")[0];
@@ -175,8 +175,12 @@
 					$("#appVersion2").val(words[4]);
 					$("#platVersion2").val(words[5]);
 					$("#modules2").val(words[6]);
-					$("#level2").val(words[7]);
-				//	$("#device2").val(words[8]);
+	
+					if (typeof(words[7]) == 'undefined' || words[7] == ''){
+						$("#platform2").val("1");
+					} else {
+						$("#platform2").val(words[7]);
+					}				
 				} else {
 					$("#startTime2").val(getTime());
 				}

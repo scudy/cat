@@ -9,16 +9,22 @@
 				<div class="input-group" style="float:left;width:80px">
 	              <span class="input-group-addon">结束</span>
         	      <input type="text" id="endTime" style="width:80px;"/></div>
+        	    <div class="input-group" style="float:left;">
+					<span class="input-group-addon">平台</span>
+					<select id="platform" style="width: 100px;">
+						<option value="1">Android</option>
+						<option value="2">IOS</option>
+					</select></div>
 				<div class="input-group" style="float:left;">
 					<span class="input-group-addon">App Name</span>
-					<select id="appName" style="width: 240px;">
+					<select id="appName" style="width: 200px;">
 						<c:forEach var="appName" items="${model.crashLogDisplayInfo.appNames}">
-							<option value="${appName.name}">${appName.desc}</option>
+							<option value="${appName.id}">${appName.value}</option>
 						</c:forEach>
 					</select></div>
 				<div class="input-group" style="float:left;">
 					<span class="input-group-addon">App 版本</span>
-					 <select id="appVersion" style="width: 240px;">
+					 <select id="appVersion" style="width: 120px;">
 					 	<option value="">All</option>
 					 	<c:forEach var="item" items="${model.crashLogDisplayInfo.fieldsInfo.appVersions}" varStatus="status">
 					 		<option value="${item}">${item}</option>
@@ -44,20 +50,6 @@
 						<option value="${item}">${item}</option>
 					</c:forEach>
 				</select> 
-				<span class="input-group-addon">级别</span>
-				<select id="level" style="width: 100px;">
-					<option value="">All</option>
-					<c:forEach var="item" items="${model.crashLogDisplayInfo.fieldsInfo.levels}" varStatus="status">
-						<option value="${item}">${item}</option>
-					</c:forEach>
-				</select>  
-			<%-- 	<span class="input-group-addon">设备</span>
-				<select multiple="false"	class="chosen-select tag-input-style" id="device" name="devices"  data-placeholder="Choose devices...">
-					<option id="All" value="All">ALL</option>
-					<c:forEach var="item" items="${model.crashLogDisplayInfo.fieldsInfo.devices}">
-						<option id="${item}" value="${item}">${item}</option>
-					</c:forEach>
-				</select> --%>
 				<input class="btn btn-primary btn-sm"
 				value="&nbsp;&nbsp;&nbsp;查询&nbsp;&nbsp;&nbsp;" onclick="query()"
 				type="submit" /> <input class="btn btn-primary" id="checkbox"
@@ -76,16 +68,22 @@
 				<div class="input-group" style="float:left;width:80px">
 	              <span class="input-group-addon">结束</span>
         	      <input type="text" id="endTime2" style="width:80px;"/></div>
+        	    <div class="input-group" style="float:left;">
+					<span class="input-group-addon">平台</span>
+					<select id="platform2" style="width: 100px;">
+						<option value="1">Android</option>
+						<option value="2">IOS</option>
+					</select></div>
 				<div class="input-group" style="float:left;">
 					<span class="input-group-addon">App Name</span>
-					<select id="appName2" style="width: 240px;">
+					<select id="appName2" style="width: 200px;">
 						<c:forEach var="appName" items="${model.crashLogDisplayInfo.appNames}">
-							<option value="${appName.name}">${appName.desc}</option>
+							<option value="${appName.id}">${appName.value}</option>
 						</c:forEach>
 					</select></div>
 				<div class="input-group" style="float:left;">
 					<span class="input-group-addon">App 版本</span>
-					 <select id="appVersion2" style="width: 240px;">
+					 <select id="appVersion2" style="width: 120px;">
 					 	<option value="">All</option>
 					 	<c:forEach var="item" items="${model.crashLogDisplayInfo.fieldsInfo.appVersions}" varStatus="status">
 					 		<option value="${item}">${item}</option>
@@ -111,20 +109,6 @@
 						<option value="${item}">${item}</option>
 					</c:forEach>
 				</select> 
-				<span class="input-group-addon">级别</span>
-				<select id="level2" style="width: 100px;">
-					<option value="">All</option>
-					<c:forEach var="item" items="${model.crashLogDisplayInfo.fieldsInfo.levels}" varStatus="status">
-						<option value="${item}">${item}</option>
-					</c:forEach>
-				</select>  
-				<%-- <span class="input-group-addon">设备</span>
-				<select multiple="false"	class="chosen-select tag-input-style" id="device2" name="devices"  data-placeholder="Choose devices...">
-					<option id="All" value="All">ALL</option>
-					<c:forEach var="item" items="${model.crashLogDisplayInfo.fieldsInfo.devices}">
-						<option id="${item}" value="${item}">${item}</option>
-					</c:forEach>
-				</select> --%>
 				</div>
 			</th>
 		</tr>

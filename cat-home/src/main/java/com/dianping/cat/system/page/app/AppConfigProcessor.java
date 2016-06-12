@@ -487,8 +487,8 @@ public class AppConfigProcessor {
 			// TODO
 			break;
 		case APP_SOURCES_SUBMIT:
-			model.setApps(m_mobileConfigManager.queryConstantItem(MobileConstants.SOURCE));
 			submitConstant(payload, model);
+			model.setApps(m_mobileConfigManager.queryConstantItem(MobileConstants.SOURCE));
 			break;
 		case APP_CONSTATN_SUBMIT:
 			submitConstant(payload, model);
