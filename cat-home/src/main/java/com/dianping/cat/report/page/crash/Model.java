@@ -2,12 +2,13 @@ package com.dianping.cat.report.page.crash;
 
 import org.unidal.web.mvc.view.annotation.ModelMeta;
 
+import com.dianping.cat.Constants;
 import com.dianping.cat.mvc.AbstractReportModel;
 import com.dianping.cat.report.ReportPage;
 import com.dianping.cat.report.page.crash.display.CrashLogDetailInfo;
 import com.dianping.cat.report.page.crash.display.CrashLogDisplayInfo;
 
-@ModelMeta("crash")
+@ModelMeta(Constants.CRASH)
 public class Model extends AbstractReportModel<Action, ReportPage, Context> {
 
 	private CrashLogDetailInfo m_crashLogDetailInfo;

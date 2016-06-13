@@ -313,8 +313,19 @@
 		</component>
 		<component>
 			<role>com.dianping.cat.report.task.TaskBuilder</role>
-			<role-hint>CRASH</role-hint>
+			<role-hint>crash</role-hint>
 			<implementation>com.dianping.cat.report.page.crash.task.CrashReportBuilder</implementation>
+			<requirements>
+				<requirement>
+					<role>com.dianping.cat.config.app.MobileConfigManager</role>
+				</requirement>
+				<requirement>
+					<role>com.dianping.cat.report.page.crash.service.CrashStatisticReportService</role>
+				</requirement>
+				<requirement>
+					<role>com.dianping.cat.app.CrashLogDao</role>
+				</requirement>
+			</requirements>
 		</component>
 		<component>
 			<role>com.dianping.cat.report.page.crash.service.CrashLogService</role>
@@ -344,9 +355,6 @@
 			<role>com.dianping.cat.report.page.crash.service.CrashStatisticReportService</role>
 			<implementation>com.dianping.cat.report.page.crash.service.CrashStatisticReportService</implementation>
 			<requirements>
-				<requirement>
-					<role>com.dianping.cat.config.app.MobileConfigManager</role>
-				</requirement>
 				<requirement>
 					<role>com.dianping.cat.app.AppDailyReportDao</role>
 				</requirement>

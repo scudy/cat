@@ -1,5 +1,6 @@
 package com.dianping.cat.config.app;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -298,6 +299,11 @@ public class MobileConfigManager implements Initializable, LogEnabled {
 		}
 		return null;
 	}
+	
+	public Collection<Item> queryApps() {
+	   return queryConstantItem(MobileConstants.SOURCE).values();
+   }
+
 
 	public int queryNamespaceIdByTitle(String namespace) {
 		ConstantItem item = m_config.findConstantItem(MobileConstants.SOURCE);
