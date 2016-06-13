@@ -21,17 +21,11 @@ import com.dianping.cat.command.entity.Command;
 import com.dianping.cat.config.app.AppCommandConfigManager;
 import com.dianping.cat.config.app.MobileConfigManager;
 import com.dianping.cat.configuration.NetworkInterfaceManager;
-import com.dianping.cat.consumer.transaction.model.entity.Machine;
-import com.dianping.cat.consumer.transaction.model.entity.TransactionName;
-import com.dianping.cat.consumer.transaction.model.entity.TransactionType;
-import com.dianping.cat.consumer.transaction.model.transform.BaseVisitor;
 import com.dianping.cat.home.app.entity.AppReport;
 import com.dianping.cat.home.app.entity.Code;
-import com.dianping.cat.home.app.entity.Transaction;
 import com.dianping.cat.home.app.transform.DefaultNativeBuilder;
 import com.dianping.cat.message.Event;
 import com.dianping.cat.report.page.appstats.service.AppStatisticReportService;
-import com.dianping.cat.report.page.transaction.service.TransactionReportService;
 import com.dianping.cat.report.page.transaction.transform.TransactionMergeHelper;
 import com.dianping.cat.report.task.TaskBuilder;
 import com.dianping.cat.report.task.TaskHelper;
@@ -47,9 +41,6 @@ public class AppReportBuilder implements TaskBuilder {
 
 	@Inject
 	private AppStatisticReportService m_appReportService;
-
-	@Inject
-	private TransactionReportService m_transactionReportService;
 
 	@Inject
 	private AppAlarmRuleService m_appAlarmRuleService;
@@ -217,46 +208,4 @@ public class AppReportBuilder implements TaskBuilder {
 			return false;
 		}
 	}
-
-	public static class TransactionReportVisitor extends BaseVisitor {
-
-		private String m_command;
-
-		private Transaction m_transation;
-
-		public TransactionReportVisitor(String command) {
-			m_command = command;
-		}
-
-		public Transaction getTransaction() {
-			return m_transation;
-		}
-
-		@Override
-		public void visitMachine(Machine machine) {
-			if (Constants.ALL.equals(machine.getIp())) {
-				super.visitMachine(machine);
-			}
-		}
-
-		@Override
-		public void visitName(TransactionName name) {
-			String id = name.getId();
-
-			if (id.endsWith(m_command) && m_transation == null) {
-				m_transation = new Transaction(id);
-
-				m_transation.setCount(name.getTotalCount());
-				m_transation.setAvg(name.getAvg());
-			}
-		}
-
-		@Override
-		public void visitType(TransactionType type) {
-			if ("URL".equals(type.getId())) {
-				super.visitType(type);
-			}
-		}
-	}
-
 }
