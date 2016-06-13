@@ -31,7 +31,6 @@ import com.dianping.cat.home.app.entity.Transaction;
 import com.dianping.cat.home.app.transform.DefaultNativeBuilder;
 import com.dianping.cat.message.Event;
 import com.dianping.cat.report.page.appstats.service.AppStatisticReportService;
-import com.dianping.cat.report.page.transaction.service.TransactionReportService;
 import com.dianping.cat.report.page.transaction.transform.TransactionMergeHelper;
 import com.dianping.cat.report.task.TaskBuilder;
 import com.dianping.cat.report.task.TaskHelper;
@@ -47,9 +46,6 @@ public class AppReportBuilder implements TaskBuilder {
 
 	@Inject
 	private AppStatisticReportService m_appReportService;
-
-	@Inject
-	private TransactionReportService m_transactionReportService;
 
 	@Inject
 	private AppAlarmRuleService m_appAlarmRuleService;
