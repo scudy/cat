@@ -49,7 +49,7 @@ public abstract class DefaultContactor {
 		List<String> result = new ArrayList<String>();
 
 		if (str != null) {
-			result.addAll(Splitters.by(",").noEmptyItem().split(str));
+			result.addAll(Splitters.by(",").noEmptyItem().trim().split(str));
 		}
 
 		return result;
