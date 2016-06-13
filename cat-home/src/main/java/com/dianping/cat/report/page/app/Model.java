@@ -22,8 +22,6 @@ import com.dianping.cat.report.page.app.display.AppCommandDisplayInfo;
 import com.dianping.cat.report.page.app.display.AppConnectionDisplayInfo;
 import com.dianping.cat.report.page.app.display.AppDataDetail;
 import com.dianping.cat.report.page.app.display.AppSpeedDisplayInfo;
-import com.dianping.cat.report.page.app.display.CrashLogDetailInfo;
-import com.dianping.cat.report.page.app.display.CrashLogDisplayInfo;
 import com.dianping.cat.report.page.app.display.DashBoardInfo;
 
 @ModelMeta(Constants.APP)
@@ -75,10 +73,6 @@ public class Model extends AbstractReportModel<Action, ReportPage, Context> {
 	private Map<String, Command> m_command2Id;
 
 	private String m_defaultCommand;
-
-	private CrashLogDetailInfo m_crashLogDetailInfo;
-
-	private CrashLogDisplayInfo m_crashLogDisplayInfo;
 
 	private DashBoardInfo m_dashBoardInfo;
 
@@ -148,14 +142,6 @@ public class Model extends AbstractReportModel<Action, ReportPage, Context> {
 
 	public String getContent() {
 		return m_content;
-	}
-
-	public CrashLogDetailInfo getCrashLogDetailInfo() {
-		return m_crashLogDetailInfo;
-	}
-
-	public CrashLogDisplayInfo getCrashLogDisplayInfo() {
-		return m_crashLogDisplayInfo;
 	}
 
 	public DashBoardInfo getDashBoardInfo() {
@@ -267,14 +253,6 @@ public class Model extends AbstractReportModel<Action, ReportPage, Context> {
 
 	public void setContent(String content) {
 		m_content = content;
-	}
-
-	public void setCrashLogDetailInfo(CrashLogDetailInfo crashLogDetailInfo) {
-		m_crashLogDetailInfo = crashLogDetailInfo;
-	}
-
-	public void setCrashLogDisplayInfo(CrashLogDisplayInfo crashLogDisplayInfo) {
-		m_crashLogDisplayInfo = crashLogDisplayInfo;
 	}
 
 	public void setDashBoardInfo(DashBoardInfo dashBoardInfo) {

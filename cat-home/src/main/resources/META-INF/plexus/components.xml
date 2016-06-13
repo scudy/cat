@@ -312,6 +312,50 @@
 			</requirements>
 		</component>
 		<component>
+			<role>com.dianping.cat.report.task.TaskBuilder</role>
+			<role-hint>CRASH</role-hint>
+			<implementation>com.dianping.cat.report.page.crash.task.CrashReportBuilder</implementation>
+		</component>
+		<component>
+			<role>com.dianping.cat.report.page.crash.service.CrashLogService</role>
+			<implementation>com.dianping.cat.report.page.crash.service.CrashLogService</implementation>
+			<requirements>
+				<requirement>
+					<role>com.dianping.cat.app.CrashLogContentDao</role>
+				</requirement>
+				<requirement>
+					<role>com.dianping.cat.app.CrashLogDao</role>
+				</requirement>
+				<requirement>
+					<role>com.dianping.cat.config.app.AppCommandConfigManager</role>
+				</requirement>
+				<requirement>
+					<role>com.dianping.cat.config.app.MobileConfigManager</role>
+				</requirement>
+				<requirement>
+					<role>com.dianping.cat.config.app.CrashLogConfigManager</role>
+				</requirement>
+				<requirement>
+					<role>com.dianping.cat.system.page.config.ConfigHtmlParser</role>
+				</requirement>
+			</requirements>
+		</component>
+		<component>
+			<role>com.dianping.cat.report.page.crash.service.CrashStatisticReportService</role>
+			<implementation>com.dianping.cat.report.page.crash.service.CrashStatisticReportService</implementation>
+			<requirements>
+				<requirement>
+					<role>com.dianping.cat.config.app.MobileConfigManager</role>
+				</requirement>
+				<requirement>
+					<role>com.dianping.cat.app.AppDailyReportDao</role>
+				</requirement>
+				<requirement>
+					<role>com.dianping.cat.app.AppDailyReportContentDao</role>
+				</requirement>
+			</requirements>
+		</component>
+		<component>
 			<role>com.dianping.cat.alarm.spi.receiver.Contactor</role>
 			<role-hint>App</role-hint>
 			<implementation>com.dianping.cat.report.alert.app.AppContactor</implementation>
@@ -3763,9 +3807,6 @@
 					<role>com.dianping.cat.report.page.app.service.AppConnectionService</role>
 				</requirement>
 				<requirement>
-					<role>com.dianping.cat.report.page.app.service.CrashLogService</role>
-				</requirement>
-				<requirement>
 					<role>com.dianping.cat.service.ProjectService</role>
 				</requirement>
 				<requirement>
@@ -3773,9 +3814,6 @@
 				</requirement>
 				<requirement>
 					<role>com.dianping.cat.report.page.app.service.DailyReportService</role>
-				</requirement>
-				<requirement>
-					<role>com.dianping.cat.report.page.appstats.service.AppStatisticBuilder</role>
 				</requirement>
 				<requirement>
 					<role>com.dianping.cat.config.app.MobileConfigManager</role>
@@ -3820,52 +3858,6 @@
 					<role>com.dianping.cat.config.app.MobileConfigManager</role>
 				</requirement>
 			</requirements>
-		</component>
-		<component>
-			<role>com.dianping.cat.report.page.app.service.CrashLogService</role>
-			<implementation>com.dianping.cat.report.page.app.service.CrashLogService</implementation>
-			<requirements>
-				<requirement>
-					<role>com.dianping.cat.app.CrashLogContentDao</role>
-				</requirement>
-				<requirement>
-					<role>com.dianping.cat.app.CrashLogDao</role>
-				</requirement>
-				<requirement>
-					<role>com.dianping.cat.config.app.AppCommandConfigManager</role>
-				</requirement>
-				<requirement>
-					<role>com.dianping.cat.config.app.MobileConfigManager</role>
-				</requirement>
-				<requirement>
-					<role>com.dianping.cat.config.app.CrashLogConfigManager</role>
-				</requirement>
-				<requirement>
-					<role>com.dianping.cat.system.page.config.ConfigHtmlParser</role>
-				</requirement>
-			</requirements>
-		</component>
-		<component>
-			<role>com.dianping.cat.app.CrashLogContentDao</role>
-			<implementation>com.dianping.cat.app.CrashLogContentDao</implementation>
-			<requirements>
-				<requirement>
-					<role>org.unidal.dal.jdbc.QueryEngine</role>
-				</requirement>
-			</requirements>
-		</component>
-		<component>
-			<role>com.dianping.cat.app.CrashLogDao</role>
-			<implementation>com.dianping.cat.app.CrashLogDao</implementation>
-			<requirements>
-				<requirement>
-					<role>org.unidal.dal.jdbc.QueryEngine</role>
-				</requirement>
-			</requirements>
-		</component>
-		<component>
-			<role>com.dianping.cat.system.page.config.ConfigHtmlParser</role>
-			<implementation>com.dianping.cat.system.page.config.ConfigHtmlParser</implementation>
 		</component>
 		<component>
 			<role>com.dianping.cat.report.page.app.service.DashBoardBuilder</role>
@@ -4294,6 +4286,10 @@
 			</requirements>
 		</component>
 		<component>
+			<role>com.dianping.cat.system.page.config.ConfigHtmlParser</role>
+			<implementation>com.dianping.cat.system.page.config.ConfigHtmlParser</implementation>
+		</component>
+		<component>
 			<role>com.dianping.cat.report.page.server.service.MetricGraphBuilder</role>
 			<implementation>com.dianping.cat.report.page.server.service.MetricGraphBuilder</implementation>
 		</component>
@@ -4435,6 +4431,27 @@
 		<component>
 			<role>com.dianping.cat.report.page.appstats.JspViewer</role>
 			<implementation>com.dianping.cat.report.page.appstats.JspViewer</implementation>
+			<requirements>
+				<requirement>
+					<role>org.unidal.web.mvc.view.model.ModelHandler</role>
+				</requirement>
+			</requirements>
+		</component>
+		<component>
+			<role>com.dianping.cat.report.page.crash.Handler</role>
+			<implementation>com.dianping.cat.report.page.crash.Handler</implementation>
+			<requirements>
+				<requirement>
+					<role>com.dianping.cat.report.page.crash.JspViewer</role>
+				</requirement>
+				<requirement>
+					<role>com.dianping.cat.report.page.crash.service.CrashLogService</role>
+				</requirement>
+			</requirements>
+		</component>
+		<component>
+			<role>com.dianping.cat.report.page.crash.JspViewer</role>
+			<implementation>com.dianping.cat.report.page.crash.JspViewer</implementation>
 			<requirements>
 				<requirement>
 					<role>org.unidal.web.mvc.view.model.ModelHandler</role>

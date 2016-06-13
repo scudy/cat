@@ -53,7 +53,9 @@ public enum ReportPage implements Page {
 
    BUSINESS("business", "business", "Business", "Business", true),
 
-   APPSTATS("appstats", "appstats", "Appstats", "Appstats", true);
+   APPSTATS("appstats", "appstats", "Appstats", "Appstats", true),
+
+   CRASH("crash", "crash", "Crash", "Crash", true);
 
    private String m_name;
 

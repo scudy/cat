@@ -1,4 +1,4 @@
-package com.dianping.cat.report.page.app.service;
+package com.dianping.cat.report.page.crash.service;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -22,6 +22,7 @@ import org.codehaus.plexus.util.StringUtils;
 import org.unidal.helper.Files;
 import org.unidal.helper.Urls;
 import org.unidal.lookup.annotation.Inject;
+import org.unidal.lookup.annotation.Named;
 
 import com.dianping.cat.Cat;
 import com.dianping.cat.Constants;
@@ -42,10 +43,12 @@ import com.dianping.cat.report.ErrorMsg;
 import com.dianping.cat.report.graph.LineChart;
 import com.dianping.cat.report.graph.PieChart;
 import com.dianping.cat.report.graph.PieChart.Item;
-import com.dianping.cat.report.page.app.display.CrashLogDetailInfo;
-import com.dianping.cat.report.page.app.display.CrashLogDisplayInfo;
+import com.dianping.cat.report.page.app.service.FieldsInfo;
+import com.dianping.cat.report.page.crash.display.CrashLogDetailInfo;
+import com.dianping.cat.report.page.crash.display.CrashLogDisplayInfo;
 import com.dianping.cat.system.page.config.ConfigHtmlParser;
 
+@Named
 public class CrashLogService {
 
 	private static final String MAPPER = "mapper";

@@ -13,14 +13,6 @@ public enum JspFile {
 
 	APP_FETCH_DATA("/jsp/report/app/fetchData.jsp"),
 
-	APP_CRASH_LOG("/jsp/report/app/appCrashLog.jsp"),
-
-	APP_CRASH_LOG_DETAIL("/jsp/report/app/appCrashLogDetail.jsp"),
-	
-	APP_CRASH_GRAPH("/jsp/report/app/appCrashGraph.jsp"),
-	
-	APP_CRASH_TREND("/jsp/report/app/appCrashTrend.jsp"),
-
 	SPEED("/jsp/report/app/speed.jsp"),
 
 	SPEED_GRAPH("/jsp/report/app/speedGraph.jsp"),

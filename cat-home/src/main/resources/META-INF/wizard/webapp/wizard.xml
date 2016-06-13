@@ -77,6 +77,9 @@
          <page name="appstats" title="Appstats" path="appstats" template="default">
             <description>Appstats</description>
          </page>
+         <page name="crash" title="Crash" path="crash" template="default">
+            <description>Crash</description>
+         </page>
       </module>
       <module name="system" path="s" default="false">
          <page name="login" title="Login" path="login" standalone="false">

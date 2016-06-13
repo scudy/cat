@@ -51,10 +51,10 @@
 							<li id="connPiechart"><a href="/cat/r/app?op=connPiechart&domain=${model.domain}">
 								<i class="menu-icon fa fa-caret-right"></i>长连访问分布</a>
 								<b class="arrow"></b></li>
-							<li id="appCrashLog"><a href="/cat/r/app?op=appCrashLog">
+							<li id="appCrashLog"><a href="/cat/r/crash?op=appCrashLog">
 								<i class="menu-icon fa fa-caret-right"></i>AppCrash日志</a>
 								<b class="arrow"></b></li>
-							<li id="appCrashTrend"><a href="/cat/r/app?op=appCrashTrend">
+							<li id="appCrashTrend"><a href="/cat/r/crash?op=appCrashTrend">
 								<i class="menu-icon fa fa-caret-right"></i>AppCrash趋势</a>
 								<b class="arrow"></b></li>
 							<li id="traceLog"><a href="http://mobile-tracer-web01.nh/" target="_blank">

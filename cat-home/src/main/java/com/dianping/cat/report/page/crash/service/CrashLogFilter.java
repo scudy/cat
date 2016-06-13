@@ -1,4 +1,4 @@
-package com.dianping.cat.report.page.app.service;
+package com.dianping.cat.report.page.crash.service;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ taglib prefix="a" uri="/WEB-INF/app.tld"%>
 
-<jsp:useBean id="model" type="com.dianping.cat.report.page.app.Model" scope="request"/>
+<jsp:useBean id="model" type="com.dianping.cat.report.page.crash.Model" scope="request"/>
 <a:mobile>
 <table class="table table-striped table-condensed table-bordered table-hover">
 
@@ -41,6 +41,7 @@
 <script type="text/javascript">
 $(document).ready(
 	function() {
+		$('#App_report').addClass("active open");
 		$('#appCrashLog').addClass('active');
 });
 

@@ -14,16 +14,6 @@ public enum Action implements org.unidal.web.mvc.Action {
 
 	APP_CONFIG_FETCH("appConfigFetch"),
 
-	APP_CRASH_LOG("appCrashLog"),
-
-	APP_CRASH_LOG_JSON("appCrashLogJson"),
-
-	APP_CRASH_LOG_DETAIL("appCrashLogDetail"),
-
-	APP_CRASH_GRAPH("appCrashGraph"),
-
-	APP_CRASH_TREND("appCrashTrend"),
-
 	SPEED("speed"),
 
 	SPEED_JSON("speedJson"),

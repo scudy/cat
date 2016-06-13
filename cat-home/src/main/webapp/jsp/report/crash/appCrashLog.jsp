@@ -3,9 +3,9 @@
 <%@ taglib prefix="w" uri="http://www.unidal.org/web/core"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="res" uri="http://www.unidal.org/webres"%>
-<jsp:useBean id="ctx" type="com.dianping.cat.report.page.app.Context" scope="request" />
-<jsp:useBean id="payload" type="com.dianping.cat.report.page.app.Payload" scope="request" />
-<jsp:useBean id="model" type="com.dianping.cat.report.page.app.Model" scope="request" />
+<jsp:useBean id="ctx" type="com.dianping.cat.report.page.crash.Context" scope="request" />
+<jsp:useBean id="payload" type="com.dianping.cat.report.page.crash.Payload" scope="request" />
+<jsp:useBean id="model" type="com.dianping.cat.report.page.crash.Model" scope="request" />
 <a:mobile>
 	<link rel="stylesheet" type="text/css" href="${model.webapp}/js/jquery.datetimepicker.css"/>
 	<link rel="stylesheet" type="text/css" href="${model.webapp}/assets/css/select2.css"/>
@@ -115,7 +115,7 @@
 		<td  class="right">${w:format(error.count,'#,###,###,###,##0')}&nbsp;</td>
 		<td >
 			<c:forEach var="id" items="${error.ids}" varStatus="linkIndex">
-				<a href="/cat/r/app?op=appCrashLogDetail&id=${id}">${linkIndex.first?'L':(linkIndex.last?'g':'o')}</a>
+				<a href="/cat/r/crash?op=appCrashLogDetail&id=${id}">${linkIndex.first?'L':(linkIndex.last?'g':'o')}</a>
 			</c:forEach>
 		</td>
 	</tr>
@@ -194,6 +194,7 @@
 	  
 	$(document).ready(
 		function() {
+			$('#App_report').addClass("active open");
 			$('#appCrashLog').addClass('active');
 			$('#time').datetimepicker({
 				format:'Y-m-d H:i',
