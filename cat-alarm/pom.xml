@@ -107,11 +107,7 @@
                      <goal>dal-jdbc</goal>
                   </goals>
                   <configuration>
-                    <manifest>${basedir}/src/main/resources/META-INF/dal/jdbc/alarm-manifest.xml, <![CDATA[,
-                        ${basedir}/src/main/resources/META-INF/dal/jdbc/alarm-manifest.xml,
-                     ,]]><![CDATA[,
-                        ${basedir}/src/main/resources/META-INF/dal/jdbc/alarm-manifest.xml,
-                     ,]]></manifest>
+                    <manifest>${basedir}/src/main/resources/META-INF/dal/jdbc/alarm-manifest.xml,</manifest>
                   </configuration>
                </execution>
             </executions>
