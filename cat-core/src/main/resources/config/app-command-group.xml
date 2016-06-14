@@ -1,19 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <app-command-group-config>
-	<command id="all.bin">
+	<command id="dianping_all">
 		<sub-command id="shop.bin"></sub-command>
-		<sub-command id="search.api"></sub-command>
+		<sub-command id="index.bin"></sub-command>
 	</command>
-	<command id="all2.bin">
-		<sub-command id="shop2.bin"></sub-command>
-		<sub-command id="search2.api"></sub-command>
-	</command>
-	<command id="all.bin">
+	<command id="meituan_all">
 		<sub-command id="shop.bin"></sub-command>
-		<sub-command id="search.api"></sub-command>
-	</command>
-	<command id="all2.bin">
-		<sub-command id="shop2.bin"></sub-command>
-		<sub-command id="search2.api"></sub-command>
+		<sub-command id="index.bin"></sub-command>
 	</command>
 </app-command-group-config>

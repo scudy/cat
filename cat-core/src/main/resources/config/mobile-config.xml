@@ -12,7 +12,7 @@
       <config id="auto-prune" value="false"/>
       <config id="broker" value="broker-service"/>
       <config id="group-statistics-enabled" value="true"/>
-      <config id="remote-ip-service-enabled" value="true"/>
+      <config id="remote-ip-service-enabled" value="false"/>
       <config id="dev-mode" value="false"/>
       <config id="invalidatePattern" value="jpg,http:,https:,_middle,_large,_small"/>
     </configs>
