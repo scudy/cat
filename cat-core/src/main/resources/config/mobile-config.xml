@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mobile-config>
-	<logs>
-		<type id="app"  path="/data/applogs/broker-service/logs" duration-in-hours="3" enabled="true"/>
-		<type id="app-speed"  path="/data/applogs/broker-service/logs" duration-in-hours="3" enabled="true"/>
-		<type id="error"  path="/data/appdatas/cat/app-error-log" duration-in-hours="360" enabled="true"/>
-  	</logs>
-  	<checkpoint local-flush-enabled="true">
-     	<local-flush path="/data/appdatas/cat/app-data-save"/>
-  	</checkpoint>
-  	<configs>
-      <config id="auto-prune" value="false"/>
-      <config id="broker" value="broker-service"/>
+   <logs>
+      <type id="app" path="/data/applogs/broker-service/logs" duration-in-hours="3" enabled="true"/>
+      <type id="app-speed" path="/data/applogs/broker-service/logs" duration-in-hours="3" enabled="true"/>
+      <type id="error" path="/data/appdatas/cat/app-error-log" duration-in-hours="360" enabled="true"/>
+   </logs>
+   <checkpoint local-flush-enabled="true">
+      <local-flush path="/data/appdatas/cat/app-data-save"/>
+   </checkpoint>
+   <configs>
       <config id="group-statistics-enabled" value="true"/>
       <config id="remote-ip-service-enabled" value="false"/>
       <config id="dev-mode" value="false"/>
+      <config id="auto-prune" value="false"/>
+      <config id="broker" value="broker-service"/>
       <config id="invalidatePattern" value="jpg,http:,https:,_middle,_large,_small"/>
-    </configs>
-    
-    <constant-item id="版本">
+   </configs>
+   <constant-item id="版本">
       <item id="680" value="6.8"/>
       <item id="681" value="6.8.1"/>
       <item id="685" value="6.85"/>
@@ -143,5 +142,4 @@
       <item id="10" value="WedMerchantAndroid" des="结婚商家APP(Android)"/>
       <item id="11" value="WedMerchantIOS" des="结婚商家APP(IOS)"/>
    </constant-item>
-  	
 </mobile-config>
