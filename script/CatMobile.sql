@@ -59,27 +59,6 @@ CREATE TABLE `crash_log` (
   KEY `updatetime` (`updatetime`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `app_command_data_daily_1` (
-  `id` int(20) NOT NULL AUTO_INCREMENT COMMENT '自增长ID',
-  `period` date NOT NULL COMMENT '时间',
-  `city` smallint(6) NOT NULL COMMENT '城市',
-  `operator` tinyint(4) NOT NULL COMMENT '运营商',
-  `network` tinyint(4) NOT NULL COMMENT '网络类型',
-  `app_version` int(11) NOT NULL COMMENT '版本',
-  `connect_type` tinyint(4) NOT NULL COMMENT '访问类型，是否长连接',
-  `code` smallint(6) NOT NULL COMMENT '返回码',
-  `platform` tinyint(4) NOT NULL COMMENT '平台',
-  `access_number` bigint(20) NOT NULL COMMENT '访问量',
-  `response_sum_time` bigint(20) NOT NULL COMMENT '响应时间大小',
-  `request_package` bigint(20) NOT NULL COMMENT '请求包大小',
-  `response_package` bigint(20) NOT NULL COMMENT '响应包大小',
-  `status` smallint(6) NOT NULL COMMENT '数据状态',
-  `updatetime` datetime NOT NULL COMMENT '数据更新时间',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `IX_condition` (`period`,`city`,`operator`,`network`,`app_version`,`connect_type`,`code`,`platform`),
-  KEY `updatetime` (`updatetime`)
-) ENGINE=InnoDB AUTO_INCREMENT=213370443 DEFAULT CHARSET=utf8 COMMENT='app基本数据';
-
 CREATE TABLE `crash_log_content` (
   `id` int(11) unsigned NOT NULL,
   `content` longblob COMMENT 'crash详细log',
