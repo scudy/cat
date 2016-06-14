@@ -258,7 +258,7 @@
 		
 		<c:choose>
 		<c:when test="${empty channelCode}">
-			<td><button class="btn btn-xs btn-info" onclick="query('connnect-type', '${networkCode}','${appVersionCode}','${channelCode}','${platformCode}','${cityCode}','${operatorCode}');">展开⬇</button></td>
+			<td><button class="btn btn-xs btn-info" onclick="query('connect-type', '${networkCode}','${appVersionCode}','${channelCode}','${platformCode}','${cityCode}','${operatorCode}');">展开⬇</button></td>
 			</c:when>
 			<c:otherwise>
 			<c:choose>

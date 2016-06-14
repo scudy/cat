@@ -1,7 +1,12 @@
 package com.dianping.cat.report.page.crash;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import com.dianping.cat.helper.TimeHelper;
 import com.dianping.cat.mvc.AbstractReportPayload;
 import com.dianping.cat.report.ReportPage;
+import com.dianping.cat.report.page.crash.display.SortType;
 import com.dianping.cat.report.page.crash.service.CrashLogQueryEntity;
 
 import org.unidal.web.mvc.ActionContext;
@@ -27,6 +32,20 @@ public class Payload extends AbstractReportPayload<Action, ReportPage> {
 	@FieldMeta("id")
 	private int m_id;
 
+	@FieldMeta("day")
+	private String m_day;
+
+	@FieldMeta("appId")
+	private int m_appId = 1;
+
+	@FieldMeta("platform")
+	private int m_platform = 1;
+
+	@FieldMeta("sort")
+	private String m_sort = SortType.COUNT.getName();
+
+	private SimpleDateFormat m_sdf = new SimpleDateFormat("yyyy-MM-dd");
+
 	public Payload() {
 		super(ReportPage.CRASH);
 	}
@@ -34,6 +53,10 @@ public class Payload extends AbstractReportPayload<Action, ReportPage> {
 	@Override
 	public Action getAction() {
 		return m_action;
+	}
+
+	public int getAppId() {
+		return m_appId;
 	}
 
 	public CrashLogQueryEntity getCrashLogQuery() {
@@ -56,6 +79,22 @@ public class Payload extends AbstractReportPayload<Action, ReportPage> {
 		}
 	}
 
+	public String getDay() {
+		return m_day;
+	}
+
+	public Date getDayDate() {
+		try {
+			if (m_day.length() == 10) {
+				return m_sdf.parse(m_day);
+			} else {
+				return TimeHelper.getYesterday();
+			}
+		} catch (Exception e) {
+			return TimeHelper.getYesterday();
+		}
+	}
+
 	public int getId() {
 		return m_id;
 	}
@@ -63,6 +102,10 @@ public class Payload extends AbstractReportPayload<Action, ReportPage> {
 	@Override
 	public ReportPage getPage() {
 		return m_page;
+	}
+
+	public int getPlatform() {
+		return m_platform;
 	}
 
 	public String getQuery1() {
@@ -73,8 +116,16 @@ public class Payload extends AbstractReportPayload<Action, ReportPage> {
 		return m_query2;
 	}
 
+	public String getSort() {
+		return m_sort;
+	}
+
 	public void setAction(String action) {
 		m_action = Action.getByName(action, Action.APP_CRASH_LOG);
+	}
+
+	public void setAppId(int appId) {
+		m_appId = appId;
 	}
 
 	public void setCrashLogQuery(CrashLogQueryEntity crashLogQuery) {

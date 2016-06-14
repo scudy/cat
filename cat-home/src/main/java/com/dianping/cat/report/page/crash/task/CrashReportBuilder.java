@@ -131,11 +131,10 @@ public class CrashReportBuilder implements TaskBuilder {
 			for (App app : crashReport.getApps().values()) {
 				for (Version version : app.getVersions().values()) {
 					// TODO: DAU interface
-					int dau = 100;
-					double percent = ((version.getCrashCount() + 0.0) / dau) * 100;
-					
+					int dau = 0;
+					double percent = dau == 0 ? 0 : ((version.getCrashCount() + 0.0) / dau) * 100;
 					version.setDau(dau);
-					version.setPercent(((int) (percent * 10000)) / 10000);
+					version.setPercent(((int) (percent * 10000)) / 10000.0);
 				}
 			}
 

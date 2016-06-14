@@ -22,4 +22,5 @@ public class CrashReportBuilderTest extends ComponentTestCase {
 			e.printStackTrace();
 		}
 	}
+
 }

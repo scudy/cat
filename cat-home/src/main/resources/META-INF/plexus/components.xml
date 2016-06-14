@@ -4452,6 +4452,12 @@
 				<requirement>
 					<role>com.dianping.cat.report.page.crash.service.CrashLogService</role>
 				</requirement>
+				<requirement>
+					<role>com.dianping.cat.config.app.MobileConfigManager</role>
+				</requirement>
+				<requirement>
+					<role>com.dianping.cat.report.page.crash.service.CrashStatisticReportService</role>
+				</requirement>
 			</requirements>
 		</component>
 		<component>
