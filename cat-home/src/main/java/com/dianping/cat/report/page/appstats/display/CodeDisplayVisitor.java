@@ -7,11 +7,9 @@ import org.unidal.lookup.util.StringUtils;
 
 import com.dianping.cat.Constants;
 import com.dianping.cat.config.app.AppCommandConfigManager;
-import com.dianping.cat.core.dal.Project;
 import com.dianping.cat.home.app.entity.Code;
 import com.dianping.cat.home.app.entity.Command;
 import com.dianping.cat.home.app.transform.BaseVisitor;
-import com.dianping.cat.service.ProjectService;
 
 public class CodeDisplayVisitor extends BaseVisitor {
 
@@ -23,12 +21,9 @@ public class CodeDisplayVisitor extends BaseVisitor {
 
 	public static final List<Integer> STANDALONES = Arrays.asList(450);
 
-	private ProjectService m_projectService;
-
 	private AppCommandConfigManager m_appConfigManager;
 
-	public CodeDisplayVisitor(ProjectService projectService, AppCommandConfigManager appConfigManager) {
-		m_projectService = projectService;
+	public CodeDisplayVisitor(AppCommandConfigManager appConfigManager) {
 		m_appConfigManager = appConfigManager;
 		init();
 	}
@@ -93,8 +88,6 @@ public class CodeDisplayVisitor extends BaseVisitor {
 			c.setName(Constants.ALL);
 			c.setDomain(Constants.ALL);
 			c.setTitle(Constants.ALL);
-			c.setDepartment(Constants.ALL);
-			c.setBu(Constants.ALL);
 		} else {
 			c.setName(command.getName());
 
@@ -102,17 +95,6 @@ public class CodeDisplayVisitor extends BaseVisitor {
 
 			if (cmd != null) {
 				c.setTitle(cmd.getTitle());
-				String domain = cmd.getDomain();
-
-				if (StringUtils.isNotEmpty(domain)) {
-					Project project = m_projectService.findProject(domain);
-
-					c.setDomain(domain);
-					if (project != null) {
-						c.setBu(project.getBu());
-						c.setDepartment(project.getCmdbProductline());
-					}
-				}
 			}
 		}
 		c.incCount(command.getCount()).incSum(command.getSum()).incErrors(command.getErrors())

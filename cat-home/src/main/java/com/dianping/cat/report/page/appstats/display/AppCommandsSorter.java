@@ -21,10 +21,6 @@ public class AppCommandsSorter {
 
 	public static final String COMMAND = "command";
 
-	public static final String BU = "bu";
-
-	public static final String DEPARTMENT = "department";
-
 	public static final String COUNT = "count";
 
 	public static final String AVG = "avg";
@@ -39,8 +35,7 @@ public class AppCommandsSorter {
 		m_commands = commands;
 		m_sortBy = type;
 
-		if (DOMAIN.equals(type) || COMMAND.equals(type) || BU.equals(type) || DEPARTMENT.equals(type)
-		      || StringUtils.isEmpty(type)) {
+		if (DOMAIN.equals(type) || COMMAND.equals(type) || StringUtils.isEmpty(type)) {
 			m_sortValue = false;
 		}
 	}
@@ -95,16 +90,6 @@ public class AppCommandsSorter {
 				str2 = command2.getTitle();
 				if (StringUtils.isEmpty(str2)) {
 					str2 = command2.getName();
-				}
-			} else if (BU.equals(m_sortBy) || DEPARTMENT.equals(m_sortBy)) {
-				str1 = command1.getDepartment();
-				str2 = command2.getDepartment();
-				String bu1 = command1.getBu();
-				String bu2 = command2.getBu();
-				int ret = sortStr(bu1, bu2);
-
-				if (ret == 0) {
-					return sortStr(str1, str2);
 				}
 			}
 			return sortStr(str1, str2);

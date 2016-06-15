@@ -29,16 +29,12 @@ import com.dianping.cat.report.page.appstats.display.CodeDisplayVisitor;
 import com.dianping.cat.report.page.appstats.display.DisplayCode;
 import com.dianping.cat.report.page.appstats.display.DisplayCommand;
 import com.dianping.cat.report.page.appstats.display.DisplayCommands;
-import com.dianping.cat.service.ProjectService;
 
 @Named
 public class AppStatisticBuilder {
 
 	@Inject
 	private AppStatisticReportService m_appReportService;
-
-	@Inject
-	private ProjectService m_projectService;
 
 	@Inject
 	private AppCommandConfigManager m_appConfigManager;
@@ -114,7 +110,7 @@ public class AppStatisticBuilder {
 	}
 
 	public DisplayCommands buildDisplayCommands(AppReport report, String sort) throws IOException {
-		CodeDisplayVisitor distributionVisitor = new CodeDisplayVisitor(m_projectService, m_appConfigManager);
+		CodeDisplayVisitor distributionVisitor = new CodeDisplayVisitor(m_appConfigManager);
 
 		distributionVisitor.visitAppReport(report);
 		DisplayCommands displayCommands = distributionVisitor.getCommands();
