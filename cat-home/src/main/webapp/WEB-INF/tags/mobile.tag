@@ -42,15 +42,6 @@
 							<li id="speedGraph"><a href="/cat/r/app?op=speedGraph">
 								<i class="menu-icon fa fa-caret-right"></i>App测速分布</a>
 								<b class="arrow"></b></li>
-							<li id="statistics"><a href="/cat/r/appstats?domain=${model.domain}&type=all">
-								<i class="menu-icon fa fa-caret-right"></i>每天报表统计</a>
-								<b class="arrow"></b></li>
-							<li id="connTrend"><a href="/cat/r/app?op=connLinechart&domain=${model.domain}">
-								<i class="menu-icon fa fa-caret-right"></i>长连访问趋势</a>
-								<b class="arrow"></b></li>
-							<li id="connPiechart"><a href="/cat/r/app?op=connPiechart&domain=${model.domain}">
-								<i class="menu-icon fa fa-caret-right"></i>长连访问分布</a>
-								<b class="arrow"></b></li>
 							<li id="appCrashLog"><a href="/cat/r/crash?op=appCrashLog">
 								<i class="menu-icon fa fa-caret-right"></i>AppCrash日志</a>
 								<b class="arrow"></b></li>
@@ -60,8 +51,18 @@
 							<li id="crashStatistics"><a href="/cat/r/crash?op=crashStatistics">
 								<i class="menu-icon fa fa-caret-right"></i>Crash日报表</a>
 								<b class="arrow"></b></li>
+							<li id="statistics"><a href="/cat/r/appstats?domain=${model.domain}&type=all">
+								<i class="menu-icon fa fa-caret-right"></i>APP每日报表</a>
+								<b class="arrow"></b></li>
 							<li id="traceLog"><a href="http://tracer.cat.dp/" target="_blank">
 								<i class="menu-icon fa fa-caret-right"></i>移动日志查询</a>
+								<b class="arrow"></b></li>
+								
+							<li id="connTrend"><a href="/cat/r/app?op=connLinechart&domain=${model.domain}">
+								<i class="menu-icon fa fa-caret-right"></i>长连访问趋势</a>
+								<b class="arrow"></b></li>
+							<li id="connPiechart"><a href="/cat/r/app?op=connPiechart&domain=${model.domain}">
+								<i class="menu-icon fa fa-caret-right"></i>长连访问分布</a>
 								<b class="arrow"></b></li>
 						</ul>
 					</li>
