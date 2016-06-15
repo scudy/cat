@@ -35,7 +35,7 @@ public class AppCommandsSorter {
 		m_commands = commands;
 		m_sortBy = type;
 
-		if (DOMAIN.equals(type) || StringUtils.isEmpty(type)) {
+		if (DOMAIN.equals(type) || COMMAND.equals(type) || StringUtils.isEmpty(type)) {
 			m_sortValue = false;
 		}
 	}

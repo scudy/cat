@@ -75,6 +75,12 @@ public class AppReportBuilder implements TaskBuilder {
 		final String namespace = domain;
 		final Date reportPeriod = period;
 
+		try {
+			m_autoCompleter.autoCompleteDomain(period);
+		} catch (Exception e) {
+			Cat.logError(e);
+		}
+
 		Threads.forGroup("cat").start(new Threads.Task() {
 
 			@Override
@@ -179,12 +185,6 @@ public class AppReportBuilder implements TaskBuilder {
 	}
 
 	public boolean runDailyTask(String name, String namespace, Date period) {
-		try {
-			m_autoCompleter.autoCompleteDomain(period);
-		} catch (Exception e) {
-			Cat.logError(e);
-		}
-
 		try {
 			AppReport appReport = buildDailyReport(namespace, period);
 
