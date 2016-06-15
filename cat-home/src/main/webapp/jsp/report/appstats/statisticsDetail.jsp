@@ -20,8 +20,6 @@
 		<tr>
 			<th width="20%"><a href="/cat/r/appstats?domain=${model.domain}&day=${payload.day}&sort=command">命令字</a></th>
 			<th><a href="/cat/r/appstats?&domain=${model.domain}&day=${payload.day}&sort=domain">项目</a></th>
-			<th><a href="/cat/r/appstats?&domain=${model.domain}&day=${payload.day}&sort=bu">BU</a></th>
-			<th><a href="/cat/r/appstats?&domain=${model.domain}&day=${payload.day}&sort=department">部门</a></th>
 			<th><a href="/cat/r/appstats?domain=${model.domain}&day=${payload.day}&sort=count">访问量</a></th>
 			<th><a href="/cat/r/appstats?domain=${model.domain}&day=${payload.day}&sort=avg">平均延时(ms)</a></th>
 			<th><a href="/cat/r/appstats?domain=${model.domain}&day=${payload.day}&sort=success">平均成功率(%)</a></th>
@@ -49,24 +47,6 @@
 					<td>无</td>
 				</c:otherwise>
 				</c:choose>
-			<c:choose>
-				<c:when test="${entry.value.bu != null}">
-					<td>
-					${entry.value.bu}</td>
-				</c:when>
-				<c:otherwise>
-					<td>无</td>
-				</c:otherwise>
-			</c:choose>
-			<c:choose>
-				<c:when test="${entry.value.department != null}">
-					<td>
-					${entry.value.department}</td>
-				</c:when>
-				<c:otherwise>
-					<td>无</td>
-				</c:otherwise>
-			</c:choose>
 			<td class="right">${w:format(entry.value.count,'#,###,###,###,##0')}</td>
 			<td class="right">${w:format(entry.value.avg,'#,###,###,###,##0.0')}</td>
 			<td class="right">${w:format(entry.value.successRatio,'#0.000')}</td>
@@ -83,8 +63,6 @@
 		<tr>
 			<th width="20%"><a href="/cat/r/appstats?domain=${model.domain}&day=${payload.day}&sort=command&type=code">命令字</a></th>
 			<th><a href="/cat/r/appstats?domain=${model.domain}&day=${payload.day}&sort=domain&type=code">项目</a></th>
-			<th><a href="/cat/r/appstats?domain=${model.domain}&day=${payload.day}&sort=bu&type=code">BU</a></th>
-			<th><a href="/cat/r/appstats?domain=${model.domain}&day=${payload.day}&sort=department&type=code">部门</a></th>
 			<c:forEach var="code" items="${model.codeDistributions}">
 			<th style="width:50px;" class="right"><a href="/cat/r/appstats?domain=${model.domain}&day=${payload.day}&sort=${code}&type=code">${code}</a></th>
 			</c:forEach>
@@ -105,24 +83,6 @@
 			<c:choose>
 				<c:when test="${not empty e.value.domain}">
 					<td>${e.value.domain}</td>
-				</c:when>
-				<c:otherwise>
-					<td>无</td>
-				</c:otherwise>
-			</c:choose>
-			<c:choose>
-				<c:when test="${e.value.bu != null}">
-					<td>
-					${e.value.bu}</td>
-				</c:when>
-				<c:otherwise>
-					<td>无</td>
-				</c:otherwise>
-			</c:choose>
-			<c:choose>
-				<c:when test="${e.value.department != null}">
-					<td>
-					${e.value.department}</td>
 				</c:when>
 				<c:otherwise>
 					<td>无</td>

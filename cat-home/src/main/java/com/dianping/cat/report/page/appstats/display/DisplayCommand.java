@@ -29,10 +29,6 @@ public class DisplayCommand {
 
 	private String m_domain;
 
-	private String m_bu;
-
-	private String m_department;
-
 	private String m_title;
 
 	private Map<String, DisplayCode> m_codes = new LinkedHashMap<String, DisplayCode>();
@@ -71,20 +67,12 @@ public class DisplayCommand {
 		return m_avg;
 	}
 
-	public String getBu() {
-		return m_bu;
-	}
-
 	public Map<String, DisplayCode> getCodes() {
 		return m_codes;
 	}
 
 	public long getCount() {
 		return m_count;
-	}
-
-	public String getDepartment() {
-		return m_department;
 	}
 
 	public String getDomain() {
@@ -185,20 +173,12 @@ public class DisplayCommand {
 		m_avg = avg;
 	}
 
-	public void setBu(String bu) {
-		m_bu = bu;
-	}
-
 	public void setCodes(Map<String, DisplayCode> codes) {
 		m_codes = codes;
 	}
 
 	public void setCount(long count) {
 		m_count = count;
-	}
-
-	public void setDepartment(String department) {
-		m_department = department;
 	}
 
 	public void setDomain(String domain) {
