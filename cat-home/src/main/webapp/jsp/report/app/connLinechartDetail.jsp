@@ -50,7 +50,7 @@
 	              	<span class="input-group-addon">连接类型</span>
 					<select id="connectionType" style="width: 100px;">
 						<option value=''>All</option>
-						<c:forEach var="item" items="${model.connectionTypes}"
+						<c:forEach var="item" items="${model.cipConnectionTypes}"
 							varStatus="status">
 							<option value='${item.value.id}'>${item.value.value}</option>
 						</c:forEach>
@@ -139,7 +139,7 @@
 	              	<span class="input-group-addon">连接类型</span>
 					<select id="connectionType2" style="width: 100px;">
 						<option value=''>All</option>
-						<c:forEach var="item" items="${model.connectionTypes}"
+						<c:forEach var="item" items="${model.cipConnectionTypes}"
 							varStatus="status">
 							<option value='${item.value.id}'>${item.value.value}</option>
 						</c:forEach>
@@ -219,7 +219,7 @@
 		<c:set var="operatorCode" value="${item.operator eq '-1' ? '' : item.operator}"/>
 		<c:set var="network" value="${model.networks[networkCode].value}"/>
 		<c:set var="appVersion" value="${model.versions[appVersionCode].value}"/>
-		<c:set var="channel" value="${model.connectionTypes[channelCode].value}"/>
+		<c:set var="channel" value="${model.cipConnectionTypes[channelCode].value}"/>
 		<c:set var="platform" value="${model.platforms[platformCode].value}"/>
 		<c:set var="city" value="${model.cities[cityCode].value}"/>
 		<c:set var="operator" value="${model.operators[operatorCode].value}"/>

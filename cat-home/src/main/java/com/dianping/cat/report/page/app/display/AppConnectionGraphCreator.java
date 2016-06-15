@@ -135,7 +135,7 @@ public class AppConnectionGraphCreator {
 			break;
 		case CONNECT_TYPE:
 			Map<Integer, com.dianping.cat.configuration.mobile.entity.Item> connectTypes = m_mobileConfigManager
-			      .queryConstantItem(MobileConstants.CONNECT_TYPE);
+			      .queryConstantItem(MobileConstants.CIP_CONNECT_TYPE);
 			com.dianping.cat.configuration.mobile.entity.Item connectType = null;
 			keyValue = data.getConnectType();
 
