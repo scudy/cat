@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -33,10 +32,8 @@ import com.dianping.cat.config.app.MobileConfigManager;
 import com.dianping.cat.config.app.MobileConstants;
 import com.dianping.cat.configuration.app.speed.entity.Speed;
 import com.dianping.cat.helper.JsonBuilder;
-import com.dianping.cat.home.app.entity.AppReport;
 import com.dianping.cat.report.ReportPage;
 import com.dianping.cat.report.graph.LineChart;
-import com.dianping.cat.report.graph.PieChart;
 import com.dianping.cat.report.page.app.display.AppCommandDisplayInfo;
 import com.dianping.cat.report.page.app.display.AppConnectionDisplayInfo;
 import com.dianping.cat.report.page.app.display.AppConnectionGraphCreator;
@@ -44,17 +41,11 @@ import com.dianping.cat.report.page.app.display.AppDataDetail;
 import com.dianping.cat.report.page.app.display.AppDetailComparator;
 import com.dianping.cat.report.page.app.display.AppGraphCreator;
 import com.dianping.cat.report.page.app.display.AppSpeedDisplayInfo;
-import com.dianping.cat.report.page.app.display.AppStatisticBuilder;
-import com.dianping.cat.report.page.app.display.CrashLogDetailInfo;
-import com.dianping.cat.report.page.app.display.CrashLogDisplayInfo;
 import com.dianping.cat.report.page.app.display.DashBoardInfo;
-import com.dianping.cat.report.page.app.display.DisplayCommands;
 import com.dianping.cat.report.page.app.service.AppConnectionService;
 import com.dianping.cat.report.page.app.service.AppDataService;
 import com.dianping.cat.report.page.app.service.AppSpeedService;
 import com.dianping.cat.report.page.app.service.CommandQueryEntity;
-import com.dianping.cat.report.page.app.service.CrashLogQueryEntity;
-import com.dianping.cat.report.page.app.service.CrashLogService;
 import com.dianping.cat.report.page.app.service.DailyCommandQueryEntity;
 import com.dianping.cat.report.page.app.service.DailyReportService;
 import com.dianping.cat.report.page.app.service.DashBoardBuilder;
@@ -88,9 +79,6 @@ public class Handler implements PageHandler<Context> {
 	private AppConnectionService m_appConnectionService;
 
 	@Inject
-	private CrashLogService m_crashLogService;
-
-	@Inject
 	private ProjectService m_projectService;
 
 	@Inject
@@ -100,38 +88,9 @@ public class Handler implements PageHandler<Context> {
 	private DailyReportService m_dailyService;
 
 	@Inject
-	private AppStatisticBuilder m_appStatisticBuilder;
-
-	@Inject
 	private MobileConfigManager m_mobileConfigManager;
 
 	private JsonBuilder m_jsonBuilder = new JsonBuilder();
-
-	private void buildAppCrashGraph(Payload payload, Model model) {
-		CrashLogQueryEntity entity = payload.getCrashLogQuery();
-		CrashLogDisplayInfo info = m_crashLogService.buildCrashGraph(entity);
-
-		model.setCrashLogDisplayInfo(info);
-	}
-
-	private CrashLogDisplayInfo buildAppCrashLog(Payload payload) {
-		CrashLogQueryEntity entity = payload.getCrashLogQuery();
-		CrashLogDisplayInfo info = m_crashLogService.buildCrashLogDisplayInfo(entity);
-
-		return info;
-	}
-
-	private void buildAppCrashLogDetail(Payload payload, Model model) {
-		CrashLogDetailInfo info = m_crashLogService.queryCrashLogDetailInfo(payload.getId());
-
-		model.setCrashLogDetailInfo(info);
-	}
-
-	private void buildAppCrashTrend(Payload payload, Model model) {
-		CrashLogDisplayInfo info = m_crashLogService.buildCrashTrend(payload.getCrashLogTrendQuery1(),
-		      payload.getCrashLogTrendQuery2());
-		model.setCrashLogDisplayInfo(info);
-	}
 
 	private List<AppDataDetail> buildAppDataDetails(Payload payload) {
 		List<AppDataDetail> appDetails = new ArrayList<AppDataDetail>();
@@ -273,25 +232,6 @@ public class Handler implements PageHandler<Context> {
 		return new AppSpeedDisplayInfo();
 	}
 
-	private void buillAppStatisticInfo(Model model, Payload payload) throws IOException {
-		AppReport report = m_appStatisticBuilder.queryAppReport(payload.getDayDate());
-		DisplayCommands displayCommands = m_appStatisticBuilder.buildDisplayCommands(report, payload.getSort());
-		Set<String> codeKeys = m_appStatisticBuilder.buildCodeKeys(displayCommands);
-		List<String> piechartCodes = payload.getCodes();
-
-		if (piechartCodes.isEmpty()) {
-			piechartCodes = new ArrayList<String>(codeKeys);
-		}
-
-		Map<String, PieChart> piecharts = m_appStatisticBuilder.buildCodePiecharts(piechartCodes, displayCommands,
-		      payload.getTop());
-
-		model.setPiecharts(piecharts);
-		model.setDisplayCommands(displayCommands);
-		model.setAppReport(report);
-		model.setCodeDistributions(codeKeys);
-	}
-
 	private void fetchConfig(Payload payload, Model model) {
 		String type = payload.getType();
 
@@ -368,25 +308,6 @@ public class Handler implements PageHandler<Context> {
 		case APP_CONFIG_FETCH:
 			fetchConfig(payload, model);
 			break;
-		case APP_CRASH_LOG:
-			CrashLogDisplayInfo displayInfo = buildAppCrashLog(payload);
-
-			model.setCrashLogDisplayInfo(displayInfo);
-			break;
-		case APP_CRASH_LOG_JSON:
-			displayInfo = buildAppCrashLog(payload);
-
-			model.setFetchData(m_jsonBuilder.toJson(displayInfo));
-			break;
-		case APP_CRASH_LOG_DETAIL:
-			buildAppCrashLogDetail(payload, model);
-			break;
-		case APP_CRASH_GRAPH:
-			buildAppCrashGraph(payload, model);
-			break;
-		case APP_CRASH_TREND:
-			buildAppCrashTrend(payload, model);
-			break;
 		case SPEED:
 			model.setAppSpeedDisplayInfo(buildSpeedTendency(payload));
 			break;
@@ -434,9 +355,6 @@ public class Handler implements PageHandler<Context> {
 				jsonObjs.put("detailInfos", appConnDisplayInfo.getPieChartDetailInfo());
 				model.setFetchData(m_jsonBuilder.toJson(jsonObjs));
 			}
-			break;
-		case STATISTICS:
-			buillAppStatisticInfo(model, payload);
 			break;
 		case DASHBOARD:
 			DashBoardInfo dashboardInfo = m_dashboardBuilder.buildDashBoard(payload.getDashBoardQuery());

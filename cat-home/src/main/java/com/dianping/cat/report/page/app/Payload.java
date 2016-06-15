@@ -1,21 +1,12 @@
 package com.dianping.cat.report.page.app;
 
-import java.text.SimpleDateFormat;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-
-import org.unidal.helper.Splitters;
 import org.unidal.web.mvc.ActionContext;
 import org.unidal.web.mvc.payload.annotation.FieldMeta;
-import org.unidal.web.mvc.payload.annotation.ObjectMeta;
 
 import com.dianping.cat.app.AppDataField;
-import com.dianping.cat.helper.TimeHelper;
 import com.dianping.cat.mvc.AbstractReportPayload;
 import com.dianping.cat.report.ReportPage;
 import com.dianping.cat.report.page.app.service.CommandQueryEntity;
-import com.dianping.cat.report.page.app.service.CrashLogQueryEntity;
 import com.dianping.cat.report.page.app.service.DailyCommandQueryEntity;
 import com.dianping.cat.report.page.app.service.SpeedQueryEntity;
 
@@ -64,25 +55,11 @@ public class Payload extends AbstractReportPayload<Action, ReportPage> {
 	@FieldMeta("commandId2")
 	private String m_commandId2;
 
-	@FieldMeta("day")
-	private String m_day;
-
 	@FieldMeta("top")
 	private int m_top = 20;
 
-	@FieldMeta("id")
-	private int m_id;
-
-	@FieldMeta("codes")
-	private List<String> m_codes = Collections.emptyList();
-
-	@ObjectMeta("crashLogQuery")
-	private CrashLogQueryEntity m_crashLogQuery = new CrashLogQueryEntity();
-
 	@FieldMeta("namespace")
 	private String m_namespace;
-
-	private SimpleDateFormat m_sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 	public Payload() {
 		super(ReportPage.APP);
@@ -95,10 +72,6 @@ public class Payload extends AbstractReportPayload<Action, ReportPage> {
 
 	public int getCodeId() {
 		return m_codeId;
-	}
-
-	public List<String> getCodes() {
-		return m_codes;
 	}
 
 	public DailyCommandQueryEntity getCommandDailyQueryEntity() {
@@ -117,47 +90,11 @@ public class Payload extends AbstractReportPayload<Action, ReportPage> {
 		return m_commandId2;
 	}
 
-	public CrashLogQueryEntity getCrashLogQuery() {
-		return m_crashLogQuery;
-	}
-
-	public CrashLogQueryEntity getCrashLogTrendQuery1() {
-		if (m_query1 != null && m_query1.length() > 0) {
-			return new CrashLogQueryEntity(m_query1);
-		} else {
-			return new CrashLogQueryEntity();
-		}
-	}
-
-	public CrashLogQueryEntity getCrashLogTrendQuery2() {
-		if (m_query2 != null && m_query2.length() > 0) {
-			return new CrashLogQueryEntity(m_query2);
-		} else {
-			return null;
-		}
-	}
-
 	public CommandQueryEntity getDashBoardQuery() {
 		if (m_query1 != null && m_query1.length() > 0) {
 			return new CommandQueryEntity(m_query1);
 		} else {
 			return new CommandQueryEntity(0);
-		}
-	}
-
-	public String getDay() {
-		return m_day;
-	}
-
-	public Date getDayDate() {
-		try {
-			if (m_day.length() == 10) {
-				return m_sdf.parse(m_day);
-			} else {
-				return TimeHelper.getYesterday();
-			}
-		} catch (Exception e) {
-			return TimeHelper.getYesterday();
 		}
 	}
 
@@ -171,10 +108,6 @@ public class Payload extends AbstractReportPayload<Action, ReportPage> {
 
 	public AppDataField getGroupByField() {
 		return m_groupByField;
-	}
-
-	public int getId() {
-		return m_id;
 	}
 
 	public String getName() {
@@ -262,20 +195,12 @@ public class Payload extends AbstractReportPayload<Action, ReportPage> {
 		m_codeId = codeId;
 	}
 
-	public void setCodes(String codes) {
-		m_codes = Splitters.by(",").noEmptyItem().split(codes);
-	}
-
 	public void setCommandId(String commandId) {
 		this.m_commandId = commandId;
 	}
 
 	public void setCommandId2(String commandId2) {
 		this.m_commandId2 = commandId2;
-	}
-
-	public void setCrashLogQuery(CrashLogQueryEntity crashLogQuery) {
-		m_crashLogQuery = crashLogQuery;
 	}
 
 	public void setDomains(String domains) {
@@ -288,10 +213,6 @@ public class Payload extends AbstractReportPayload<Action, ReportPage> {
 
 	public void setGroupByField(String groupByField) {
 		m_groupByField = AppDataField.getByName(groupByField, AppDataField.CODE);
-	}
-
-	public void setId(int id) {
-		m_id = id;
 	}
 
 	public void setName(String name) {

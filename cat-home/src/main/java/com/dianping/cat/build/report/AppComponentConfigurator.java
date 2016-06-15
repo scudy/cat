@@ -15,15 +15,18 @@ import com.dianping.cat.config.app.SdkConfigManager;
 import com.dianping.cat.report.alert.app.AppAlert;
 import com.dianping.cat.report.alert.app.AppContactor;
 import com.dianping.cat.report.alert.app.AppDecorator;
-import com.dianping.cat.report.page.app.display.AppStatisticBuilder;
 import com.dianping.cat.report.page.app.service.AppConnectionService;
 import com.dianping.cat.report.page.app.service.AppDataService;
-import com.dianping.cat.report.page.app.service.AppReportService;
 import com.dianping.cat.report.page.app.service.AppSpeedDataBuilder;
 import com.dianping.cat.report.page.app.service.AppSpeedService;
 import com.dianping.cat.report.page.app.task.AppCommandAutoCompleter;
 import com.dianping.cat.report.page.app.task.AppDatabasePruner;
 import com.dianping.cat.report.page.app.task.AppReportBuilder;
+import com.dianping.cat.report.page.appstats.service.AppStatisticBuilder;
+import com.dianping.cat.report.page.appstats.service.AppStatisticReportService;
+import com.dianping.cat.report.page.crash.service.CrashLogService;
+import com.dianping.cat.report.page.crash.service.CrashStatisticReportService;
+import com.dianping.cat.report.page.crash.task.CrashReportBuilder;
 import com.dianping.cat.service.ProjectService;
 
 public class AppComponentConfigurator extends AbstractResourceConfigurator {
@@ -38,7 +41,7 @@ public class AppComponentConfigurator extends AbstractResourceConfigurator {
 
 		all.add(A(AppConnectionService.class));
 
-		all.add(A(AppReportService.class));
+		all.add(A(AppStatisticReportService.class));
 
 		all.add(A(AppDatabasePruner.class));
 
@@ -48,13 +51,19 @@ public class AppComponentConfigurator extends AbstractResourceConfigurator {
 
 		all.add(A(AppStatisticBuilder.class));
 
+		all.add(A(CrashReportBuilder.class));
+
+		all.add(A(CrashLogService.class));
+
+		all.add(A(CrashStatisticReportService.class));
+
 		all.add(C(Contactor.class, AppContactor.ID, AppContactor.class).req(AlertConfigManager.class,
 		      AppCommandConfigManager.class, ProjectService.class));
 		all.add(C(Decorator.class, AppDecorator.ID, AppDecorator.class).req(AppCommandConfigManager.class,
 		      MobileConfigManager.class));
 
 		all.add(A(AppAlert.class));
-		
+
 		all.add(A(SdkConfigManager.class));
 
 		return all;

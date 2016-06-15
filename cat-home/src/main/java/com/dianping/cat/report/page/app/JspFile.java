@@ -13,22 +13,12 @@ public enum JspFile {
 
 	APP_FETCH_DATA("/jsp/report/app/fetchData.jsp"),
 
-	APP_CRASH_LOG("/jsp/report/app/appCrashLog.jsp"),
-
-	APP_CRASH_LOG_DETAIL("/jsp/report/app/appCrashLogDetail.jsp"),
-	
-	APP_CRASH_GRAPH("/jsp/report/app/appCrashGraph.jsp"),
-	
-	APP_CRASH_TREND("/jsp/report/app/appCrashTrend.jsp"),
-
 	SPEED("/jsp/report/app/speed.jsp"),
 
 	SPEED_GRAPH("/jsp/report/app/speedGraph.jsp"),
 	
 	APP_COMMAND_DAILY("/jsp/report/app/commandDaily.jsp"),
 
-	STATISTICS("/jsp/report/app/statistics.jsp"),
-	
 	DASHBOARD("/jsp/report/app/dashboard.jsp");
 
 	private String m_path;

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.unidal.tuple.Pair;
 import org.unidal.web.mvc.view.annotation.EntityMeta;
@@ -16,28 +15,20 @@ import com.dianping.cat.command.entity.Codes;
 import com.dianping.cat.command.entity.Command;
 import com.dianping.cat.configuration.mobile.entity.Item;
 import com.dianping.cat.helper.JsonBuilder;
-import com.dianping.cat.home.app.entity.AppReport;
 import com.dianping.cat.mvc.AbstractReportModel;
 import com.dianping.cat.report.ReportPage;
 import com.dianping.cat.report.graph.LineChart;
-import com.dianping.cat.report.graph.PieChart;
 import com.dianping.cat.report.page.app.display.AppCommandDisplayInfo;
 import com.dianping.cat.report.page.app.display.AppConnectionDisplayInfo;
 import com.dianping.cat.report.page.app.display.AppDataDetail;
 import com.dianping.cat.report.page.app.display.AppSpeedDisplayInfo;
-import com.dianping.cat.report.page.app.display.CrashLogDetailInfo;
-import com.dianping.cat.report.page.app.display.CrashLogDisplayInfo;
 import com.dianping.cat.report.page.app.display.DashBoardInfo;
-import com.dianping.cat.report.page.app.display.DisplayCommands;
 
 @ModelMeta(Constants.APP)
 public class Model extends AbstractReportModel<Action, ReportPage, Context> {
 
 	@EntityMeta
 	private LineChart m_lineChart;
-
-	@EntityMeta
-	private Map<String, PieChart> m_piecharts;
 
 	private AppCommandDisplayInfo m_commandDisplayInfo;
 
@@ -75,8 +66,6 @@ public class Model extends AbstractReportModel<Action, ReportPage, Context> {
 
 	private Map<Integer, Code> m_codes;
 
-	private Set<String> m_codeDistributions;
-
 	private Map<Integer, List<Code>> m_command2Codes;
 
 	private Map<String, Pair<String, String>> m_domain2Departments;
@@ -84,15 +73,6 @@ public class Model extends AbstractReportModel<Action, ReportPage, Context> {
 	private Map<String, Command> m_command2Id;
 
 	private String m_defaultCommand;
-
-	@EntityMeta
-	private AppReport m_appReport;
-
-	private DisplayCommands m_displayCommands;
-
-	private CrashLogDetailInfo m_crashLogDetailInfo;
-
-	private CrashLogDisplayInfo m_crashLogDisplayInfo;
 
 	private DashBoardInfo m_dashBoardInfo;
 
@@ -104,20 +84,12 @@ public class Model extends AbstractReportModel<Action, ReportPage, Context> {
 		return m_appDataDetailInfos;
 	}
 
-	public AppReport getAppReport() {
-		return m_appReport;
-	}
-
 	public AppSpeedDisplayInfo getAppSpeedDisplayInfo() {
 		return m_appSpeedDisplayInfo;
 	}
 
 	public Map<Integer, Item> getCities() {
 		return m_cities;
-	}
-
-	public Set<String> getCodeDistributions() {
-		return m_codeDistributions;
 	}
 
 	public Map<Integer, Code> getCodes() {
@@ -172,14 +144,6 @@ public class Model extends AbstractReportModel<Action, ReportPage, Context> {
 		return m_content;
 	}
 
-	public CrashLogDetailInfo getCrashLogDetailInfo() {
-		return m_crashLogDetailInfo;
-	}
-
-	public CrashLogDisplayInfo getCrashLogDisplayInfo() {
-		return m_crashLogDisplayInfo;
-	}
-
 	public DashBoardInfo getDashBoardInfo() {
 		return m_dashBoardInfo;
 	}
@@ -191,10 +155,6 @@ public class Model extends AbstractReportModel<Action, ReportPage, Context> {
 
 	public String getDefaultCommand() {
 		return m_defaultCommand;
-	}
-
-	public DisplayCommands getDisplayCommands() {
-		return m_displayCommands;
 	}
 
 	@Override
@@ -231,10 +191,6 @@ public class Model extends AbstractReportModel<Action, ReportPage, Context> {
 		return m_operators;
 	}
 
-	public Map<String, PieChart> getPiecharts() {
-		return m_piecharts;
-	}
-
 	public Map<Integer, Item> getPlatforms() {
 		return m_platforms;
 	}
@@ -251,20 +207,12 @@ public class Model extends AbstractReportModel<Action, ReportPage, Context> {
 		m_appDataDetailInfos = appDataDetailInfos;
 	}
 
-	public void setAppReport(AppReport appReport) {
-		m_appReport = appReport;
-	}
-
 	public void setAppSpeedDisplayInfo(AppSpeedDisplayInfo appSpeedDisplayInfo) {
 		m_appSpeedDisplayInfo = appSpeedDisplayInfo;
 	}
 
 	public void setCities(Map<Integer, Item> cities) {
 		m_cities = cities;
-	}
-
-	public void setCodeDistributions(Set<String> codeDistributions) {
-		m_codeDistributions = codeDistributions;
 	}
 
 	public void setCodes(Map<Integer, Code> codes) {
@@ -307,24 +255,12 @@ public class Model extends AbstractReportModel<Action, ReportPage, Context> {
 		m_content = content;
 	}
 
-	public void setCrashLogDetailInfo(CrashLogDetailInfo crashLogDetailInfo) {
-		m_crashLogDetailInfo = crashLogDetailInfo;
-	}
-
-	public void setCrashLogDisplayInfo(CrashLogDisplayInfo crashLogDisplayInfo) {
-		m_crashLogDisplayInfo = crashLogDisplayInfo;
-	}
-
 	public void setDashBoardInfo(DashBoardInfo dashBoardInfo) {
 		m_dashBoardInfo = dashBoardInfo;
 	}
 
 	public void setDefaultCommand(String defaultCommand) {
 		m_defaultCommand = defaultCommand;
-	}
-
-	public void setDisplayCommands(DisplayCommands displayCommands) {
-		m_displayCommands = displayCommands;
 	}
 
 	public void setDomain2Departments(Map<String, Pair<String, String>> domain2Departments) {
@@ -349,10 +285,6 @@ public class Model extends AbstractReportModel<Action, ReportPage, Context> {
 
 	public void setOperators(Map<Integer, Item> operators) {
 		m_operators = operators;
-	}
-
-	public void setPiecharts(Map<String, PieChart> piecharts) {
-		m_piecharts = piecharts;
 	}
 
 	public void setPlatforms(Map<Integer, Item> platforms) {

@@ -27,8 +27,6 @@ public enum ReportPage implements Page {
 
    STATE("state", "state", "State", "State", true),
 
-   METRIC("metric", "metric", "Metric", "Metric", true),
-
    DEPENDENCY("dependency", "dependency", "Dependency", "Dependency", true),
 
    STATISTICS("statistics", "statistics", "Statistics", "Statistics", false),
@@ -39,15 +37,11 @@ public enum ReportPage implements Page {
 
    NETWORK("network", "network", "Network", "Network", false),
 
-   SYSTEM("system", "system", "System", "System", false),
-
    APP("app", "app", "App", "App", true),
 
    ALERT("alert", "alert", "Alert", "Alert", true),
 
    OVERLOAD("overload", "overload", "Overload", "Overload", true),
-
-   DATABASE("database", "database", "Database", "Database", true),
 
    STORAGE("storage", "storage", "Storage", "Storage", true),
 
@@ -57,9 +51,11 @@ public enum ReportPage implements Page {
 
    SERVER("server", "server", "Server", "Server", true),
 
-   ESLOG("eslog", "eslog", "Eslog", "Eslog", true),
+   BUSINESS("business", "business", "Business", "Business", true),
 
-   BUSINESS("business", "business", "Business", "Business", true);
+   APPSTATS("appstats", "appstats", "Appstats", "Appstats", true),
+
+   CRASH("crash", "crash", "Crash", "Crash", true);
 
    private String m_name;
 

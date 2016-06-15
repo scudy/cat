@@ -2174,4 +2174,42 @@
       		</query>
       	</query-defs>
 	</entity>
+	<entity name="app-daily-report" table="app_daily_report" alias="adr">
+		<var name="start-date" value-type="Date" />
+		<var name="end-date" value-type="Date" />
+		<query-defs>
+			<query name="insert" type="INSERT">
+				<statement><![CDATA[
+					INSERT INTO <TABLE/>
+						(<FIELDS/>) 
+					VALUES
+						(<VALUES/>)
+					]]></statement>
+			</query>
+			<query name="find-by-App-name-period" type="SELECT">
+				<param name="app-id" />
+				<param name="name" />
+				<param name="period" />
+				<statement><![CDATA[
+					SELECT <FIELDS/> 
+					FROM <TABLE/> 
+					WHERE <FIELD name='period'/> = ${period}
+					AND <FIELD name='app-id'/> = ${app-id}
+					AND <FIELD name='name'/> = ${name} 
+					]]></statement>
+			</query>
+			<query name="delete-by-App-name-period" type="DELETE">
+				<param name="namespace" />
+				<param name="name" />
+				<param name="period" />
+				<statement><![CDATA[
+					DELETE 
+					FROM <TABLE/> 
+					WHERE <FIELD name='period'/> = ${period}
+					AND <FIELD name='app-id'/> = ${app-id}
+					AND <FIELD name='name'/> = ${name} 
+					]]></statement>
+			</query>
+		</query-defs>
+	</entity>
 </entities>
