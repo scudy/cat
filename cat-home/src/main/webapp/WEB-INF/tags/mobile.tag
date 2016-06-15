@@ -57,7 +57,10 @@
 							<li id="appCrashTrend"><a href="/cat/r/crash?op=appCrashTrend">
 								<i class="menu-icon fa fa-caret-right"></i>AppCrash趋势</a>
 								<b class="arrow"></b></li>
-							<li id="traceLog"><a href="http://mobile-tracer-web01.nh/" target="_blank">
+							<li id="crashStatistics"><a href="/cat/r/crash?op=crashStatistics">
+								<i class="menu-icon fa fa-caret-right"></i>Crash日报表</a>
+								<b class="arrow"></b></li>
+							<li id="traceLog"><a href="http://tracer.cat.dp/" target="_blank">
 								<i class="menu-icon fa fa-caret-right"></i>移动日志查询</a>
 								<b class="arrow"></b></li>
 						</ul>

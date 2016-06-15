@@ -87,5 +87,7 @@ public class Constants {
 	public final static String END_POINT = "endPoint";
 
 	public final static String MEASUREMENT = "measurement";
+	
+	public static final String CRASH = "crash";
 
 }

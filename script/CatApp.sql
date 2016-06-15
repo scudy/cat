@@ -105,7 +105,7 @@ CREATE TABLE `app_daily_report` (
   `type` tinyint(4) NOT NULL COMMENT '报表数据格式, 1/xml, 2/json, 默认1',
   `creation_date` datetime NOT NULL COMMENT '报表创建时间',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `period` (`period`,`namespace`,`name`)
+  UNIQUE KEY `period` (`period`,`app_id`,`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED COMMENT='天报表';
 
 CREATE TABLE `app_daily_report_content` (

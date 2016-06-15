@@ -9,7 +9,9 @@ public enum JspFile {
 
 	APP_CRASH_TREND("/jsp/report/crash/appCrashTrend.jsp"),
 
-	APP_FETCH_DATA("/jsp/report/crash/fetchData.jsp");
+	APP_FETCH_DATA("/jsp/report/crash/fetchData.jsp"),
+
+	CRASH_STATISTICS("/jsp/report/crash/crashStatistics.jsp");
 
 	private String m_path;
 

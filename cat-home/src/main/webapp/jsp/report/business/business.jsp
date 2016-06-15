@@ -143,7 +143,7 @@
 				</div> 
 			</th>
 			<th>&nbsp;&nbsp;查询条件
-			<i data-rel="tooltip" data-placement="left" title="标签以TAG开头" class="glyphicon glyphicon-question-sign" ></i>&nbsp;&nbsp;
+			<i data-rel="tooltip" data-placement="left" title="输入domain或者标签，标签以TAG开头" class="glyphicon glyphicon-question-sign" ></i>&nbsp;&nbsp;
 			</th>
 			<th>
 				<div class="navbar-header pull-left position" style="width: 350px;">

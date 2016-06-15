@@ -6,13 +6,11 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.codehaus.plexus.personality.plexus.lifecycle.phase.Initializable;
@@ -403,15 +401,6 @@ public class AppCommandConfigManager implements Initializable {
 			commands.add(command);
 		}
 		return results;
-	}
-
-	public Set<String> queryNamespaces() {
-		Set<String> namespaces = new HashSet<String>();
-
-		for (Entry<Integer, Command> entry : m_config.getCommands().entrySet()) {
-			namespaces.add(entry.getValue().getNamespace());
-		}
-		return namespaces;
 	}
 
 	private void refreshConfig() throws DalException, SAXException, IOException {

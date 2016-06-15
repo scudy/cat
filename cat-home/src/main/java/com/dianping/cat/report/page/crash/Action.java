@@ -10,7 +10,9 @@ public enum Action implements org.unidal.web.mvc.Action {
 
 	APP_CRASH_GRAPH("appCrashGraph"),
 
-	APP_CRASH_TREND("appCrashTrend"), ;
+	APP_CRASH_TREND("appCrashTrend"), 
+	
+	CRASH_STATISTICS("crashStatistics");
 
 	private String m_name;
 
