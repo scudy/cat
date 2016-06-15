@@ -43,12 +43,20 @@
 					<td width="5%"></td>
 					<td width="10%"><a href="/cat/r/crash?op=crashStatistics&platform=${payload.platform}&day=${payload.day}&appId=${payload.appId}&sort=version">版本号</a></td>
 					<td><a href="/cat/r/crash?op=crashStatistics&platform=${payload.platform}&day=${payload.day}&appId=${payload.appId}&sort=count">crash次数</a></td>
-					<td>crash次数环比</td>
-					<td>crash次数同比</td>
+					<td><a href="/cat/r/crash?op=crashStatistics&platform=${payload.platform}&day=${payload.day}&appId=${payload.appId}&sort=countMoM">次数环比(%)</a>			
+						<i data-rel="tooltip" data-placement="left" title="当天crash次数/前一天crash次数" class="glyphicon glyphicon-question-sign" ></i>&nbsp;&nbsp;
+					</td>
+					<td><a href="/cat/r/crash?op=crashStatistics&platform=${payload.platform}&day=${payload.day}&appId=${payload.appId}&sort=countYoY">次数同比(%)</a>
+						<i data-rel="tooltip" data-placement="left" title="当天crash次数/上周同一天crash次数" class="glyphicon glyphicon-question-sign" ></i>&nbsp;&nbsp;
+					</td>
 					<td><a href="/cat/r/crash?op=crashStatistics&platform=${payload.platform}&day=${payload.day}&appId=${payload.appId}&sort=dau">启动用户数</a></td>
 					<td><a href="/cat/r/crash?op=crashStatistics&platform=${payload.platform}&day=${payload.day}&appId=${payload.appId}&sort=percent">crash率(%)</a></td>
-					<td>crash率环比</td>
-					<td>crash率同比</td>
+					<td><a href="/cat/r/crash?op=crashStatistics&platform=${payload.platform}&day=${payload.day}&appId=${payload.appId}&sort=percentMoM">crash率环比(%)</a>
+						<i data-rel="tooltip" data-placement="left" title="当天crash率/前一天crash率" class="glyphicon glyphicon-question-sign" ></i>&nbsp;&nbsp;
+					</td>
+					<td><a href="/cat/r/crash?op=crashStatistics&platform=${payload.platform}&day=${payload.day}&appId=${payload.appId}&sort=percentYoY">crash率同比(%)</a>
+						<i data-rel="tooltip" data-placement="left" title="当天crash率/上周同一天crash率" class="glyphicon glyphicon-question-sign" ></i>&nbsp;&nbsp;
+					</td>
 				</tr>
 			</thead>
 			<tbody>
@@ -57,12 +65,13 @@
 						<td><span id="${entry.id}" class="ui-icon ace-icon fa fa-plus center bigger-110 blue showdetail"></span></td>
 						<td align="center"><a href="/cat/r/crash?op=appCrashLog&crashLogQuery.day=${payload.day}&crashLogQuery.startTime=00:00&crashLogQuery.endTime=23:59&crashLogQuery.appName=${payload.appId}&crashLogQuery.platform=${payload.platform}&crashLogQuery.dpid=&crashLogQuery.query=${entry.id};;;;" target="_blank">${entry.id}</a></td>
 						<td align="right">${entry.crashCount}</td>
-						<td align="right">${w:format(entry.crashCountMoM,'#0.0000')}</td>
-						<td align="right">${w:format(entry.crashCountYoY,'#0.0000')}</td>
+						
+						<td align="right">${w:format(entry.crashCountMoM,'#0.0000')}%</td>
+						<td align="right">${w:format(entry.crashCountYoY,'#0.0000')}%</td>
 						<td align="right">${entry.dau}</td>
-						<td align="right">${w:format(entry.percent,'#0.0000')}</td>
-						<td align="right">${w:format(entry.percentMoM,'#0.0000')}</td>
-						<td align="right">${w:format(entry.percentYoY,'#0.0000')}</td>
+						<td align="right">${w:format(entry.percent,'#0.0000')}%</td>
+						<td align="right">${w:format(entry.percentMoM,'#0.0000')}%</td>
+						<td align="right">${w:format(entry.percentYoY,'#0.0000')}%</td>
 					</tr>
 					<tr id="detail-${entry.id}" style="display:none">
 						<td></td>
@@ -89,6 +98,7 @@
 		
 		<script type="text/javascript">
 		  $(document).ready(function(){
+			  $('[data-rel=tooltip]').tooltip();
 			  $('#App_report').addClass("active open");
 			  $('#crashStatistics').addClass("active");
 			  $('#time').datetimepicker({

@@ -8,7 +8,15 @@ public enum SortType {
 
 	PERCENT("percent"),
 
-	VERSION("version");
+	VERSION("version"),
+
+	COUNT_MOM("countMoM"),
+
+	COUNT_YOY("countYoY"),
+
+	PERCENT_MOM("percentMoM"),
+
+	PERCENT_YOY("percentYoY");
 
 	String m_name;
 

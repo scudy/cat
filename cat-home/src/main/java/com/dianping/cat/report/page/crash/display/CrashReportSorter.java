@@ -17,8 +17,32 @@ public class CrashReportSorter implements Comparator<DisplayVersion> {
 		switch (sortType) {
 		case COUNT:
 			return o2.getCrashCount() - o1.getCrashCount();
+		case COUNT_MOM:
+			if (o1.getCrashCountMoM() >= o2.getCrashCountMoM()) {
+				return -1;
+			} else {
+				return 1;
+			}
+		case COUNT_YOY:
+			if (o1.getCrashCountYoY() >= o2.getCrashCountYoY()) {
+				return -1;
+			} else {
+				return 1;
+			}
 		case PERCENT:
 			if (o1.getPercent() >= o2.getPercent()) {
+				return -1;
+			} else {
+				return 1;
+			}
+		case PERCENT_MOM:
+			if (o1.getPercentMoM() >= o2.getPercentMoM()) {
+				return -1;
+			} else {
+				return 1;
+			}
+		case PERCENT_YOY:
+			if (o1.getPercentYoY() >= o2.getPercentYoY()) {
 				return -1;
 			} else {
 				return 1;
