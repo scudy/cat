@@ -46,9 +46,6 @@ public class AppReportBuilder implements TaskBuilder {
 	private AppAlarmRuleService m_appAlarmRuleService;
 
 	@Inject
-	private AppCommandAutoCompleter m_autoCompleter;
-
-	@Inject
 	private TransactionMergeHelper m_mergeHelper;
 
 	@Inject
@@ -61,7 +58,7 @@ public class AppReportBuilder implements TaskBuilder {
 	private AppReport buildDailyReport(String id, Date period) {
 		AppReport report = m_appReportService.makeReport(id, period, TaskHelper.tomorrowZero(period));
 
-		for (Command command : m_appConfigManager.getRawCommands().values()) {
+		for (Command command : m_appConfigManager.queryCommands().values()) {
 			if (id.equals(command.getNamespace())) {
 				processCommand(period, command, report);
 			}
@@ -74,12 +71,6 @@ public class AppReportBuilder implements TaskBuilder {
 		final String reportName = name;
 		final String namespace = domain;
 		final Date reportPeriod = period;
-
-		try {
-			m_autoCompleter.autoCompleteDomain(period);
-		} catch (Exception e) {
-			Cat.logError(e);
-		}
 
 		Threads.forGroup("cat").start(new Threads.Task() {
 

@@ -251,18 +251,6 @@
 			</requirements>
 		</component>
 		<component>
-			<role>com.dianping.cat.report.page.app.task.AppCommandAutoCompleter</role>
-			<implementation>com.dianping.cat.report.page.app.task.AppCommandAutoCompleter</implementation>
-			<requirements>
-				<requirement>
-					<role>com.dianping.cat.config.app.AppCommandConfigManager</role>
-				</requirement>
-				<requirement>
-					<role>com.dianping.cat.report.page.transaction.service.TransactionReportService</role>
-				</requirement>
-			</requirements>
-		</component>
-		<component>
 			<role>com.dianping.cat.report.task.TaskBuilder</role>
 			<role-hint>app</role-hint>
 			<implementation>com.dianping.cat.report.page.app.task.AppReportBuilder</implementation>
@@ -278,9 +266,6 @@
 				</requirement>
 				<requirement>
 					<role>com.dianping.cat.alarm.service.AppAlarmRuleService</role>
-				</requirement>
-				<requirement>
-					<role>com.dianping.cat.report.page.app.task.AppCommandAutoCompleter</role>
 				</requirement>
 				<requirement>
 					<role>com.dianping.cat.report.page.transaction.transform.TransactionMergeHelper</role>

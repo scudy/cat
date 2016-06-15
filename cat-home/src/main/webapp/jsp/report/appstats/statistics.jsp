@@ -58,7 +58,7 @@
 			  $("#li-"+type).addClass("active");
 			  $("#tabContent-"+type).addClass("active");
 			  
-			  $('#app').val("${payload.namespace}");
+			  $('#app').val("${payload.appId}");
 			  
 			  var tag_input = $('#tag_codes');
 				try{
@@ -91,7 +91,7 @@
 	        var codes=$('#tag_codes').val();
 	        var top=$('#top').val();
 	        
-	        window.location.href="?namespace="+app+"&day="+time+"&domain=${model.domain}&type=${payload.type}&codes="+codes+"&top="+top;
+	        window.location.href="?appId="+app+"&day="+time+"&domain=${model.domain}&type=${payload.type}&codes="+codes+"&top="+top;
 	      }
 		</script>
 </a:mobile>

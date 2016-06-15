@@ -33,8 +33,8 @@ public class Payload extends AbstractReportPayload<Action, ReportPage> {
 	@FieldMeta("codes")
 	private List<String> m_codes = Collections.emptyList();
 
-	@FieldMeta("namespace")
-	private int m_namespace = 1;
+	@FieldMeta("appId")
+	private int m_appId = 1;
 
 	@FieldMeta("type")
 	private String m_type;
@@ -70,8 +70,8 @@ public class Payload extends AbstractReportPayload<Action, ReportPage> {
 		}
 	}
 
-	public int getNamespace() {
-		return m_namespace;
+	public int getAppId() {
+		return m_appId;
 	}
 
 	@Override
@@ -100,7 +100,7 @@ public class Payload extends AbstractReportPayload<Action, ReportPage> {
 	}
 
 	public void setNamespace(int namespace) {
-		m_namespace = namespace;
+		m_appId = namespace;
 	}
 
 	@Override

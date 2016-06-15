@@ -19,7 +19,6 @@ import com.dianping.cat.report.page.app.service.AppConnectionService;
 import com.dianping.cat.report.page.app.service.AppDataService;
 import com.dianping.cat.report.page.app.service.AppSpeedDataBuilder;
 import com.dianping.cat.report.page.app.service.AppSpeedService;
-import com.dianping.cat.report.page.app.task.AppCommandAutoCompleter;
 import com.dianping.cat.report.page.app.task.AppDatabasePruner;
 import com.dianping.cat.report.page.app.task.AppReportBuilder;
 import com.dianping.cat.report.page.appstats.service.AppStatisticBuilder;
@@ -44,8 +43,6 @@ public class AppComponentConfigurator extends AbstractResourceConfigurator {
 		all.add(A(AppStatisticReportService.class));
 
 		all.add(A(AppDatabasePruner.class));
-
-		all.add(A(AppCommandAutoCompleter.class));
 
 		all.add(A(AppReportBuilder.class));
 

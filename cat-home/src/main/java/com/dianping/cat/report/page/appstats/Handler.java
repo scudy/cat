@@ -57,7 +57,7 @@ public class Handler implements PageHandler<Context> {
 	}
 
 	private void buillAppStatisticInfo(Model model, Payload payload) throws IOException {
-		AppReport report = m_appStatisticBuilder.queryAppReport(payload.getNamespace(), payload.getDayDate());
+		AppReport report = m_appStatisticBuilder.queryAppReport(payload.getAppId(), payload.getDayDate());
 		DisplayCommands displayCommands = m_appStatisticBuilder.buildDisplayCommands(report, payload.getSort());
 		Set<String> codeKeys = m_appStatisticBuilder.buildCodeKeys(displayCommands);
 		List<String> piechartCodes = payload.getCodes();
