@@ -298,9 +298,6 @@
 					<role>com.dianping.cat.report.page.appstats.service.AppStatisticReportService</role>
 				</requirement>
 				<requirement>
-					<role>com.dianping.cat.service.ProjectService</role>
-				</requirement>
-				<requirement>
 					<role>com.dianping.cat.config.app.AppCommandConfigManager</role>
 				</requirement>
 				<requirement>
