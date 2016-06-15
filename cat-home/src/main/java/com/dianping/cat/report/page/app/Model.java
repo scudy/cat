@@ -40,6 +40,8 @@ public class Model extends AbstractReportModel<Action, ReportPage, Context> {
 
 	private Map<Integer, Item> m_connectionTypes;
 
+	private Map<Integer, Item> m_cipConnectionTypes;
+
 	private Map<Integer, Item> m_operators;
 
 	private Map<Integer, Item> m_networks;
@@ -201,6 +203,14 @@ public class Model extends AbstractReportModel<Action, ReportPage, Context> {
 
 	public Map<Integer, Item> getVersions() {
 		return m_versions;
+	}
+
+	public Map<Integer, Item> getCipConnectionTypes() {
+		return m_cipConnectionTypes;
+	}
+
+	public void setCipConnectionTypes(Map<Integer, Item> cipConnectionTypes) {
+		m_cipConnectionTypes = cipConnectionTypes;
 	}
 
 	public void setAppDataDetailInfos(List<AppDataDetail> appDataDetailInfos) {

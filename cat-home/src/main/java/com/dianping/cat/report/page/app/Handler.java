@@ -371,6 +371,7 @@ public class Handler implements PageHandler<Context> {
 		model.setAction(payload.getAction());
 		model.setPage(ReportPage.APP);
 		model.setConnectionTypes(m_mobileConfigManager.queryConstantItem(MobileConstants.CONNECT_TYPE));
+		model.setCipConnectionTypes(m_mobileConfigManager.queryConstantItem(MobileConstants.CIP_CONNECT_TYPE));
 		model.setCities(m_mobileConfigManager.queryConstantItem(MobileConstants.CITY));
 		model.setNetworks(m_mobileConfigManager.queryConstantItem(MobileConstants.NETWORK));
 		model.setOperators(m_mobileConfigManager.queryConstantItem(MobileConstants.OPERATOR));
