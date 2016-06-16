@@ -95,6 +95,7 @@ public class CodeDisplayVisitor extends BaseVisitor {
 
 			if (cmd != null) {
 				c.setTitle(cmd.getTitle());
+				c.setDomain(cmd.getDomain());
 			}
 		}
 		c.incCount(command.getCount()).incSum(command.getSum()).incErrors(command.getErrors())
