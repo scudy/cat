@@ -13,18 +13,18 @@
 	<table align="center">
 		<tr>
 			<th>
-				<div class="input-group" style="float: left;">
+				<div class="input-group" style="float: left; height: 34px">
 					<span class="input-group-addon">开始</span> <input type="text"
-						id="time" style="width: 130px" />
+						id="time" style="width: 140px; height: 34px" />
 				</div>
-				<div class="input-group" style="float: left; width: 60px">
+				<div class="input-group" style="float: left; width: 60px; height: 34px">
 					<span class="input-group-addon">结束</span> <input type="text"
-						id="time2" style="width: 60px;" />
+						id="time2" style="width: 60px; height: 34px" />
 				</div>
-				<div class="input-group" style="float: left;">
+				<div class="input-group" style="float: left; height: 34px">
 					<span class="input-group-addon">命令字</span>
 					<form id="wrap_search" style="margin-bottom: 0px;">
-						<span class="input-icon" style="width: 350px;"> <input
+						<span class="input-icon" style="width: 350px; height: 34px"> <input
 							type="text" placeholder=""
 							class="search-input search-input form-control ui-autocomplete-input"
 							id="command" autocomplete="on" data="" /> <i
