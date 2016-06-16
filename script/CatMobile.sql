@@ -63,6 +63,7 @@ CREATE TABLE `crash_log_content` (
   `id` int(11) unsigned NOT NULL,
   `content` longblob COMMENT 'crash详细log',
   `updatetime` datetime NOT NULL COMMENT '数据更新时间',
+  `content_mapped` longblob COMMENT '反混淆之后的详细log',
   PRIMARY KEY (`id`),
   KEY `updatetime` (`updatetime`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
