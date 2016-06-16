@@ -94,3 +94,15 @@ CREATE TABLE `app_daily_report_content` (
   `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`report_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED COMMENT='天报表二进制内容';
+
+CREATE TABLE `symbolize` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `app_id` int(11) NOT NULL DEFAULT -1,
+  `uuid1` varchar(64) NOT NULL DEFAULT '',
+  `uuid2` varchar(64) NOT NULL DEFAULT '',
+  `tag` int(4) NOT NULL DEFAULT 0,
+  `path` varchar(64) NOT NULL DEFAULT '',
+  `updatetime` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `updatetime` (`updatetime`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
