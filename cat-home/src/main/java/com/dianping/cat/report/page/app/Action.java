@@ -10,8 +10,6 @@ public enum Action implements org.unidal.web.mvc.Action {
 
 	PIECHART_JSON("piechartJson"),
 
-	APP_COMMAND_DAILY("commandDaily"),
-
 	APP_CONFIG_FETCH("appConfigFetch"),
 
 	SPEED("speed"),

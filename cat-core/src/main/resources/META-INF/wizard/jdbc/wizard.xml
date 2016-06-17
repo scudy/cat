@@ -42,7 +42,6 @@
          <table name="app_connection_data"/>
          <table name="crash_log"/>
          <table name="crash_log_content"/>
-         <table name="app_command_data_daily"/>
          <table name="map_file"/>
          <table name="app_daily_report"/>
          <table name="app_daily_report_content"/>
