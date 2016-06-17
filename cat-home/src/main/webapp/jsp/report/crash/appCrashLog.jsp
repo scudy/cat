@@ -293,7 +293,7 @@
 
 				var cell = document.getElementById(id);
 				var text = el.html();
-				anchor.href =  "?op=appCrashGraph" + getQueryParams() + "&crashLogQuery.msg=" + el.attr('msg') ;
+				anchor.href =  "?op=appCrashGraph" + getQueryParams() + "&crashLogQuery.msg=" + encodeURIComponent(el.attr('msg')) ;
 				
 				if (text == '[:: show ::]') {
 					anchor.innerHTML = '[:: hide ::]';
