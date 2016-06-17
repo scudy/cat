@@ -302,7 +302,12 @@ public class CrashLogService {
 	}
 
 	private void buildErrorMsg(Map<String, ErrorMsg> errorMsgs, CrashLog log) {
-		String msg = m_configHtmlParser.parse(log.getMsg());
+		String msg = log.getMsg();
+
+		if (msg != null) {
+			msg = m_configHtmlParser.parse(msg);
+		}
+
 		ErrorMsg errorMsg = errorMsgs.get(msg);
 
 		if (errorMsg == null) {
