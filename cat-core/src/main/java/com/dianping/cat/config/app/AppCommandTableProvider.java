@@ -79,7 +79,7 @@ public class AppCommandTableProvider implements TableProvider, Initializable {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
 		try {
-			m_historyDate = sdf.parse("2016-06-17 00:00");
+			m_historyDate = sdf.parse("2016-06-18 00:00");
 		} catch (ParseException e) {
 			Cat.logError(e);
 		}
