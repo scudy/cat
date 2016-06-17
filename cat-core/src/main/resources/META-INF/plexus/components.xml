@@ -374,6 +374,21 @@
 			<implementation>com.dianping.cat.config.web.AjaxDataTableProvider</implementation>
 		</component>
 		<component>
+			<role>org.unidal.dal.jdbc.mapping.TableProvider</role>
+			<role-hint>crash-log</role-hint>
+			<implementation>com.dianping.cat.config.app.CrashLogTableProvider</implementation>
+		</component>
+		<component>
+			<role>org.unidal.dal.jdbc.mapping.TableProvider</role>
+			<role-hint>crash-log-content</role-hint>
+			<implementation>com.dianping.cat.config.app.CrashLogContentTableProvider</implementation>
+		</component>
+		<component>
+			<role>org.unidal.dal.jdbc.mapping.TableProvider</role>
+			<role-hint>crash-percent</role-hint>
+			<implementation>com.dianping.cat.config.app.CrashPercentTableProvider</implementation>
+		</component>
+		<component>
 			<role>org.unidal.dal.jdbc.datasource.JdbcDataSourceDescriptorManager</role>
 			<implementation>org.unidal.dal.jdbc.datasource.JdbcDataSourceDescriptorManager</implementation>
 			<configuration>
