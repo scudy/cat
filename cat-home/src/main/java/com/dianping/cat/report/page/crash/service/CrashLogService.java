@@ -162,7 +162,7 @@ public class CrashLogService {
 				      offset, LIMIT, CrashLogEntity.READSET_FULL);
 
 				for (CrashLog log : result) {
-					if (crashLogFilter.checkFlag(log) && log.getMsg().equals(entity.getMsg())) {
+					if (crashLogFilter.checkFlag(log) && log.getMsg().trim().equals(entity.getMsg().trim())) {
 						buildDistributions(log, distributions);
 					}
 				}
@@ -302,7 +302,7 @@ public class CrashLogService {
 	}
 
 	private void buildErrorMsg(Map<String, ErrorMsg> errorMsgs, CrashLog log) {
-		String msg = log.getMsg();
+		String msg = m_configHtmlParser.parse(log.getMsg());
 		ErrorMsg errorMsg = errorMsgs.get(msg);
 
 		if (errorMsg == null) {
@@ -400,8 +400,8 @@ public class CrashLogService {
 
 		try {
 			while (true) {
-				List<CrashLog> result = m_crashLogDao.findDataByConditions(startTime, endTime, appName, platform, null, offset,
-				      LIMIT, CrashLogEntity.READSET_FULL);
+				List<CrashLog> result = m_crashLogDao.findDataByConditions(startTime, endTime, appName, platform, null,
+				      offset, LIMIT, CrashLogEntity.READSET_FULL);
 
 				for (CrashLog log : result) {
 					if (check(appVersion, log.getAppVersion()) && check(platVersion, log.getPlatformVersion())
