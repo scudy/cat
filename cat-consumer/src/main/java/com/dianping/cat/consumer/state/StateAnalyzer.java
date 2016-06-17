@@ -21,10 +21,12 @@ import com.dianping.cat.consumer.state.model.entity.Machine;
 import com.dianping.cat.consumer.state.model.entity.Message;
 import com.dianping.cat.consumer.state.model.entity.ProcessDomain;
 import com.dianping.cat.consumer.state.model.entity.StateReport;
+import com.dianping.cat.core.dal.Project;
 import com.dianping.cat.message.Heartbeat;
 import com.dianping.cat.message.spi.MessageTree;
 import com.dianping.cat.report.DefaultReportManager.StoragePolicy;
 import com.dianping.cat.report.ReportManager;
+import com.dianping.cat.service.ProjectService;
 import com.dianping.cat.statistic.ServerStatistic.Statistic;
 import com.dianping.cat.statistic.ServerStatisticManager;
 
@@ -40,6 +42,9 @@ public class StateAnalyzer extends AbstractMessageAnalyzer<StateReport> implemen
 
 	@Inject
 	private ServerFilterConfigManager m_serverFilterConfigManager;
+
+	@Inject
+	private ProjectService m_projectService;
 
 	private String m_ip = NetworkInterfaceManager.INSTANCE.getLocalHostAddress();
 
@@ -222,6 +227,12 @@ public class StateAnalyzer extends AbstractMessageAnalyzer<StateReport> implemen
 			Machine machine = report.findOrCreateMachine(NetworkInterfaceManager.INSTANCE.getLocalHostAddress());
 
 			machine.findOrCreateProcessDomain(domain).addIp(ip);
+
+			Project project = m_projectService.findProject(domain);
+
+			if (project == null) {
+				m_projectService.insert(domain);
+			}
 		}
 	}
 
