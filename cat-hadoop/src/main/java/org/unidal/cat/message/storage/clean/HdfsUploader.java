@@ -75,7 +75,7 @@ public class HdfsUploader implements LogEnabled, Initializable {
 		FSDataOutputStream out;
 
 		try {
-			out = fs.create(file);
+			out = fs.create(file, true);
 		} catch (RemoteException re) {
 			fs.delete(file, false);
 
