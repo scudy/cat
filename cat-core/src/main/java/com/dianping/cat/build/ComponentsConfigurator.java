@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.unidal.dal.jdbc.configuration.AbstractJdbcResourceConfigurator;
 import org.unidal.dal.jdbc.datasource.JdbcDataSourceDescriptorManager;
-import org.unidal.dal.jdbc.mapping.TableProvider;
 import org.unidal.lookup.configuration.Component;
 
 import com.dianping.cat.CatCoreModule;
@@ -107,13 +106,13 @@ public class ComponentsConfigurator extends AbstractJdbcResourceConfigurator {
 		all.add(A(RemoteServersManager.class));
 		all.add(A(ServersUpdaterManager.class));
 
-		all.add(C(TableProvider.class, "app-command-data", AppCommandTableProvider.class));
-		all.add(C(TableProvider.class, "app-connection-data", AppConnectionTableProvider.class));
-		all.add(C(TableProvider.class, "app-speed-data", AppSpeedTableProvider.class));
-		all.add(C(TableProvider.class, "ajax-data", AjaxDataTableProvider.class));
-		all.add(C(TableProvider.class, "crash-log", CrashLogTableProvider.class));
-		all.add(C(TableProvider.class, "crash-log-content", CrashLogContentTableProvider.class));
-		all.add(C(TableProvider.class, "crash-percent", CrashPercentTableProvider.class));
+		all.add(A(AppCommandTableProvider.class));
+		all.add(A(AppConnectionTableProvider.class));
+		all.add(A(AppSpeedTableProvider.class));
+		all.add(A(AjaxDataTableProvider.class));
+		all.add(A(CrashLogTableProvider.class));
+		all.add(A(CrashLogContentTableProvider.class));
+		all.add(A(CrashPercentTableProvider.class));
 
 		all.add(C(JdbcDataSourceDescriptorManager.class) //
 		      .config(E("datasourceFile").value("/data/appdatas/cat/datasources.xml")));
