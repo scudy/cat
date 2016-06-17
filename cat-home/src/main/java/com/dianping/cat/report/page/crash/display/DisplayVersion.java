@@ -22,7 +22,7 @@ public class DisplayVersion {
 
 	private double m_percentYoY;
 
-	private List<Module> m_modules;
+	private transient List<Module> m_modules;
 
 	public String getId() {
 		return m_id;

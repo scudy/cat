@@ -20,7 +20,6 @@ import com.dianping.cat.build.report.ProblemComponentConfigurator;
 import com.dianping.cat.build.report.ReportComponentConfigurator;
 import com.dianping.cat.build.report.StorageComponentConfigurator;
 import com.dianping.cat.build.report.TransactionComponentConfigurator;
-import com.dianping.cat.config.app.AppCmdDailyTableProvider;
 import com.dianping.cat.config.app.AppCommandTableProvider;
 import com.dianping.cat.config.app.AppConnectionTableProvider;
 import com.dianping.cat.config.app.AppSpeedTableProvider;
@@ -136,7 +135,6 @@ public class ComponentsConfigurator extends AbstractJdbcResourceConfigurator {
 		List<Component> all = new ArrayList<Component>();
 
 		all.add(A(AppCommandTableProvider.class));
-		all.add(A(AppCmdDailyTableProvider.class));
 		all.add(A(AppConnectionTableProvider.class));
 		all.add(A(AppSpeedTableProvider.class));
 		all.add(A(AjaxDataTableProvider.class));

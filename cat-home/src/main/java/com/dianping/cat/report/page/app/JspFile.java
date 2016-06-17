@@ -17,8 +17,6 @@ public enum JspFile {
 
 	SPEED_GRAPH("/jsp/report/app/speedGraph.jsp"),
 	
-	APP_COMMAND_DAILY("/jsp/report/app/commandDaily.jsp"),
-
 	DASHBOARD("/jsp/report/app/dashboard.jsp");
 
 	private String m_path;
