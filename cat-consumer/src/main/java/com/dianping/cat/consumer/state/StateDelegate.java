@@ -66,6 +66,11 @@ public class StateDelegate implements ReportDelegate<StateReport> {
 		m_taskManager.createTask(startTime, domain, Constants.REPORT_UTILIZATION, TaskProlicy.ALL);
 		m_taskManager.createTask(startTime, domain, Constants.REPORT_SERVICE, TaskProlicy.ALL);
 
+		for (Item app : m_mobileConfigManager.queryApps()) {
+			m_taskManager.createTask(startTime, app.getValue(), Constants.APP, TaskProlicy.DAILY);
+			m_taskManager.createTask(startTime, app.getValue(), Constants.CRASH, TaskProlicy.DAILY);
+		}
+		
 		Calendar cal = Calendar.getInstance();
 		int hour = cal.get(Calendar.HOUR_OF_DAY);
 
@@ -73,11 +78,6 @@ public class StateDelegate implements ReportDelegate<StateReport> {
 		if (hour >= 4) {
 			m_taskManager.createTask(startTime, domain, Constants.CURRENT_REPORT, TaskProlicy.DAILY);
 			m_taskManager.createTask(startTime, domain, Constants.REPORT_CLIENT, TaskProlicy.DAILY);
-
-			for (Item app : m_mobileConfigManager.queryApps()) {
-				m_taskManager.createTask(startTime, app.getValue(), Constants.APP, TaskProlicy.DAILY);
-				m_taskManager.createTask(startTime, app.getValue(), Constants.CRASH, TaskProlicy.DAILY);
-			}
 		}
 		// clear local report
 		m_bucketManager.clearOldReports();
