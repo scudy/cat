@@ -105,4 +105,10 @@
    <model package="com.dianping.cat.home.crash" name="crash-report">
       <sample-model>src/test/resources/com/dianping/cat/report/page/app/crashReport.xml</sample-model>
    </model>
+   <model package="com.dianping.cat.home.resource" name="resource-config">
+      <sample-model>src/test/resources/config/resource-config.xml</sample-model>
+   </model>
+   <model package="com.dianping.cat.home.user" name="user-config">
+      <sample-model>src/test/resources/config/user-config.xml</sample-model>
+   </model>
 </wizard>

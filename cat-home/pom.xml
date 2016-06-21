@@ -148,7 +148,9 @@
 								${basedir}/src/main/resources/META-INF/dal/model/js-rule-config-manifest.xml,
 								${basedir}/src/main/resources/META-INF/dal/model/server-metric-config-manifest.xml,
 								${basedir}/src/main/resources/META-INF/dal/model/business-tag-config-manifest.xml,
-								${basedir}/src/main/resources/META-INF/dal/model/crash-report-manifest.xml,</manifest>
+								${basedir}/src/main/resources/META-INF/dal/model/crash-report-manifest.xml,
+								${basedir}/src/main/resources/META-INF/dal/model/user-config-manifest.xml,
+								${basedir}/src/main/resources/META-INF/dal/model/resource-config-manifest.xml,</manifest>
                   </configuration>
                </execution>
                <execution>

@@ -299,11 +299,10 @@ public class MobileConfigManager implements Initializable, LogEnabled {
 		}
 		return null;
 	}
-	
-	public Collection<Item> queryApps() {
-	   return queryConstantItem(MobileConstants.SOURCE).values();
-   }
 
+	public Collection<Item> queryApps() {
+		return queryConstantItem(MobileConstants.SOURCE).values();
+	}
 
 	public int queryNamespaceIdByTitle(String namespace) {
 		ConstantItem item = m_config.findConstantItem(MobileConstants.SOURCE);
