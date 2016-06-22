@@ -28,9 +28,8 @@
 			for(var tmp in globalcodes){
 				result[globalcodes[tmp].id] =globalcodes[tmp].name;
 			}
-			
 			for (var prop in value) {
-				result[value[prop].id] =value[prop].value;
+				result[value[prop].id] =value[prop].name;
 			}
 			
 			return result;
@@ -40,6 +39,7 @@
 
 			if (value == true) {
 				$('#history').slideDown();
+				$("#app2").val($("#app").val());
 				$("#command2").val($("#command").val());
 				$("#network2").val($("#network").val());
 				$("#version2").val($("#version").val());
@@ -214,9 +214,90 @@
 			var commandId2 = $('#command2').val();
 			var href = "?query1=" + query1 + "&query2=" + query2 + "&type="
 					+ type + "&groupByField=" + field + "&sort=" + sort
-					+"&commandId="+commandId+"&commandId2="+commandId2;
+					+"&commandId="+commandId+"&commandId2="+commandId2+"&appId="+$("#appId").val()+"&appId2="+$("#appId2").val();
 			window.location.href = href;
 		}
+		
+		$(document).delegate('#appId', 'change', function(e){
+
+			var appId = $("#appId").val();
+			
+			$.ajax({
+				async: false,
+				type: "get",
+				dataType: "json",
+				url: "/cat/r/app?op=appCommands&appId="+appId,
+				success : function(response, textStatus) {
+					var data = [];
+					var commands = response;
+					$("#command").val("");
+					
+					for ( var prop in commands) {
+						var command = commands[prop];
+						var item = {};
+						item['label'] = command['name'] + "|" + command['title'];
+						if(command['domain'].length >0 ){
+							item['category'] = command['domain'];
+						}else{
+							item['category'] = '未知项目';
+						}
+						var commandStr = $("#command").val();
+						
+						if(commandStr == "" && item['label'].indexOf("all") == -1){
+							$("#command").val(item['label']);
+							commandChange("command","code");
+						}
+						
+						data.push(item);
+					}
+					$( "#command" ).catcomplete({
+						delay: 0,
+						source: data
+					});
+				}
+			});
+		});
+		
+		$(document).delegate('#appId2', 'change', function(e){
+			var appId = $("#appId2").val();
+			
+			$.ajax({
+				async: false,
+				type: "get",
+				dataType: "json",
+				url: "/cat/r/app?op=appCommands&appId="+appId,
+				success : function(response, textStatus) {
+					var data = [];
+					var commands = response;
+					$("#command2").val("");
+					
+					for ( var prop in commands) {
+						var command = commands[prop];
+						var item = {};
+						item['label'] = '${command.value.name}|${command.value.title}';
+						item['label'] = command['name'] + "|" + command['title'];
+						if(command['domain'].length >0 ){
+							item['category'] = command['domain'];
+						}else{
+							item['category'] = '未知项目';
+						}
+						
+						var commandStr = $("#command2").val();
+						
+						if(commandStr == "" && item['label'].indexOf("all") == -1){
+							$("#command2").val(item['label']);
+							commandChange("command2","code2");
+						}
+						
+						data.push(item);
+					}
+					$( "#command2" ).catcomplete({
+						delay: 0,
+						source: data
+					});
+				}
+			});
+		});
 
 		$(document).ready(
 				function() {
@@ -279,6 +360,8 @@
 					$("#city").val(words[7]);
 					$("#operator").val(words[8]);
 					$("#source").val(words[9]);
+					$("#appId").val("${payload.appId}");
+					$("#appId2").val("${payload.appId2}");
 					
 					var datePair = {};
 					datePair["当前值"]=$("#time").val().split(" ")[0];
@@ -345,23 +428,37 @@
 							});
 						}
 					});
-		
-					var data = [];
+				 var data1 = [];
+				 var data2 = [];
+				 var app1 = ${model.sourceJson}[${payload.appId}].value;
+				 var app2 = ${model.sourceJson}[${payload.appId2}].value;
+				 
 					<c:forEach var="command" items="${model.commands}">
 								var item = {};
 								item['label'] = '${command.value.name}|${command.value.title}';
-								if('${command.value.domain}'.length >0 ){
-									item['category'] ='${command.value.domain}';
-								}else{
-									item['category'] ='未知项目';
-								}
 								
-								data.push(item);
+								if('${command.value.namespace}' == app1){
+									if('${command.value.domain}'.length >0 ){
+										item['category'] ='${command.value.domain}';
+									}else{
+										item['category'] ='未知项目';
+									}
+									
+									data1.push(item);
+								}else if('${command.value.namespace}' == app2){
+									if('${command.value.domain}'.length >0 ){
+										item['category'] ='${command.value.domain}';
+									}else{
+										item['category'] ='未知项目';
+									}
+									
+									data2.push(item);
+								}
 					</c:forEach>
 							
 					$( "#command" ).catcomplete({
 						delay: 0,
-						source: data
+						source: data1
 					});
 					$('#command').blur(function(){
 						commandChange("command","code");
@@ -371,7 +468,7 @@
 					})
 					$( "#command2" ).catcomplete({
 						delay: 0,
-						source: data
+						source: data2
 					});
 					$('#wrap_search').submit(
 							function(){

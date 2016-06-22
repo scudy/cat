@@ -26,6 +26,8 @@ public enum Action implements org.unidal.web.mvc.Action {
 
 	CONN_PIECHART_JSON("connPiechartJson"),
 
+	APP_COMMANDS("appCommands"),
+
 	DASHBOARD("dashboard");
 
 	private String m_name;
