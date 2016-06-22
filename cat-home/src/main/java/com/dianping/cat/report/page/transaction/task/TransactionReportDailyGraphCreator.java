@@ -51,8 +51,8 @@ public class TransactionReportDailyGraphCreator {
 
 			count[m_day] = totalCount;
 			fails[m_day] = failCount;
-			sum[m_day] = ((int) (sumValue * 100)) / 100.0;
-			avg[m_day] = ((int) (avgValue * 100)) / 100.0;
+			sum[m_day] = sumValue;
+			avg[m_day] = avgValue;
 
 			graph.setCount(StringUtils.join(count, GraphTrendUtil.GRAPH_SPLITTER));
 			graph.setAvg(StringUtils.join(avg, GraphTrendUtil.GRAPH_SPLITTER));
