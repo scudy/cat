@@ -13,6 +13,10 @@
 			<param-name>errorPage</param-name>
 			<param-value>/s/permission?op=error</param-value>
 		</init-param>
+		<init-param>
+			<param-name>login</param-name>
+			<param-value>/s/login</param-value>
+		</init-param>
 	</filter>
 	<filter>
 		<filter-name>domain-filter</filter-name>

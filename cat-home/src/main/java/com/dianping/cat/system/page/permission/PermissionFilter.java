@@ -22,7 +22,13 @@ import com.dianping.cat.system.page.login.service.TokenManager;
 
 public class PermissionFilter implements Filter {
 
+	private static final String LOG_IN_URL = "/cat/s/login";
+
+	private static final String LOGIN = "login";
+
 	private static final String OP = "op";
+
+	private static final String DEFAULT_OP = "view";
 
 	private UserConfigManager m_userConfigManager;
 
@@ -32,6 +38,8 @@ public class PermissionFilter implements Filter {
 
 	private String m_errorPage;
 
+	private String m_loginPage;
+
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
 		PlexusContainer container = ContainerLoader.getDefaultContainer();
@@ -40,6 +48,7 @@ public class PermissionFilter implements Filter {
 		m_resourceConfigManager = ctx.lookup(ResourceConfigManager.class);
 		m_tokenManager = ctx.lookup(TokenManager.class);
 		m_errorPage = filterConfig.getInitParameter("errorPage");
+		m_loginPage = filterConfig.getInitParameter(LOGIN);
 	}
 
 	@Override
@@ -47,22 +56,38 @@ public class PermissionFilter implements Filter {
 	      ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
+
 		SigninContext ctx = new SigninContext(httpRequest, httpResponse);
-		Token token = m_tokenManager.getToken(ctx, Token.TOKEN);
-		int userRole = UserConfigManager.DEFAULT_ROLE;
-
-		if (token != null) {
-			userRole = m_userConfigManager.getRole(token.getUserName());
-		}
 		String requestURI = httpRequest.getRequestURI();
-		String op = httpRequest.getParameter(OP);
 
-		int resourceRole = m_resourceConfigManager.getRole(requestURI, op);
-
-		if (userRole >= resourceRole) {
+		if (LOG_IN_URL.equals(requestURI)) {
 			chain.doFilter(request, response);
 		} else {
-			request.getRequestDispatcher(m_errorPage).forward(request, response);
+			String op = httpRequest.getParameter(OP);
+
+			if (op == null) {
+				op = DEFAULT_OP;
+			}
+
+			int resourceRole = m_resourceConfigManager.getRole(requestURI, op);
+
+			if (resourceRole == ResourceConfigManager.DEFAULT_RESOURCE_ROLE) {
+				chain.doFilter(request, response);
+			} else {
+				Token token = m_tokenManager.getToken(ctx, Token.TOKEN);
+
+				if (token == null) {
+					request.getRequestDispatcher(m_loginPage).forward(request, response);
+				} else {
+					int userRole = m_userConfigManager.getRole(token.getUserName());
+
+					if (userRole >= resourceRole) {
+						chain.doFilter(request, response);
+					} else {
+						request.getRequestDispatcher(m_errorPage).forward(request, response);
+					}
+				}
+			}
 		}
 	}
 

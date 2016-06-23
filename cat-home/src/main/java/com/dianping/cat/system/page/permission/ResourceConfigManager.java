@@ -23,6 +23,8 @@ import com.dianping.cat.task.TimerSyncTask.SyncHandler;
 @Named
 public class ResourceConfigManager implements Initializable {
 
+	public static final int DEFAULT_RESOURCE_ROLE = 1;
+
 	@Inject
 	protected ConfigDao m_configDao;
 
@@ -37,6 +39,8 @@ public class ResourceConfigManager implements Initializable {
 
 	private static final String CONFIG_NAME = "resource-config";
 
+	private static final String ALL = "*";
+
 	private volatile Map<String, Map<String, Integer>> m_permissions = new ConcurrentHashMap<String, Map<String, Integer>>();
 
 	public ResourceConfig getConfig() {
@@ -46,14 +50,23 @@ public class ResourceConfigManager implements Initializable {
 	public int getRole(String path, String op) {
 		Map<String, Integer> pathPermission = m_permissions.get(path);
 
+		if (pathPermission == null) {
+			pathPermission = m_permissions.get(ALL);
+		}
+
 		if (pathPermission != null) {
 			Integer role = pathPermission.get(op);
+
+			if (role == null) {
+				role = pathPermission.get(ALL);
+			}
 
 			if (role != null) {
 				return role;
 			}
 		}
-		return 1;
+
+		return DEFAULT_RESOURCE_ROLE;
 	}
 
 	@Override
