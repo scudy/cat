@@ -64,7 +64,7 @@ public class StorageCacheBuilder implements StorageBuilder {
 	public boolean isEligable(Transaction t) {
 		String type = t.getType();
 
-		return type != null && (type.startsWith("Cache.memcached") || type.startsWith("Squirrel."));
+		return type != null && (type.startsWith("Cache.") || type.startsWith("Squirrel."));
 	}
 
 }
