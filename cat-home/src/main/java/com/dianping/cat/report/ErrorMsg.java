@@ -25,7 +25,7 @@ public class ErrorMsg implements Comparable<ErrorMsg> {
 
 	@Override
 	public int compareTo(ErrorMsg o) {
-		return o.getCount() - this.m_count;
+		return o.getCount() - m_count;
 	}
 
 	public int getCount() {
