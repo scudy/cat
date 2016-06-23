@@ -105,8 +105,11 @@
 		}
 		
 		<c:forEach var="item" items="${model.codes}">
-			initDomain('domain-${item.key}', 'command-${item.key}', domain, id, '${item.key}');
-			$('#domain-${item.key}').change();
+			if("${payload.namespace}" == "${item.key}") {
+				initDomain('domain-${item.key}', 'command-${item.key}', domain, id, '${item.key}');
+			}else{
+				initDomain('domain-${item.key}', 'command-${item.key}', "", "", '${item.key}');
+			}
 		</c:forEach>
 	})
 </script>

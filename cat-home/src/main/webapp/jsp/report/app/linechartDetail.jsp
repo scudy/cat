@@ -14,6 +14,14 @@
 				<div class="input-group" style="float:left;width:60px">
 	              <span class="input-group-addon">结束</span>
         	      <input type="text" id="endTime" style="width:60px;"/></div>
+	            <div class="input-group" style="float:left;width:120px">
+	              	<span class="input-group-addon">App</span>
+					<select id="appId" style="width: 100px;">
+						<c:forEach var="item" items="${model.sources}" varStatus="status">
+							<option value='${item.value.id}'>${item.value.value}</option>
+						</c:forEach>
+					</select>
+        	    </div>
 				<div class="input-group" style="float:left;width:350px">
 					<span class="input-group-addon">命令字</span>
 		            <form id="wrap_search" style="margin-bottom:0px;">
@@ -116,6 +124,14 @@
 	            <div class="input-group" style="float:left;width:60px">
 	              <span class="input-group-addon">结束</span>
         	      <input type="text" id="endTime2" style="width:60px;"/></div>
+        	    <div class="input-group" style="float:left;width:120px">
+	              	<span class="input-group-addon">App</span>
+					<select id="appId2" style="width: 100px;">
+						<c:forEach var="item" items="${model.sources}" varStatus="status">
+							<option value='${item.value.id}'>${item.value.value}</option>
+						</c:forEach>
+					</select>
+        	    </div>
 				<div class="input-group" style="float:left;width:350px">
 					<span class="input-group-addon">命令字</span>
 		            <form id="wrap_search2" style="margin-bottom:0px;">
