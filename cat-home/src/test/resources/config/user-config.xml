@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<user-config>
+   <user id="test1@dianping.com" role="2"/>
+   <user id="test2@dianping.com" role="2"/>
+   <user id="test3@dianping.com" role="2"/>
+</user-config>

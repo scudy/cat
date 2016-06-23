@@ -42,6 +42,8 @@ import com.dianping.cat.report.task.DefaultRemoteServersUpdater;
 import com.dianping.cat.report.task.DefaultTaskConsumer;
 import com.dianping.cat.report.task.ReportFacade;
 import com.dianping.cat.report.task.cmdb.ProjectUpdateTask;
+import com.dianping.cat.system.page.permission.ResourceConfigManager;
+import com.dianping.cat.system.page.permission.UserConfigManager;
 
 public class ComponentsConfigurator extends AbstractJdbcResourceConfigurator {
 	public static void main(String[] args) {
@@ -84,6 +86,10 @@ public class ComponentsConfigurator extends AbstractJdbcResourceConfigurator {
 		all.addAll(defineTableProviderComponents());
 
 		all.add(A(CatHomeModule.class));
+
+		all.add(A(UserConfigManager.class));
+
+		all.add(A(ResourceConfigManager.class));
 
 		all.add(C(ModuleManager.class, DefaultModuleManager.class) //
 		      .config(E("topLevelModules").value(CatHomeModule.ID)));

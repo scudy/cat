@@ -19,7 +19,9 @@ public enum SystemPage implements Page {
 
    APP("app", "app", "App", "App", true),
 
-   BUSINESS("business", "business", "Business", "Business", true);
+   BUSINESS("business", "business", "Business", "Business", true),
+
+   PERMISSION("permission", "permission", "Permission", "Permission", true);
 
    private String m_name;
 

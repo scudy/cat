@@ -106,6 +106,9 @@
          <page name="business" title="Business" path="business" template="default">
             <description>Business</description>
          </page>
+         <page name="permission" title="Permission" path="permission" template="default">
+            <description>Permission</description>
+         </page>
       </module>
    </webapp>
 </wizard>

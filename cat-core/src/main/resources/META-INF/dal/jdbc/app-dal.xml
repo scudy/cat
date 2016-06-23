@@ -2098,4 +2098,18 @@
 			</query>
 		</query-defs>
 	</entity>
+  	<entity name="symbolize" table="symbolize" alias="s">
+		<var name="uuid" value-type="String" />
+		<query-defs>
+			<query name="find-by-uuid" type="SELECT">
+				<param name="uuid"/>
+				<statement><![CDATA[
+					SELECT <FIELDS/> 
+					FROM <TABLE/> 
+					WHERE <FIELD name='uuid1'/> = ${uuid}
+					OR <FIELD name='uuid2'/> = ${uuid}
+					]]></statement>
+			</query>
+		</query-defs>
+	</entity>
 </entities>

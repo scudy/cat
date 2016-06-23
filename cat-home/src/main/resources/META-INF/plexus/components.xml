@@ -171,6 +171,30 @@
 			<implementation>com.dianping.cat.CatHomeModule</implementation>
 		</component>
 		<component>
+			<role>com.dianping.cat.system.page.permission.UserConfigManager</role>
+			<implementation>com.dianping.cat.system.page.permission.UserConfigManager</implementation>
+			<requirements>
+				<requirement>
+					<role>com.dianping.cat.core.config.ConfigDao</role>
+				</requirement>
+				<requirement>
+					<role>com.dianping.cat.config.content.ContentFetcher</role>
+				</requirement>
+			</requirements>
+		</component>
+		<component>
+			<role>com.dianping.cat.system.page.permission.ResourceConfigManager</role>
+			<implementation>com.dianping.cat.system.page.permission.ResourceConfigManager</implementation>
+			<requirements>
+				<requirement>
+					<role>com.dianping.cat.core.config.ConfigDao</role>
+				</requirement>
+				<requirement>
+					<role>com.dianping.cat.config.content.ContentFetcher</role>
+				</requirement>
+			</requirements>
+		</component>
+		<component>
 			<role>org.unidal.initialization.ModuleManager</role>
 			<implementation>org.unidal.initialization.DefaultModuleManager</implementation>
 			<configuration>
@@ -4941,6 +4965,33 @@
 		<component>
 			<role>com.dianping.cat.system.page.business.JspViewer</role>
 			<implementation>com.dianping.cat.system.page.business.JspViewer</implementation>
+			<requirements>
+				<requirement>
+					<role>org.unidal.web.mvc.view.model.ModelHandler</role>
+				</requirement>
+			</requirements>
+		</component>
+		<component>
+			<role>com.dianping.cat.system.page.permission.Handler</role>
+			<implementation>com.dianping.cat.system.page.permission.Handler</implementation>
+			<requirements>
+				<requirement>
+					<role>com.dianping.cat.system.page.permission.JspViewer</role>
+				</requirement>
+				<requirement>
+					<role>com.dianping.cat.system.page.permission.UserConfigManager</role>
+				</requirement>
+				<requirement>
+					<role>com.dianping.cat.system.page.permission.ResourceConfigManager</role>
+				</requirement>
+				<requirement>
+					<role>com.dianping.cat.system.page.config.ConfigHtmlParser</role>
+				</requirement>
+			</requirements>
+		</component>
+		<component>
+			<role>com.dianping.cat.system.page.permission.JspViewer</role>
+			<implementation>com.dianping.cat.system.page.permission.JspViewer</implementation>
 			<requirements>
 				<requirement>
 					<role>org.unidal.web.mvc.view.model.ModelHandler</role>

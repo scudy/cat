@@ -15,7 +15,7 @@ public class TokenBuilder implements ITokenBuilder<SigninContext, Token> {
 		StringBuilder sb = new StringBuilder(256);
 		String userName = token.getUserName();
 		String userNameValue = "";
-		
+
 		try {
 			userNameValue = java.net.URLEncoder.encode(userName, "utf-8");
 		} catch (UnsupportedEncodingException e) {
@@ -56,7 +56,17 @@ public class TokenBuilder implements ITokenBuilder<SigninContext, Token> {
 			if (checkSum == expectedCheckSum) {
 				if (remoteIp.equals(ctx.getRequest().getRemoteAddr())) {
 					if (lastLoginDate + ONE_DAY > System.currentTimeMillis()) {
-						return new Token( realName, userName);
+						String realNameValue = "";
+						String userNameVaule = "";
+						try {
+							realNameValue = java.net.URLDecoder.decode(realName, "utf-8");
+						} catch (UnsupportedEncodingException e) {
+						}
+						try {
+							userNameVaule = java.net.URLDecoder.decode(userName, "utf-8");
+						} catch (UnsupportedEncodingException e) {
+						}
+						return new Token(realNameValue, userNameVaule);
 					}
 				}
 			}
