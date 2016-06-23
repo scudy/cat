@@ -130,6 +130,10 @@ public class Model extends AbstractReportModel<Action, ReportPage, Context> {
 		return new JsonBuilder().toJson(m_commands);
 	}
 
+	public String getSourceJson() {
+		return new JsonBuilder().toJson(m_sources);
+	}
+
 	public Map<String, AppDataDetail> getComparisonAppDetails() {
 		return m_comparisonAppDetails;
 	}

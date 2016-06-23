@@ -83,8 +83,8 @@ public class TransactionReportHourlyGraphCreator {
 					int index = m_currentHour * (60 / m_duration) + (i + 1) / m_duration - 1;
 					count[index] = (long) Math.ceil((countValue + 0.0) / m_duration);
 					fails[index] = (long) Math.ceil((failsValue + 0.0) / m_duration);
-					sum[index] = ((int) ((sumValue * 100) / m_duration)) / 100.0;
-					avg[index] = ((int) (avgValue * 100)) / 100.0;
+					sum[index] = sumValue / m_duration;
+					avg[index] = avgValue;
 
 					countValue = 0;
 					sumValue = 0;

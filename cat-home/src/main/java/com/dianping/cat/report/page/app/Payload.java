@@ -58,8 +58,11 @@ public class Payload extends AbstractReportPayload<Action, ReportPage> {
 	@FieldMeta("top")
 	private int m_top = 20;
 
-	@FieldMeta("namespace")
-	private String m_namespace;
+	@FieldMeta("appId")
+	private int m_appId = 1;
+
+	@FieldMeta("appId2")
+	private int m_appId2 = 1;
 
 	public Payload() {
 		super(ReportPage.APP);
@@ -68,6 +71,14 @@ public class Payload extends AbstractReportPayload<Action, ReportPage> {
 	@Override
 	public Action getAction() {
 		return m_action;
+	}
+
+	public int getAppId() {
+		return m_appId;
+	}
+
+	public int getAppId2() {
+		return m_appId2;
 	}
 
 	public int getCodeId() {
@@ -112,10 +123,6 @@ public class Payload extends AbstractReportPayload<Action, ReportPage> {
 
 	public String getName() {
 		return m_name;
-	}
-
-	public String getNamespace() {
-		return m_namespace;
 	}
 
 	@Override
@@ -191,6 +198,14 @@ public class Payload extends AbstractReportPayload<Action, ReportPage> {
 		m_action = Action.getByName(action, Action.LINECHART);
 	}
 
+	public void setAppId(int appId) {
+		m_appId = appId;
+	}
+
+	public void setAppId2(int appId2) {
+		m_appId2 = appId2;
+	}
+
 	public void setCodeId(int codeId) {
 		m_codeId = codeId;
 	}
@@ -217,10 +232,6 @@ public class Payload extends AbstractReportPayload<Action, ReportPage> {
 
 	public void setName(String name) {
 		m_name = name;
-	}
-
-	public void setNamespace(String namespace) {
-		m_namespace = namespace;
 	}
 
 	@Override

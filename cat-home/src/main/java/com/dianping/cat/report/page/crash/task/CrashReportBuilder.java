@@ -134,7 +134,7 @@ public class CrashReportBuilder implements TaskBuilder {
 					int dau = 0;
 					double percent = dau == 0 ? 0 : ((version.getCrashCount() + 0.0) / dau) * 100;
 					version.setDau(dau);
-					version.setPercent(((int) (percent * 10000)) / 10000.0);
+					version.setPercent(percent);
 				}
 			}
 

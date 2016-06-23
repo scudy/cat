@@ -341,6 +341,13 @@ public class Handler implements PageHandler<Context> {
 				model.setFetchData(m_jsonBuilder.toJson(jsonObjs));
 			}
 			break;
+		case APP_COMMANDS:
+			int appId = payload.getAppId();
+			String appName = m_mobileConfigManager.getConstantItemValue(MobileConstants.SOURCE, appId, "");
+			List<Command> commands = m_appConfigManager.queryNamespace2Commands().get(appName);
+
+			model.setFetchData(new JsonBuilder().toJson(commands));
+			break;
 		case DASHBOARD:
 			DashBoardInfo dashboardInfo = m_dashboardBuilder.buildDashBoard(payload.getDashBoardQuery());
 			model.setDashBoardInfo(dashboardInfo);
