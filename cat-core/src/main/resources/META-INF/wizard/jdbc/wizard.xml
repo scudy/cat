@@ -45,6 +45,7 @@
          <table name="map_file"/>
          <table name="app_daily_report"/>
          <table name="app_daily_report_content"/>
+         <table name="ios_podname"/>
       </group>
    </jdbc>
    <jdbc package="com.dianping.cat.web" name="web">

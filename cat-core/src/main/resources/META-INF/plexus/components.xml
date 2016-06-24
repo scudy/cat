@@ -988,6 +988,16 @@
 			</configuration>
 		</component>
 		<component>
+			<role>org.unidal.dal.jdbc.mapping.TableProvider</role>
+			<role-hint>ios-podname</role-hint>
+			<implementation>org.unidal.dal.jdbc.mapping.SimpleTableProvider</implementation>
+			<configuration>
+				<logical-table-name>ios-podname</logical-table-name>
+				<physical-table-name>ios_podname</physical-table-name>
+				<data-source-name>app</data-source-name>
+			</configuration>
+		</component>
+		<component>
 			<role>com.dianping.cat.app.AppCommandDataDao</role>
 			<implementation>com.dianping.cat.app.AppCommandDataDao</implementation>
 			<requirements>
@@ -1062,6 +1072,15 @@
 		<component>
 			<role>com.dianping.cat.app.SymbolizeDao</role>
 			<implementation>com.dianping.cat.app.SymbolizeDao</implementation>
+			<requirements>
+				<requirement>
+					<role>org.unidal.dal.jdbc.QueryEngine</role>
+				</requirement>
+			</requirements>
+		</component>
+		<component>
+			<role>com.dianping.cat.app.IosPodnameDao</role>
+			<implementation>com.dianping.cat.app.IosPodnameDao</implementation>
 			<requirements>
 				<requirement>
 					<role>org.unidal.dal.jdbc.QueryEngine</role>

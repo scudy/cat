@@ -2112,4 +2112,16 @@
 			</query>
 		</query-defs>
 	</entity>
+  <entity name="ios-podname" table="ios_podname" alias="ip">
+		<query-defs>
+		 <query name="insert-or-update" type="INSERT">
+        <statement><![CDATA[
+	        INSERT INTO <TABLE/>(<FIELDS/>)
+       		 VALUES(<VALUES/>) ON DUPLICATE KEY UPDATE 
+       		content=${content},
+       		updatetime=${updatetime}
+         ]]></statement>
+         </query>
+		</query-defs>
+	</entity>
 </entities>
