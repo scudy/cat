@@ -41,11 +41,14 @@
 							<li id="businessTag"><a href="/cat/s/business?op=tagConfig">
 								<i class="menu-icon fa fa-caret-right"></i>业务标签配置</a>
 								<b class="arrow"></b></li>
-							<li id="allReportConfig"><a href="/cat/s/config?op=allReportConfig">
-								<i class="menu-icon fa fa-caret-right"></i>报表合并配置</a>
-								<b class="arrow"></b></li>
 							<li id="displayPolicy"><a href="/cat/s/config?op=displayPolicy">
 								<i class="menu-icon fa fa-caret-right"></i>心跳报表展示</a>
+								<b class="arrow"></b></li>
+							<li id="storageGroupConfigUpdate"><a href="/cat/s/config?op=storageGroupConfigUpdate">
+								<i class="menu-icon fa fa-caret-right"></i>存储分组配置</a>
+								<b class="arrow"></b></li>
+							<li id="topoGraphFormatUpdate"><a href="/cat/s/config?op=topoGraphFormatUpdate">
+								<i class="menu-icon fa fa-caret-right"></i>应用大盘配置</a>
 								<b class="arrow"></b></li>
 							<li id="topologyGraphNodeConfigList"><a href="/cat/s/config?op=topologyGraphNodeConfigList">
 								<i class="menu-icon fa fa-caret-right"></i>应用节点阈值</a>
@@ -53,11 +56,8 @@
 							<li id="topologyGraphEdgeConfigList"><a href="/cat/s/config?op=topologyGraphEdgeConfigList">
 								<i class="menu-icon fa fa-caret-right"></i>应用依赖配置</a>
 								<b class="arrow"></b></li>
-							<li id="topoGraphFormatUpdate"><a href="/cat/s/config?op=topoGraphFormatUpdate">
-								<i class="menu-icon fa fa-caret-right"></i>应用大盘配置</a>
-								<b class="arrow"></b></li>
-							<li id="storageGroupConfigUpdate"><a href="/cat/s/config?op=storageGroupConfigUpdate">
-								<i class="menu-icon fa fa-caret-right"></i>存储分组配置</a>
+							<li id="allReportConfig"><a href="/cat/s/config?op=allReportConfig">
+								<i class="menu-icon fa fa-caret-right"></i>报表合并配置</a>
 								<b class="arrow"></b></li>
 						</ul>
 					</li>
@@ -119,10 +119,10 @@
 								<i class="menu-icon fa fa-caret-right"></i>服务端配置</a>
 								<b class="arrow"></b></li>
 							<li id="resourceUpdate" style="display:none"><a href="/cat/s/permission?op=resource">
-								<i class="menu-icon fa fa-caret-right"></i>资源管理</a>
+								<i class="menu-icon fa fa-caret-right"></i>资源的管理</a>
 								<b class="arrow"></b></li>
 							<li id="userUpdate" style="display:none"><a href="/cat/s/permission?op=user">
-								<i class="menu-icon fa fa-caret-right"></i>用户管理</a>
+								<i class="menu-icon fa fa-caret-right"></i>用户的管理</a>
 								<b class="arrow"></b></li>
 						</ul></li>
 					</ul>
@@ -146,7 +146,7 @@
 				</div>
 				<div id="rebuild-router-message" class="hide">
 					<p>
-						你确定要重算路由吗？(不可恢复)
+						你确定吗？(不可恢复)
 					</p>
 				</div>
  				<div style="padding-top:2px;padding-right:8px;">
