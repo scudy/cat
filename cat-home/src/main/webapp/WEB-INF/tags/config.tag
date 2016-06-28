@@ -62,7 +62,7 @@
 						</ul>
 					</li>
 					<li id="alert_config" class="hsub">
-					<a href="/cat/s/config?op=metricConfigList" class="dropdown-toggle"> <i class="menu-icon fa  fa-cloud"></i> <span class="menu-text">应用告警配置</span>
+					<a href="/cat/s/config?op=metricConfigList" class="dropdown-toggle"> <i class="menu-icon fa fa-bolt"></i> <span class="menu-text">应用告警配置</span>
 						<b class="arrow fa fa-angle-down"></b>
 					</a> <b class="arrow"></b>
 						<ul class="submenu">
