@@ -106,3 +106,12 @@ CREATE TABLE `symbolize` (
   PRIMARY KEY (`id`),
   KEY `updatetime` (`updatetime`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `ios_podname` (
+  `app_id` int(11) NOT NULL,
+  `content` longblob COMMENT 'podname映射文件内容',
+  `updatetime` datetime NOT NULL COMMENT '数据更新时间',
+  PRIMARY KEY (`app_id`),
+  KEY `updatetime` (`updatetime`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
