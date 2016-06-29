@@ -41,26 +41,14 @@
 							<li id="businessTag"><a href="/cat/s/business?op=tagConfig">
 								<i class="menu-icon fa fa-caret-right"></i>业务标签配置</a>
 								<b class="arrow"></b></li>
-							<li id="transactionRule"><a href="/cat/s/config?op=transactionRule">
-								<i class="menu-icon fa fa-caret-right"></i>Transaction告警</a>
-								<b class="arrow"></b></li>
-							<li id="eventRule"><a href="/cat/s/config?op=eventRule">
-								<i class="menu-icon fa fa-caret-right"></i>Event告警</a>
-								<b class="arrow"></b></li>
-							<li id="allReportConfig"><a href="/cat/s/config?op=allReportConfig">
-								<i class="menu-icon fa fa-caret-right"></i>报表合并配置</a>
-								<b class="arrow"></b></li>
-							<li id="exception"><a href="/cat/s/config?op=exception">
-								<i class="menu-icon fa fa-caret-right"></i>异常告警配置</a>
-								<b class="arrow"></b></li>
 							<li id="displayPolicy"><a href="/cat/s/config?op=displayPolicy">
 								<i class="menu-icon fa fa-caret-right"></i>心跳报表展示</a>
 								<b class="arrow"></b></li>
-							<li id="heartbeatRuleConfigList"><a href="/cat/s/config?op=heartbeatRuleConfigList">
-								<i class="menu-icon fa fa-caret-right"></i>心跳告警配置</a>
+							<li id="storageGroupConfigUpdate"><a href="/cat/s/config?op=storageGroupConfigUpdate">
+								<i class="menu-icon fa fa-caret-right"></i>存储分组配置</a>
 								<b class="arrow"></b></li>
-							<li id="thirdPartyConfigUpdate"><a href="/cat/s/config?op=thirdPartyRuleConfigs">
-								<i class="menu-icon fa fa-caret-right"></i>Ping告警配置</a>
+							<li id="topoGraphFormatUpdate"><a href="/cat/s/config?op=topoGraphFormatUpdate">
+								<i class="menu-icon fa fa-caret-right"></i>应用大盘配置</a>
 								<b class="arrow"></b></li>
 							<li id="topologyGraphNodeConfigList"><a href="/cat/s/config?op=topologyGraphNodeConfigList">
 								<i class="menu-icon fa fa-caret-right"></i>应用节点阈值</a>
@@ -68,8 +56,30 @@
 							<li id="topologyGraphEdgeConfigList"><a href="/cat/s/config?op=topologyGraphEdgeConfigList">
 								<i class="menu-icon fa fa-caret-right"></i>应用依赖配置</a>
 								<b class="arrow"></b></li>
-							<li id="topoGraphFormatUpdate"><a href="/cat/s/config?op=topoGraphFormatUpdate">
-								<i class="menu-icon fa fa-caret-right"></i>应用大盘配置</a>
+							<li id="allReportConfig"><a href="/cat/s/config?op=allReportConfig">
+								<i class="menu-icon fa fa-caret-right"></i>报表合并配置</a>
+								<b class="arrow"></b></li>
+						</ul>
+					</li>
+					<li id="alert_config" class="hsub">
+					<a href="/cat/s/config?op=metricConfigList" class="dropdown-toggle"> <i class="menu-icon fa fa-bolt"></i> <span class="menu-text">应用告警配置</span>
+						<b class="arrow fa fa-angle-down"></b>
+					</a> <b class="arrow"></b>
+						<ul class="submenu">
+							<li id="transactionRule"><a href="/cat/s/config?op=transactionRule">
+								<i class="menu-icon fa fa-caret-right"></i>Transaction告警</a>
+								<b class="arrow"></b></li>
+							<li id="eventRule"><a href="/cat/s/config?op=eventRule">
+								<i class="menu-icon fa fa-caret-right"></i>Event告警</a>
+								<b class="arrow"></b></li>
+							<li id="exception"><a href="/cat/s/config?op=exception">
+								<i class="menu-icon fa fa-caret-right"></i>异常告警配置</a>
+								<b class="arrow"></b></li>
+							<li id="heartbeatRuleConfigList"><a href="/cat/s/config?op=heartbeatRuleConfigList">
+								<i class="menu-icon fa fa-caret-right"></i>心跳告警配置</a>
+								<b class="arrow"></b></li>
+							<li id="thirdPartyConfigUpdate"><a href="/cat/s/config?op=thirdPartyRuleConfigs">
+								<i class="menu-icon fa fa-caret-right"></i>Ping告警配置</a>
 								<b class="arrow"></b></li>
 							<li id="storageDatabaseRule"><a href="/cat/s/config?op=storageRule&type=SQL">
 								<i class="menu-icon fa fa-caret-right"></i>数据库访问告警</a>
@@ -80,18 +90,15 @@
 							<li id="storageRPCRule"><a href="/cat/s/config?op=storageRule&type=RPC">
 								<i class="menu-icon fa fa-caret-right"></i>服务访问告警</a>
 								<b class="arrow"></b></li>
-							<li id="storageGroupConfigUpdate"><a href="/cat/s/config?op=storageGroupConfigUpdate">
-								<i class="menu-icon fa fa-caret-right"></i>存储分组配置</a>
-								<b class="arrow"></b></li>
 						</ul>
 					</li>
 					<li id="overall_config" class="hsub">
-					<a href="/cat/s/config?op=networkRuleConfigList" class="dropdown-toggle"> <i class="menu-icon glyphicon glyphicon-cog"></i> <span class="menu-text">系统配置</span>
+					<a href="/cat/s/config?op=networkRuleConfigList" class="dropdown-toggle"> <i class="menu-icon glyphicon glyphicon-cog"></i> <span class="menu-text">全局系统配置</span>
 						<b class="arrow fa fa-angle-down"></b>
 					</a> <b class="arrow"></b>
 						<ul class="submenu">
 							<li id="alertPolicy"><a href="/cat/s/config?op=alertPolicy">
-								<i class="menu-icon fa fa-caret-right"></i>告警策略</a>
+								<i class="menu-icon fa fa-caret-right"></i>告警的策略</a>
 								<b class="arrow"></b></li>
 							<li id="alertDefaultReceivers"><a href="/cat/s/config?op=alertDefaultReceivers">
 								<i class="menu-icon fa fa-caret-right"></i>默认告警人</a>
@@ -110,6 +117,12 @@
 								<b class="arrow"></b></li>
 							<li id="serverConfigUpdate" style="display:none"><a href="/cat/s/config?op=serverConfigUpdate">
 								<i class="menu-icon fa fa-caret-right"></i>服务端配置</a>
+								<b class="arrow"></b></li>
+							<li id="resourceUpdate" style="display:none"><a href="/cat/s/permission?op=resource">
+								<i class="menu-icon fa fa-caret-right"></i>资源的管理</a>
+								<b class="arrow"></b></li>
+							<li id="userUpdate" style="display:none"><a href="/cat/s/permission?op=user">
+								<i class="menu-icon fa fa-caret-right"></i>用户的管理</a>
 								<b class="arrow"></b></li>
 						</ul></li>
 					</ul>
@@ -133,7 +146,7 @@
 				</div>
 				<div id="rebuild-router-message" class="hide">
 					<p>
-						你确定要重算路由吗？(不可恢复)
+						你确定吗？(不可恢复)
 					</p>
 				</div>
  				<div style="padding-top:2px;padding-right:8px;">

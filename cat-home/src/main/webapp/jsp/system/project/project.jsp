@@ -136,7 +136,7 @@
 		<tr>
 			<td style="width:10%;">项目组邮件</td>
 			<td><input type="name" name="project.email" class="input-xxlarge" value="${model.project.email}"/></td>
-			<td>字段(多个，逗号分割)<span  style="color:red">【此字段会和CMDB信息同步】</span></td>
+			<td>字段(多个，逗号分割)<span  style="color:red">【此字段会和CMDB信息同步,注意大象告警不支持邮件组，必须设置个人邮件账号！】</span></td>
 		</tr>
 		<tr>
 			<td>项目组号码</td>

@@ -56,6 +56,7 @@ public class PermissionFilter implements Filter {
 	      ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
+		httpRequest.setCharacterEncoding("utf-8");
 
 		SigninContext ctx = new SigninContext(httpRequest, httpResponse);
 		String requestURI = httpRequest.getRequestURI();
@@ -63,6 +64,7 @@ public class PermissionFilter implements Filter {
 		if (LOG_IN_URL.equals(requestURI)) {
 			chain.doFilter(request, response);
 		} else {
+			
 			String op = httpRequest.getParameter(OP);
 
 			if (op == null) {
