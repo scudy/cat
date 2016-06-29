@@ -85,6 +85,7 @@ public class Handler implements PageHandler<Context> {
 		model.setAction(action);
 		switch (action) {
 		case PROJECT_ALL:
+		case PROJECT_ADD:
 		case PROJECT_UPDATE_SUBMIT:
 		case PROJECT_DELETE:
 		case DOMAIN_GROUP_CONFIGS:

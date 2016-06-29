@@ -78,6 +78,8 @@ public class GlobalConfigProcessor {
 			model.setProjects(queryAllProjects());
 			model.setProject(m_projectService.findByDomain(domain));
 			break;
+		case PROJECT_ADD:
+			break;
 		case PROJECT_UPDATE_SUBMIT:
 			model.setOpState(updateProject(payload));
 			domain = payload.getDomain();
@@ -205,19 +207,20 @@ public class GlobalConfigProcessor {
 
 	private boolean updateProject(Payload payload) {
 		Project project = payload.getProject();
+		String domain = project.getDomain();
 
-		if (project.getDomain() == null) {
-			project.setDomain(Constants.CAT);
+		if (StringUtils.isNotEmpty(domain)) {
+			int id = project.getId();
+			Project temp = m_projectService.findByDomain(domain);
+
+			if (temp != null && id > 0) {
+				temp.setKeyId(id);
+				return m_projectService.update(project);
+			} else {
+				return m_projectService.insert(project);
+			}
 		}
-		project.setKeyId(project.getId());
-
-		Project temp = m_projectService.findByDomain(project.getDomain());
-
-		if (temp == null) {
-			return m_projectService.insert(project);
-		} else {
-			return m_projectService.update(project);
-		}
+		return false;
 	}
 
 	public static class ProjectCompartor implements Comparator<Project> {

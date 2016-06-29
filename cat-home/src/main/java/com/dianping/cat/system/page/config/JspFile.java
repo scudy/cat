@@ -3,6 +3,8 @@ package com.dianping.cat.system.page.config;
 public enum JspFile {
 	PROJECT_ALL("/jsp/system/project/project.jsp"),
 
+	PROJECT_ADD("/jsp/system/project/projectAdd.jsp"),
+
 	TOPOLOGY_GRAPH_NODE_CONFIG_ADD_OR_UPDATE("/jsp/system/topology/topologyGraphNodeConfigAdd.jsp"),
 
 	TOPOLOGY_GRAPH_NODE_CONFIG_LIST("/jsp/system/topology/topologyGraphNodeConfigs.jsp"),

@@ -3,6 +3,8 @@ package com.dianping.cat.system.page.config;
 public enum Action implements org.unidal.web.mvc.Action {
 	PROJECT_ALL("projects"),
 
+	PROJECT_ADD("projectAdd"),
+
 	PROJECT_UPDATE_SUBMIT("updateSubmit"),
 
 	PROJECT_DELETE("projectDelete"),

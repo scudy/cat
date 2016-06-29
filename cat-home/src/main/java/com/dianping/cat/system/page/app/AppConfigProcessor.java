@@ -337,6 +337,10 @@ public class AppConfigProcessor {
 				String codeStr = payload.getContent();
 				List<String> strs = Splitters.by(":").split(codeStr);
 				codeId = Integer.parseInt(strs.get(0));
+
+				if (codeId > 32767) {
+					codeId = codeId % 30000;
+				}
 				name = strs.get(1);
 				int networkStatus = Integer.parseInt(strs.get(2));
 				int businessStatus = Integer.parseInt(strs.get(3));

@@ -89,7 +89,8 @@
 				<button class="btn btn-sm btn-primary" type="button" id="search_go">
 				Go
 				</button>
-				</span>
+ 				</span>
+ 				 <span class="input-group-addon">请输入你的项目，默认是cat。找不到你的项目？请点<a href="/cat/s/config?op=projectAdd"><strong>添加</strong></a></span>
 			</div>
 		</form>
 	</div>
@@ -103,29 +104,29 @@
 		<input type="hidden" name="project.domain" value="${model.project.domain}" />
 		<input type="hidden" name="op" value="updateSubmit" />
 		<tr>
-			<td style="width:10%;">CAT项目名称</td>
+			<td style="width:10%;">CAT上项目名称</td>
 			<td>${model.project.domain}</td>
 			<td style="color:red">注意：建议使用统一项目名规范。</td>
 		</tr>
 		<tr>
 			<td style="width:10%;">CMDB项目名称</td>
 			<td><input type="name" class="input-xlarge" name="project.cmdbDomain" value="${model.project.cmdbDomain}" /></td>
-			<td>cmdb中项目统一名称</td>
+			<td>CMDB中项目统一名称<span  style="color:red">【CMDB中没有的话，与CAT上的项目名称保持一致即可】</span></td>
 		</tr>
 		<tr>
 			<td style="width:10%;">CMDB项目级别</td>
 			<td><input type="name" class="input-xlarge" name="project.level" value="${model.project.level}" /></td>
-			<td>cmdb中项目统一级别<span  style="color:red">【此字段会和CMDB信息同步】</span></td>
+			<td>CMDB中项目统一级别<span  style="color:red">【此字段会和CMDB信息同步】</span></td>
 		</tr>
 		<tr>
 			<td style="width:10%;">CMDB事业部</td>
 			<td><input type="name" class="input-xlarge" name="project.bu" value="${model.project.bu}" /></td>
-			<td>cmdb中项目所属事业部名称<span style="color:red">【此字段会和CMDB信息同步】</span></td>
+			<td>CMDB中项目所属事业部名称<span style="color:red">【此字段会和CMDB信息同步】</span></td>
 		</tr>
 		<tr>
 			<td style="width:10%;">CMDB产品线</td>
 			<td><input type="name" class="input-xlarge" name="project.cmdbProductline" value="${model.project.cmdbProductline}" /></td>
-			<td>cmdb中项目所属产品线名称<span style="color:red">【此字段会和CMDB信息同步】</span></td>
+			<td>CMDB中项目所属产品线名称<span style="color:red">【此字段会和CMDB信息同步】</span></td>
 		</tr>
 		<tr>
 			<td style="width:10%;">负责人</td>
@@ -143,7 +144,7 @@
 			<td>字段(多个，逗号分割)<span  style="color:red">【此字段会和CMDB信息同步】</span></td>
 		</tr>
 		<tr>
-			<td colspan="2" align="center"><input class='btn btn-primary btn-sm' type="submit" name="submit" value="提交" />&nbsp;
+			<td colspan="2" align="center"><input class='btn btn-primary btn-sm' type="submit" name="submit" value="更新" />&nbsp;
 			<a href="?op=projectDelete&projectId=${model.project.id}" class="btn btn-danger btn-sm delete" >
 						<i class="ace-icon fa fa-trash-o bigger-140"></i></a>
 						<h4 class="text-center text-danger" id="state">&nbsp;</h4></td>

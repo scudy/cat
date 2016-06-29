@@ -106,7 +106,7 @@
 		</c:choose>
 		</tr>
 		<tr>
-			<td>返回码说明</td><td><input name="codeName" value="${model.code.name}" id="codeName" /><span class="text-danger">（* 支持数字、字符）</span><br/>
+			<td>返回码说明</td><td><input name="codeName" value="${model.code.name}" id="codeName" /><span class="text-danger">（* 支持数字、字符，应小于32768，否则将会对其做模30000处理，如32768的返回码将会转换成2768）</span><br/>
 		</td>
 		</tr>
 		<tr>
