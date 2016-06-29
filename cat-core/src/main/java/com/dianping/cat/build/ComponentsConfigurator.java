@@ -22,7 +22,6 @@ import com.dianping.cat.config.app.AppSpeedTableProvider;
 import com.dianping.cat.config.app.CrashLogConfigManager;
 import com.dianping.cat.config.app.CrashLogContentTableProvider;
 import com.dianping.cat.config.app.CrashLogTableProvider;
-import com.dianping.cat.config.app.CrashPercentTableProvider;
 import com.dianping.cat.config.app.MobileConfigManager;
 import com.dianping.cat.config.app.SdkConfigManager;
 import com.dianping.cat.config.app.command.CommandFormatConfigManager;
@@ -112,7 +111,6 @@ public class ComponentsConfigurator extends AbstractJdbcResourceConfigurator {
 		all.add(A(AjaxDataTableProvider.class));
 		all.add(A(CrashLogTableProvider.class));
 		all.add(A(CrashLogContentTableProvider.class));
-		all.add(A(CrashPercentTableProvider.class));
 
 		all.add(C(JdbcDataSourceDescriptorManager.class) //
 		      .config(E("datasourceFile").value("/data/appdatas/cat/datasources.xml")));
@@ -122,6 +120,7 @@ public class ComponentsConfigurator extends AbstractJdbcResourceConfigurator {
 		all.addAll(new CatCoreDatabaseConfigurator().defineComponents());
 		all.addAll(new CatDatabaseConfigurator().defineComponents());
 		all.addAll(new AppDatabaseConfigurator().defineComponents());
+		all.addAll(new AppCrashDatabaseConfigurator().defineComponents());
 		all.addAll(new WebDatabaseConfigurator().defineComponents());
 
 		return all;

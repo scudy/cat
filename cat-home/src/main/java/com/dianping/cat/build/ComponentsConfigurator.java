@@ -25,7 +25,6 @@ import com.dianping.cat.config.app.AppConnectionTableProvider;
 import com.dianping.cat.config.app.AppSpeedTableProvider;
 import com.dianping.cat.config.app.CrashLogContentTableProvider;
 import com.dianping.cat.config.app.CrashLogTableProvider;
-import com.dianping.cat.config.app.CrashPercentTableProvider;
 import com.dianping.cat.config.web.AjaxDataTableProvider;
 import com.dianping.cat.config.web.WebSpeedDataTableProvider;
 import com.dianping.cat.helper.JsonBuilder;
@@ -148,7 +147,6 @@ public class ComponentsConfigurator extends AbstractJdbcResourceConfigurator {
 		all.add(A(AppSpeedTableProvider.class));
 		all.add(A(CrashLogTableProvider.class));
 		all.add(A(CrashLogContentTableProvider.class));
-		all.add(A(CrashPercentTableProvider.class));
 		all.add(A(AjaxDataTableProvider.class));
 		all.add(A(WebSpeedDataTableProvider.class));
 		all.add(A(HourlyReportTableProvider.class));

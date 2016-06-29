@@ -142,11 +142,6 @@
 		</component>
 		<component>
 			<role>org.unidal.dal.jdbc.mapping.TableProvider</role>
-			<role-hint>crash-percent</role-hint>
-			<implementation>com.dianping.cat.config.app.CrashPercentTableProvider</implementation>
-		</component>
-		<component>
-			<role>org.unidal.dal.jdbc.mapping.TableProvider</role>
 			<role-hint>ajax-data</role-hint>
 			<implementation>com.dianping.cat.config.web.AjaxDataTableProvider</implementation>
 		</component>
@@ -282,10 +277,10 @@
 					<role>com.dianping.cat.app.AppCommandDataDao</role>
 				</requirement>
 				<requirement>
-					<role>com.dianping.cat.app.CrashLogDao</role>
+					<role>com.dianping.cat.app.crash.CrashLogDao</role>
 				</requirement>
 				<requirement>
-					<role>com.dianping.cat.app.CrashLogContentDao</role>
+					<role>com.dianping.cat.app.crash.CrashLogContentDao</role>
 				</requirement>
 				<requirement>
 					<role>com.dianping.cat.config.app.AppCommandConfigManager</role>
@@ -344,7 +339,7 @@
 					<role>com.dianping.cat.report.page.crash.service.CrashStatisticReportService</role>
 				</requirement>
 				<requirement>
-					<role>com.dianping.cat.app.CrashLogDao</role>
+					<role>com.dianping.cat.app.crash.CrashLogDao</role>
 				</requirement>
 			</requirements>
 		</component>
@@ -353,10 +348,10 @@
 			<implementation>com.dianping.cat.report.page.crash.service.CrashLogService</implementation>
 			<requirements>
 				<requirement>
-					<role>com.dianping.cat.app.CrashLogContentDao</role>
+					<role>com.dianping.cat.app.crash.CrashLogContentDao</role>
 				</requirement>
 				<requirement>
-					<role>com.dianping.cat.app.CrashLogDao</role>
+					<role>com.dianping.cat.app.crash.CrashLogDao</role>
 				</requirement>
 				<requirement>
 					<role>com.dianping.cat.config.app.AppCommandConfigManager</role>

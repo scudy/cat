@@ -77,7 +77,7 @@ CREATE TABLE `map_file` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `app_daily_report` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL  ,
   `name` varchar(20) NOT NULL COMMENT '报表名称, app访问统计, crash统计...',
   `ip` varchar(50) NOT NULL COMMENT '报表来自于哪台cat-consumer机器',
   `app_id` int(11) NOT NULL COMMENT '报表数据来自于哪个APP',
@@ -108,7 +108,7 @@ CREATE TABLE `symbolize` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `ios_podname` (
-  `app_id` int(11) NOT NULL,
+  `app_id` int(11) NOT NULL AUTO_INCREMENT,
   `content` longblob COMMENT 'podname映射文件内容',
   `updatetime` datetime NOT NULL COMMENT '数据更新时间',
   PRIMARY KEY (`app_id`),

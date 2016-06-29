@@ -5,7 +5,7 @@ import java.util.List;
 import org.codehaus.plexus.util.StringUtils;
 import org.unidal.helper.Splitters;
 
-import com.dianping.cat.app.CrashLog;
+import com.dianping.cat.app.crash.CrashLog;
 import com.dianping.cat.config.Level;
 
 public class CrashLogFilter {

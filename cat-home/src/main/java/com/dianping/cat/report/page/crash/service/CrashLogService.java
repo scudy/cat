@@ -26,12 +26,12 @@ import org.unidal.lookup.annotation.Named;
 
 import com.dianping.cat.Cat;
 import com.dianping.cat.Constants;
-import com.dianping.cat.app.CrashLog;
-import com.dianping.cat.app.CrashLogContent;
-import com.dianping.cat.app.CrashLogContentDao;
-import com.dianping.cat.app.CrashLogContentEntity;
-import com.dianping.cat.app.CrashLogDao;
-import com.dianping.cat.app.CrashLogEntity;
+import com.dianping.cat.app.crash.CrashLog;
+import com.dianping.cat.app.crash.CrashLogContent;
+import com.dianping.cat.app.crash.CrashLogContentDao;
+import com.dianping.cat.app.crash.CrashLogContentEntity;
+import com.dianping.cat.app.crash.CrashLogDao;
+import com.dianping.cat.app.crash.CrashLogEntity;
 import com.dianping.cat.config.Level;
 import com.dianping.cat.config.app.AppCommandConfigManager;
 import com.dianping.cat.config.app.CrashLogConfigManager;

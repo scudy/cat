@@ -12,7 +12,7 @@ import org.unidal.dal.jdbc.mapping.TableProvider;
 import org.unidal.lookup.annotation.Named;
 
 import com.dianping.cat.Cat;
-import com.dianping.cat.app.CrashLog;
+import com.dianping.cat.app.crash.CrashLog;
 
 @Named(type = TableProvider.class, value = CrashLogTableProvider.LOGIC_TABLE_NAME)
 public class CrashLogTableProvider implements TableProvider, Initializable {

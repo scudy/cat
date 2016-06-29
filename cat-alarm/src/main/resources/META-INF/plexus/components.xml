@@ -108,7 +108,7 @@
 			<implementation>com.dianping.cat.alarm.app.crash.CrashAlert</implementation>
 			<requirements>
 				<requirement>
-					<role>com.dianping.cat.app.CrashLogDao</role>
+					<role>com.dianping.cat.app.crash.CrashLogDao</role>
 				</requirement>
 				<requirement>
 					<role>com.dianping.cat.alarm.app.crash.CrashRuleConfigManager</role>

@@ -93,11 +93,9 @@
 							<manifest>${basedir}/src/main/resources/META-INF/dal/jdbc/report-manifest.xml,
 								${basedir}/src/main/resources/META-INF/dal/jdbc/config-manifest.xml,
 								${basedir}/src/main/resources/META-INF/dal/jdbc/app-manifest.xml,
-								${basedir}/src/main/resources/META-INF/dal/jdbc/web-manifest.xml, <![CDATA[,
-                        ${basedir}/src/main/resources/META-INF/dal/jdbc/report-manifest.xml,
-                        ${basedir}/src/main/resources/META-INF/dal/jdbc/config-manifest.xml,
-                        ${basedir}/src/main/resources/META-INF/dal/jdbc/web-manifest.xml,
-                     ,]]></manifest>
+								${basedir}/src/main/resources/META-INF/dal/jdbc/web-manifest.xml,
+								${basedir}/src/main/resources/META-INF/dal/jdbc/crash-manifest.xml,
+							</manifest>
 						</configuration>
 					</execution>
 				</executions>
