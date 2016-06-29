@@ -111,7 +111,7 @@
 					+ split + platform + split + city + split + operator + split + source + split + times[1] + split + $("#time2").val();
 			
 			var field = $("#piechartSelect").val();
-			var href = "?op=piechart&query1=" + query1 + "&groupByField=" + field+"&commandId="+$("#command").val() + "&sort=" + sort;
+			var href = "?op=piechart&query1=" + query1 + "&groupByField=" + field+"&commandId="+$("#command").val() + "&sort=" + sort+"&appId="+$("#appId").val();
  			window.location.href = href;
  		}
 		
@@ -126,6 +126,47 @@
 			document.getElementById("source").disabled = false;
 			document.getElementById($("#piechartSelect").val()).disabled = true;
 		}
+		
+		$(document).delegate('#appId', 'change', function(e){
+
+			var appId = $("#appId").val();
+			
+			$.ajax({
+				async: false,
+				type: "get",
+				dataType: "json",
+				url: "/cat/r/app?op=appCommands&appId="+appId,
+				success : function(response, textStatus) {
+					var data = [];
+					var commands = response;
+					$("#command").val("");
+					
+					for ( var prop in commands) {
+						var command = commands[prop];
+						var item = {};
+						item['label'] = command['name'] + "|" + command['title'];
+						if(command['domain'].length >0 ){
+							item['category'] = command['domain'];
+						}else{
+							item['category'] = '未知项目';
+						}
+						var commandStr = $("#command").val();
+						
+						if(commandStr == "" && item['label'].indexOf("all|all") == -1){
+							$("#command").val(item['label']);
+							commandChange("command","code");
+						}
+						
+						data.push(item);
+					}
+					$( "#command" ).catcomplete({
+						delay: 0,
+						source: data
+					});
+				}
+			});
+		});
+		
 
 		$(document).ready(
 				function() {
@@ -167,6 +208,7 @@
 					}
 					command1Change();
 
+					$("#appId").val("${payload.appId}");
 					$("#code").val(words[2]);
 					$("#network").val(words[3]);
 					$("#app-version").val(words[4]);
@@ -192,17 +234,23 @@
 							}
 						});
 			
-					
-					var data = [];
+					 
+					 var data = [];
+					 var app = ${model.sourceJson}[${payload.appId}].value;
+					 
 					<c:forEach var="command" items="${model.commands}">
-								var item = {};
-								item['label'] = '${command.value.name}|${command.value.title}';
+							var item = {};
+							item['label'] = '${command.value.name}|${command.value.title}';
+							
+							if('${command.value.namespace}' == app){
 								if('${command.value.domain}'.length >0 ){
 									item['category'] ='${command.value.domain}';
 								}else{
 									item['category'] ='未知项目';
 								}
+								
 								data.push(item);
+							}
 					</c:forEach>
 							
 					$( "#command" ).catcomplete({

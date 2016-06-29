@@ -50,6 +50,8 @@ public class Model extends AbstractReportModel<Action, ReportPage, Context> {
 
 	private Map<Integer, Item> m_sources;
 
+	private Map<Integer, Item> m_apps;
+
 	private Map<String, Codes> m_globalCodes;
 
 	private Map<Integer, Command> m_commands;
@@ -86,8 +88,16 @@ public class Model extends AbstractReportModel<Action, ReportPage, Context> {
 		return m_appDataDetailInfos;
 	}
 
+	public Map<Integer, Item> getApps() {
+		return m_apps;
+	}
+
 	public AppSpeedDisplayInfo getAppSpeedDisplayInfo() {
 		return m_appSpeedDisplayInfo;
+	}
+
+	public Map<Integer, Item> getCipConnectionTypes() {
+		return m_cipConnectionTypes;
 	}
 
 	public Map<Integer, Item> getCities() {
@@ -128,10 +138,6 @@ public class Model extends AbstractReportModel<Action, ReportPage, Context> {
 
 	public String getCommandsJson() {
 		return new JsonBuilder().toJson(m_commands);
-	}
-
-	public String getSourceJson() {
-		return new JsonBuilder().toJson(m_sources);
 	}
 
 	public Map<String, AppDataDetail> getComparisonAppDetails() {
@@ -201,6 +207,10 @@ public class Model extends AbstractReportModel<Action, ReportPage, Context> {
 		return m_platforms;
 	}
 
+	public String getSourceJson() {
+		return new JsonBuilder().toJson(m_sources);
+	}
+
 	public Map<Integer, Item> getSources() {
 		return m_sources;
 	}
@@ -209,20 +219,20 @@ public class Model extends AbstractReportModel<Action, ReportPage, Context> {
 		return m_versions;
 	}
 
-	public Map<Integer, Item> getCipConnectionTypes() {
-		return m_cipConnectionTypes;
-	}
-
-	public void setCipConnectionTypes(Map<Integer, Item> cipConnectionTypes) {
-		m_cipConnectionTypes = cipConnectionTypes;
-	}
-
 	public void setAppDataDetailInfos(List<AppDataDetail> appDataDetailInfos) {
 		m_appDataDetailInfos = appDataDetailInfos;
 	}
 
+	public void setApps(Map<Integer, Item> apps) {
+		m_apps = apps;
+	}
+
 	public void setAppSpeedDisplayInfo(AppSpeedDisplayInfo appSpeedDisplayInfo) {
 		m_appSpeedDisplayInfo = appSpeedDisplayInfo;
+	}
+
+	public void setCipConnectionTypes(Map<Integer, Item> cipConnectionTypes) {
+		m_cipConnectionTypes = cipConnectionTypes;
 	}
 
 	public void setCities(Map<Integer, Item> cities) {
