@@ -39,7 +39,8 @@
 
 			if (value == true) {
 				$('#history').slideDown();
-				$("#app2").val($("#app").val());
+				console.log($("#app").val());
+				$("#appId2").val($("#appId").val());
 				$("#command2").val($("#command").val());
 				$("#network2").val($("#network").val());
 				$("#version2").val($("#version").val());
@@ -52,6 +53,28 @@
 				$("#endTime2").val($("#endTime").val());
 				commandChange("command2","code2");
 				$("#code2").val($("#code").val());
+				
+				 var data2 = [];
+				 var app2 = ${model.sourceJson}[$("#appId").val()].value;
+				
+				<c:forEach var="command" items="${model.commands}">
+					var item = {};
+					item['label'] = '${command.value.name}|${command.value.title}';
+					
+					if('${command.value.namespace}' == app2){
+						if('${command.value.domain}'.length >0 ){
+							item['category'] ='${command.value.domain}';
+						}else{
+							item['category'] ='未知项目';
+						}
+						
+						data2.push(item);
+					}
+				</c:forEach>
+				$( "#command2" ).catcomplete({
+					delay: 0,
+					source: data2
+				});
 			} else {
 				$('#history').slideUp();
 			}
@@ -243,7 +266,7 @@
 						}
 						var commandStr = $("#command").val();
 						
-						if(commandStr == "" && item['label'].indexOf("all") == -1){
+						if(commandStr == "" && item['label'].indexOf("all|all") == -1){
 							$("#command").val(item['label']);
 							commandChange("command","code");
 						}
@@ -434,26 +457,33 @@
 				 var app2 = ${model.sourceJson}[${payload.appId2}].value;
 				 
 					<c:forEach var="command" items="${model.commands}">
-								var item = {};
-								item['label'] = '${command.value.name}|${command.value.title}';
-								
-								if('${command.value.namespace}' == app1){
-									if('${command.value.domain}'.length >0 ){
-										item['category'] ='${command.value.domain}';
-									}else{
-										item['category'] ='未知项目';
-									}
-									
-									data1.push(item);
-								}else if('${command.value.namespace}' == app2){
-									if('${command.value.domain}'.length >0 ){
-										item['category'] ='${command.value.domain}';
-									}else{
-										item['category'] ='未知项目';
-									}
-									
-									data2.push(item);
+							var item = {};
+							item['label'] = '${command.value.name}|${command.value.title}';
+							
+							if('${command.value.namespace}' == app1){
+								if('${command.value.domain}'.length >0 ){
+									item['category'] ='${command.value.domain}';
+								}else{
+									item['category'] ='未知项目';
 								}
+								
+								data1.push(item);
+							}
+					</c:forEach>
+					
+					<c:forEach var="command" items="${model.commands}">
+						var item = {};
+						item['label'] = '${command.value.name}|${command.value.title}';
+						
+						if('${command.value.namespace}' == app2){
+							if('${command.value.domain}'.length >0 ){
+								item['category'] ='${command.value.domain}';
+							}else{
+								item['category'] ='未知项目';
+							}
+							
+							data2.push(item);
+						}
 					</c:forEach>
 							
 					$( "#command" ).catcomplete({

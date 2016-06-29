@@ -7,14 +7,22 @@
 </style>
 <table>
 	<tr>
-			<th>
-				<div class="input-group" style="float:left;">
+			<th align="left">
+				<div class="input-group" style="float:left;width:130px">
 	              <span class="input-group-addon">开始</span>
 	              <input type="text" id="time" style="width:130px"/>
 	            </div>
 				<div class="input-group" style="float:left;width:60px">
 	              <span class="input-group-addon">结束</span>
         	      <input type="text" id="time2" style="width:60px;"/></div>
+       	        <div class="input-group" style="float:left;width:120px">
+	              	<span class="input-group-addon">App</span>
+					<select id="appId" style="width: 100px;">
+						<c:forEach var="item" items="${model.apps}" varStatus="status">
+							<option value='${item.value.id}'>${item.value.value}</option>
+						</c:forEach>
+					</select>
+        	    </div>
 				<div class="input-group" style="float:left;">
 					<span class="input-group-addon">命令字</span>
 		            <form id="wrap_search" style="margin-bottom:0px;">
@@ -24,11 +32,11 @@
 						</span>
 					</form>
 	            </div>
-	            <div class="input-group" style="float:left;width:120px">
+	            <div class="input-group" style="float:left;width:100px">
 	              	<span class="input-group-addon">返回码</span>
-					<select id="code" style="width:120px"><option value=''>All</option></select>
+					<select id="code" style="width:100px"><option value=''>All</option></select>
 	            </div>
-	            <div class="input-group" style="float:left;width:120px">
+	            <div class="input-group" style="float:left;width:100px">
 	              	<span class="input-group-addon">网络类型</span>
 					<select id="network">
 						<option value=''>All</option>

@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -31,6 +32,7 @@ import com.dianping.cat.config.app.AppSpeedConfigManager;
 import com.dianping.cat.config.app.MobileConfigManager;
 import com.dianping.cat.config.app.MobileConstants;
 import com.dianping.cat.configuration.app.speed.entity.Speed;
+import com.dianping.cat.configuration.mobile.entity.Item;
 import com.dianping.cat.helper.JsonBuilder;
 import com.dianping.cat.report.ReportPage;
 import com.dianping.cat.report.graph.LineChart;
@@ -99,6 +101,21 @@ public class Handler implements PageHandler<Context> {
 			Cat.logError(e);
 		}
 		return appDetails;
+	}
+
+	private Map<Integer, Item> buildApps() {
+		Map<Integer, Item> apps = new HashMap<Integer, Item>();
+		Map<Integer, Item> sources = m_mobileConfigManager.queryConstantItem(MobileConstants.SOURCE);
+		Map<String, List<Command>> namespaces = m_appConfigManager.queryNamespace2Commands();
+
+		for (Entry<Integer, Item> entry : sources.entrySet()) {
+			String namespace = entry.getValue().getValue();
+
+			if (namespaces.containsKey(namespace)) {
+				apps.put(entry.getKey(), entry.getValue());
+			}
+		}
+		return apps;
 	}
 
 	private AppCommandDisplayInfo buildCommandDistributeChart(Payload payload) {
@@ -370,6 +387,7 @@ public class Handler implements PageHandler<Context> {
 		model.setPlatforms(m_mobileConfigManager.queryConstantItem(MobileConstants.PLATFORM));
 		model.setVersions(m_mobileConfigManager.queryConstantItem(MobileConstants.VERSION));
 		model.setSources(m_mobileConfigManager.queryConstantItem(MobileConstants.SOURCE));
+		model.setApps(buildApps());
 		model.setCommands(m_appConfigManager.queryCommands());
 		model.setCommand2Id(m_appConfigManager.getCommands());
 		model.setCommand2Codes(m_appConfigManager.queryCommand2Codes());

@@ -17,7 +17,7 @@
 	            <div class="input-group" style="float:left;width:120px">
 	              	<span class="input-group-addon">App</span>
 					<select id="appId" style="width: 100px;">
-						<c:forEach var="item" items="${model.sources}" varStatus="status">
+						<c:forEach var="item" items="${model.apps}" varStatus="status">
 							<option value='${item.value.id}'>${item.value.value}</option>
 						</c:forEach>
 					</select>
@@ -127,7 +127,7 @@
         	    <div class="input-group" style="float:left;width:120px">
 	              	<span class="input-group-addon">App</span>
 					<select id="appId2" style="width: 100px;">
-						<c:forEach var="item" items="${model.sources}" varStatus="status">
+						<c:forEach var="item" items="${model.apps}" varStatus="status">
 							<option value='${item.value.id}'>${item.value.value}</option>
 						</c:forEach>
 					</select>
