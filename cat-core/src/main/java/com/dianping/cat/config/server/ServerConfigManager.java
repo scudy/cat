@@ -350,7 +350,7 @@ public class ServerConfigManager implements LogEnabled, Initializable {
 	}
 
 	public int getThreadsOfRealtimeAnalyzer(String name) {
-		return Integer.parseInt(getProperty(name + "-analyzer-threads", "1"));
+		return Integer.parseInt(getProperty(name + "-analyzer-threads", "2"));
 	}
 
 	@Override
