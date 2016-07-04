@@ -115,3 +115,28 @@ CREATE TABLE `ios_podname` (
   KEY `updatetime` (`updatetime`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `app_log` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `app_id` int(11) NOT NULL COMMENT 'app名称',
+  `platform` tinyint(4) NOT NULL COMMENT '平台类型，1 for android, 2 for ios',
+  `app_version` varchar(50) NOT NULL DEFAULT '' COMMENT 'app版本',
+  `platform_version` varchar(50) NOT NULL DEFAULT '' COMMENT '平台版本',
+  `level` tinyint(4) NOT NULL COMMENT '日志级别',
+  `category` varchar(500) NOT NULL DEFAULT '' COMMENT '用于分类log',
+  `device_brand` varchar(20) DEFAULT NULL COMMENT '手机品牌',
+  `device_model` varchar(50) DEFAULT NULL COMMENT '手机型号',
+  `unionId` varchar(200) DEFAULT NULL COMMENT 'unionId',
+  `updatetime` datetime NOT NULL COMMENT '数据更新时间',
+  `log_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'crash时间',
+  PRIMARY KEY (`id`),
+  KEY `IX_CONDITION` (`log_time`,`app_id`),
+  KEY `updatetime` (`updatetime`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `app_log_content` (
+  `id` int(11) unsigned NOT NULL,
+  `content` longblob COMMENT 'crash详细log',
+  `updatetime` datetime NOT NULL COMMENT '数据更新时间',
+  PRIMARY KEY (`id`),
+  KEY `updatetime` (`updatetime`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

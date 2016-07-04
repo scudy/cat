@@ -34,11 +34,11 @@ public class IpService implements Initializable {
 	private long[] m_foreignEnds;
 
 	private long[] m_foreignStarts;
-	
+
 	private static final String OTHER = "其他";
-	
+
 	private String FOREIGN_OTHER = "国外其他";
-	
+
 	private String FOREIGN = "国外";
 
 	private IpInfo buildDefaultIpInfo(String nation, String other) {
@@ -60,7 +60,7 @@ public class IpService implements Initializable {
 				IpInfo ipInfo = new IpInfo();
 
 				Area area = m_areas.get(m_areaIds[mid]);
-				
+
 				if (area != null) {
 					ipInfo.setNation(area.getNation());
 					ipInfo.setProvince(area.getProvince());
@@ -70,7 +70,7 @@ public class IpService implements Initializable {
 					ipInfo.setProvince(OTHER);
 					ipInfo.setCity(OTHER);
 				}
-				
+
 				Corporation corp = m_corps.get(m_corpIds[mid]);
 
 				if (corp != null) {
@@ -96,7 +96,7 @@ public class IpService implements Initializable {
 			if (ip >= m_foreignStarts[mid] && ip <= m_foreignEnds[mid]) {
 				IpInfo ipInfo = new IpInfo();
 				Area area = m_foreignAreas.get(m_foreignAreaIds[mid]);
-				
+
 				if (area != null) {
 					ipInfo.setNation(area.getNation());
 					ipInfo.setProvince(area.getProvince());
@@ -375,6 +375,10 @@ public class IpService implements Initializable {
 
 		private String m_province;
 
+		private String m_longitude;
+
+		private String m_latitude;
+
 		public String getChannel() {
 			return m_channel;
 		}
@@ -406,6 +410,23 @@ public class IpService implements Initializable {
 		public void setProvince(String province) {
 			m_province = province;
 		}
+
+		public String getLongitude() {
+			return m_longitude;
+		}
+
+		public void setLongitude(String longitude) {
+			m_longitude = longitude;
+		}
+
+		public String getLatitude() {
+			return m_latitude;
+		}
+
+		public void setLatitude(String latitude) {
+			m_latitude = latitude;
+		}
+
 	}
 
 }

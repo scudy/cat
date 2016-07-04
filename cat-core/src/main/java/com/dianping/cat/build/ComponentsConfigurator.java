@@ -48,6 +48,7 @@ import com.dianping.cat.report.LocalReportBucket;
 import com.dianping.cat.report.server.RemoteServersManager;
 import com.dianping.cat.report.server.ServersUpdaterManager;
 import com.dianping.cat.service.HostinfoService;
+import com.dianping.cat.service.IpService2;
 import com.dianping.cat.service.IpService;
 import com.dianping.cat.statistic.ServerStatisticManager;
 import com.dianping.cat.task.TaskManager;
@@ -66,6 +67,7 @@ public class ComponentsConfigurator extends AbstractJdbcResourceConfigurator {
 		all.add(A(ServerConfigManager.class));
 		all.add(A(HostinfoService.class));
 		all.add(A(IpService.class));
+		all.add(A(IpService2.class));
 		all.add(A(TaskManager.class));
 		all.add(A(ServerStatisticManager.class));
 		all.add(A(DomainValidator.class));

@@ -27,4 +27,20 @@ public class IpServiceTest extends ComponentTestCase {
 		}
 	}
 
+	@Test
+	public void test2() {
+		IpService2 service = (IpService2) lookup(IpService2.class);
+		for (int i = 0; i < 10000; i++) {
+			
+			String ip = i % 255 + "." + i % 255 + "." + i % 255 + "." + i % 255;
+			IpInfo info = service.findIpInfoByString(ip);
+
+			if (info != null) {
+				System.out.print(ip + " " + info.getChannel());
+				System.out.print(" " + info.getCity());
+				System.out.println(" " + info.getProvince());
+			}
+		}
+
+	}
 }

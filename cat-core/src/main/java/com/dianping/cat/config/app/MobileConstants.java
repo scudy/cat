@@ -31,4 +31,9 @@ public class MobileConstants {
 	public static final String CONNECT_TYPE = "连接类型";
 
 	public static final String CIP_CONNECT_TYPE = "长连接类型";
+	
+	public static final String SPLITTER = ",";
+
+	public static final String OTHER = "其他";
+
 }

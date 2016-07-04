@@ -41,6 +41,10 @@
 			<implementation>com.dianping.cat.service.IpService</implementation>
 		</component>
 		<component>
+			<role>com.dianping.cat.service.IPService2</role>
+			<implementation>com.dianping.cat.service.IPService2</implementation>
+		</component>
+		<component>
 			<role>com.dianping.cat.task.TaskManager</role>
 			<implementation>com.dianping.cat.task.TaskManager</implementation>
 			<requirements>
