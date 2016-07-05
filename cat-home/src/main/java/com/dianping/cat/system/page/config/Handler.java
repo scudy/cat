@@ -99,6 +99,7 @@ public class Handler implements PageHandler<Context> {
 		case SERVER_CONFIG_UPDATE:
 		case ALL_REPORT_CONFIG:
 		case SAMPLE_CONFIG_UPDATE:
+		case REPORT_RELOAD_CONFIG_UPDATE:
 			m_globalConfigProcessor.process(action, payload, model);
 			break;
 

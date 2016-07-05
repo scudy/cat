@@ -67,7 +67,7 @@ public class Constants {
 	public static final String REPORT_JAR = "jar";
 
 	public static final String APP_DATABASE_PRUNER = "appDatabasePruner";
-	
+
 	public static final String WEB_DATABASE_PRUNER = "webDatabasePruner";
 
 	public static final String METRIC_GRAPH_PRUNER = "metricGraphPruner";
@@ -87,7 +87,7 @@ public class Constants {
 	public final static String END_POINT = "endPoint";
 
 	public final static String MEASUREMENT = "measurement";
-	
+
 	public static final String CRASH = "crash";
 
 }

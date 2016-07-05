@@ -25,7 +25,7 @@ public abstract class LocalModelService<T> implements Initializable {
 
 	public static final int DEFAULT_SIZE = 32 * 1024;
 
-	public static final int ANALYZER_COUNT = 2;
+	private int m_analyzerCount = 2;
 
 	private String m_defaultDomain = Constants.CAT;
 
@@ -37,6 +37,10 @@ public abstract class LocalModelService<T> implements Initializable {
 
 	public abstract String buildReport(ModelRequest request, ModelPeriod period, String domain, ApiPayload payload)
 	      throws Exception;
+
+	public int getAnalyzerCount() {
+		return m_analyzerCount;
+	}
 
 	public String getName() {
 		return m_name;
@@ -80,6 +84,7 @@ public abstract class LocalModelService<T> implements Initializable {
 	@Override
 	public void initialize() throws InitializationException {
 		m_defaultDomain = m_configManager.getConsoleDefaultDomain();
+		m_analyzerCount = m_configManager.getThreadsOfRealtimeAnalyzer(m_name);
 	}
 
 	public boolean isEligable(ModelRequest request) {

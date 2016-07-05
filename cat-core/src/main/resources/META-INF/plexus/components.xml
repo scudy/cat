@@ -41,8 +41,8 @@
 			<implementation>com.dianping.cat.service.IpService</implementation>
 		</component>
 		<component>
-			<role>com.dianping.cat.service.IPService2</role>
-			<implementation>com.dianping.cat.service.IPService2</implementation>
+			<role>com.dianping.cat.service.IpService2</role>
+			<implementation>com.dianping.cat.service.IpService2</implementation>
 		</component>
 		<component>
 			<role>com.dianping.cat.task.TaskManager</role>
@@ -247,6 +247,18 @@
 		<component>
 			<role>com.dianping.cat.config.app.SdkConfigManager</role>
 			<implementation>com.dianping.cat.config.app.SdkConfigManager</implementation>
+			<requirements>
+				<requirement>
+					<role>com.dianping.cat.core.config.ConfigDao</role>
+				</requirement>
+				<requirement>
+					<role>com.dianping.cat.config.content.ContentFetcher</role>
+				</requirement>
+			</requirements>
+		</component>
+		<component>
+			<role>com.dianping.cat.config.ReportReloadConfigManager</role>
+			<implementation>com.dianping.cat.config.ReportReloadConfigManager</implementation>
 			<requirements>
 				<requirement>
 					<role>com.dianping.cat.core.config.ConfigDao</role>

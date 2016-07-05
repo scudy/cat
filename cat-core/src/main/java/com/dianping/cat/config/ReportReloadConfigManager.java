@@ -1,4 +1,10 @@
-package com.dianping.cat.config.sample;
+package com.dianping.cat.config;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import org.codehaus.plexus.personality.plexus.lifecycle.phase.Initializable;
 import org.codehaus.plexus.personality.plexus.lifecycle.phase.InitializationException;
@@ -8,16 +14,18 @@ import org.unidal.lookup.annotation.Named;
 
 import com.dianping.cat.Cat;
 import com.dianping.cat.config.content.ContentFetcher;
+import com.dianping.cat.configuration.reload.entity.ReportPeriod;
+import com.dianping.cat.configuration.reload.entity.ReportReloadConfig;
+import com.dianping.cat.configuration.reload.entity.ReportType;
+import com.dianping.cat.configuration.reload.transform.DefaultSaxParser;
 import com.dianping.cat.core.config.Config;
 import com.dianping.cat.core.config.ConfigDao;
 import com.dianping.cat.core.config.ConfigEntity;
-import com.dianping.cat.sample.entity.SampleConfig;
-import com.dianping.cat.sample.transform.DefaultSaxParser;
 import com.dianping.cat.task.TimerSyncTask;
 import com.dianping.cat.task.TimerSyncTask.SyncHandler;
 
 @Named
-public class SampleConfigManager implements Initializable {
+public class ReportReloadConfigManager implements Initializable {
 
 	@Inject
 	protected ConfigDao m_configDao;
@@ -29,11 +37,13 @@ public class SampleConfigManager implements Initializable {
 
 	private long m_modifyTime;
 
-	private SampleConfig m_config;
+	private ReportReloadConfig m_config;
 
-	private static final String CONFIG_NAME = "sampleConfig";
+	private static final String CONFIG_NAME = "report-reload-config";
 
-	public SampleConfig getConfig() {
+	private static final String DEFAULT = "default";
+
+	public ReportReloadConfig getConfig() {
 		return m_config;
 	}
 
@@ -63,19 +73,19 @@ public class SampleConfigManager implements Initializable {
 			Cat.logError(e);
 		}
 		if (m_config == null) {
-			m_config = new SampleConfig();
+			m_config = new ReportReloadConfig();
 		}
 
 		TimerSyncTask.getInstance().register(new SyncHandler() {
 
 			@Override
-			public void handle() throws Exception {
-				refreshConfig();
+			public String getName() {
+				return CONFIG_NAME;
 			}
 
 			@Override
-			public String getName() {
-				return CONFIG_NAME;
+			public void handle() throws Exception {
+				refreshConfig();
 			}
 		});
 	}
@@ -91,6 +101,32 @@ public class SampleConfigManager implements Initializable {
 		}
 	}
 
+	public List<Date> queryByReportType(String type) {
+		ReportType reportType = m_config.findReportType(type);
+		ArrayList<Date> results = new ArrayList<Date>();
+
+		if (reportType == null) {
+			reportType = m_config.findReportType(DEFAULT);
+		}
+
+		if (reportType != null) {
+			List<ReportPeriod> reportPeriods = reportType.getReportPeriods();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHH");
+
+			for (ReportPeriod rp : reportPeriods) {
+				try {
+					Date period = sdf.parse(rp.getId());
+
+					results.add(period);
+				} catch (ParseException e) {
+					Cat.logError(e);
+				}
+			}
+		}
+
+		return results;
+	}
+
 	private void refreshConfig() throws Exception {
 		Config config = m_configDao.findByName(CONFIG_NAME, ConfigEntity.READSET_FULL);
 		long modifyTime = config.getModifyDate().getTime();
@@ -98,9 +134,9 @@ public class SampleConfigManager implements Initializable {
 		synchronized (this) {
 			if (modifyTime > m_modifyTime) {
 				String content = config.getContent();
-				SampleConfig sampleConfig = DefaultSaxParser.parse(content);
+				ReportReloadConfig reportReloadConfig = DefaultSaxParser.parse(content);
 
-				m_config = sampleConfig;
+				m_config = reportReloadConfig;
 				m_modifyTime = modifyTime;
 			}
 		}
@@ -123,5 +159,4 @@ public class SampleConfigManager implements Initializable {
 		}
 		return true;
 	}
-
 }

@@ -109,6 +109,8 @@ public enum Action implements org.unidal.web.mvc.Action {
 
 	SERVER_CONFIG_UPDATE("serverConfigUpdate"),
 
+	REPORT_RELOAD_CONFIG_UPDATE("reportReloadConfigUpdate"),
+
 	ALL_REPORT_CONFIG("allReportConfig");
 
 	private String m_name;

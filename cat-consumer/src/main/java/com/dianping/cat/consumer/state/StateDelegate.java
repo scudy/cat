@@ -70,7 +70,7 @@ public class StateDelegate implements ReportDelegate<StateReport> {
 			m_taskManager.createTask(startTime, app.getValue(), Constants.APP, TaskProlicy.DAILY);
 			m_taskManager.createTask(startTime, app.getValue(), Constants.CRASH, TaskProlicy.DAILY);
 		}
-		
+
 		Calendar cal = Calendar.getInstance();
 		int hour = cal.get(Calendar.HOUR_OF_DAY);
 

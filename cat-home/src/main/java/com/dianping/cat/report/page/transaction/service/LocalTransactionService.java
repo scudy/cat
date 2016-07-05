@@ -85,7 +85,7 @@ public class LocalTransactionService extends LocalModelService<TransactionReport
 		report.setStartTime(new Date(timestamp));
 		report.setEndTime(new Date(timestamp + TimeHelper.ONE_HOUR - 1));
 
-		for (int i = 0; i < ANALYZER_COUNT; i++) {
+		for (int i = 0; i < getAnalyzerCount(); i++) {
 			ReportBucket bucket = null;
 			try {
 				bucket = m_bucketManager.getReportBucket(timestamp, TransactionAnalyzer.ID, i);

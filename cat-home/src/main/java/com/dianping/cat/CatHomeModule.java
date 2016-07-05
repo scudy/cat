@@ -13,6 +13,7 @@ import com.dianping.cat.consumer.CatConsumerModule;
 import com.dianping.cat.hadoop.CatHadoopModule;
 import com.dianping.cat.report.alert.AlarmManager;
 import com.dianping.cat.report.task.DefaultTaskConsumer;
+import com.dianping.cat.report.task.reload.ReportReloadTask;
 
 @Named(type = Module.class, value = CatHomeModule.ID)
 public class CatHomeModule extends AbstractModule {
@@ -21,7 +22,10 @@ public class CatHomeModule extends AbstractModule {
 	@Override
 	protected void execute(ModuleContext ctx) throws Exception {
 		ServerConfigManager serverConfigManager = ctx.lookup(ServerConfigManager.class);
+		ReportReloadTask reportReloadTask = ctx.lookup(ReportReloadTask.class);
 
+		Threads.forGroup("cat").start(reportReloadTask);
+		
 		ctx.lookup(MessageConsumer.class);
 
 		if (serverConfigManager.isJobMachine()) {
