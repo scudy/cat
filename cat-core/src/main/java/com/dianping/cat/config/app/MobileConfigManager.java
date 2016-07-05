@@ -339,7 +339,9 @@ public class MobileConfigManager implements Initializable, LogEnabled {
 
 		if (cityId == null) {
 			cityId = m_cities2.get(city);
-		} else {
+		}
+
+		if (cityId == null) {
 			cityId = m_cities.get(MobileConstants.OTHER);
 		}
 
@@ -351,7 +353,9 @@ public class MobileConfigManager implements Initializable, LogEnabled {
 
 		if (operatorId == null) {
 			operatorId = m_operators2.get(operator);
-		} else {
+		}
+
+		if (operatorId == null) {
 			operatorId = m_operators.get(MobileConstants.OTHER);
 		}
 
