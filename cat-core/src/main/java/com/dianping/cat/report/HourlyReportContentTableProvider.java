@@ -29,9 +29,9 @@ public class HourlyReportContentTableProvider implements TableProvider, Initiali
 		Date period = report.getPeriod();
 
 		if (period != null && period.before(m_historyDate)) {
-			return "cat";
-		} else {
 			return "cat_0";
+		} else {
+			return "cat";
 		}
 	}
 
@@ -46,9 +46,9 @@ public class HourlyReportContentTableProvider implements TableProvider, Initiali
 		Date period = report.getPeriod();
 
 		if (period != null && period.before(m_historyDate)) {
-			return "report_content";
-		} else {
 			return "hourly_report_content";
+		} else {
+			return "report_content";
 		}
 	}
 
@@ -57,7 +57,7 @@ public class HourlyReportContentTableProvider implements TableProvider, Initiali
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
 		try {
-			m_historyDate = sdf.parse("2016-05-16 20:00:00");
+			m_historyDate = sdf.parse("2016-07-05 08:00:00");
 		} catch (ParseException e) {
 			Cat.logError(e);
 		}
