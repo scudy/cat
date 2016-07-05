@@ -13,7 +13,7 @@
 	<script src='${model.webapp}/assets/js/editor/ace.js'></script>
 
 			<form name="reportReloadConfigUpdate" id="form" method="post"
-				action="${model.pageUri}?op=serverConfigUpdate">
+				action="${model.pageUri}?op=reportReloadConfigUpdate">
 				<table class="table table-striped table-condensed  table-hover">
 					<tr><td>
 					<input id="content" name="content" value="" type="hidden"/>
