@@ -11,6 +11,7 @@ import org.unidal.lookup.util.StringUtils;
 import com.dianping.cat.Cat;
 import com.dianping.cat.Constants;
 import com.dianping.cat.alarm.spi.config.SenderConfigManager;
+import com.dianping.cat.config.ReportReloadConfigManager;
 import com.dianping.cat.config.sample.SampleConfigManager;
 import com.dianping.cat.config.server.ServerConfigManager;
 import com.dianping.cat.config.server.ServerFilterConfigManager;
@@ -57,6 +58,9 @@ public class GlobalConfigProcessor {
 
 	@Inject
 	private ServerConfigManager m_serverConfigManager;
+
+	@Inject
+	private ReportReloadConfigManager m_reloadConfigManager;
 
 	private boolean deleteProject(Payload payload) {
 		Project proto = new Project();
@@ -176,6 +180,14 @@ public class GlobalConfigProcessor {
 				model.setOpState(m_serverConfigManager.insert(serverConfig));
 			}
 			model.setContent(m_configHtmlParser.parse(m_serverConfigManager.getConfig().toString()));
+			break;
+		case REPORT_RELOAD_CONFIG_UPDATE:
+			String reportReloadConfig = payload.getContent();
+
+			if (!StringUtils.isEmpty(reportReloadConfig)) {
+				model.setOpState(m_reloadConfigManager.insert(reportReloadConfig));
+			}
+			model.setContent(m_configHtmlParser.parse(m_reloadConfigManager.getConfig().toString()));
 			break;
 		default:
 			break;

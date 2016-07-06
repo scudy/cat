@@ -181,6 +181,37 @@ public class DefaultReportManager<T> extends ContainerHolder implements ReportMa
 		return reports;
 	}
 
+	@Override
+	public Map<String, T> loadLocalReports(long startTime, int index) {
+		Transaction t = Cat.newTransaction("ReloadLocalTask", m_name);
+		Cat.logEvent("ReloadLocal", m_name + ":" + index + ":" + new Date(startTime));
+		ReportBucket bucket = null;
+		Map<String, T> reports = new ConcurrentHashMap<String, T>();
+
+		try {
+			bucket = m_bucketManager.getReportBucket(startTime, m_name, index);
+
+			for (String id : bucket.getIds()) {
+				String xml = bucket.findById(id);
+				T report = m_reportDelegate.parseXml(xml);
+
+				reports.put(id, report);
+			}
+
+			t.setStatus(Message.SUCCESS);
+		} catch (Throwable e) {
+			t.setStatus(e);
+			Cat.logError(e);
+		} finally {
+			t.complete();
+
+			if (bucket != null) {
+				m_bucketManager.closeBucket(bucket);
+			}
+		}
+		return reports;
+	}
+
 	public void setBucketManager(ReportBucketManager bucketManager) {
 		m_bucketManager = bucketManager;
 	}

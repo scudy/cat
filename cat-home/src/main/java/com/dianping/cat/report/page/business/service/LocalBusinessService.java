@@ -67,7 +67,7 @@ public class LocalBusinessService extends LocalModelService<BusinessReport> {
 		report.setStartTime(new Date(timestamp));
 		report.setEndTime(new Date(timestamp + TimeHelper.ONE_HOUR - 1));
 
-		for (int i = 0; i < ANALYZER_COUNT; i++) {
+		for (int i = 0; i < getAnalyzerCount(); i++) {
 			ReportBucket bucket = null;
 			try {
 				bucket = m_bucketManager.getReportBucket(timestamp, BusinessAnalyzer.ID, i);

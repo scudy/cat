@@ -13,6 +13,7 @@ import com.dianping.cat.analysis.DefaultMessageAnalyzerManager;
 import com.dianping.cat.analysis.DefaultMessageHandler;
 import com.dianping.cat.analysis.RealtimeConsumer;
 import com.dianping.cat.analysis.TcpSocketReceiver;
+import com.dianping.cat.config.ReportReloadConfigManager;
 import com.dianping.cat.config.app.AppCommandConfigManager;
 import com.dianping.cat.config.app.AppCommandGroupConfigManager;
 import com.dianping.cat.config.app.AppCommandTableProvider;
@@ -48,8 +49,8 @@ import com.dianping.cat.report.LocalReportBucket;
 import com.dianping.cat.report.server.RemoteServersManager;
 import com.dianping.cat.report.server.ServersUpdaterManager;
 import com.dianping.cat.service.HostinfoService;
-import com.dianping.cat.service.IpService2;
 import com.dianping.cat.service.IpService;
+import com.dianping.cat.service.IpService2;
 import com.dianping.cat.statistic.ServerStatisticManager;
 import com.dianping.cat.task.TaskManager;
 
@@ -95,6 +96,7 @@ public class ComponentsConfigurator extends AbstractJdbcResourceConfigurator {
 		all.add(A(MobileConfigManager.class));
 		all.add(A(CrashLogConfigManager.class));
 		all.add(A(SdkConfigManager.class));
+		all.add(A(ReportReloadConfigManager.class));
 
 		all.add(A(DefaultUrlPatternHandler.class));
 		all.add(A(UrlPatternConfigManager.class));
