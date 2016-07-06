@@ -15,7 +15,7 @@ import org.unidal.lookup.annotation.Inject;
 
 import com.dianping.cat.Cat;
 import com.dianping.cat.config.Level;
-import com.dianping.cat.report.ErrorMsg;
+import com.dianping.cat.report.LogMsg;
 import com.dianping.cat.report.graph.PieChart;
 import com.dianping.cat.report.graph.PieChart.Item;
 import com.dianping.cat.report.page.browser.ModuleManager;
@@ -61,7 +61,7 @@ public class JsErrorLogService {
 		Map<String, Map<String, AtomicInteger>> distributions = new HashMap<String, Map<String, AtomicInteger>>();
 
 		try {
-			Map<String, ErrorMsg> errorMsgs = new HashMap<String, ErrorMsg>();
+			Map<String, LogMsg> errorMsgs = new HashMap<String, LogMsg>();
 			int offset = 0;
 			int totalCount = 0;
 
@@ -82,7 +82,7 @@ public class JsErrorLogService {
 				}
 			}
 
-			List<ErrorMsg> errorMsgList = sort(errorMsgs);
+			List<LogMsg> errorMsgList = sort(errorMsgs);
 
 			info.setErrors(errorMsgList);
 			info.setTotalCount(totalCount);
@@ -131,17 +131,17 @@ public class JsErrorLogService {
 		return charts;
 	}
 
-	private void processLog(Map<String, ErrorMsg> errorMsgs, JsErrorLog log) {
+	private void processLog(Map<String, LogMsg> errorMsgs, JsErrorLog log) {
 		String msg = log.getMsg();
 		int index = msg.indexOf("?");
 
 		if (index > 0) {
 			msg = msg.substring(0, index);
 		}
-		ErrorMsg errorMsg = errorMsgs.get(msg);
+		LogMsg errorMsg = errorMsgs.get(msg);
 
 		if (errorMsg == null) {
-			errorMsg = new ErrorMsg();
+			errorMsg = new LogMsg();
 			errorMsg.setMsg(msg);
 			errorMsgs.put(msg, errorMsg);
 		}
@@ -183,9 +183,9 @@ public class JsErrorLogService {
 		return result;
 	}
 
-	private List<ErrorMsg> sort(Map<String, ErrorMsg> errorMsgs) {
-		List<ErrorMsg> errorMsgList = new ArrayList<ErrorMsg>();
-		Iterator<Entry<String, ErrorMsg>> iter = errorMsgs.entrySet().iterator();
+	private List<LogMsg> sort(Map<String, LogMsg> errorMsgs) {
+		List<LogMsg> errorMsgList = new ArrayList<LogMsg>();
+		Iterator<Entry<String, LogMsg>> iter = errorMsgs.entrySet().iterator();
 
 		while (iter.hasNext()) {
 			errorMsgList.add(iter.next().getValue());

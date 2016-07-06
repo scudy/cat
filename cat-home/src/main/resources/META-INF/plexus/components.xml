@@ -583,13 +583,10 @@
 					<role>com.dianping.cat.app.crash.CrashLogDao</role>
 				</requirement>
 				<requirement>
-					<role>com.dianping.cat.config.app.AppCommandConfigManager</role>
+					<role>com.dianping.cat.config.app.CrashLogConfigManager</role>
 				</requirement>
 				<requirement>
 					<role>com.dianping.cat.config.app.MobileConfigManager</role>
-				</requirement>
-				<requirement>
-					<role>com.dianping.cat.config.app.CrashLogConfigManager</role>
 				</requirement>
 				<requirement>
 					<role>com.dianping.cat.system.page.config.ConfigHtmlParser</role>
@@ -605,6 +602,24 @@
 				</requirement>
 				<requirement>
 					<role>com.dianping.cat.app.AppDailyReportContentDao</role>
+				</requirement>
+			</requirements>
+		</component>
+		<component>
+			<role>com.dianping.cat.report.page.applog.service.AppLogService</role>
+			<implementation>com.dianping.cat.report.page.applog.service.AppLogService</implementation>
+			<requirements>
+				<requirement>
+					<role>com.dianping.cat.app.crash.AppLogDao</role>
+				</requirement>
+				<requirement>
+					<role>com.dianping.cat.app.crash.AppLogContentDao</role>
+				</requirement>
+				<requirement>
+					<role>com.dianping.cat.config.app.MobileConfigManager</role>
+				</requirement>
+				<requirement>
+					<role>com.dianping.cat.system.page.config.ConfigHtmlParser</role>
 				</requirement>
 			</requirements>
 		</component>
@@ -4687,6 +4702,27 @@
 		<component>
 			<role>com.dianping.cat.report.page.crash.JspViewer</role>
 			<implementation>com.dianping.cat.report.page.crash.JspViewer</implementation>
+			<requirements>
+				<requirement>
+					<role>org.unidal.web.mvc.view.model.ModelHandler</role>
+				</requirement>
+			</requirements>
+		</component>
+		<component>
+			<role>com.dianping.cat.report.page.applog.Handler</role>
+			<implementation>com.dianping.cat.report.page.applog.Handler</implementation>
+			<requirements>
+				<requirement>
+					<role>com.dianping.cat.report.page.applog.JspViewer</role>
+				</requirement>
+				<requirement>
+					<role>com.dianping.cat.report.page.applog.service.AppLogService</role>
+				</requirement>
+			</requirements>
+		</component>
+		<component>
+			<role>com.dianping.cat.report.page.applog.JspViewer</role>
+			<implementation>com.dianping.cat.report.page.applog.JspViewer</implementation>
 			<requirements>
 				<requirement>
 					<role>org.unidal.web.mvc.view.model.ModelHandler</role>

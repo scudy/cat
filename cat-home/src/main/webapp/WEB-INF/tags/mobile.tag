@@ -57,7 +57,9 @@
 							<li id="traceLog"><a href="http://tracer.cat.dp/" target="_blank">
 								<i class="menu-icon fa fa-caret-right"></i>移动日志查询</a>
 								<b class="arrow"></b></li>
-								
+							<li id="appLog"><a href="/cat/r/applog?op=appLog">
+								<i class="menu-icon fa fa-caret-right"></i>代码级日志</a>
+								<b class="arrow"></b></li>
 							<li id="connTrend"><a href="/cat/r/app?op=connLinechart&domain=${model.domain}">
 								<i class="menu-icon fa fa-caret-right"></i>长连访问趋势</a>
 								<b class="arrow"></b></li>

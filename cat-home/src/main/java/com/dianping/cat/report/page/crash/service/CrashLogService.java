@@ -1,22 +1,15 @@
 package com.dianping.cat.report.page.crash.service;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.zip.GZIPInputStream;
 
 import org.codehaus.plexus.util.StringUtils;
 import org.unidal.helper.Files;
@@ -33,28 +26,18 @@ import com.dianping.cat.app.crash.CrashLogContentEntity;
 import com.dianping.cat.app.crash.CrashLogDao;
 import com.dianping.cat.app.crash.CrashLogEntity;
 import com.dianping.cat.config.Level;
-import com.dianping.cat.config.app.AppCommandConfigManager;
 import com.dianping.cat.config.app.CrashLogConfigManager;
-import com.dianping.cat.config.app.MobileConfigManager;
 import com.dianping.cat.helper.Status;
 import com.dianping.cat.helper.TimeHelper;
-import com.dianping.cat.report.ErrorMsg;
+import com.dianping.cat.report.LogMsg;
 import com.dianping.cat.report.graph.LineChart;
-import com.dianping.cat.report.graph.PieChart;
-import com.dianping.cat.report.graph.PieChart.Item;
 import com.dianping.cat.report.page.app.service.FieldsInfo;
+import com.dianping.cat.report.page.app.service.LogService;
 import com.dianping.cat.report.page.crash.display.CrashLogDetailInfo;
 import com.dianping.cat.report.page.crash.display.CrashLogDisplayInfo;
-import com.dianping.cat.system.page.config.ConfigHtmlParser;
 
 @Named
-public class CrashLogService {
-
-	private static final String MAPPER = "mapper";
-
-	private final int LIMIT = 10000;
-
-	private final int BUFFER = 1024;
+public class CrashLogService extends LogService {
 
 	@Inject
 	private CrashLogContentDao m_crashLogContentDao;
@@ -63,80 +46,11 @@ public class CrashLogService {
 	private CrashLogDao m_crashLogDao;
 
 	@Inject
-	private AppCommandConfigManager m_appConfigManager;
-
-	@Inject
-	private MobileConfigManager m_mobileConfigManager;
-
-	@Inject
 	private CrashLogConfigManager m_crashLogConfig;
-
-	@Inject
-	private ConfigHtmlParser m_configHtmlParser;
-
-	private String APP_VERSIONS = "appVersions";
-
-	private String LEVELS = "levels";
 
 	private String MODULES = "modules";
 
-	private String PLATFORM_VERSIONS = "platformVersions";
-
-	private String DEVICES = "devices";
-
-	private void addCount(String item, Map<String, AtomicInteger> distributions) {
-		AtomicInteger count = distributions.get(item);
-
-		if (count == null) {
-			count = new AtomicInteger(1);
-			distributions.put(item, count);
-		} else {
-			count.incrementAndGet();
-		}
-	}
-
-	private String buildContent(byte[] content) {
-		ByteArrayInputStream bais = new ByteArrayInputStream(content);
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		GZIPInputStream gis = null;
-
-		try {
-			gis = new GZIPInputStream(bais);
-		} catch (IOException ex) {
-			try {
-				baos.close();
-				bais.close();
-			} catch (IOException e) {
-				Cat.logError(e);
-			}
-			return m_configHtmlParser.parse(new String(content)).replace("\n", "<br/>");
-		}
-
-		try {
-			int count;
-			byte data[] = new byte[BUFFER];
-
-			while ((count = gis.read(data, 0, BUFFER)) != -1) {
-				baos.write(data, 0, count);
-			}
-
-			byte[] result = baos.toByteArray();
-
-			baos.flush();
-			return m_configHtmlParser.parse(new String(result)).replace("\n", "<br/>");
-		} catch (IOException e) {
-			Cat.logError(e);
-			return m_configHtmlParser.parse(new String(content)).replace("\n", "<br/>");
-		} finally {
-			try {
-				gis.close();
-				baos.close();
-				bais.close();
-			} catch (IOException e) {
-				Cat.logError(e);
-			}
-		}
-	}
+	private static final String MAPPER = "mapper";
 
 	public CrashLogDisplayInfo buildCrashGraph(CrashLogQueryEntity entity) {
 		CrashLogDisplayInfo info = new CrashLogDisplayInfo();
@@ -193,7 +107,7 @@ public class CrashLogService {
 		String appName = entity.getAppName();
 		int platform = entity.getPlatform();
 		String dpid = entity.getDpid();
-		Map<String, ErrorMsg> errorMsgs = new HashMap<String, ErrorMsg>();
+		Map<String, LogMsg> errorMsgs = new HashMap<String, LogMsg>();
 		int offset = 0;
 		int totalCount = 0;
 
@@ -206,7 +120,7 @@ public class CrashLogService {
 					buildFieldsMap(fieldsMap, log);
 
 					if (crashLogFilter.checkFlag(log)) {
-						buildErrorMsg(errorMsgs, log);
+						buildLogMsg(errorMsgs, log.getMsg(), log.getId());
 						buildDistributions(log, distributions);
 						totalCount++;
 					}
@@ -224,7 +138,7 @@ public class CrashLogService {
 		}
 
 		info.setTotalCount(totalCount);
-		info.setErrors(buildErrors(errorMsgs));
+		info.setErrors(buildLogMsgList(errorMsgs));
 		info.setDistributions(buildDistributionChart(distributions));
 
 		if (!fieldsMap.isEmpty()) {
@@ -261,28 +175,6 @@ public class CrashLogService {
 		return info;
 	}
 
-	public Map<String, PieChart> buildDistributionChart(Map<String, Map<String, AtomicInteger>> distributions) {
-		Map<String, PieChart> charts = new HashMap<String, PieChart>();
-
-		for (Entry<String, Map<String, AtomicInteger>> entrys : distributions.entrySet()) {
-			Map<String, AtomicInteger> distribution = entrys.getValue();
-			PieChart chart = new PieChart();
-			List<Item> items = new ArrayList<Item>();
-
-			for (Entry<String, AtomicInteger> entry : distribution.entrySet()) {
-				Item item = new Item();
-
-				item.setNumber(entry.getValue().get()).setTitle(entry.getKey());
-				items.add(item);
-			}
-			chart.addItems(items);
-			chart.setTitle(entrys.getKey());
-			charts.put(entrys.getKey(), chart);
-		}
-
-		return charts;
-	}
-
 	private void buildDistributions(CrashLog log, Map<String, Map<String, AtomicInteger>> distributions) {
 		if (distributions.isEmpty()) {
 			Map<String, AtomicInteger> appVersions = new HashMap<String, AtomicInteger>();
@@ -300,37 +192,6 @@ public class CrashLogService {
 		addCount(log.getPlatformVersion(), distributions.get(PLATFORM_VERSIONS));
 		addCount(log.getModule(), distributions.get(MODULES));
 		addCount(log.getDeviceBrand() + "-" + log.getDeviceModel(), distributions.get(DEVICES));
-	}
-
-	private void buildErrorMsg(Map<String, ErrorMsg> errorMsgs, CrashLog log) {
-		String msg = log.getMsg();
-
-		if (msg != null) {
-			msg = m_configHtmlParser.parse(msg);
-		}
-
-		ErrorMsg errorMsg = errorMsgs.get(msg);
-
-		if (errorMsg == null) {
-			errorMsg = new ErrorMsg();
-			errorMsg.setMsg(msg);
-			errorMsgs.put(msg, errorMsg);
-		}
-
-		errorMsg.addCount();
-		errorMsg.addId(log.getId());
-	}
-
-	private List<ErrorMsg> buildErrors(Map<String, ErrorMsg> errorMsgs) {
-		List<ErrorMsg> errorMsgList = new ArrayList<ErrorMsg>();
-		Iterator<Entry<String, ErrorMsg>> iter = errorMsgs.entrySet().iterator();
-
-		while (iter.hasNext()) {
-			errorMsgList.add(iter.next().getValue());
-		}
-
-		Collections.sort(errorMsgList);
-		return errorMsgList;
 	}
 
 	private void buildFieldsMap(Map<String, Set<String>> fieldsMap, CrashLog log) {
@@ -378,16 +239,6 @@ public class CrashLogService {
 		} else {
 			return false;
 		}
-	}
-
-	private Set<String> findOrCreate(String key, Map<String, Set<String>> map) {
-		Set<String> value = map.get(key);
-
-		if (value == null) {
-			value = new HashSet<String>();
-			map.put(key, value);
-		}
-		return value;
 	}
 
 	private Double[] getCrashTrendData(CrashLogQueryEntity entity, Map<String, Set<String>> fieldsMap) {

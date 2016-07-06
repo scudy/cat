@@ -127,15 +127,15 @@ CREATE TABLE `app_log` (
   `device_model` varchar(50) DEFAULT NULL COMMENT '手机型号',
   `unionId` varchar(200) DEFAULT NULL COMMENT 'unionId',
   `updatetime` datetime NOT NULL COMMENT '数据更新时间',
-  `log_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'crash时间',
+  `log_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'log时间',
   PRIMARY KEY (`id`),
   KEY `IX_CONDITION` (`log_time`,`app_id`),
   KEY `updatetime` (`updatetime`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `app_log_content` (
-  `id` int(11) unsigned NOT NULL,
-  `content` longblob COMMENT 'crash详细log',
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `content` longblob COMMENT '详细log',
   `updatetime` datetime NOT NULL COMMENT '数据更新时间',
   PRIMARY KEY (`id`),
   KEY `updatetime` (`updatetime`)

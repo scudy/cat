@@ -80,6 +80,9 @@
          <page name="crash" title="Crash" path="crash" template="default">
             <description>Crash</description>
          </page>
+         <page name="applog" title="Applog" path="applog" template="default">
+            <description>Applog</description>
+         </page>
       </module>
       <module name="system" path="s" default="false">
          <page name="login" title="Login" path="login" standalone="false">
