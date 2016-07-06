@@ -11,7 +11,6 @@ import com.dianping.cat.core.dal.HourlyReport;
 import com.dianping.cat.core.dal.HourlyReportContent;
 import com.dianping.cat.core.dal.HourlyReportContentDao;
 import com.dianping.cat.core.dal.HourlyReportDao;
-import com.dianping.cat.report.ReportBucketManager;
 
 public abstract class AbstractReportReloader implements ReportReloader {
 
@@ -23,9 +22,6 @@ public abstract class AbstractReportReloader implements ReportReloader {
 
 	@Inject
 	protected ServerConfigManager m_serverConfigManager;
-
-	@Inject
-   protected ReportBucketManager m_bucketManager;
 
 	protected int getAnalyzerCount() {
 		return m_serverConfigManager.getThreadsOfRealtimeAnalyzer(getId());
