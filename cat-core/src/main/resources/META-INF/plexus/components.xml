@@ -1064,11 +1064,11 @@
 		</component>
 		<component>
 			<role>org.unidal.dal.jdbc.mapping.TableProvider</role>
-			<role-hint>ios-podname</role-hint>
+			<role-hint>module-map-file</role-hint>
 			<implementation>org.unidal.dal.jdbc.mapping.SimpleTableProvider</implementation>
 			<configuration>
-				<logical-table-name>ios-podname</logical-table-name>
-				<physical-table-name>ios_podname</physical-table-name>
+				<logical-table-name>module-map-file</logical-table-name>
+				<physical-table-name>module_map_file</physical-table-name>
 				<data-source-name>app_crash</data-source-name>
 			</configuration>
 		</component>
@@ -1119,8 +1119,8 @@
 			</requirements>
 		</component>
 		<component>
-			<role>com.dianping.cat.app.crash.IosPodnameDao</role>
-			<implementation>com.dianping.cat.app.crash.IosPodnameDao</implementation>
+			<role>com.dianping.cat.app.crash.ModuleMapFileDao</role>
+			<implementation>com.dianping.cat.app.crash.ModuleMapFileDao</implementation>
 			<requirements>
 				<requirement>
 					<role>org.unidal.dal.jdbc.QueryEngine</role>

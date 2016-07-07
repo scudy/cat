@@ -107,12 +107,15 @@ CREATE TABLE `symbolize` (
   KEY `updatetime` (`updatetime`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `ios_podname` (
-  `app_id` int(11) NOT NULL AUTO_INCREMENT,
-  `content` longblob COMMENT 'podname映射文件内容',
+CREATE TABLE `module_map_file` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `app_id` int(11) NOT NULL,
+  `platform` tinyint(4) NOT NULL COMMENT '平台类型，1 for android, 2 for ios',
+  `content` longblob COMMENT '模块映射文件内容',
   `updatetime` datetime NOT NULL COMMENT '数据更新时间',
-  PRIMARY KEY (`app_id`),
-  KEY `updatetime` (`updatetime`)
+  PRIMARY KEY (`id`),
+  KEY `updatetime` (`updatetime`),
+  UNIQUE KEY `app_id_platform` (`app_id`,`platform`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `app_log` (

@@ -93,11 +93,12 @@
 					FROM <TABLE/> 
 					WHERE <FIELD name='uuid1'/> = ${uuid}
 					OR <FIELD name='uuid2'/> = ${uuid}
+					limit 1
 					]]></statement>
 			</query>
 		</query-defs>
 	</entity>
- 	 <entity name="ios-podname" table="ios_podname" alias="ip">
+  	<entity name="module-map-file" table="module_map_file" alias="mmf">
 		<query-defs>
 		 <query name="insert-or-update" type="INSERT">
         <statement><![CDATA[
@@ -107,6 +108,16 @@
        		updatetime=${updatetime}
          ]]></statement>
          </query>
+         <query name="find-by-conditions" type="SELECT">
+				<param name="app-id"/>
+				<param name="platform" />
+				<statement><![CDATA[
+					SELECT <FIELDS/> 
+					FROM <TABLE/> 
+					WHERE <FIELD name='app-id'/> = ${app-id}
+					AND <FIELD name='platform'/> = ${platform}
+					]]></statement>
+			</query>
 		</query-defs>
 	</entity>
 	<entity name="app-log" table="app_log" alias="al">
