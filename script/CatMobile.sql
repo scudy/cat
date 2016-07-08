@@ -56,7 +56,8 @@ CREATE TABLE `crash_log` (
   `tag` tinyint(4) DEFAULT NULL COMMENT 'tag',
   PRIMARY KEY (`id`),
   KEY `IX_CONDITION` (`crash_time`,`app_name`),
-  KEY `updatetime` (`updatetime`)
+  KEY `updatetime` (`updatetime`),
+  KEY `IX_tag_platform` (`tag`,`platform`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `crash_log_content` (
@@ -133,7 +134,8 @@ CREATE TABLE `app_log` (
   `log_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'log时间',
   PRIMARY KEY (`id`),
   KEY `IX_CONDITION` (`log_time`,`app_id`),
-  KEY `updatetime` (`updatetime`)
+  KEY `updatetime` (`updatetime`),
+  KEY `IX_tag_platform` (`tag`,`platform`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `app_log_content` (
