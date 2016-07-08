@@ -1,5 +1,6 @@
 package com.dianping.cat;
 
+
 public class CatConstants {
 	/**
 	 * Cat Json length
@@ -79,5 +80,5 @@ public class CatConstants {
 	public static final int ERROR_COUNT = 100;
 
 	public static final int SUCCESS_COUNT = 1000;
-
+	
 }

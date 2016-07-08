@@ -93,11 +93,12 @@
 					FROM <TABLE/> 
 					WHERE <FIELD name='uuid1'/> = ${uuid}
 					OR <FIELD name='uuid2'/> = ${uuid}
+					limit 1
 					]]></statement>
 			</query>
 		</query-defs>
 	</entity>
-  <entity name="ios-podname" table="ios_podname" alias="ip">
+  	<entity name="module-map-file" table="module_map_file" alias="mmf">
 		<query-defs>
 		 <query name="insert-or-update" type="INSERT">
         <statement><![CDATA[
@@ -107,6 +108,47 @@
        		updatetime=${updatetime}
          ]]></statement>
          </query>
+         <query name="find-by-conditions" type="SELECT">
+				<param name="app-id"/>
+				<param name="platform" />
+				<statement><![CDATA[
+					SELECT <FIELDS/> 
+					FROM <TABLE/> 
+					WHERE <FIELD name='app-id'/> = ${app-id}
+					AND <FIELD name='platform'/> = ${platform}
+					]]></statement>
+			</query>
+		</query-defs>
+	</entity>
+	<entity name="app-log" table="app_log" alias="al">
+		<var name="start-time" value-type="Date" />
+	    <var name="end-time" value-type="Date" />
+	    <var name="offset" value-type="int" />
+	   	<var name="limit" value-type="int" />
+		<query-defs>
+		<query name="find-data-by-conditions" type="SELECT" multiple="true">
+			<param name="start-time" />
+			<param name="end-time" />
+			<param name="app-id" />
+			<param name="platform" />
+			<param name="union-id" />
+			<param name="offset" />
+			<param name="limit" />
+			<statement><![CDATA[SELECT <FIELDS/>
+        FROM <TABLE/>
+        WHERE 
+        	<FIELD name='log-time'/> >= ${start-time} 
+			AND  <FIELD name='log-time'/> < ${end-time}
+			AND  <FIELD name='app-id'/> = ${app-id}
+			<IF type='NE' field='platform' value='-1'>
+			AND  <FIELD name='platform'/> = ${platform}
+			</IF>
+			<IF type='NOT_NULL' field='union-id'>
+			AND  <FIELD name='union-id'/> = ${union-id}
+			</IF>
+		LIMIT ${offset}, ${limit}
+         ]]></statement>
+		</query>
 		</query-defs>
 	</entity>
 </entities>

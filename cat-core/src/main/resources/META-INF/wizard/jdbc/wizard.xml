@@ -56,7 +56,7 @@
       <group name="crash" package="com.dianping.cat.app.crash">
          <table name="crash_log"/>
          <table name="crash_log_content"/>
-         <table name="ios_podname"/>
+         <table name="module_map_file"/>
          <table name="symbolize"/>
          <table name="app_log"/>
          <table name="app_log_content"/>

@@ -3,7 +3,7 @@ package com.dianping.cat.report.page.browser.display;
 import java.util.List;
 import java.util.Map;
 
-import com.dianping.cat.report.ErrorMsg;
+import com.dianping.cat.report.LogMsg;
 import com.dianping.cat.report.graph.PieChart;
 
 public class JsErrorDisplayInfo {
@@ -14,7 +14,7 @@ public class JsErrorDisplayInfo {
 
 	private int m_totalCount;
 
-	private List<ErrorMsg> m_errors;
+	private List<LogMsg> m_errors;
 
 	private Map<String, PieChart> m_distributions;
 
@@ -22,7 +22,7 @@ public class JsErrorDisplayInfo {
 		return m_distributions;
 	}
 
-	public List<ErrorMsg> getErrors() {
+	public List<LogMsg> getErrors() {
 		return m_errors;
 	}
 
@@ -42,7 +42,7 @@ public class JsErrorDisplayInfo {
 		m_distributions = distributions;
 	}
 
-	public void setErrors(List<ErrorMsg> errors) {
+	public void setErrors(List<LogMsg> errors) {
 		m_errors = errors;
 	}
 

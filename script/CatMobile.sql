@@ -56,7 +56,8 @@ CREATE TABLE `crash_log` (
   `tag` tinyint(4) DEFAULT NULL COMMENT 'tag',
   PRIMARY KEY (`id`),
   KEY `IX_CONDITION` (`crash_time`,`app_name`),
-  KEY `updatetime` (`updatetime`)
+  KEY `updatetime` (`updatetime`),
+  KEY `IX_tag_platform` (`tag`,`platform`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `crash_log_content` (
@@ -107,12 +108,15 @@ CREATE TABLE `symbolize` (
   KEY `updatetime` (`updatetime`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `ios_podname` (
-  `app_id` int(11) NOT NULL AUTO_INCREMENT,
-  `content` longblob COMMENT 'podname映射文件内容',
+CREATE TABLE `module_map_file` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `app_id` int(11) NOT NULL,
+  `platform` tinyint(4) NOT NULL COMMENT '平台类型，1 for android, 2 for ios',
+  `content` longblob COMMENT '模块映射文件内容',
   `updatetime` datetime NOT NULL COMMENT '数据更新时间',
-  PRIMARY KEY (`app_id`),
-  KEY `updatetime` (`updatetime`)
+  PRIMARY KEY (`id`),
+  KEY `updatetime` (`updatetime`),
+  UNIQUE KEY `app_id_platform` (`app_id`,`platform`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `app_log` (
@@ -127,15 +131,16 @@ CREATE TABLE `app_log` (
   `device_model` varchar(50) DEFAULT NULL COMMENT '手机型号',
   `unionId` varchar(200) DEFAULT NULL COMMENT 'unionId',
   `updatetime` datetime NOT NULL COMMENT '数据更新时间',
-  `log_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'crash时间',
+  `log_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'log时间',
   PRIMARY KEY (`id`),
   KEY `IX_CONDITION` (`log_time`,`app_id`),
-  KEY `updatetime` (`updatetime`)
+  KEY `updatetime` (`updatetime`),
+  KEY `IX_tag_platform` (`tag`,`platform`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `app_log_content` (
-  `id` int(11) unsigned NOT NULL,
-  `content` longblob COMMENT 'crash详细log',
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `content` longblob COMMENT '详细log',
   `updatetime` datetime NOT NULL COMMENT '数据更新时间',
   PRIMARY KEY (`id`),
   KEY `updatetime` (`updatetime`)

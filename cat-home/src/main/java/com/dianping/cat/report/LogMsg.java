@@ -3,7 +3,7 @@ package com.dianping.cat.report;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ErrorMsg implements Comparable<ErrorMsg> {
+public class LogMsg implements Comparable<LogMsg> {
 
 	private String m_msg;
 
@@ -24,7 +24,7 @@ public class ErrorMsg implements Comparable<ErrorMsg> {
 	}
 
 	@Override
-	public int compareTo(ErrorMsg o) {
+	public int compareTo(LogMsg o) {
 		return o.getCount() - m_count;
 	}
 

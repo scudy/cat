@@ -45,7 +45,7 @@ public class AggregationConfigService {
 		Map<String, Object> ret = (Map<String, Object>) builder.parse(result, Map.class);
 
 		if (ret.containsKey("OK")) {
-			double code = (double) ret.get("OK");
+			double code = (Double) ret.get("OK");
 
 			return code == 0.0;
 		} else {
