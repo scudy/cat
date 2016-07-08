@@ -84,9 +84,11 @@ CREATE TABLE `report_content` (
 CREATE TABLE `hourly_report_content` (
   `report_id` int(11) NOT NULL COMMENT '报表ID',
   `content` longblob NOT NULL COMMENT '二进制报表内容',
+  `period` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '报表时间段',
   `creation_date` timestamp NOT NULL COMMENT '创建时间',
-  PRIMARY KEY (`report_id`)
-)ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED COMMENT='小时报表二进制内容';
+  PRIMARY KEY (`report_id`),
+  KEY `IX_Period` (`period`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED COMMENT='小时报表二进制内容';
 
 CREATE TABLE `daily_report_content` (
   `report_id` int(11) NOT NULL COMMENT '报表ID',
