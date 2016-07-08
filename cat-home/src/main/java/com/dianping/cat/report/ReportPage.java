@@ -55,7 +55,9 @@ public enum ReportPage implements Page {
 
    APPSTATS("appstats", "appstats", "Appstats", "Appstats", true),
 
-   CRASH("crash", "crash", "Crash", "Crash", true);
+   CRASH("crash", "crash", "Crash", "Crash", true),
+
+   APPMETRIC("appmetric", "appmetric", "Appmetric", "Appmetric", true);
 
    private String m_name;
 

@@ -1,0 +1,14 @@
+<app-metric-config>
+	<app-metric id="frame_groupby_appId_endPoint_platform_version_Minutely" metric="frame" type="counter" granularity="60" >
+		<tag id="endPoint"></tag>
+		<tag id="appId"></tag>
+		<tag id="version"></tag>
+		<tag id="platform"></tag>
+	</app-metric>
+	<app-metric id="metric2" type="counter" granularity="60">
+		<tag id="endPoint"></tag>
+		<tag id="appId"></tag>
+		<tag id="version"></tag>
+		<tag id="platform"></tag>
+	</app-metric>
+</app-metric-config>

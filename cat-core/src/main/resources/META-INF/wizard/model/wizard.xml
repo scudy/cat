@@ -45,4 +45,7 @@
    <model package="com.dianping.cat.report-reload-config" name="report-reload-config">
       <sample-model>src/main/resources/config/report-reload-config.xml</sample-model>
    </model>
+   <model package="com.dianping.configuration.app.metric" name="app-metric-config">
+      <sample-model>src/main/resources/config/app-metric-config.xml</sample-model>
+   </model>
 </wizard>

@@ -18,6 +18,7 @@ import com.dianping.cat.config.app.AppCommandConfigManager;
 import com.dianping.cat.config.app.AppCommandGroupConfigManager;
 import com.dianping.cat.config.app.AppCommandTableProvider;
 import com.dianping.cat.config.app.AppConnectionTableProvider;
+import com.dianping.cat.config.app.AppMetricConfigManager;
 import com.dianping.cat.config.app.AppSpeedConfigManager;
 import com.dianping.cat.config.app.AppSpeedTableProvider;
 import com.dianping.cat.config.app.CrashLogConfigManager;
@@ -97,6 +98,7 @@ public class ComponentsConfigurator extends AbstractJdbcResourceConfigurator {
 		all.add(A(CrashLogConfigManager.class));
 		all.add(A(SdkConfigManager.class));
 		all.add(A(ReportReloadConfigManager.class));
+		all.add(A(AppMetricConfigManager.class));
 
 		all.add(A(DefaultUrlPatternHandler.class));
 		all.add(A(UrlPatternConfigManager.class));

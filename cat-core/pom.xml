@@ -81,6 +81,7 @@
 								${basedir}/src/main/resources/META-INF/dal/model/crash-log-config-manifest.xml,
 								${basedir}/src/main/resources/META-INF/dal/model/sdk-config-manifest.xml,
 								${basedir}/src/main/resources/META-INF/dal/model/report-reload-config-manifest.xml,
+								${basedir}/src/main/resources/META-INF/dal/model/app-metric-config-manifest.xml,
 							</manifest>
 						</configuration>
 					</execution>

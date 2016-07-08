@@ -269,6 +269,18 @@
 			</requirements>
 		</component>
 		<component>
+			<role>com.dianping.cat.config.app.AppMetricConfigManager</role>
+			<implementation>com.dianping.cat.config.app.AppMetricConfigManager</implementation>
+			<requirements>
+				<requirement>
+					<role>com.dianping.cat.core.config.ConfigDao</role>
+				</requirement>
+				<requirement>
+					<role>com.dianping.cat.config.content.ContentFetcher</role>
+				</requirement>
+			</requirements>
+		</component>
+		<component>
 			<role>com.dianping.cat.config.web.url.UrlPatternHandler</role>
 			<implementation>com.dianping.cat.config.web.url.DefaultUrlPatternHandler</implementation>
 		</component>

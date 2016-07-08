@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model model-package="com.dianping.cat.configuration.app.metric" enable-sax-parser="true">
+  <entity name="app-metric-config" root="true">
+    <entity-ref name="app-metric" type="map" names="app-metrics" />
+  </entity>
+  <entity name="app-metric">
+    <attribute name="id" value-type="String" key="true"/>
+    <attribute name="metric" value-type="String"/>
+    <attribute name="type" value-type="String" />
+    <attribute name="granularity" value-type="int" primitive="true"/>
+    <entity-ref name="tag" type="list" names="tags" />
+  </entity>
+  <entity name="tag">
+    <attribute name="id" value-type="String" />
+  </entity>
+</model>
+

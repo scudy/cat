@@ -39,7 +39,6 @@
 
 			if (value == true) {
 				$('#history').slideDown();
-				console.log($("#app").val());
 				$("#appId2").val($("#appId").val());
 				$("#command2").val($("#command").val());
 				$("#network2").val($("#network").val());

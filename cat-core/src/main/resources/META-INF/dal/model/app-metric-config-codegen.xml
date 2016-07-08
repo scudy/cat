@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model>
+  <entity name="app-metric-config" root="true">
+    <entity-ref name="app-metric" type="list" names="app-metrics" />
+  </entity>
+  <entity name="app-metric">
+    <attribute name="id" value-type="String" />
+    <attribute name="metric" value-type="String" />
+    <attribute name="type" value-type="String" />
+    <attribute name="granularity" value-type="int" />
+    <entity-ref name="tag" type="list" names="tags" />
+  </entity>
+  <entity name="tag">
+    <attribute name="id" value-type="String" />
+  </entity>
+</model>
+

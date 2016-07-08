@@ -42,6 +42,9 @@
 							<li id="speedGraph"><a href="/cat/r/app?op=speedGraph">
 								<i class="menu-icon fa fa-caret-right"></i>App测速分布</a>
 								<b class="arrow"></b></li>
+							<li id="metricTrend"><a href="/cat/r/appmetric?op=view">
+								<i class="menu-icon fa fa-caret-right"></i>App自定义趋势</a>
+								<b class="arrow"></b></li>
 							<li id="appCrashLog"><a href="/cat/r/crash?op=appCrashLog">
 								<i class="menu-icon fa fa-caret-right"></i>AppCrash日志</a>
 								<b class="arrow"></b></li>

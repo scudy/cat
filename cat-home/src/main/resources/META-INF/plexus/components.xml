@@ -677,6 +677,14 @@
 			</requirements>
 		</component>
 		<component>
+			<role>com.dianping.cat.report.page.appmetric.service.AggregationConfigService</role>
+			<implementation>com.dianping.cat.report.page.appmetric.service.AggregationConfigService</implementation>
+		</component>
+		<component>
+			<role>com.dianping.cat.report.page.appmetric.service.AppMetricService</role>
+			<implementation>com.dianping.cat.report.page.appmetric.service.AppMetricService</implementation>
+		</component>
+		<component>
 			<role>com.dianping.cat.report.page.transaction.transform.TransactionMergeHelper</role>
 			<implementation>com.dianping.cat.report.page.transaction.transform.TransactionMergeHelper</implementation>
 		</component>
@@ -4690,6 +4698,51 @@
 			<requirements>
 				<requirement>
 					<role>org.unidal.web.mvc.view.model.ModelHandler</role>
+				</requirement>
+			</requirements>
+		</component>
+		<component>
+			<role>com.dianping.cat.report.page.appmetric.Handler</role>
+			<implementation>com.dianping.cat.report.page.appmetric.Handler</implementation>
+			<requirements>
+				<requirement>
+					<role>com.dianping.cat.report.page.appmetric.JspViewer</role>
+				</requirement>
+				<requirement>
+					<role>com.dianping.cat.report.page.appmetric.display.AppGraphCreator</role>
+				</requirement>
+				<requirement>
+					<role>com.dianping.cat.config.app.MobileConfigManager</role>
+				</requirement>
+				<requirement>
+					<role>com.dianping.cat.config.app.AppCommandConfigManager</role>
+				</requirement>
+				<requirement>
+					<role>com.dianping.cat.config.app.AppMetricConfigManager</role>
+				</requirement>
+			</requirements>
+		</component>
+		<component>
+			<role>com.dianping.cat.report.page.appmetric.JspViewer</role>
+			<implementation>com.dianping.cat.report.page.appmetric.JspViewer</implementation>
+			<requirements>
+				<requirement>
+					<role>org.unidal.web.mvc.view.model.ModelHandler</role>
+				</requirement>
+			</requirements>
+		</component>
+		<component>
+			<role>com.dianping.cat.report.page.appmetric.display.AppGraphCreator</role>
+			<implementation>com.dianping.cat.report.page.appmetric.display.AppGraphCreator</implementation>
+			<requirements>
+				<requirement>
+					<role>com.dianping.cat.report.page.appmetric.service.AppMetricService</role>
+				</requirement>
+				<requirement>
+					<role>com.dianping.cat.config.app.AppCommandConfigManager</role>
+				</requirement>
+				<requirement>
+					<role>com.dianping.cat.config.app.MobileConfigManager</role>
 				</requirement>
 			</requirements>
 		</component>
