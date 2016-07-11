@@ -1,7 +1,9 @@
 package com.dianping.cat.report.page.appmetric;
 
 public enum Action implements org.unidal.web.mvc.Action {
-	VIEW("view");
+	VIEW("view"),
+
+	;
 
 	private String m_name;
 

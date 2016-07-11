@@ -27,6 +27,7 @@ import com.dianping.cat.command.entity.Code;
 import com.dianping.cat.command.entity.Command;
 import com.dianping.cat.config.app.AppCommandConfigManager;
 import com.dianping.cat.config.app.AppCommandGroupConfigManager;
+import com.dianping.cat.config.app.AppMetricConfigManager;
 import com.dianping.cat.config.app.AppSpeedConfigManager;
 import com.dianping.cat.config.app.CrashLogConfigManager;
 import com.dianping.cat.config.app.MobileConfigManager;
@@ -81,6 +82,9 @@ public class AppConfigProcessor {
 
 	@Inject
 	private RuleFTLDecorator m_ruleDecorator;
+
+	@Inject
+	private AppMetricConfigManager m_appMetricConfigManager;
 
 	public void appCommandBatchUpdate(Payload payload, Model model) {
 		String content = payload.getContent();
@@ -562,6 +566,22 @@ public class AppConfigProcessor {
 		case CRASH_RULE_UPDATE_SUBMIT:
 			m_crashRuleConfigManager.insertExceptionLimit(payload.getCrashRule());
 			model.setCrashLimits(m_crashRuleConfigManager.queryAllExceptionLimits());
+			break;
+		case APP_METRIC_CONFIG_UPDATE:
+			content = payload.getContent();
+
+			if (StringUtils.isNotEmpty(content)) {
+				m_appMetricConfigManager.insert(content);
+			}
+			model.setContent(m_configHtmlParser.parse(m_appMetricConfigManager.getConfig().toString()));
+			break;
+		case APP_METRICS:
+			break;
+		case APP_METRIC_UPDATE:
+			break;
+		case APP_METRIC_DELETE:
+			break;
+		case APP_METRIC_SUBMIT:
 			break;
 		}
 	}

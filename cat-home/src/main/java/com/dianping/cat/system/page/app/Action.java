@@ -5,9 +5,9 @@ public enum Action implements org.unidal.web.mvc.Action {
 	APP_CONFIG_UPDATE("appConfigUpdate"),
 
 	MOBILE_CONFIG_UPDATE("mobileConfigUpdate"),
-	
+
 	CRASH_LOG_CONFIG_UPDATE("crashLogConfigUpdate"),
-	
+
 	SDK_CONFIG_UPDATE("sdkConfigUpdate"),
 
 	APP_NAME_CHECK("appNameCheck"),
@@ -81,14 +81,26 @@ public enum Action implements org.unidal.web.mvc.Action {
 	APP_COMMAND_BATCH_UPDATE("appCommandBatchUpdate"),
 
 	APP_COMMAND_FORMAT_CONFIG("appCommandFormatConfig"),
-	
+
 	CRASH_RULE_LIST("crashRuleList"),
 
 	CRASH_RULE_UPDATE("crashRuleUpdate"),
 
 	CRASH_RULE_DELETE("crashRuleDelete"),
 
-	CRASH_RULE_UPDATE_SUBMIT("crashRuleUpdateSubmit"),;
+	CRASH_RULE_UPDATE_SUBMIT("crashRuleUpdateSubmit"),
+
+	APP_METRIC_CONFIG_UPDATE("appMetricConfigUpdate"),
+
+	APP_METRICS("appMetrics"),
+
+	APP_METRIC_UPDATE("appMetricUpdate"),
+
+	APP_METRIC_DELETE("appMetricDelete"),
+
+	APP_METRIC_SUBMIT("appMetricSubmit"),
+
+	;
 
 	private String m_name;
 

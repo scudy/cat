@@ -4,7 +4,7 @@ public enum MetricType {
 
 	AVG("avg", "平均值"),
 
-	SUM("counter", "总和"),
+	SUM("sum", "总和"),
 
 	MAX("max", "最大值"),
 

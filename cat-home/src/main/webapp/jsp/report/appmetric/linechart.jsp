@@ -32,82 +32,28 @@
 			return myDate.getFullYear() + "-" + month + "-" + day + " " + myHour + ":" + myMinute;
 		}
 	 	
-	 	function query(field,networkCode,appVersionCode,channelCode,platformCode) {
-			var times = $("#time").val().split(" ");
-			var period = times[0];
-			var start = times[1];
+	 	function query() {
+			var start = $("#time").val();
 			var end = $("#endTime").val();
-			var command = $("#command").val().split('|')[0];
-			var code = $("#code").val();
-			var network = "";
-			var version = "";
-			var connectionType = "";
-			var platform = "";
-			var city = "";
-			var operator = "";
-			var source = "";
-			if(typeof(networkCode) == "undefined"){
-				network = $("#network").val();
-			}else{
-				network = networkCode;
-			}
-			if(typeof(appVersionCode) == "undefined"){
-				version = $("#version").val();
-			}else{
-				version = appVersionCode;
-			}
-			if(typeof(channelCode) == "undefined"){
-				connectionType = $("#connectionType").val();
-			}else{
-				connectionType = channelCode;
-			}
-			if(typeof(platformCode) == "undefined"){
-				platform = $("#platform").val();
-			}else{
-				platform = platformCode;
-			}
-			if(typeof(cityCode) == "undefined"){
-				city = $("#city").val();
-			}else{
-				city = cityCode;
-			}
-			if(typeof(operatorCode) == "undefined"){
-				operator = $("#operator").val();
-			}else{
-				operator = operatorCode;
-			}
-			if(typeof(sourceCode) == "undefined"){
-				source = $("#source").val();
-			}else{
-				source = sourceCode;
-			}
+			var metric = $("#command").val();
+			var type = $("#type").val();
+			var platform = $("#platform").val();
+			var appId = $("#appId").val();
+			var version = $("#version").val();
 			var split = ";";
-			var commandId = ${model.command2IdJson}[command].id;
-			var query1 = period + split + commandId + split + code + split
-					+ network + split + version + split + connectionType
-					+ split + platform + split + city + split + operator + split + source + split + start + split + end;
+			var query1 = start +split + end + split + metric + split + type + split + appId + split + version + split + platform;
 			var query2 = "";
 			var value = document.getElementById("checkbox").checked;
 
 			if (value) {
-				var times2 = $("#time2").val().split(" ");
-				var period2 = times2[0];
-				var start2 = times2[1];
+				var start2 = $("#time2").val();
 				var end2 = $("#endTime2").val();
-				var command2 = $("#command2").val().split('|')[0];
-				var commandId2 = ${model.command2IdJson}[command2].id;
-				var code2 = $("#code2").val();
-				var network2 = $("#network2").val();
-				var version2 = $("#version2").val();
-				var connectionType2 = $("#connectionType2").val();
+				var metric2 = $("#command2").val();
+				var type2 = $("#type2").val();
 				var platform2 = $("#platform2").val();
-				var city2 = $("#city2").val();
-				var operator2 = $("#operator2").val();
-				var source2 = $("#source2").val();
-				query2 = period2 + split + commandId2 + split + code2 + split
-						+ network2 + split + version2 + split + connectionType2
-						+ split + platform2 + split + city2 + split
-						+ operator2 + split + source2 + split + start2 + split + end2;
+				var appId2 = $("#appId2").val();
+				var version2 = $("#version2").val();
+				var query2 = start2 +split + end2 + split + metric2 + split + type2 + split + appId2 + split + version2 + split + platform2;
 			}
 
 			var checkboxs = document.getElementsByName("typeCheckbox");
@@ -126,12 +72,24 @@
 			if(typeof(sort) == "undefined"){
 				sort = "";
 			}
-			var commandId = $('#command').val();
-			var commandId2 = $('#command2').val();
-			var href = "?query1=" + query1 + "&query2=" + query2 + "&type="
-					+ type + "&groupByField=" + field + "&sort=" + sort
-					+"&commandId="+commandId+"&commandId2="+commandId2+"&appId="+$("#appId").val()+"&appId2="+$("#appId2").val();
+			var href = "?query1=" + query1 + "&query2=" + query2;
 			window.location.href = href;
+		}
+	 	
+	 	function check() {
+			var value = document.getElementById("checkbox").checked;
+
+			if (value == true) {
+				$('#history').slideDown();
+				$("#appId2").val($("#appId").val());
+				$("#command2").val($("#command").val());
+				$("#version2").val($("#version").val());
+				$("#platform2").val($("#platform").val());
+				$("#time2").val($("#time").val());
+				$("#endTime2").val($("#endTime").val());
+			} else {
+				$('#history').slideUp();
+			}
 		}
 		
 		$(document).ready(
@@ -145,7 +103,6 @@
 						maxDate:0
 					});
 					$('#endTime').datetimepicker({
-						datepicker:false,
 						format:'Y-m-d H:i',
 						step:30,
 						maxDate:0
@@ -156,26 +113,112 @@
 						maxDate:0
 					});
 					$('#endTime2').datetimepicker({
-						datepicker:false,
 						format:'Y-m-d H:i',
 						step:30,
 						maxDate:0
 					});
 					
 					var query1 = '${payload.query1}';
+					var query2 = '${payload.query2}';
 					var words = query1.split(";");
 
-					if (typeof(words[0]) != 'undefined' && words[0].length == 0) {
+					if (typeof(words[0]) == 'undefined' || words[0].length == 0) {
 						$("#time").val(getTime(new Date(new Date().getTime() - 2*3600000)));
 					} else {
-						$("#time").val(getTime(new Date(new Number(words[0]))));
+						$("#time").val(words[0]);
 					}
 					
-					if (typeof(words[1]) != 'undefined' && words[1].length == 0) {
+					if (typeof(words[1]) == 'undefined' || words[1].length == 0) {
 						$("#endTime").val(getTime(new Date()));
 					} else {
-						$("#endTime").val(getTime(new Date(new Number(words[1]))));
+						$("#endTime").val(words[1]);
 					}
+					
+					if(typeof(words[2]) != 'undefined' && words[2].length > 0){
+						$('#command').val(words[2]);
+					}
+					if(typeof(words[3]) != 'undefined' && words[3].length > 0){
+						$('#type').val(words[3]);
+					}
+					if(typeof(words[4]) != 'undefined' && words[4].length > 0){
+						$('#appId').val(words[4]);
+					}
+					if(typeof(words[5]) != 'undefined' && words[5].length > 0){
+						$('#version').val(words[5]);
+					}
+					if(typeof(words[6]) != 'undefined' && words[6].length > 0){
+						$('#platform').val(words[6]);
+					}
+					
+					
+					if (query2 != null && query2 != '') {
+						$('#history').slideDown();
+						document.getElementById("checkbox").checked = true;
+						
+						var words = query2.split(";");
+
+						if (typeof(words[0]) === 'undefined' || words[0].length == 0) {
+							$("#time2").val(getTime(new Date(new Date().getTime() - 2*3600000)));
+						} else {
+							$("#time2").val(words[0]);
+						}
+						if (typeof(words[1]) == 'undefined' || words[1].length == 0) {
+							$("#endTime2").val(getTime(new Date()));
+						} else {
+							$("#endTime2").val(words[1]);
+						}
+						
+						if(typeof(words[2]) != 'undefined' && words[2].length > 0){
+							$('#command2').val(words[2]);
+						}
+						if(typeof(words[3]) != 'undefined' && words[3].length > 0){
+							$('#type2').val(words[3]);
+						}
+						if(typeof(words[4]) != 'undefined' && words[4].length > 0){
+							$('#appId2').val(words[4]);
+						}
+						if(typeof(words[5]) != 'undefined' && words[5].length > 0){
+							$('#version2').val(words[5]);
+						}
+						if(typeof(words[6]) != 'undefined' && words[6].length > 0){
+							$('#platform2').val(words[6]);
+						}
+						
+						
+					}
+					
+					 $.widget( "custom.catcomplete", $.ui.autocomplete, {
+							_renderMenu: function( ul, items ) {
+								var that = this,
+								currentCategory = "";
+								$.each( items, function( index, item ) {
+									if ( item.category != currentCategory ) {
+										ul.append( "<li class='ui-autocomplete-category'>" + item.category + "</li>" );
+										currentCategory = item.category;
+									}
+									that._renderItemData( ul, item );
+								});
+							}
+						});
+					
+					 var dataa = [];
+						
+						<c:forEach var="entry" items="${model.appMetrics}">
+							var item = {};
+							item['label'] = '${entry.value.id}';
+							item['category'] ='${entry.value.metric}';
+							
+							dataa.push(item);
+						</c:forEach>
+								
+						$( "#command" ).catcomplete({
+							delay: 0,
+							source: dataa
+						});
+						$( "#command2" ).catcomplete({
+							delay: 0,
+							source: dataa
+						});
 					
 					var data = ${model.lineChart.jsonString};
 					graphMetricChart(document.getElementById('${model.lineChart.id}'), data);

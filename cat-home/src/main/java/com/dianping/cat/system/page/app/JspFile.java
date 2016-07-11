@@ -14,7 +14,7 @@ public enum JspFile {
 	APP_SPEED_UPDATE("/jsp/system/appConfig/speedUpdate.jsp"),
 
 	APP_UPDATE("/jsp/system/appConfig/appUpdate.jsp"),
-	
+
 	APP_BATCH_ADD("/jsp/system/appConfig/appBatchAdd.jsp"),
 
 	APP_RULE("/jsp/system/appRule/appRule.jsp"),
@@ -26,7 +26,7 @@ public enum JspFile {
 	MOBILE_CONFIG_UPDATE("/jsp/system/appConfig/mobileConfigUpdate.jsp"),
 
 	CRASH_LOG_CONFIG_UPDATE("/jsp/system/appConfig/crashLogConfigUpdate.jsp"),
-	
+
 	SDK_CONFIG_UPDATE("/jsp/system/appConfig/sdkConfigUpdate.jsp"),
 
 	APP_COMMAND_BATCH("/jsp/system/appConfig/appCommandBatch.jsp"),
@@ -34,7 +34,7 @@ public enum JspFile {
 	APP_RULE_BATCH("/jsp/system/appConfig/appConfigBatch.jsp"),
 
 	APP_CONSTANTS("/jsp/system/appConfig/constants.jsp"),
-	
+
 	APP_SOURCES("/jsp/system/appConfig/appSources.jsp"),
 
 	APP_CONSTANT_UPDATE("/jsp/system/appConfig/constantUpdate.jsp"),
@@ -50,6 +50,8 @@ public enum JspFile {
 	CRASH_RULE_LIST("/jsp/system/appRule/crashRuleList.jsp"),
 
 	CRASH_RULE_UPDATE("/jsp/system/appRule/crashRuleUpdate.jsp"),
+
+	APP_METRIC_CONFIG_UPDATE("/jsp/system/appConfig/appMetricConfigUpdate.jsp"),
 
 	;
 

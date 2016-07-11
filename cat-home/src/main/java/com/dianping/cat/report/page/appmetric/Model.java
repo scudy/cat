@@ -6,6 +6,7 @@ import org.unidal.web.mvc.view.annotation.EntityMeta;
 import org.unidal.web.mvc.view.annotation.ModelMeta;
 
 import com.dianping.cat.command.entity.Command;
+import com.dianping.cat.configuration.app.metric.entity.AppMetric;
 import com.dianping.cat.configuration.mobile.entity.Item;
 import com.dianping.cat.mvc.AbstractReportModel;
 import com.dianping.cat.report.ReportPage;
@@ -25,8 +26,14 @@ public class Model extends AbstractReportModel<Action, ReportPage, Context> {
 
 	private Map<Integer, Command> m_commands;
 
+	private Map<String, AppMetric> m_appMetrics;
+
 	public Model(Context ctx) {
 		super(ctx);
+	}
+
+	public Map<String, AppMetric> getAppMetrics() {
+		return m_appMetrics;
 	}
 
 	public Map<Integer, Item> getApps() {
@@ -57,6 +64,10 @@ public class Model extends AbstractReportModel<Action, ReportPage, Context> {
 
 	public Map<Integer, Item> getVersions() {
 		return m_versions;
+	}
+
+	public void setAppMetrics(Map<String, AppMetric> appMetrics) {
+		m_appMetrics = appMetrics;
 	}
 
 	public void setApps(Map<Integer, Item> apps) {

@@ -5,7 +5,6 @@ import org.unidal.web.mvc.payload.annotation.FieldMeta;
 
 import com.dianping.cat.mvc.AbstractReportPayload;
 import com.dianping.cat.report.ReportPage;
-import com.dianping.cat.report.page.appmetric.service.MetricQueryEntity;
 
 public class Payload extends AbstractReportPayload<Action, ReportPage> {
 	private ReportPage m_page;
@@ -39,20 +38,6 @@ public class Payload extends AbstractReportPayload<Action, ReportPage> {
 
 	public String getQuery2() {
 		return m_query2;
-	}
-
-	public MetricQueryEntity getQueryEntity1() {
-		if (m_query1 != null && m_query1.length() > 0) {
-			return new MetricQueryEntity(m_query1);
-		}
-		return null;
-	}
-
-	public MetricQueryEntity getQueryEntity2() {
-		if (m_query2 != null && m_query2.length() > 0) {
-			return new MetricQueryEntity(m_query2);
-		}
-		return null;
 	}
 
 	public void setAction(String action) {

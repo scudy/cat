@@ -26,10 +26,19 @@
 					<span class="input-group-addon">命令字</span>
 		            <form id="wrap_search" style="margin-bottom:0px;">
 						<span class="input-icon" style="width:350px;">
-							<input type="text" placeholder="" class="search-input search-input form-control ui-autocomplete-input" id="command" autocomplete="on" data=""/>
+							<input type="text" placeholder="input metric for search" class="search-input search-input form-control ui-autocomplete-input" id="command" autocomplete="on" data=""/>
 							<i class="ace-icon fa fa-search nav-search-icon"></i>
 						</span>
 					</form>
+	            </div>
+	            <div class="input-group" style="float:left;width:120px">
+	              	<span class="input-group-addon">聚合</span>
+					<select id="type" style="width: 100px;">
+						<option value='avg'>求平均</option>
+						<option value='sum'>求和</option>
+						<option value='max'>最大值</option>
+						<option value='min'>最小值</option>
+					</select>
 	            </div>
 				</th>
 				</tr>
@@ -69,9 +78,9 @@
 	              <span class="input-group-addon">开始</span>
 	              <input type="text" id="time2" style="width:130px"/>
 	            </div>
-	            <div class="input-group" style="float:left;width:60px">
+	            <div class="input-group" style="float:left;width:130px">
 	              <span class="input-group-addon">结束</span>
-        	      <input type="text" id="endTime2" style="width:60px;"/></div>
+        	      <input type="text" id="endTime2" style="width:130px;"/></div>
         	    <div class="input-group" style="float:left;width:120px">
 	              	<span class="input-group-addon">App</span>
 					<select id="appId2" style="width: 100px;">
@@ -84,10 +93,19 @@
 					<span class="input-group-addon">命令字</span>
 		            <form id="wrap_search2" style="margin-bottom:0px;">
 						<span class="input-icon" style="width:350px;">
-							<input type="text" placeholder="input domain for search" class="search-input search-input form-control ui-autocomplete-input" id="command2" autocomplete="on" data=""/>
+							<input type="text" placeholder="input metric for search" class="search-input search-input form-control ui-autocomplete-input" id="command2" autocomplete="on" data=""/>
 							<i class="ace-icon fa fa-search nav-search-icon"></i>
 						</span>
 					</form>
+	            </div>
+	            <div class="input-group" style="float:left;width:120px">
+	              	<span class="input-group-addon">聚合</span>
+					<select id="type2" style="width: 100px;">
+						<option value='avg'>求平均</option>
+						<option value='sum'>求和</option>
+						<option value='max'>最大值</option>
+						<option value='min'>最小值</option>
+					</select>
 	            </div>
 				</th>
 				</tr>
@@ -106,8 +124,7 @@
 	              	<span class="input-group-addon">平台</span>
 					<select id="platform2" style="width: 100px;">
 						<option value=''>All</option>
-						<c:forEach var="item" items="${model.platforms}"
-							varStatus="status">
+						<c:forEach var="item" items="${model.platforms}" >
 							<option value='${item.value.id}'>${item.value.value}</option>
 						</c:forEach>
 					</select>
@@ -115,18 +132,6 @@
 	            </th>
 			</tr>
 		</table>
-
-		<div>&nbsp;
-			<label class="btn btn-info btn-sm"><input type="radio"
-				name="typeCheckbox" value="request">请求数
-			</label><label class="btn btn-info btn-sm"> <input type="radio"
-				name="typeCheckbox" value="success">网络成功率</label><label class="btn btn-info btn-sm">
-			<input type="radio" name="typeCheckbox" value="businessSuccess">业务成功率
-			</label><label class="btn btn-info btn-sm">  <input type="radio"
-				name="typeCheckbox" value="delay">成功延时
-			</label>
-		</div>
-
 	<div>
 		<div id="${model.lineChart.id}"></div>
 	</div>
