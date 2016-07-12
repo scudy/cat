@@ -4,7 +4,7 @@ CREATE TABLE `metric_screen` (
   `graph_name` varchar(50) NOT NULL DEFAULT '' COMMENT 'Graph名称',
   `view` varchar(50) NOT NULL DEFAULT '' COMMENT '视角',
   `endPoints` longtext NOT NULL,
-  `measurements` longtext NOT NULL COMMENT '配置的指标'
+  `measurements` longtext NOT NULL COMMENT '配置的指标',
   `content` longtext NOT NULL COMMENT '配置的具体内容',
   `creation_date` datetime NOT NULL COMMENT '配置创建时间',
   `updatetime` datetime NOT NULL COMMENT '配置修改时间',
