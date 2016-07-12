@@ -7,7 +7,6 @@ import java.util.List;
 import org.codehaus.plexus.logging.LogEnabled;
 import org.codehaus.plexus.logging.Logger;
 import org.codehaus.plexus.personality.plexus.lifecycle.phase.Initializable;
-import org.codehaus.plexus.personality.plexus.lifecycle.phase.InitializationException;
 import org.unidal.lookup.annotation.Inject;
 import org.unidal.lookup.annotation.Named;
 
@@ -35,7 +34,7 @@ public class DefaultTransportManager implements TransportManager, Initializable,
 	}
 
 	@Override
-	public void initialize() throws InitializationException {
+	public void initialize() {
 		List<Server> servers = m_configManager.getServers();
 
 		if (!m_configManager.isCatEnabled()) {
@@ -53,7 +52,7 @@ public class DefaultTransportManager implements TransportManager, Initializable,
 			m_logger.info("Remote CAT servers: " + addresses);
 
 			if (addresses.isEmpty()) {
-				throw new RuntimeException("All servers in configuration are disabled!\r\n" + servers);
+				m_logger.error("All servers in configuration are disabled!\r\n" + servers);
 			} else {
 				m_tcpSocketSender.initialize(addresses);
 			}
