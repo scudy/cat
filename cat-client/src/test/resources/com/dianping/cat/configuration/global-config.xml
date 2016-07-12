@@ -4,6 +4,4 @@
 		<server ip="192.168.8.22" port="2281" enabled="false" />
 		<server ip="192.168.8.23" />
 	</servers>
-	<domain id="Group" enabled="false"/>
-	<domain id="Review" ip="192.168.8.1"/>
 </config>

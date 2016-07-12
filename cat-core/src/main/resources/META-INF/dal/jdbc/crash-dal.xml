@@ -11,6 +11,10 @@
       	<readset name="COUNT-DATA">
       		<member name="count"/>
       	</readset>
+      	<readset name="IDS">
+      		<member name="id"/>
+      		<member name="msg"/>
+      	</readset>
       	</readsets>
 	<query-defs>
 		<query name="find-data-by-conditions" type="SELECT" multiple="true">
@@ -29,6 +33,53 @@
 			AND  <FIELD name='app-name'/> = ${app-name}
 			<IF type='NE' field='platform' value='-1'>
 			AND  <FIELD name='platform'/> = ${platform}
+			</IF>
+			<IF type='NOT_NULL' field='dpid'>
+			AND  <FIELD name='dpid'/> = ${dpid}
+			</IF>
+		LIMIT ${offset}, ${limit}
+         ]]></statement>
+		</query>
+		<query name="find-ids-by-conditions" type="SELECT" multiple="true">
+			<param name="start-time" />
+			<param name="end-time" />
+			<param name="app-name" />
+			<param name="platform" />
+			<param name="module" />
+			<param name="app-version" />
+			<param name="platform-version" />
+			<param name="msg" />
+			<param name="device-brand" />
+			<param name="device-model" />
+			<param name="dpid" />
+			<param name="offset" />
+			<param name="limit" />
+			<statement><![CDATA[SELECT <FIELDS/>
+        FROM <TABLE/>
+        WHERE 
+        	<FIELD name='crash-time'/> >= ${start-time} 
+			AND  <FIELD name='crash-time'/> < ${end-time}
+			AND  <FIELD name='app-name'/> = ${app-name}
+			<IF type='NE' field='platform' value='-1'>
+			AND  <FIELD name='platform'/> = ${platform}
+			</IF>
+			<IF type='NE' field='module' value=''>
+			AND  <FIELD name='module'/> = ${module}
+			</IF>
+			<IF type='NE' field='app-version' value=''>
+			AND  <FIELD name='app-version'/> = ${app-version}
+			</IF>
+			<IF type='NE' field='platform-version' value=''>
+			AND  <FIELD name='platform-version'/> = ${platform-version}
+			</IF>
+			<IF type='NE' field='msg' value=''>
+			AND  <FIELD name='msg'/> = ${msg}
+			</IF>
+			<IF type='NE' field='device-brand' value=''>
+			AND  <FIELD name='device-brand'/> = ${device-brand}
+			</IF>
+			<IF type='NE' field='device-model' value=''>
+			AND  <FIELD name='device-model'/> = ${device-model}
 			</IF>
 			<IF type='NOT_NULL' field='dpid'>
 			AND  <FIELD name='dpid'/> = ${dpid}

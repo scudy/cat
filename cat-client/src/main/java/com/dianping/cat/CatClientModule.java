@@ -12,6 +12,7 @@ import org.unidal.initialization.ModuleContext;
 import org.unidal.lookup.annotation.Named;
 
 import com.dianping.cat.configuration.ClientConfigManager;
+import com.dianping.cat.configuration.client.entity.ClientConfig;
 import com.dianping.cat.message.internal.MilliSecondTimer;
 import com.dianping.cat.message.io.TransportManager;
 import com.dianping.cat.status.StatusUpdateTask;
@@ -30,13 +31,20 @@ public class CatClientModule extends AbstractModule {
 		// tracking thread start/stop
 		Threads.addListener(new CatThreadListener(ctx));
 
+		ClientConfig config = ctx.getAttribute("cat-client-config");
+		ClientConfigManager clientConfigManager = ctx.lookup(ClientConfigManager.class);
+
+		if (config != null) {
+			clientConfigManager.initialize(config);
+		} else {
+			clientConfigManager.initialize();
+		}
+
 		// warm up Cat
 		Cat.getInstance().setContainer(((DefaultModuleContext) ctx).getContainer());
 
 		// bring up TransportManager
 		ctx.lookup(TransportManager.class);
-
-		ClientConfigManager clientConfigManager = ctx.lookup(ClientConfigManager.class);
 
 		if (clientConfigManager.isCatEnabled()) {
 			// start status update task

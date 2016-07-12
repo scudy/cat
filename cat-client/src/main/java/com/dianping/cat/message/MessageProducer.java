@@ -133,13 +133,6 @@ public interface MessageProducer {
 	public String createMessageId();
 
 	/**
-	 * Check if the CAT client is enabled for current domain.
-	 * 
-	 * @return true if CAT client is enabled, false means CAT client is disabled.
-	 */
-	public boolean isEnabled();
-
-	/**
 	 * Log an error.
 	 * 
 	 * @param cause

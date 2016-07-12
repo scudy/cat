@@ -1,6 +1,5 @@
 package com.dianping.cat.message.internal;
 
-import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
@@ -20,7 +19,7 @@ public class MultiThreadingTest {
 
 	@Before
 	public void before() {
-		Cat.initialize(new File("/data/appdatas/cat/client.xml"));
+		Cat.initialize();
 	}
 
 	@Test

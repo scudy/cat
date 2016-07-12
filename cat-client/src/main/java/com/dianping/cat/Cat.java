@@ -14,9 +14,10 @@ import org.unidal.initialization.ModuleContext;
 import org.unidal.initialization.ModuleInitializer;
 import org.unidal.lookup.ContainerLoader;
 
+import com.dianping.cat.configuration.EnviromentHelper;
 import com.dianping.cat.configuration.client.entity.ClientConfig;
-import com.dianping.cat.configuration.client.entity.Domain;
 import com.dianping.cat.configuration.client.entity.Server;
+import com.dianping.cat.configuration.client.transform.DefaultSaxParser;
 import com.dianping.cat.message.Event;
 import com.dianping.cat.message.ForkedTransaction;
 import com.dianping.cat.message.Heartbeat;
@@ -46,11 +47,11 @@ public class Cat {
 	private static volatile boolean s_init = false;
 
 	private static int m_errorCount;
-	
+
 	private static void checkAndInitialize() {
 		try {
 			if (!s_init) {
-				initialize(new File(getCatHome(), "client.xml"));
+				initialize();
 			}
 		} catch (Exception e) {
 			errorHandler(e);
@@ -146,7 +147,7 @@ public class Cat {
 	}
 
 	// this should be called during application initialization time
-	public static void initialize(File configFile) {
+	public static void initialize() {
 		try {
 			if (!s_init) {
 				synchronized (s_instance) {
@@ -158,7 +159,6 @@ public class Cat {
 						if (!module.isInitialized()) {
 							ModuleInitializer initializer = ctx.lookup(ModuleInitializer.class);
 
-							ctx.setAttribute("cat-client-config-file", configFile);
 							initializer.execute(ctx, module);
 						}
 						log("INFO", "Cat is lazy initialized!");
@@ -184,19 +184,56 @@ public class Cat {
 	}
 
 	public static void initialize(String... servers) {
-		File configFile = null;
-
 		try {
-			configFile = File.createTempFile("cat-client", ".xml");
-			ClientConfig config = new ClientConfig().setMode("client");
+			ClientConfig config = new ClientConfig();
 
 			for (String server : servers) {
 				config.addServer(new Server(server));
 			}
+			
+			config.setDomain(EnviromentHelper.loadAppNameByProperty("unknown"));
 
-			Files.forIO().writeTo(configFile, config.toString());
+			initialize(config);
+		} catch (Exception e) {
+			errorHandler(e);
+		}
+	}
 
-			initialize(configFile);
+	// this should be called during application initialization time
+	public static void initialize(ClientConfig config) {
+		try {
+			if (!s_init) {
+				synchronized (s_instance) {
+					if (!s_init) {
+						PlexusContainer container = ContainerLoader.getDefaultContainer();
+						ModuleContext ctx = new DefaultModuleContext(container);
+						Module module = ctx.lookup(Module.class, CatClientModule.ID);
+
+						if (!module.isInitialized()) {
+							ModuleInitializer initializer = ctx.lookup(ModuleInitializer.class);
+
+							ctx.setAttribute("cat-client-config", config);
+							initializer.execute(ctx, module);
+						}
+						log("INFO", "Cat is lazy initialized!");
+						s_init = true;
+					}
+				}
+			}
+		} catch (Exception e) {
+			errorHandler(e);
+		}
+	}
+
+	public static void initializeByDomain(String domain) {
+		try {
+			String path = Cat.getCatHome() + "client.xml";
+			File configFile = new File(path);
+			String xml = Files.forIO().readFrom(configFile, "utf-8");
+			ClientConfig config = DefaultSaxParser.parse(xml);
+
+			config.setDomain(EnviromentHelper.loadAppNameByProperty(domain));
+			initialize(config);
 		} catch (Exception e) {
 			errorHandler(e);
 		}
@@ -204,21 +241,9 @@ public class Cat {
 
 	public static void initializeByDomain(String domain, int port, int httpPort, String... servers) {
 		try {
-			File configFile = null;
-			try {
-				configFile = File.createTempFile("cat-client", ".xml");
-			} catch (Exception ex) {
-				String catHome = getCatHome();
-				configFile = File.createTempFile("cat-client", ".xml", new File(catHome));
-				ex.printStackTrace();
-			}
-			ClientConfig config = new ClientConfig().setMode("client");
+			ClientConfig config = new ClientConfig();
 
-			if (null != domain) {
-				Domain domainObj = new Domain(domain);
-				domainObj.setEnabled(true);
-				config.addDomain(domainObj);
-			}
+			config.setDomain(EnviromentHelper.loadAppNameByProperty(domain));
 
 			for (String server : servers) {
 				Server serverObj = new Server(server);
@@ -227,8 +252,7 @@ public class Cat {
 				config.addServer(serverObj);
 			}
 
-			Files.forIO().writeTo(configFile, config.toString());
-			initialize(configFile);
+			initialize(config);
 		} catch (Exception e) {
 			errorHandler(e);
 		}
@@ -369,7 +393,7 @@ public class Cat {
 	 *           ctx is rpc context ,such as duboo context , please use rpc context implement Context
 	 * @param domain
 	 *           domain is default, if use default config, the performance of server storage is bad。
-	 *           
+	 * 
 	 */
 	public static void logRemoteCallClient(Context ctx) {
 		logRemoteCallClient(ctx, "default");

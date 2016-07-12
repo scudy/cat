@@ -134,8 +134,7 @@ CREATE TABLE `app_log` (
   `log_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'log时间',
   PRIMARY KEY (`id`),
   KEY `IX_CONDITION` (`log_time`,`app_id`),
-  KEY `updatetime` (`updatetime`),
-  KEY `IX_tag_platform` (`tag`,`platform`)
+  KEY `updatetime` (`updatetime`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `app_log_content` (

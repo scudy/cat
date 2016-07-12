@@ -2,7 +2,6 @@ package com.dianping.cat.message;
 
 import static com.dianping.cat.message.Message.SUCCESS;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.locks.LockSupport;
@@ -92,8 +91,6 @@ public class CatPerformanceTest {
 	@Test
 	@Ignore
 	public void justloop() throws InterruptedException {
-		Cat.initialize(new File("/data/appdatas/cat/client.xml"));
-
 		new Thread(new Runnable() {
 
 			@Override
@@ -129,8 +126,6 @@ public class CatPerformanceTest {
 	@Test
 	@Ignore
 	public void justloop2() throws InterruptedException {
-		Cat.initialize(new File("/data/appdatas/cat/client.xml"));
-
 		new Thread(new Runnable() {
 
 			@Override
@@ -158,7 +153,6 @@ public class CatPerformanceTest {
 	@Ignore
 	@Test
 	public void test() throws InterruptedException {
-		Cat.initialize(new File("/data/appdatas/cat/client.xml"));
 		long time = System.currentTimeMillis();
 		for (int i = 0; i < count; i++) {
 			creatOneTransaction();
@@ -172,7 +166,6 @@ public class CatPerformanceTest {
 	@Test
 	@Ignore
 	public void testManyThread() throws IOException, InterruptedException {
-		Cat.initialize(new File("/data/appdatas/cat/client.xml"));
 		System.out.println("press any key to continue...");
 		System.in.read();
 

@@ -1,7 +1,5 @@
 package com.dianping.cat;
 
-import java.io.File;
-
 import junit.framework.Assert;
 
 import org.junit.Test;
@@ -26,7 +24,7 @@ public class CatEnvironmentTest {
 
 	@Test
 	public void testWithInitialize() throws InterruptedException {
-		Cat.initialize(new File("/data/appdatas/cat/client.xml"));
+		Cat.initialize();
 		MessageProducer cat = Cat.getProducer();
 		Transaction t = cat.newTransaction("TestType", "TestName");
 
@@ -42,7 +40,7 @@ public class CatEnvironmentTest {
 
 	@Test
 	public void testWithNoExistGlobalConfigInitialize() throws InterruptedException {
-		Cat.initialize(new File("/data/appdatas/cat/clientNoExist.xml"));
+		Cat.initialize();
 		MessageProducer cat = Cat.getProducer();
 		Transaction t = cat.newTransaction("TestType", "TestName");
 

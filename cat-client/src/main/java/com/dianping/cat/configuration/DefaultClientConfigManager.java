@@ -4,12 +4,10 @@ import java.io.File;
 import java.io.InputStream;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 
 import org.codehaus.plexus.logging.LogEnabled;
 import org.codehaus.plexus.logging.Logger;
-import org.codehaus.plexus.personality.plexus.lifecycle.phase.Initializable;
 import org.codehaus.plexus.personality.plexus.lifecycle.phase.InitializationException;
 import org.unidal.helper.Files;
 import org.unidal.helper.Urls;
@@ -17,16 +15,15 @@ import org.unidal.lookup.annotation.Named;
 
 import com.dianping.cat.Cat;
 import com.dianping.cat.configuration.client.entity.ClientConfig;
-import com.dianping.cat.configuration.client.entity.Domain;
 import com.dianping.cat.configuration.client.entity.Server;
 import com.dianping.cat.configuration.client.transform.DefaultSaxParser;
 import com.dianping.cat.message.spi.MessageTree;
 import com.site.helper.JsonBuilder;
 
 @Named(type = ClientConfigManager.class)
-public class DefaultClientConfigManager implements LogEnabled, ClientConfigManager, Initializable {
+public class DefaultClientConfigManager implements LogEnabled, ClientConfigManager {
 
-	private static final String PROPERTIES_FILE = "/META-INF/app.properties";
+	private static final String PROPERTIES_FILE = EnviromentHelper.PROPERTIES_FILE;
 
 	private ClientConfig m_config;
 
@@ -48,20 +45,8 @@ public class DefaultClientConfigManager implements LogEnabled, ClientConfigManag
 	}
 
 	@Override
-	public Domain getDomain() {
-		Domain domain = null;
-
-		if (m_config != null) {
-			Map<String, Domain> domains = m_config.getDomains();
-
-			domain = domains.isEmpty() ? null : domains.values().iterator().next();
-		}
-
-		if (domain != null) {
-			return domain;
-		} else {
-			return new Domain("UNKNOWN").setEnabled(false);
-		}
+	public String getDomain() {
+		return m_config.getDomain();
 	}
 
 	@Override
@@ -69,7 +54,7 @@ public class DefaultClientConfigManager implements LogEnabled, ClientConfigManag
 		if (m_config == null) {
 			return 5000;
 		} else {
-			return getDomain().getMaxMessageSize();
+			return m_config.getMaxMessageSize();
 		}
 	}
 
@@ -102,7 +87,7 @@ public class DefaultClientConfigManager implements LogEnabled, ClientConfigManag
 					httpPort = 8080;
 				}
 				return String.format("http://%s:%d/cat/s/router?domain=%s&ip=%s&op=json", server.getIp().trim(), httpPort,
-				      getDomain().getId(), NetworkInterfaceManager.INSTANCE.getLocalHostAddress());
+				      getDomain(), NetworkInterfaceManager.INSTANCE.getLocalHostAddress());
 			}
 		}
 		return null;
@@ -122,20 +107,14 @@ public class DefaultClientConfigManager implements LogEnabled, ClientConfigManag
 		return 1024;
 	}
 
-	@Override
-	public void initialize() throws InitializationException {
-		String xml = Cat.getCatHome() + "client.xml";
-		File configFile = new File(xml);
+	public void initialize() throws Exception {
+		String clientXml = Cat.getCatHome() + "client.xml";
+		File configFile = new File(clientXml);
 
-		m_logger.info("client xml path " + xml);
-		initialize(configFile);
-	}
+		m_logger.info("client xml path " + clientXml);
 
-	@Override
-	public void initialize(File configFile) throws InitializationException {
 		try {
 			ClientConfig globalConfig = null;
-			ClientConfig warConfig = null;
 
 			if (configFile != null) {
 				if (configFile.exists()) {
@@ -145,26 +124,43 @@ public class DefaultClientConfigManager implements LogEnabled, ClientConfigManag
 					m_logger.info(String.format("Global config file(%s) found.", configFile));
 				} else {
 					m_logger.warn(String.format("Global config file(%s) not found, IGNORED.", configFile));
+					// read from remote TODO
 				}
 			}
+			globalConfig.setDomain(String.valueOf(loadProjectName()));
 
-			// load the client configure from Java class-path
-			warConfig = loadConfigFromEnviroment();
-
-			// merge the two configures together to make it effected
-			if (globalConfig != null && warConfig != null) {
-				globalConfig.accept(new ClientConfigMerger(warConfig));
-			}
-
-			if (warConfig != null) {
-				warConfig.accept(new ClientConfigValidator());
-			}
-
-			m_config = warConfig;
+			m_config = globalConfig;
+			m_logger.info("init cat with client config:" + m_config);
 		} catch (Exception e) {
 			throw new InitializationException(e.getMessage(), e);
 		}
 	}
+
+	@Override
+	public void initialize(ClientConfig config) throws InitializationException {
+		try {
+			if (config != null) {
+				m_config = config;
+				m_logger.info("setup cat with config:" + config);
+			}
+		} catch (Exception e) {
+			throw new InitializationException(e.getMessage(), e);
+		}
+	}
+
+	// @Override
+	// public void initialize(File configFile) throws InitializationException {
+	// try {
+	// if (configFile != null && configFile.exists()) {
+	// String xml = Files.forIO().readFrom(configFile, "utf-8");
+	//
+	// m_config = DefaultSaxParser.parse(xml);
+	// m_logger.info("override cat config :" + xml);
+	// }
+	// } catch (Exception e) {
+	// throw new InitializationException(e.getMessage(), e);
+	// }
+	// }
 
 	@Override
 	public boolean isAtomicMessage(MessageTree tree) {
@@ -191,18 +187,6 @@ public class DefaultClientConfigManager implements LogEnabled, ClientConfigManag
 		} else {
 			return m_config.isDumpLocked();
 		}
-	}
-
-	private ClientConfig loadConfigFromEnviroment() {
-		String appName = loadProjectName();
-
-		if (appName != null) {
-			ClientConfig config = new ClientConfig();
-
-			config.addDomain(new Domain(appName));
-			return config;
-		}
-		return null;
 	}
 
 	private String loadProjectName() {
