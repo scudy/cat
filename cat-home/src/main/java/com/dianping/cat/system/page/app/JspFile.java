@@ -53,6 +53,10 @@ public enum JspFile {
 
 	APP_METRIC_CONFIG_UPDATE("/jsp/system/appConfig/appMetricConfigUpdate.jsp"),
 
+	APP_METRICS("/jsp/system/appConfig/appMetrics.jsp"),
+
+	APP_METRICS_UPDATE("/jsp/system/appConfig/appMetricUpdate.jsp"),
+
 	;
 
 	private String m_path;

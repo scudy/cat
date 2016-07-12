@@ -16,6 +16,7 @@ import com.dianping.cat.command.entity.Command;
 import com.dianping.cat.config.app.AppCommandConfigManager;
 import com.dianping.cat.config.app.AppCommandConfigManager.AppCommandInfo;
 import com.dianping.cat.config.app.MobileConfigManager;
+import com.dianping.cat.configuration.app.metric.entity.AppMetric;
 import com.dianping.cat.configuration.app.speed.entity.Speed;
 import com.dianping.cat.configuration.group.entity.AppCommandGroupConfig;
 import com.dianping.cat.configuration.mobile.entity.ConstantItem;
@@ -96,6 +97,10 @@ public class Model extends ViewModel<SystemPage, Action, Context> {
 
 	private List<String> m_subCommands;
 
+	private Map<String, AppMetric> m_appMetrics;
+
+	private AppMetric m_appMetric;
+
 	public Model(Context ctx) {
 		super(ctx);
 		try {
@@ -112,6 +117,14 @@ public class Model extends ViewModel<SystemPage, Action, Context> {
 
 	public Item getAppItem() {
 		return m_appItem;
+	}
+
+	public AppMetric getAppMetric() {
+		return m_appMetric;
+	}
+
+	public Map<String, AppMetric> getAppMetrics() {
+		return m_appMetrics;
 	}
 
 	public Map<Integer, Item> getApps() {
@@ -176,6 +189,14 @@ public class Model extends ViewModel<SystemPage, Action, Context> {
 
 	public String getContent() {
 		return m_content;
+	}
+
+	public List<ExceptionLimit> getCrashLimits() {
+		return m_crashLimits;
+	}
+
+	public ExceptionLimit getCrashRule() {
+		return m_crashRule;
 	}
 
 	public String getDate() {
@@ -279,24 +300,16 @@ public class Model extends ViewModel<SystemPage, Action, Context> {
 		return m_versions;
 	}
 
-	public List<ExceptionLimit> getCrashLimits() {
-		return m_crashLimits;
-	}
-
-	public ExceptionLimit getCrashRule() {
-		return m_crashRule;
-	}
-
-	public void setCrashRule(ExceptionLimit crashRule) {
-		m_crashRule = crashRule;
-	}
-
-	public void setCrashLimits(List<ExceptionLimit> crashLimits) {
-		m_crashLimits = crashLimits;
-	}
-
 	public void setAppItem(Item appItem) {
 		m_appItem = appItem;
+	}
+
+	public void setAppMetric(AppMetric appMetric) {
+		m_appMetric = appMetric;
+	}
+
+	public void setAppMetrics(Map<String, AppMetric> appMetrics) {
+		m_appMetrics = appMetrics;
 	}
 
 	public void setApps(Map<Integer, Item> apps) {
@@ -341,6 +354,14 @@ public class Model extends ViewModel<SystemPage, Action, Context> {
 
 	public void setContent(String content) {
 		m_content = content;
+	}
+
+	public void setCrashLimits(List<ExceptionLimit> crashLimits) {
+		m_crashLimits = crashLimits;
+	}
+
+	public void setCrashRule(ExceptionLimit crashRule) {
+		m_crashRule = crashRule;
 	}
 
 	public void setDomain(String domain) {

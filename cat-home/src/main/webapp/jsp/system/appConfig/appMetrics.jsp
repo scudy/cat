@@ -51,56 +51,32 @@
 			})
  		});
 	</script>
-			<div class="tabbable" id="content"> <!-- Only required for left/right tabs -->
-				<ul class="nav nav-tabs padding-12 tab-color-blue background-blue" style="height:50px;" id="myTab">
-					<c:forEach var="item" items="${model.apiCommands}">
-						<li id="tab-${item.key}" class="text-right"><a href="#tabContent-${item.key}" data-toggle="tab"> <strong>${item.key}</strong></a></li>
-					</c:forEach>
-				</ul>
-				<div class="tab-content">
-					<c:forEach var="item" items="${model.apiCommands}">
-					<div class="tab-pane" id="tabContent-${item.key}">
-						<div class="tabbable tabs-left" id="content"> <!-- Only required for left/right tabs -->
-						
-						  <ul class="nav nav-tabs padding-12 ">
-						  	<c:forEach var="entry" items="${item.value.commands}" varStatus="status">
-							    <li id="tab-${item.key}-${entry.key}" class="text-right"><a href="#tabContent-${item.key}-${status.index}" data-toggle="tab"> ${entry.key}</a></li>
-							</c:forEach>
-						  </ul>
-						  <div class="tab-content">
-						  	<c:forEach var="entry" items="${item.value.commands}" varStatus="status">
-							  	<div class="tab-pane" id="tabContent-${item.key}-${status.index}">
-								    <table class="table table-striped table-condensed table-bordered table-hover">
-									    <thead><tr>
-												<th width="30%">名称</th>
-												<th width="32%">标题</th>
-												<th width="10%">过滤阈值</th>
-												<th width="15%">
-													<a href="?op=appBatchAdd&type=api&id=-1&namespace=${item.key}" class="btn btn-primary btn-xs"><i class="ace-icon glyphicon glyphicon-plus bigger-120"></i>批量</a>
-												 	<a href="?op=appUpdate&type=api&id=-1&namespace=${item.key}" class="btn btn-primary btn-xs" >
-												<i class="ace-icon glyphicon glyphicon-plus bigger-120"></i>单个</a></th>
-											</tr>
-										</thead>
-										
-								    	<c:forEach var="command" items="${entry.value}">
-									    	<tr><td>${command.name}</td>
-											<td>${command.title}</td>
-											<td>${command.threshold}</td>
-											<c:if test="${command.id ne 0 }">
-												<td><a href="?op=appUpdate&id=${command.id}&type=api&namespace=${item.key}" class="btn btn-primary btn-xs">
-													<i class="ace-icon fa fa-pencil-square-o bigger-120"></i></a>
-													<a href="?op=appPageDelete&id=${command.id}&type=api" class="btn btn-danger btn-xs delete" >
-													<i class="ace-icon fa fa-trash-o bigger-120"></i></a></td>
-												
-											</c:if></tr>
-								    	</c:forEach>
-								    </table>
-							    </div>
-							</c:forEach>
-						  </div>
-						</div>
-					</div>
-					</c:forEach>
-				</div>
-			</div>
+    <table class="table table-striped table-condensed table-bordered table-hover">
+	    <thead><tr>
+				<th width="auto">id</th>
+				<th width="">metric</th>
+				<th width="">Tags</th>
+				<th width="">
+					<a href="?op=appMetricUpdate" class="btn btn-primary btn-xs">
+					<i class="ace-icon glyphicon glyphicon-plus bigger-120"></i></a></th>
+			</tr>
+		</thead>
+		
+    	<c:forEach var="entry" items="${model.appMetrics}">
+	    	<tr><td>${entry.value.id}</td>
+			<td>${entry.value.metric}</td>
+			<td>
+				<c:forEach var="tag" items="${entry.value.tags }">
+					${tag.id}
+				</c:forEach>
+			</td>
+			<c:if test="${command.id ne 0 }">
+				<td><a href="?op=appMetricUpdate&appMetricId=${entry.value.id}" class="btn btn-primary btn-xs">
+					<i class="ace-icon fa fa-pencil-square-o bigger-120"></i></a>
+					<a href="?op=appMetricDelete&appMetricId=${entry.value.id}" class="btn btn-danger btn-xs delete" >
+					<i class="ace-icon fa fa-trash-o bigger-120"></i></a></td>
+				
+			</c:if></tr>
+    	</c:forEach>
+    </table>
 </a:mobile>

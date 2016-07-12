@@ -44,6 +44,10 @@ public class AppMetricConfigManager implements Initializable {
 		return m_config.getAppMetrics();
 	}
 
+	public void updateAppMetric(AppMetric metric) {
+		m_config.getAppMetrics().put(metric.getId(), metric);
+	}
+
 	@Override
 	public void initialize() throws InitializationException {
 		try {

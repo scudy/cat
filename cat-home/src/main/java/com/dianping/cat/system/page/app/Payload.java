@@ -6,6 +6,7 @@ import org.unidal.web.mvc.payload.annotation.FieldMeta;
 import org.unidal.web.mvc.payload.annotation.ObjectMeta;
 
 import com.dianping.cat.alarm.crash.entity.ExceptionLimit;
+import com.dianping.cat.configuration.app.metric.entity.AppMetric;
 import com.dianping.cat.system.SystemPage;
 
 public class Payload implements ActionPayload<SystemPage, Action> {
@@ -58,13 +59,27 @@ public class Payload implements ActionPayload<SystemPage, Action> {
 
 	@FieldMeta("namespace")
 	private String m_namespace;
-	
+
 	@ObjectMeta("crashRule")
 	private ExceptionLimit m_crashRule = new ExceptionLimit();
+
+	@FieldMeta("appMetricId")
+	private String m_appMetricId;
+
+	@ObjectMeta("appMetric")
+	private AppMetric m_appMetric = new AppMetric();
 
 	@Override
 	public Action getAction() {
 		return m_action;
+	}
+
+	public AppMetric getAppMetric() {
+		return m_appMetric;
+	}
+
+	public String getAppMetricId() {
+		return m_appMetricId;
 	}
 
 	public String getAttributes() {
@@ -81,6 +96,10 @@ public class Payload implements ActionPayload<SystemPage, Action> {
 
 	public String getContent() {
 		return m_content;
+	}
+
+	public ExceptionLimit getCrashRule() {
+		return m_crashRule;
 	}
 
 	public String getDomain() {
@@ -127,14 +146,6 @@ public class Payload implements ActionPayload<SystemPage, Action> {
 	public String getType() {
 		return m_type;
 	}
-	
-	public ExceptionLimit getCrashRule() {
-		return m_crashRule;
-	}
-
-	public void setCrashRule(ExceptionLimit crashRule) {
-		m_crashRule = crashRule;
-	}
 
 	public boolean isAll() {
 		return m_all;
@@ -150,6 +161,14 @@ public class Payload implements ActionPayload<SystemPage, Action> {
 
 	public void setAll(boolean all) {
 		m_all = all;
+	}
+
+	public void setAppMetric(AppMetric appMetric) {
+		m_appMetric = appMetric;
+	}
+
+	public void setAppMetricId(String appMetricId) {
+		m_appMetricId = appMetricId;
 	}
 
 	public void setAttributes(String attributes) {
@@ -170,6 +189,10 @@ public class Payload implements ActionPayload<SystemPage, Action> {
 
 	public void setContent(String content) {
 		m_content = content;
+	}
+
+	public void setCrashRule(ExceptionLimit crashRule) {
+		m_crashRule = crashRule;
 	}
 
 	public void setDomain(String domain) {

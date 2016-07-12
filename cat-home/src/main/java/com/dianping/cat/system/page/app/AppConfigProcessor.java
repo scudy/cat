@@ -34,6 +34,7 @@ import com.dianping.cat.config.app.MobileConfigManager;
 import com.dianping.cat.config.app.MobileConstants;
 import com.dianping.cat.config.app.SdkConfigManager;
 import com.dianping.cat.config.app.command.CommandFormatConfigManager;
+import com.dianping.cat.configuration.app.metric.entity.AppMetric;
 import com.dianping.cat.configuration.app.speed.entity.Speed;
 import com.dianping.cat.configuration.group.entity.SubCommand;
 import com.dianping.cat.configuration.mobile.entity.Item;
@@ -576,12 +577,20 @@ public class AppConfigProcessor {
 			model.setContent(m_configHtmlParser.parse(m_appMetricConfigManager.getConfig().toString()));
 			break;
 		case APP_METRICS:
+			model.setAppMetrics(m_appMetricConfigManager.queryAppMetrics());
 			break;
 		case APP_METRIC_UPDATE:
+			String metricId = payload.getAppMetricId();
+			AppMetric appMetric = m_appMetricConfigManager.queryAppMetrics().get(metricId);
+
+			model.setAppMetric(appMetric);
 			break;
 		case APP_METRIC_DELETE:
 			break;
 		case APP_METRIC_SUBMIT:
+			AppMetric metric = payload.getAppMetric();
+			m_appMetricConfigManager.updateAppMetric(metric);
+			model.setAppMetrics(m_appMetricConfigManager.queryAppMetrics());
 			break;
 		}
 	}
