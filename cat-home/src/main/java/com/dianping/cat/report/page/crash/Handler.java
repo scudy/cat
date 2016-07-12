@@ -113,11 +113,19 @@ public class Handler implements PageHandler<Context> {
 		case CRASH_STATISTICS:
 			buildCrashStatistics(payload, model);
 			break;
+		case CRASH_LOAD_JSON:
+			loadCrash(payload, model);
+			break;
 		}
 
 		if (!ctx.isProcessStopped()) {
 			m_jspViewer.view(ctx, model);
 		}
+	}
+
+	private void loadCrash(Payload payload, Model model) {
+		List<Integer> logs = m_crashLogService.loadCrash(payload.getCrashLogQueryFromStr());
+		model.setFetchData(m_jsonBuilder.toJson(logs));
 	}
 
 	private void buildCrashStatistics(Payload payload, Model model) {

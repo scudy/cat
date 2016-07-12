@@ -23,6 +23,9 @@ public class Payload extends AbstractReportPayload<Action, ReportPage> {
 	@ObjectMeta("crashLogQuery")
 	private CrashLogQueryEntity m_crashLogQuery = new CrashLogQueryEntity();
 
+	@FieldMeta("query")
+	private String m_query;
+
 	@FieldMeta("query1")
 	private String m_query1;
 
@@ -62,6 +65,14 @@ public class Payload extends AbstractReportPayload<Action, ReportPage> {
 	public CrashLogQueryEntity getCrashLogQuery() {
 		return m_crashLogQuery;
 	}
+	
+	public CrashLogQueryEntity getCrashLogQueryFromStr() {
+		if (m_query != null && m_query.length() > 0) {
+			return new CrashLogQueryEntity(m_query);
+		} else {
+			return new CrashLogQueryEntity();
+		}
+	}
 
 	public CrashLogQueryEntity getCrashLogTrendQuery1() {
 		if (m_query1 != null && m_query1.length() > 0) {
@@ -93,6 +104,14 @@ public class Payload extends AbstractReportPayload<Action, ReportPage> {
 		} catch (Exception e) {
 			return TimeHelper.getYesterday();
 		}
+	}
+
+	public String getQuery() {
+		return m_query;
+	}
+
+	public void setQuery(String query) {
+		m_query = query;
 	}
 
 	public int getId() {

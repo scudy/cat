@@ -1,6 +1,5 @@
 package com.dianping.cat.report.page.crash.service;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -12,8 +11,6 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.codehaus.plexus.util.StringUtils;
-import org.unidal.helper.Files;
-import org.unidal.helper.Urls;
 import org.unidal.lookup.annotation.Inject;
 import org.unidal.lookup.annotation.Named;
 
@@ -49,8 +46,6 @@ public class CrashLogService extends LogService {
 	private CrashLogConfigManager m_crashLogConfig;
 
 	private String MODULES = "modules";
-
-	private static final String MAPPER = "mapper";
 
 	public CrashLogDisplayInfo buildCrashGraph(CrashLogQueryEntity entity) {
 		CrashLogDisplayInfo info = new CrashLogDisplayInfo();
@@ -294,14 +289,9 @@ public class CrashLogService extends LogService {
 			CrashLog crashLog = m_crashLogDao.findByPK(id, CrashLogEntity.READSET_FULL);
 			int tag = crashLog.getTag();
 
-			if (tag == Status.NOT_MAPPED.getStatus() || tag == Status.FAILED.getStatus()) {
-				try {
-					String url = m_crashLogConfig.findServerUrl(MAPPER) + "&id=" + id;
-					InputStream in = Urls.forIO().readTimeout(5000).connectTimeout(1000).openStream(url);
-					Files.forIO().readFrom(in, "utf-8");
-				} catch (Exception e) {
-					Cat.logError(e);
-				}
+			if (tag == Status.FAILED.getStatus()) {
+				crashLog.setTag(Status.NOT_MAPPED.getStatus());
+				m_crashLogDao.updateByPK(crashLog, CrashLogEntity.UPDATESET_FULL);
 			}
 
 			info.setAppName(m_mobileConfigManager.getAppName(Integer.valueOf(crashLog.getAppName())));
@@ -329,4 +319,41 @@ public class CrashLogService extends LogService {
 		return info;
 	}
 
+	public List<Integer> loadCrash(CrashLogQueryEntity entity) {
+		Date startTime = entity.buildStartTime();
+		Date endTime = entity.buildEndTime();
+		String appName = entity.getAppName();
+		String appVersion = entity.getAppVersion();
+		String platVersion = entity.getPlatformVersion();
+		String module = entity.getModule();
+		int platform = entity.getPlatform();
+		String unionId = entity.getDpid();
+		String deviceBrand = entity.getDeviceBrand();
+		String deviceModel = entity.getDeviceModel();
+		String msg = entity.getMsg();
+		List<Integer> result = new ArrayList<Integer>();
+		int offset = 0;
+
+		try {
+			while (true) {
+				List<CrashLog> data = m_crashLogDao.findIdsByConditions(startTime, endTime, appName, platform, module,
+				      appVersion, platVersion, msg, deviceBrand, deviceModel, unionId, offset, LIMIT,
+				      CrashLogEntity.READSET_IDS);
+
+				for (CrashLog log : data) {
+					result.add(log.getId());
+				}
+
+				int count = result.size();
+				offset += count;
+
+				if (count < LIMIT) {
+					break;
+				}
+			}
+		} catch (Exception e) {
+			Cat.logError(e);
+		}
+		return result;
+	}
 }

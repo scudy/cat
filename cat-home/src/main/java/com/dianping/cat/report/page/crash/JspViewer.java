@@ -20,6 +20,7 @@ public class JspViewer extends BaseJspViewer<ReportPage, Action, Context, Model>
 		case APP_CRASH_TREND:
 			return JspFile.APP_CRASH_TREND.getPath();
 		case APP_CRASH_LOG_JSON:
+		case CRASH_LOAD_JSON:
 			return JspFile.APP_FETCH_DATA.getPath();
 		case CRASH_STATISTICS:
 			return JspFile.CRASH_STATISTICS.getPath();
