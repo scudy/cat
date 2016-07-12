@@ -1,7 +1,7 @@
 package com.dianping.cat.report.page.crash;
 
 public enum Action implements org.unidal.web.mvc.Action {
-	
+
 	APP_CRASH_LOG("appCrashLog"),
 
 	APP_CRASH_LOG_JSON("appCrashLogJson"),
@@ -10,9 +10,11 @@ public enum Action implements org.unidal.web.mvc.Action {
 
 	APP_CRASH_GRAPH("appCrashGraph"),
 
-	APP_CRASH_TREND("appCrashTrend"), 
-	
-	CRASH_STATISTICS("crashStatistics");
+	APP_CRASH_TREND("appCrashTrend"),
+
+	CRASH_STATISTICS("crashStatistics"),
+
+	CRASH_LOAD_JSON("crashLoadJson");
 
 	private String m_name;
 

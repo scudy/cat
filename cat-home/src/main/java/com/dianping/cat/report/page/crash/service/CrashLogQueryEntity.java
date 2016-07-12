@@ -46,6 +46,10 @@ public class CrashLogQueryEntity {
 
 	private int m_step;
 
+	private String m_deviceBrand;
+
+	private String m_deviceModel;
+
 	public CrashLogQueryEntity() {
 		super();
 	}
@@ -62,6 +66,13 @@ public class CrashLogQueryEntity {
 			m_platformVersion = strs.get(5);
 			m_module = strs.get(6);
 			m_platform = Integer.valueOf(strs.get(7));
+
+			if (strs.size() >= 12) {
+				m_msg = strs.get(8);
+				m_deviceBrand = strs.get(9);
+				m_deviceModel = strs.get(10);
+				m_dpid = strs.get(11);
+			}
 		} catch (Exception e) {
 			Cat.logError(e);
 		}
@@ -201,6 +212,22 @@ public class CrashLogQueryEntity {
 
 	public void setMsg(String msg) {
 		m_msg = msg;
+	}
+
+	public String getDeviceBrand() {
+		return m_deviceBrand;
+	}
+
+	public void setDeviceBrand(String deviceBrand) {
+		m_deviceBrand = deviceBrand;
+	}
+
+	public String getDeviceModel() {
+		return m_deviceModel;
+	}
+
+	public void setDeviceModel(String deviceModel) {
+		m_deviceModel = deviceModel;
 	}
 
 	public String getAppVersion() {

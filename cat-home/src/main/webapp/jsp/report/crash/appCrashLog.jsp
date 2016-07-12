@@ -170,7 +170,7 @@
 				device = "";
 				return;
 			} else {
-				device += o + ":";
+				device += o + "|";
 			}
 		});
 		return device;
@@ -251,7 +251,7 @@
 			if(typeof fields[4] == "undefined" || fields[4].length == 0){
 				$('#device_all').attr("selected", "true");
 			}else{
-				urls = fields[4].split(":");
+				urls = fields[4].split("|");
 				for(var i=0; i<urls.length; i++) {
 					var deviceid = urls[i];
 					if(deviceid != 'null' && deviceid.length != 0) {
@@ -354,7 +354,7 @@
 			document.getElementById(prefix + "All").checked = true;
 			clickAll(fields, prefix);
 		}else{
-			urls = field.split(":");
+			urls = field.split("|");
 			for(var i=0; i<urls.length; i++) {
 				if(document.getElementById(prefix + "_" + urls[i]) != null) {
 					document.getElementById(prefix + "_" + urls[i]).checked = true;
@@ -460,7 +460,7 @@
 			 	var f = prefix + "_" + fs[i];
 				if(document.getElementById(f) != undefined 
 						&& document.getElementById(f).checked){
-					url += fs[i] + ":";
+					url += fs[i] + "|";
 				} 
 			}
 			url = url.substring(0, url.length-1);
