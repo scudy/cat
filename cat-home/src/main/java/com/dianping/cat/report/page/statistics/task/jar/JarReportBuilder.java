@@ -44,7 +44,7 @@ public class JarReportBuilder implements TaskBuilder {
 
 	public static List<String> s_jars = Arrays.asList("cat-client", "cat-core", "dpsf-net", "lion-client",
 	      "avatar-cache", "zebra-ds-monitor-client", "zebra-api", "swallow-client", "swallow-consumerclient",
-	      "swallow-producerclient", "platform-sdk", "squirrel-client");
+	      "swallow-producerclient", "platform-sdk", "squirrel-client", "zebra-dao");
 
 	@Override
 	public boolean buildDailyTask(String name, String domain, Date period) {
