@@ -28,11 +28,6 @@ public class NullMessageProducer implements MessageProducer {
 	}
 
 	@Override
-	public boolean isEnabled() {
-		return false;
-	}
-
-	@Override
 	public void logError(String message, Throwable cause) {
 
 	}

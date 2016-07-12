@@ -2,7 +2,6 @@ package com.dianping.cat.message;
 
 import io.netty.buffer.ByteBuf;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.List;
@@ -20,7 +19,6 @@ import org.unidal.lookup.ComponentTestCase;
 import com.dianping.cat.Cat;
 import com.dianping.cat.configuration.ClientConfigManager;
 import com.dianping.cat.configuration.client.entity.ClientConfig;
-import com.dianping.cat.configuration.client.entity.Domain;
 import com.dianping.cat.configuration.client.entity.Server;
 import com.dianping.cat.message.internal.DefaultTransaction;
 import com.dianping.cat.message.io.MessageSender;
@@ -48,19 +46,15 @@ public class MessageTest extends ComponentTestCase {
 		Assert.assertEquals(expected, sb.toString());
 	}
 
-	protected File getConfigurationFile() {
+	protected ClientConfig getConfigurationFile() {
 		try {
 			ClientConfig config = new ClientConfig();
-
-			config.setMode("client");
-			config.addDomain(new Domain("cat").setMaxMessageSize(8));
+			config.setDomain("cat");
 			config.addServer(new Server("localhost"));
+			config.setMaxMessageSize(8);
 
-			File file = new File("target/cat-config.xml");
-
-			Files.forIO().writeTo(file, config.toString());
-			return file;
-		} catch (IOException e) {
+			return config;
+		} catch (Exception e) {
 			throw new RuntimeException("Unable to create cat-config.xml file!");
 		}
 	}
@@ -74,11 +68,11 @@ public class MessageTest extends ComponentTestCase {
 		MockTransportManager transportManager = (MockTransportManager) lookup(TransportManager.class);
 		transportManager.setQueue(m_queue);
 
-		File configurationFile = getConfigurationFile();
-		Cat.initialize(configurationFile);
+		ClientConfig config = getConfigurationFile();
+		Cat.initialize(config);
 
 		ClientConfigManager configManager = lookup(ClientConfigManager.class);
-		configManager.initialize(configurationFile);
+		configManager.initialize(config);
 
 		m_queue.clear();
 
@@ -292,10 +286,10 @@ public class MessageTest extends ComponentTestCase {
 		}
 
 		@Override
-      public void reset() {
-	      // TODO Auto-generated method stub
-	      
-      }
+		public void reset() {
+			// TODO Auto-generated method stub
+
+		}
 	}
 
 	public static class MockTransportManager implements TransportManager {
@@ -322,8 +316,8 @@ public class MessageTest extends ComponentTestCase {
 				}
 
 				@Override
-            public void initialize(List<InetSocketAddress> addresses) {
-            }
+				public void initialize(List<InetSocketAddress> addresses) {
+				}
 			};
 		}
 	}

@@ -3,7 +3,6 @@ package com.dianping.cat.message.internal;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Queue;
 import java.util.Stack;
@@ -16,12 +15,10 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-import org.unidal.helper.Files;
 import org.unidal.helper.Reflects;
 
 import com.dianping.cat.Cat;
 import com.dianping.cat.configuration.client.entity.ClientConfig;
-import com.dianping.cat.configuration.client.entity.Domain;
 import com.dianping.cat.message.CatTestCase;
 import com.dianping.cat.message.Message;
 import com.dianping.cat.message.MessageProducer;
@@ -38,17 +35,9 @@ public class MessageProducerTest extends CatTestCase {
 	public static void beforeClass() throws IOException {
 		ClientConfig clientConfig = new ClientConfig();
 
-		clientConfig.setMode("client");
-		clientConfig.addDomain(new Domain("Test").setEnabled(true));
+		clientConfig.setDomain("Test").setEnabled(true);
 
-		File configFile = new File("target/client.xml").getCanonicalFile();
-
-		configFile.getParentFile().mkdirs();
-
-		Files.forIO().writeTo(configFile, clientConfig.toString());
-
-		Cat.destroy();
-		Cat.initialize(configFile);
+		Cat.initialize(clientConfig);
 	}
 
 	@Before

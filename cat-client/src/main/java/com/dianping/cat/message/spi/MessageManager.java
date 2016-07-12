@@ -10,6 +10,7 @@ import com.dianping.cat.message.Transaction;
  * Notes: This method is reserved for internal usage only. Application developer should never call this method directly.
  */
 public interface MessageManager {
+	
 	public void add(Message message);
 
 	/**

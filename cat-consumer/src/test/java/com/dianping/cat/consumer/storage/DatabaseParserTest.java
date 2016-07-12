@@ -13,7 +13,7 @@ public class DatabaseParserTest extends ComponentTestCase {
 	@Test
 	public void testOracle() {
 		DatabaseParser parser = lookup(DatabaseParser.class);
-		Database database = parser.parseDatabase("jdbc:oracle:thin:@ 172.20.70.36:1521:gbst");
+		Database database = parser.parseDatabase("jdbc:oracle:thin:@172.20.70.36:1521:gbst");
 
 		Assert.assertEquals("172.20.70.36", database.getIp());
 		Assert.assertEquals("gbst", database.getName());

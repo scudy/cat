@@ -19,7 +19,6 @@ import org.unidal.lookup.annotation.Named;
 import com.dianping.cat.Cat;
 import com.dianping.cat.configuration.ClientConfigManager;
 import com.dianping.cat.configuration.NetworkInterfaceManager;
-import com.dianping.cat.configuration.client.entity.Domain;
 import com.dianping.cat.message.ForkedTransaction;
 import com.dianping.cat.message.Message;
 import com.dianping.cat.message.TaggedTransaction;
@@ -45,7 +44,7 @@ public class DefaultMessageManager extends ContainerHolder implements MessageMan
 
 	private long m_throttleTimes;
 
-	private Domain m_domain;
+	private String m_domain;
 
 	private String m_hostName;
 
@@ -56,6 +55,8 @@ public class DefaultMessageManager extends ContainerHolder implements MessageMan
 	private Map<String, TaggedTransaction> m_taggedTransactions;
 
 	private Logger m_logger;
+
+	private String m_ip;
 
 	@Override
 	public void add(Message message) {
@@ -131,7 +132,7 @@ public class DefaultMessageManager extends ContainerHolder implements MessageMan
 				return ctx;
 			} else {
 				if (m_domain != null) {
-					ctx = new Context(m_domain.getId(), m_hostName, m_domain.getIp());
+					ctx = new Context(m_domain, m_hostName,m_ip);
 				} else {
 					ctx = new Context("Unknown", m_hostName, "");
 				}
@@ -146,7 +147,7 @@ public class DefaultMessageManager extends ContainerHolder implements MessageMan
 
 	@Override
 	public String getDomain() {
-		return m_domain.getId();
+		return m_domain;
 	}
 
 	public String getMetricType() {
@@ -195,14 +196,11 @@ public class DefaultMessageManager extends ContainerHolder implements MessageMan
 	public void initialize() throws InitializationException {
 		m_domain = m_configManager.getDomain();
 		m_hostName = NetworkInterfaceManager.INSTANCE.getLocalHostName();
-
-		if (m_domain.getIp() == null) {
-			m_domain.setIp(NetworkInterfaceManager.INSTANCE.getLocalHostAddress());
-		}
+		m_ip = NetworkInterfaceManager.INSTANCE.getLocalHostAddress();
 
 		// initialize domain and IP address
 		try {
-			m_factory.initialize(m_domain.getId());
+			m_factory.initialize(m_domain);
 		} catch (Exception e) {
 			m_logger.error("error when create mark file", e);
 		}
@@ -222,12 +220,12 @@ public class DefaultMessageManager extends ContainerHolder implements MessageMan
 
 	@Override
 	public boolean isCatEnabled() {
-		return m_domain != null && m_domain.isEnabled() && m_configManager.isCatEnabled();
+		return  m_configManager.isCatEnabled();
 	}
 
 	@Override
 	public boolean isMessageEnabled() {
-		return m_domain != null && m_domain.isEnabled() && m_context.get() != null && m_configManager.isCatEnabled();
+		return m_context.get() != null && m_configManager.isCatEnabled();
 	}
 
 	public boolean isTraceMode() {
@@ -283,7 +281,7 @@ public class DefaultMessageManager extends ContainerHolder implements MessageMan
 		Context ctx;
 
 		if (m_domain != null) {
-			ctx = new Context(m_domain.getId(), m_hostName, m_domain.getIp());
+			ctx = new Context(m_domain, m_hostName, m_ip);
 		} else {
 			ctx = new Context("Unknown", m_hostName, "");
 		}
@@ -627,4 +625,5 @@ public class DefaultMessageManager extends ContainerHolder implements MessageMan
 			}
 		}
 	}
+
 }

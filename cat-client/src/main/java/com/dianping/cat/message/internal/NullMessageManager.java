@@ -91,4 +91,5 @@ public class NullMessageManager implements MessageManager, Initializable, LogEna
 	public String getDomain() {
 		return NullMessageTree.NULL_MESSAGE_TREE.getDomain();
 	}
+
 }

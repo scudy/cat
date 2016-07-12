@@ -38,11 +38,6 @@ public class DefaultMessageProducer implements MessageProducer {
 	}
 
 	@Override
-	public boolean isEnabled() {
-		return m_manager.isMessageEnabled();
-	}
-
-	@Override
 	public void logError(String message, Throwable cause) {
 		if (Cat.getManager().isCatEnabled()) {
 			if (shouldLog(cause)) {
