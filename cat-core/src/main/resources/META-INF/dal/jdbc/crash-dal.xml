@@ -6,6 +6,7 @@
 	    <var name="end-time" value-type="Date" />
 	    <var name="offset" value-type="int" />
 	   	<var name="limit" value-type="int" />
+	   	<var name="init-tag" value-type="int" />
 	   	<readsets>
       	<readset name="COUNT-DATA">
       		<member name="count"/>
@@ -72,6 +73,14 @@
 		LIMIT 1
          ]]></statement>
 		</query>
+		<query name="update-sync" type="UPDATE">
+        	<param name="key-id" />
+        	<param name="init-tag" />
+        <statement><![CDATA[UPDATE <TABLE/>
+        SET <FIELDS/>
+        WHERE <FIELD name='id'/> = ${key-id}
+        and  <FIELD name='tag'/> = ${init-tag}]]></statement>
+      </query>
 	</query-defs>
 	</entity>
 	 <entity name="crash-log-content" table="crash_log_content" alias="clc">

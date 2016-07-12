@@ -48,11 +48,7 @@ public class MobileConfigManager implements Initializable, LogEnabled {
 
 	private volatile Map<String, Integer> m_cities = new ConcurrentHashMap<String, Integer>();
 
-	private volatile Map<String, Integer> m_cities2 = new ConcurrentHashMap<String, Integer>();
-
 	private volatile Map<String, Integer> m_operators = new ConcurrentHashMap<String, Integer>();
-
-	private volatile Map<String, Integer> m_operators2 = new ConcurrentHashMap<String, Integer>();
 
 	private volatile Map<String, Integer> m_platforms = new ConcurrentHashMap<String, Integer>();
 
@@ -76,7 +72,7 @@ public class MobileConfigManager implements Initializable, LogEnabled {
 		}
 	}
 
-	private Map<String, Integer> buildConstantCache(String key, int index) {
+	private Map<String, Integer> buildConstantCache(String key) {
 		ConstantItem items = m_config.findConstantItem(key);
 		Map<String, Integer> results = new ConcurrentHashMap<String, Integer>();
 
@@ -85,10 +81,8 @@ public class MobileConfigManager implements Initializable, LogEnabled {
 				String value = item.getValue();
 				String[] values = value.split(MobileConstants.SPLITTER);
 
-				if (values.length > index) {
-					results.put(values[index], item.getId());
-				} else {
-					Cat.logError(new RuntimeException("Mobile config has wrong value for the key [" + key + "]"));
+				for (String v : values) {
+					results.put(v, item.getId());
 				}
 			}
 		} else {
@@ -338,10 +332,6 @@ public class MobileConfigManager implements Initializable, LogEnabled {
 		Integer cityId = m_cities.get(city);
 
 		if (cityId == null) {
-			cityId = m_cities2.get(city);
-		}
-
-		if (cityId == null) {
 			cityId = m_cities.get(MobileConstants.OTHER);
 		}
 
@@ -352,10 +342,6 @@ public class MobileConfigManager implements Initializable, LogEnabled {
 		Integer operatorId = m_operators.get(operator);
 
 		if (operatorId == null) {
-			operatorId = m_operators2.get(operator);
-		}
-
-		if (operatorId == null) {
 			operatorId = m_operators.get(MobileConstants.OTHER);
 		}
 
@@ -363,11 +349,9 @@ public class MobileConfigManager implements Initializable, LogEnabled {
 	}
 
 	private void refreshData() {
-		m_cities = buildConstantCache(MobileConstants.CITY, 0);
-		m_cities2 = buildConstantCache(MobileConstants.CITY, 1);
-		m_operators = buildConstantCache(MobileConstants.OPERATOR, 0);
-		m_operators2 = buildConstantCache(MobileConstants.OPERATOR, 1);
-		m_platforms = buildConstantCache(MobileConstants.PLATFORM, 0);
+		m_cities = buildConstantCache(MobileConstants.CITY);
+		m_operators = buildConstantCache(MobileConstants.OPERATOR);
+		m_platforms = buildConstantCache(MobileConstants.PLATFORM);
 	}
 
 	public void setConfigDao(ConfigDao dao) {
