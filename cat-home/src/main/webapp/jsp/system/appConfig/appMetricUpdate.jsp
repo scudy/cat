@@ -27,6 +27,7 @@
 		$(document).delegate('#updateSubmit', 'click', function(e){
 			var id = $("#metricId").val();
 			var metric = $("#metric").val().trim();
+			var type = $("#type").val();
 			var tags = $("#tags").val().trim();
 			
 			if(metric == undefined || metric == ""){
@@ -36,7 +37,7 @@
 				return;
 			}
 			
-			window.location.href = "/cat/s/app?op=appMetricSubmit&appMetric.id="+id+"&appMetric.metric="+metric+"&appMetric.tags="+tags;
+			window.location.href = "/cat/s/app?op=appMetricSubmit&appMetric.id="+id+"&appMetric.metric="+metric+"&appMetric.type="+type+"&tags="+tags;
 		})
 	</script>
 	
@@ -51,10 +52,15 @@
 			<td>指标</td><td><input name="appMetric.metric" value="${model.appMetric.metric}"  style="width:300px" id="metric" /><span class="text-danger">&nbsp;&nbsp;后续配置在这个规则的告警，会根据此项目名查找需要发送告警的联系人信息(告警人信息来源CMDB)</span><br/>
 			</td>
 		</tr>
-		<tr><td>tags</td><td><input name="appMetric.type" value="" style="width: 300px;" id="type" /><span class="text-danger">（支持数字、字符）</span><br/>
+		<tr><td>类型</td><td><select name="appMetric.type" style="width: 100px;" id="type" >
+								<option value="avg">求平均</option>
+								<option value="sum">求和</option>
+								<option value="max">求最大</option>
+								<option value="min">求最小</option>
+							</select><span class="text-danger">（支持数字、字符）</span><br/>
 			</td>
 		</tr>
-		<tr><td>tags</td><td><input name="appMetric.tags" value="" style="width: 300px;" id="tags" /><span class="text-danger">（支持数字、字符）</span><br/>
+		<tr><td>tags</td><td><input name="appMetric.tags" value="" style="width: 300px;" id="tags" /><span class="text-danger">（支持数字、字符，多个英文逗号隔开）</span><br/>
 			</td>
 		</tr>
 		<tr>

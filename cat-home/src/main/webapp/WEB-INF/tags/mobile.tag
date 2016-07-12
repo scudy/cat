@@ -109,7 +109,10 @@
 							<li id="brokerConfigUpdate"><a href="/cat/s/app?op=mobileConfigUpdate">
 								<i class="menu-icon fa fa-caret-right"></i>Mobile配置</a>
 								<b class="arrow"></b></li>
-							<li id="appMetricConfigUpdate"><a href="/cat/s/app?op=appMetricConfigUpdate">
+							<li id="appMetricConfigUpdate"  style="display:none"><a href="/cat/s/app?op=appMetricConfigUpdate">
+								<i class="menu-icon fa fa-caret-right"></i>App自定义配置</a>
+								<b class="arrow"></b></li>
+							<li id="appMetrics"><a href="/cat/s/app?op=appMetrics">
 								<i class="menu-icon fa fa-caret-right"></i>App自定义配置</a>
 								<b class="arrow"></b></li>
 							<li id="crashRule"><a href="/cat/s/app?op=crashRuleList">

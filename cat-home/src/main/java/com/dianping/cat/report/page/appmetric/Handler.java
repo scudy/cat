@@ -1,6 +1,7 @@
 package com.dianping.cat.report.page.appmetric;
 
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,7 @@ import com.dianping.cat.config.app.AppMetricConfigManager;
 import com.dianping.cat.config.app.MobileConfigManager;
 import com.dianping.cat.config.app.MobileConstants;
 import com.dianping.cat.configuration.mobile.entity.Item;
+import com.dianping.cat.helper.SortHelper;
 import com.dianping.cat.report.ReportPage;
 import com.dianping.cat.report.graph.LineChart;
 import com.dianping.cat.report.page.appmetric.display.AppGraphCreator;
@@ -42,11 +44,25 @@ public class Handler implements PageHandler<Context> {
 	@Inject
 	private AppMetricConfigManager m_appMetricConfigManager;
 
-	@Override
-	@PayloadMeta(Payload.class)
-	@InboundActionMeta(name = "appmetric")
-	public void handleInbound(Context ctx) throws ServletException, IOException {
-		// display only, no action here
+	private Map<Integer, Item> buildApps() {
+		Map<Integer, Item> apps = new HashMap<Integer, Item>();
+		Map<Integer, Item> sources = m_mobileConfigManager.queryConstantItem(MobileConstants.SOURCE);
+		Map<String, List<Command>> namespaces = m_appCommandConfigManager.queryNamespace2Commands();
+
+		for (Entry<Integer, Item> entry : sources.entrySet()) {
+			String namespace = entry.getValue().getValue();
+
+			if (namespaces.containsKey(namespace)) {
+				apps.put(entry.getKey(), entry.getValue());
+			}
+		}
+		return SortHelper.sortMap(apps, new Comparator<Entry<Integer, Item>>() {
+
+			@Override
+			public int compare(Entry<Integer, Item> o1, Entry<Integer, Item> o2) {
+				return o1.getKey() - o2.getKey();
+			}
+		});
 	}
 
 	private MetricQueryEntity buildMetricQuery(String query, boolean createDefault) {
@@ -62,6 +78,13 @@ public class Handler implements PageHandler<Context> {
 		} else {
 			return null;
 		}
+	}
+
+	@Override
+	@PayloadMeta(Payload.class)
+	@InboundActionMeta(name = "appmetric")
+	public void handleInbound(Context ctx) throws ServletException, IOException {
+		// display only, no action here
 	}
 
 	@Override
@@ -95,23 +118,6 @@ public class Handler implements PageHandler<Context> {
 		model.setApps(buildApps());
 		model.setPlatforms(m_mobileConfigManager.queryConstantItem(MobileConstants.PLATFORM));
 		model.setVersions(m_mobileConfigManager.queryConstantItem(MobileConstants.VERSION));
-		model.setCommands(m_appCommandConfigManager.queryCommands());
 		model.setAppMetrics(m_appMetricConfigManager.getConfig().getAppMetrics());
 	}
-
-	private Map<Integer, Item> buildApps() {
-		Map<Integer, Item> apps = new HashMap<Integer, Item>();
-		Map<Integer, Item> sources = m_mobileConfigManager.queryConstantItem(MobileConstants.SOURCE);
-		Map<String, List<Command>> namespaces = m_appCommandConfigManager.queryNamespace2Commands();
-
-		for (Entry<Integer, Item> entry : sources.entrySet()) {
-			String namespace = entry.getValue().getValue();
-
-			if (namespaces.containsKey(namespace)) {
-				apps.put(entry.getKey(), entry.getValue());
-			}
-		}
-		return apps;
-	}
-
 }

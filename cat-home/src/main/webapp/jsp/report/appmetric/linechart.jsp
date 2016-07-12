@@ -40,8 +40,9 @@
 			var platform = $("#platform").val();
 			var appId = $("#appId").val();
 			var version = $("#version").val();
+			var tags = $("#tags").val();
 			var split = ";";
-			var query1 = start +split + end + split + metric + split + type + split + appId + split + version + split + platform;
+			var query1 = start +split + end + split + metric + split + type + split + appId + split + version + split + platform + split + tags;
 			var query2 = "";
 			var value = document.getElementById("checkbox").checked;
 
@@ -53,7 +54,8 @@
 				var platform2 = $("#platform2").val();
 				var appId2 = $("#appId2").val();
 				var version2 = $("#version2").val();
-				var query2 = start2 +split + end2 + split + metric2 + split + type2 + split + appId2 + split + version2 + split + platform2;
+				var tags2 = $("#tags2").val();
+				var query2 = start2 +split + end2 + split + metric2 + split + type2 + split + appId2 + split + version2 + split + platform2 + split + tags2;
 			}
 
 			var checkboxs = document.getElementsByName("typeCheckbox");
@@ -136,6 +138,8 @@
 					
 					if(typeof(words[2]) != 'undefined' && words[2].length > 0){
 						$('#command').val(words[2]);
+					}else{
+						$('#command').val("${model.defaultMetric.id}");
 					}
 					if(typeof(words[3]) != 'undefined' && words[3].length > 0){
 						$('#type').val(words[3]);
@@ -149,6 +153,8 @@
 					if(typeof(words[6]) != 'undefined' && words[6].length > 0){
 						$('#platform').val(words[6]);
 					}
+					
+					$('#tags').val(words[7]);
 					
 					
 					if (query2 != null && query2 != '') {
@@ -183,8 +189,7 @@
 						if(typeof(words[6]) != 'undefined' && words[6].length > 0){
 							$('#platform2').val(words[6]);
 						}
-						
-						
+						$('#tags2').val(words[7]);
 					}
 					
 					 $.widget( "custom.catcomplete", $.ui.autocomplete, {

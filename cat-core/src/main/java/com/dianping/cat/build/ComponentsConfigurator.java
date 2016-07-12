@@ -14,6 +14,7 @@ import com.dianping.cat.analysis.DefaultMessageHandler;
 import com.dianping.cat.analysis.RealtimeConsumer;
 import com.dianping.cat.analysis.TcpSocketReceiver;
 import com.dianping.cat.config.ReportReloadConfigManager;
+import com.dianping.cat.config.app.AggregationConfigService;
 import com.dianping.cat.config.app.AppCommandConfigManager;
 import com.dianping.cat.config.app.AppCommandGroupConfigManager;
 import com.dianping.cat.config.app.AppCommandTableProvider;
@@ -99,6 +100,7 @@ public class ComponentsConfigurator extends AbstractJdbcResourceConfigurator {
 		all.add(A(SdkConfigManager.class));
 		all.add(A(ReportReloadConfigManager.class));
 		all.add(A(AppMetricConfigManager.class));
+		all.add(A(AggregationConfigService.class));
 
 		all.add(A(DefaultUrlPatternHandler.class));
 		all.add(A(UrlPatternConfigManager.class));

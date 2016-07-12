@@ -63,6 +63,13 @@
 						</c:forEach>
 					</select>
 	            </div>
+	            <div class="input-group" style="float:left;width:350px">
+					<span class="input-group-addon">自定义标签</span>
+						<span class="input-icon" style="width:350px;">
+							<input type="text" placeholder="input tags for search" class="search-input search-input form-control ui-autocomplete-input" id="tags" autocomplete="on" data=""/>
+							<i class="ace-icon fa fa-search nav-search-icon"></i>
+						</span>
+	            </div>
 	            <input class="btn btn-primary btn-sm"
 					value="&nbsp;&nbsp;&nbsp;查询&nbsp;&nbsp;&nbsp;" onclick="query()"
 					type="submit" /> <input class="btn btn-primary btn-sm" id="checkbox"
@@ -128,6 +135,13 @@
 							<option value='${item.value.id}'>${item.value.value}</option>
 						</c:forEach>
 					</select>
+	            </div>
+	            <div class="input-group" style="float:left;width:350px">
+					<span class="input-group-addon">自定义标签</span>
+						<span class="input-icon" style="width:350px;">
+							<input type="text" placeholder="input tags for search" class="search-input search-input form-control ui-autocomplete-input" id="tags2" autocomplete="on" data=""/>
+							<i class="ace-icon fa fa-search nav-search-icon"></i>
+						</span>
 	            </div>
 	            </th>
 			</tr>

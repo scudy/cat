@@ -12,7 +12,6 @@ import org.unidal.lookup.util.StringUtils;
 
 import com.dianping.cat.Cat;
 import com.dianping.cat.helper.TimeHelper;
-import com.dianping.cat.report.page.appmetric.AppMetricConstants;
 import com.dianping.cat.report.page.appmetric.display.MetricType;
 
 public class MetricQueryEntity {
@@ -82,7 +81,7 @@ public class MetricQueryEntity {
 
 			for (int i = 7; i < size; i++) {
 				String kvs = fields.get(i);
-				String[] values = kvs.split(":");
+				String[] values = kvs.split("=");
 				String value = values[1];
 
 				if (StringUtils.isNotEmpty(value)) {
@@ -146,7 +145,7 @@ public class MetricQueryEntity {
 		sb.append("end=").append(m_end.getTime()).append("&");
 
 		sb.append("m=").append(m_type.getName()).append(":").append(m_metric).append(".")
-		      .append(AppMetricConstants.METRIC_DOMAIN);
+		      .append(AppMetricService.METRIC_DOMAIN);
 
 		if (m_tags.size() > 0) {
 			sb.append("{");

@@ -1,4 +1,4 @@
-package com.dianping.cat.report.page.appmetric.service;
+package com.dianping.cat.config.app;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,6 +15,8 @@ import org.unidal.helper.Files;
 import org.unidal.lookup.annotation.Named;
 
 import com.dianping.cat.Cat;
+import com.dianping.cat.configuration.app.metric.entity.AppMetric;
+import com.dianping.cat.configuration.app.metric.entity.Tag;
 import com.dianping.cat.helper.JsonBuilder;
 
 @Named
@@ -27,18 +29,25 @@ public class AggregationConfigService {
 	private static final String TOKEN = "1#@_b!!jqwsuscr5lz8iuztp^yvt28n18!(8#$4%8m$43311%v#";
 
 	@SuppressWarnings("unchecked")
-	public boolean update(String metric, String type, String groupbyTags, int time) {
+	public boolean update(AppMetric appMetric) {
 		StringBuilder sb = new StringBuilder();
 
 		try {
 			sb.append("token=").append(URLEncoder.encode(TOKEN, "utf-8")).append("&");
 			sb.append("app_name=").append(URLEncoder.encode(METRCI_DOMAIN, "utf-8")).append("&");
-			sb.append("metric=").append(URLEncoder.encode(metric, "utf-8")).append("&");
-			sb.append("type=").append(URLEncoder.encode(type, "utf-8")).append("&");
-			sb.append("groupby_tags=").append(URLEncoder.encode(groupbyTags, "utf-8")).append("&");
-			sb.append("time_granularities=").append(URLEncoder.encode(String.valueOf(time), "utf-8"));
+			sb.append("metric=").append(URLEncoder.encode(appMetric.getMetric(), "utf-8")).append("&");
+			sb.append("type=").append(URLEncoder.encode(appMetric.getType(), "utf-8")).append("&");
+
+			String tags = "";
+			for (Tag t : appMetric.getTags()) {
+				tags += "," + t.getId();
+			}
+			tags.substring(0, tags.length() - 1);
+			sb.append("groupby_tags=").append(URLEncoder.encode(tags, "utf-8")).append("&");
+			sb.append("time_granularities=")
+			      .append(URLEncoder.encode(String.valueOf(appMetric.getGranularity()), "utf-8"));
 		} catch (UnsupportedEncodingException e) {
-			Cat.logError(metric + ":" + type + ":" + groupbyTags, e);
+			Cat.logError(appMetric.toString(), e);
 		}
 		String result = readFromPost(URL, sb.toString());
 		JsonBuilder builder = new JsonBuilder();

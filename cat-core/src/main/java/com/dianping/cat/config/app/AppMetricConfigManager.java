@@ -1,5 +1,8 @@
 package com.dianping.cat.config.app;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Map;
 
 import org.codehaus.plexus.personality.plexus.lifecycle.phase.Initializable;
@@ -12,6 +15,7 @@ import com.dianping.cat.Cat;
 import com.dianping.cat.config.content.ContentFetcher;
 import com.dianping.cat.configuration.app.metric.entity.AppMetric;
 import com.dianping.cat.configuration.app.metric.entity.AppMetricConfig;
+import com.dianping.cat.configuration.app.metric.entity.Tag;
 import com.dianping.cat.configuration.app.metric.transform.DefaultSaxParser;
 import com.dianping.cat.core.config.Config;
 import com.dianping.cat.core.config.ConfigDao;
@@ -28,6 +32,9 @@ public class AppMetricConfigManager implements Initializable {
 	@Inject
 	protected ContentFetcher m_fetcher;
 
+	@Inject
+	private AggregationConfigService m_aggregationConfigService;
+
 	private int m_configId;
 
 	private long m_modifyTime;
@@ -36,16 +43,14 @@ public class AppMetricConfigManager implements Initializable {
 
 	private static final String CONFIG_NAME = "app-metric-config";
 
+	public boolean delete(String metricId) {
+		m_config.removeAppMetric(metricId);
+
+		return storeConfig();
+	}
+
 	public AppMetricConfig getConfig() {
 		return m_config;
-	}
-
-	public Map<String, AppMetric> queryAppMetrics() {
-		return m_config.getAppMetrics();
-	}
-
-	public void updateAppMetric(AppMetric metric) {
-		m_config.getAppMetrics().put(metric.getId(), metric);
 	}
 
 	@Override
@@ -102,6 +107,10 @@ public class AppMetricConfigManager implements Initializable {
 		}
 	}
 
+	public Map<String, AppMetric> queryAppMetrics() {
+		return m_config.getAppMetrics();
+	}
+
 	private void refreshConfig() throws Exception {
 		Config config = m_configDao.findByName(CONFIG_NAME, ConfigEntity.READSET_FULL);
 		long modifyTime = config.getModifyDate().getTime();
@@ -133,6 +142,46 @@ public class AppMetricConfigManager implements Initializable {
 			}
 		}
 		return true;
+	}
+
+	public boolean updateAppMetric(AppMetric metric) {
+		String m = metric.getMetric();
+		StringBuilder sb = new StringBuilder();
+
+		sb.append(m).append("_groupby");
+
+		List<Tag> tags = metric.getTags();
+
+		Collections.sort(tags, new Comparator<Tag>() {
+
+			@Override
+			public int compare(Tag o1, Tag o2) {
+				return o1.getId().compareTo(o2.getId());
+			}
+
+		});
+
+		for (Tag tag : tags) {
+			sb.append("_").append(tag.getId());
+		}
+		sb.append("_Minutely");
+
+		String originId = metric.getId();
+		String id = sb.toString();
+
+		metric.setId(id);
+
+		if (m_aggregationConfigService.update(metric)) {
+			m_config.addAppMetric(metric);
+
+			if (!id.equals(originId)) {
+				m_config.removeAppMetric(originId);
+			}
+			return storeConfig();
+		} else {
+			Cat.logError(new RuntimeException("update to dabai error. " + metric));
+			return false;
+		}
 	}
 
 }

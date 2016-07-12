@@ -1,5 +1,8 @@
 package com.dianping.cat.system.page.app;
 
+import java.util.List;
+
+import org.unidal.helper.Splitters;
 import org.unidal.web.mvc.ActionContext;
 import org.unidal.web.mvc.ActionPayload;
 import org.unidal.web.mvc.payload.annotation.FieldMeta;
@@ -68,6 +71,17 @@ public class Payload implements ActionPayload<SystemPage, Action> {
 
 	@ObjectMeta("appMetric")
 	private AppMetric m_appMetric = new AppMetric();
+
+	@FieldMeta("tags")
+	private List<String> m_tags;
+
+	public List<String> getTags() {
+		return m_tags;
+	}
+
+	public void setTags(String tags) {
+		m_tags = Splitters.by(",").trim().split(tags);
+	}
 
 	@Override
 	public Action getAction() {
