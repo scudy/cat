@@ -70,8 +70,10 @@ public class DatabaseParser implements LogEnabled {
 						String ip = "Default";
 
 						for (String str : tabs) {
-							if (str.startsWith("@")) {
-								ip = str.substring(1).trim();
+							int index = str.indexOf("@");
+
+							if (index > -1) {
+								ip = str.substring(index + 1).trim();
 							}
 						}
 						String name = tabs[tabs.length - 1];
