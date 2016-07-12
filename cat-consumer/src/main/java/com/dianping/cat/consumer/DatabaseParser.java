@@ -48,19 +48,38 @@ public class DatabaseParser implements LogEnabled {
 
 					m_connections.put(connection, database);
 				} else if (connection.contains("jdbc:oracle")) {
-					String[] tabs = connection.split(":");
-					String ip = "Default";
+					if (connection.indexOf("DESCRIPTION") > -1) {
+						String name = find(connection, "SERVICE_NAME");
+						String ip = find(connection, "HOST");
 
-					for (String str : tabs) {
-						if (str.startsWith("@")) {
-							ip = str.substring(1).trim();
+						database = new Database(name, ip);
+						m_connections.put(connection, database);
+					} else if (connection.indexOf("@//") > -1) {
+						String[] tabs = connection.split("/");
+						String name = tabs[tabs.length - 1];
+						String ip = tabs[tabs.length - 2];
+						int index = ip.indexOf(':');
+
+						if (index > -1) {
+							ip = ip.substring(0, index);
 						}
+						database = new Database(name, ip);
+						m_connections.put(connection, database);
+					} else {
+						String[] tabs = connection.split(":");
+						String ip = "Default";
+
+						for (String str : tabs) {
+							if (str.startsWith("@")) {
+								ip = str.substring(1).trim();
+							}
+						}
+						String name = tabs[tabs.length - 1];
+
+						database = new Database(name, ip);
+
+						m_connections.put(connection, database);
 					}
-					String name = tabs[tabs.length - 1];
-
-					database = new Database(name, ip);
-
-					m_connections.put(connection, database);
 				} else {
 					m_errorConnections.add(connection);
 					m_logger.info("Unrecognized jdbc connection string: " + connection);
@@ -71,6 +90,24 @@ public class DatabaseParser implements LogEnabled {
 			}
 		}
 		return database;
+	}
+
+	public String find(String con, String key) {
+		int index = con.indexOf(key);
+		int start = 0;
+		int end = 0;
+		if (index > -1) {
+			for (int i = index + key.length(); i < con.length(); i++) {
+				if (con.charAt(i) == '=') {
+					start = i + 1;
+				}
+				if (con.charAt(i) == ')') {
+					end = i;
+					break;
+				}
+			}
+		}
+		return con.substring(start, end);
 	}
 
 	public void showErrorCon() {
