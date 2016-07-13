@@ -42,11 +42,15 @@ public class Cat {
 
 	private PlexusContainer m_container;
 
+	private static int m_errorCount;
+
 	private static Cat s_instance = new Cat();
 
 	private static volatile boolean s_init = false;
 
-	private static int m_errorCount;
+	public static final String CLENT_CONFIG = "cat-client-config";
+
+	public static final String UNKNOWN = "unknown";
 
 	private static void checkAndInitialize() {
 		try {
@@ -171,18 +175,6 @@ public class Cat {
 		}
 	}
 
-	public static void initialize(PlexusContainer container, File configFile) {
-		ModuleContext ctx = new DefaultModuleContext(container);
-		Module module = ctx.lookup(Module.class, CatClientModule.ID);
-
-		if (!module.isInitialized()) {
-			ModuleInitializer initializer = ctx.lookup(ModuleInitializer.class);
-
-			ctx.setAttribute("cat-client-config-file", configFile);
-			initializer.execute(ctx, module);
-		}
-	}
-
 	public static void initialize(String... servers) {
 		try {
 			ClientConfig config = new ClientConfig();
@@ -190,8 +182,8 @@ public class Cat {
 			for (String server : servers) {
 				config.addServer(new Server(server));
 			}
-			
-			config.setDomain(EnvironmentHelper.loadAppNameByProperty("unknown"));
+
+			config.setDomain(EnvironmentHelper.loadAppNameByProperty(UNKNOWN));
 
 			initialize(config);
 		} catch (Exception e) {
@@ -205,6 +197,8 @@ public class Cat {
 			if (!s_init) {
 				synchronized (s_instance) {
 					if (!s_init) {
+						System.setProperty(Cat.CLENT_CONFIG, config.toString());
+
 						PlexusContainer container = ContainerLoader.getDefaultContainer();
 						ModuleContext ctx = new DefaultModuleContext(container);
 						Module module = ctx.lookup(Module.class, CatClientModule.ID);
@@ -212,7 +206,6 @@ public class Cat {
 						if (!module.isInitialized()) {
 							ModuleInitializer initializer = ctx.lookup(ModuleInitializer.class);
 
-							ctx.setAttribute("cat-client-config", config);
 							initializer.execute(ctx, module);
 						}
 						log("INFO", "Cat is lazy initialized!");

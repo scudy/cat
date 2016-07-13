@@ -8,9 +8,11 @@ import java.util.Properties;
 
 import org.codehaus.plexus.logging.LogEnabled;
 import org.codehaus.plexus.logging.Logger;
+import org.codehaus.plexus.personality.plexus.lifecycle.phase.Initializable;
 import org.unidal.helper.Files;
 import org.unidal.helper.Urls;
 import org.unidal.lookup.annotation.Named;
+import org.unidal.lookup.util.StringUtils;
 
 import com.dianping.cat.Cat;
 import com.dianping.cat.configuration.client.entity.ClientConfig;
@@ -20,7 +22,7 @@ import com.dianping.cat.message.spi.MessageTree;
 import com.site.helper.JsonBuilder;
 
 @Named(type = ClientConfigManager.class)
-public class DefaultClientConfigManager implements LogEnabled, ClientConfigManager {
+public class DefaultClientConfigManager implements LogEnabled, ClientConfigManager, Initializable {
 
 	private static final String PROPERTIES_FILE = EnvironmentHelper.PROPERTIES_FILE;
 
@@ -45,10 +47,10 @@ public class DefaultClientConfigManager implements LogEnabled, ClientConfigManag
 
 	@Override
 	public String getDomain() {
-		if(m_config!=null){
+		if (m_config != null) {
 			return m_config.getDomain();
-		}else{
-			return "unknown";
+		} else {
+			return Cat.UNKNOWN;
 		}
 	}
 
@@ -111,6 +113,23 @@ public class DefaultClientConfigManager implements LogEnabled, ClientConfigManag
 	}
 
 	public void initialize() {
+		String config = System.getProperty(Cat.CLENT_CONFIG);
+
+		if (StringUtils.isNotEmpty(config)) {
+			try {
+				ClientConfig clientConfig = DefaultSaxParser.parse(config);
+
+				initialize(clientConfig);
+			} catch (Exception e) {
+				m_logger.error("error in client config " + config, e);
+				initializeWithDefault();
+			}
+		} else {
+			initializeWithDefault();
+		}
+	}
+
+	private void initializeWithDefault() {
 		String clientXml = Cat.getCatHome() + "client.xml";
 		File configFile = new File(clientXml);
 
@@ -140,13 +159,14 @@ public class DefaultClientConfigManager implements LogEnabled, ClientConfigManag
 				globalConfig = new ClientConfig();
 			}
 		}
-		globalConfig.setDomain(String.valueOf(loadProjectName()));
+		String appName = String.valueOf(loadProjectName());
+		System.err.println(appName);
+		globalConfig.setDomain(appName);
 
 		m_config = globalConfig;
 		m_logger.info("setup cat with default config:" + m_config);
 	}
 
-	@Override
 	public void initialize(ClientConfig config) {
 		try {
 			if (config != null) {
@@ -187,7 +207,6 @@ public class DefaultClientConfigManager implements LogEnabled, ClientConfigManag
 	}
 
 	private String loadProjectName() {
-		String appName = null;
 		InputStream in = null;
 		try {
 			in = Thread.currentThread().getContextClassLoader().getResourceAsStream(PROPERTIES_FILE);
@@ -200,12 +219,12 @@ public class DefaultClientConfigManager implements LogEnabled, ClientConfigManag
 
 				prop.load(in);
 
-				appName = prop.getProperty("app.name");
+				String appName = prop.getProperty("app.name");
 				if (appName != null) {
 					m_logger.info(String.format("Find domain name %s from app.properties.", appName));
+					return appName;
 				} else {
 					m_logger.info(String.format("Can't find app.name from app.properties."));
-					return null;
 				}
 			} else {
 				m_logger.info(String.format("Can't find app.properties in %s", PROPERTIES_FILE));
@@ -220,7 +239,7 @@ public class DefaultClientConfigManager implements LogEnabled, ClientConfigManag
 				}
 			}
 		}
-		return appName;
+		return Cat.UNKNOWN;
 	}
 
 	public void refreshConfig() {

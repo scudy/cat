@@ -3,4 +3,7 @@
    <rule pattern="http://m.dianping.com/shopping/mallshoplist/{id}" type="1">
       <command id="http://m.dianping.com/shopping/mallshoplist/"/>
    </rule>
+   <rule pattern="www.dianping.com/ugcmtold/dealfeedback/v1/{item}" type="1">
+      <command id="www.dianping.com/ugcmtold/dealfeedback/v1/"/>
+   </rule>
 </command-format>
