@@ -160,7 +160,6 @@ public class DefaultClientConfigManager implements LogEnabled, ClientConfigManag
 			}
 		}
 		String appName = String.valueOf(loadProjectName());
-		System.err.println(appName);
 		globalConfig.setDomain(appName);
 
 		m_config = globalConfig;
