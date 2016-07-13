@@ -56,9 +56,6 @@
          <page name="alert" title="Alert" path="alert" template="default">
             <description>Alert</description>
          </page>
-         <page name="overload" title="Overload" path="overload" template="default">
-            <description>Overload</description>
-         </page>
          <page name="storage" title="Storage" path="storage" template="default">
             <description>Storage</description>
          </page>

@@ -132,12 +132,6 @@
 						<b class="arrow fa fa-angle-down"></b>
 					</a> <b class="arrow"></b>
 					<ul class="submenu">
-						<li id="overload_report" >
-						<a href="/cat/r/overload?domain=${model.domain}&op=${payload.action.name}">
-							<i class="menu-icon  fa  fa-flask"></i>
-							<span class="menu-text">报表容量统计</span>
-						</a>
-					</li>
 					<li id="service_report" >
 						<a href="/cat/r/statistics?domain=${model.domain}&ip=${model.ipAddress}&date=${model.date}&op=service">
 							<i class="menu-icon glyphicon glyphicon-check"></i>

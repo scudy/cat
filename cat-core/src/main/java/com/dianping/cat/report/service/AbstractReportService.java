@@ -65,6 +65,8 @@ public abstract class AbstractReportService<T> implements LogEnabled, ReportServ
 	@Inject
 	protected MonthlyReportContentDao m_monthlyReportContentDao;
 
+	protected Logger m_logger;
+
 	private Map<String, Set<String>> m_domains = new LinkedHashMap<String, Set<String>>() {
 
 		private static final long serialVersionUID = 1L;
@@ -75,7 +77,9 @@ public abstract class AbstractReportService<T> implements LogEnabled, ReportServ
 		}
 	};
 
-	protected Logger m_logger;
+	public static final long BIG = 20 * 8 * 1024 * 1024L;
+
+	public static final long MAX = 100 * 8 * 1024 * 1024L;
 
 	public static final int s_hourly = 1;
 
@@ -118,6 +122,17 @@ public abstract class AbstractReportService<T> implements LogEnabled, ReportServ
 
 	@Override
 	public boolean insertDailyReport(DailyReport report, byte[] content) {
+		if (content.length > BIG) {
+			String eventName = "Daily-" + report.getName() + "-" + report.getDomain();
+			Cat.logEvent("BigReport", eventName, Event.SUCCESS, report.toString() + " length:" + content.length / 1024
+			      / 1024 / 8);
+
+			if (content.length > MAX) {
+				Cat.logEvent("DiscardMaxReport", eventName);
+				return true;
+			}
+		}
+
 		try {
 			m_dailyReportDao.insert(report);
 
@@ -136,6 +151,16 @@ public abstract class AbstractReportService<T> implements LogEnabled, ReportServ
 
 	@Override
 	public boolean insertHourlyReport(HourlyReport report, byte[] content) {
+		if (content.length > BIG) {
+			String eventName = "Hourly-" + report.getName() + "-" + report.getDomain();
+			Cat.logEvent("BigReport", eventName, Event.SUCCESS, report.toString() + " length:" + content.length / 1024
+			      / 1024 / 8);
+
+			if (content.length > MAX) {
+				Cat.logEvent("DiscardMaxReport", eventName);
+				return true;
+			}
+		}
 		try {
 			m_hourlyReportDao.insert(report);
 
@@ -155,6 +180,16 @@ public abstract class AbstractReportService<T> implements LogEnabled, ReportServ
 
 	@Override
 	public boolean insertMonthlyReport(MonthlyReport report, byte[] content) {
+		if (content.length > BIG) {
+			String eventName = "Monthly-" + report.getName() + "-" + report.getDomain();
+			Cat.logEvent("BigReport", eventName, Event.SUCCESS, report.toString() + " length:" + content.length / 1024
+			      / 1024 / 8);
+
+			if (content.length > MAX) {
+				Cat.logEvent("DiscardMaxReport", eventName);
+				return true;
+			}
+		}
 		try {
 			MonthlyReport monthReport = m_monthlyReportDao.findReportByDomainNamePeriod(report.getPeriod(),
 			      report.getDomain(), report.getName(), MonthlyReportEntity.READSET_FULL);
@@ -191,6 +226,16 @@ public abstract class AbstractReportService<T> implements LogEnabled, ReportServ
 
 	@Override
 	public boolean insertWeeklyReport(WeeklyReport report, byte[] content) {
+		if (content.length > BIG) {
+			String eventName = "Weekly-" + report.getName() + "-" + report.getDomain();
+			Cat.logEvent("BigReport", eventName, Event.SUCCESS, report.toString() + " length:" + content.length / 1024
+			      / 1024 / 8);
+
+			if (content.length > MAX) {
+				Cat.logEvent("DiscardMaxReport", eventName);
+				return true;
+			}
+		}
 		try {
 			WeeklyReport weeklyReport = m_weeklyReportDao.findReportByDomainNamePeriod(report.getPeriod(),
 			      report.getDomain(), report.getName(), WeeklyReportEntity.READSET_FULL);
