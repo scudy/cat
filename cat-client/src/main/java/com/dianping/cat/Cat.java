@@ -191,6 +191,25 @@ public class Cat {
 		}
 	}
 
+	public static void initialize(PlexusContainer container, File configFile) {
+		String config;
+		try {
+			config = Files.forIO().readFrom(configFile, "utf-8");
+			System.setProperty(CLENT_CONFIG, config);
+		} catch (Exception e) {
+			// ingnore
+		}
+
+		ModuleContext ctx = new DefaultModuleContext(container);
+		Module module = ctx.lookup(Module.class, CatClientModule.ID);
+
+		if (!module.isInitialized()) {
+			ModuleInitializer initializer = ctx.lookup(ModuleInitializer.class);
+
+			initializer.execute(ctx, module);
+		}
+	}
+
 	// this should be called during application initialization time
 	public static void initialize(ClientConfig config) {
 		try {
