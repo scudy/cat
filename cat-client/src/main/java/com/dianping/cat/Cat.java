@@ -209,6 +209,14 @@ public class Cat {
 		}
 	}
 
+	/**
+	 * @deprecated
+	 * @param configFile
+	 */
+	public static void initialize(File configFile) {
+
+	}
+
 	// this should be called during application initialization time
 	public static void initialize(ClientConfig config) {
 		try {
