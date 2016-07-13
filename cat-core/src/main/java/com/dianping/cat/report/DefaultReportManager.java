@@ -275,7 +275,7 @@ public class DefaultReportManager<T> extends ContainerHolder implements ReportMa
 				String xml = m_reportDelegate.buildXml(report);
 
 				bucket.storeById(domain, xml);
-			} catch (Exception e) {
+			} catch (Throwable e) {
 				Cat.logError(e);
 			}
 		}
