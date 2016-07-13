@@ -21,6 +21,7 @@ import org.unidal.dal.jdbc.DalException;
 import org.unidal.dal.jdbc.DalNotFoundException;
 import org.unidal.lookup.annotation.Inject;
 import org.unidal.lookup.annotation.Named;
+import org.unidal.lookup.util.StringUtils;
 import org.unidal.tuple.Pair;
 import org.xml.sax.SAXException;
 
@@ -249,18 +250,22 @@ public class RouterConfigManager implements Initializable, LogEnabled {
 	}
 
 	public String queryServerGroupByIp(String ip) {
-		String group = m_ipToGroupInfo.get(ip);
-
-		if (group == null) {
-			group = queryGroupBySubnet(ip);
+		if (StringUtils.isNotEmpty(ip)) {
+			String group = m_ipToGroupInfo.get(ip);
 
 			if (group == null) {
-				group = DEFAULT;
-			}
+				group = queryGroupBySubnet(ip);
 
-			m_ipToGroupInfo.put(ip, group);
+				if (group == null) {
+					group = DEFAULT;
+				}
+
+				m_ipToGroupInfo.put(ip, group);
+			}
+			return group;
+		} else {
+			return DEFAULT;
 		}
-		return group;
 	}
 
 	public List<Server> queryServersByDomain(String group, String domain) {

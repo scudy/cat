@@ -14,6 +14,7 @@ import org.codehaus.plexus.personality.plexus.lifecycle.phase.Initializable;
 import org.codehaus.plexus.personality.plexus.lifecycle.phase.InitializationException;
 import org.unidal.dal.jdbc.DalNotFoundException;
 import org.unidal.lookup.annotation.Inject;
+import org.unidal.lookup.util.StringUtils;
 
 import com.dianping.cat.Cat;
 import com.dianping.cat.config.content.ContentFetcher;
@@ -138,18 +139,21 @@ public class LaunchConfigManager implements Initializable {
 	}
 
 	public List<Server> queryServersGroupByIp(String ip) {
-		String group = m_ipToGroupInfo.get(ip);
+		String group = DEFAULT;
 
-		if (group == null) {
-			group = queryGroupBySubnet(ip);
+		if (StringUtils.isNotEmpty(ip)) {
+			group = m_ipToGroupInfo.get(ip);
 
 			if (group == null) {
-				group = DEFAULT;
+				group = queryGroupBySubnet(ip);
+
+				if (group == null) {
+					group = DEFAULT;
+				}
+
+				m_ipToGroupInfo.put(ip, group);
 			}
-
-			m_ipToGroupInfo.put(ip, group);
 		}
-
 		ServerGroup serverGroup = m_config.findServerGroup(group);
 
 		if (serverGroup != null && m_config.getServerGroups().containsKey(group)) {
