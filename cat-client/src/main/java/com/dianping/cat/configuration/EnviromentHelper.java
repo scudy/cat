@@ -1,24 +1,25 @@
 package com.dianping.cat.configuration;
 
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
+
+import org.unidal.helper.Files;
+import org.unidal.helper.Urls;
 
 import com.dianping.cat.Cat;
 
 public class EnviromentHelper {
 
-	private static final String HOST = "http://cat.dianpingoa.com/cat/s/server";
+	public static final String URL = "http://cat.dianpingoa.com/cat/s/server";
 
 	public static final String PROPERTIES_FILE = "/META-INF/app.properties";
 
-	public static List<String> getServers() {
-		String host = org.unidal.helper.Properties.forString().fromEnv().fromSystem().getProperty("CAT_PATH", HOST)
+	public static String fetchClientConfig() throws Exception {
+		String url = org.unidal.helper.Properties.forString().fromEnv().fromSystem().getProperty("CAT_PATH", URL)
 		      + "?ip=" + NetworkInterfaceManager.INSTANCE.getLocalHostAddress();
-		List<String> list = new ArrayList<String>();
+		InputStream in = Urls.forIO().readTimeout(3000).connectTimeout(3000).openStream(url);
 
-		return list;
+		return Files.forIO().readFrom(in, "utf-8");
 	}
 
 	public static String loadAppNameByProperty(String defaultDomain) {

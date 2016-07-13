@@ -29,11 +29,11 @@ public class StorageRPCBuilder implements StorageBuilder {
 			if (message instanceof Event) {
 				String type = message.getType();
 
-				if (type.equals("PigeonCall.app")) {
+				if ("PigeonCall.app".equals(type) || "Call.app".equals(type)) {
 					id = message.getName();
 				}
 
-				if (type.equals("PigeonCall.server")) {
+				if ("PigeonCall.server".equals(type) || "Call.server".equals(type)) {
 					ip = message.getName();
 					int index = ip.indexOf(':');
 

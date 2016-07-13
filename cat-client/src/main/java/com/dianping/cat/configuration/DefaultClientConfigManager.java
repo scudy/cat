@@ -8,7 +8,6 @@ import java.util.Properties;
 
 import org.codehaus.plexus.logging.LogEnabled;
 import org.codehaus.plexus.logging.Logger;
-import org.codehaus.plexus.personality.plexus.lifecycle.phase.InitializationException;
 import org.unidal.helper.Files;
 import org.unidal.helper.Urls;
 import org.unidal.lookup.annotation.Named;
@@ -46,7 +45,11 @@ public class DefaultClientConfigManager implements LogEnabled, ClientConfigManag
 
 	@Override
 	public String getDomain() {
-		return m_config.getDomain();
+		if(m_config!=null){
+			return m_config.getDomain();
+		}else{
+			return "unknown";
+		}
 	}
 
 	@Override
@@ -107,60 +110,54 @@ public class DefaultClientConfigManager implements LogEnabled, ClientConfigManag
 		return 1024;
 	}
 
-	public void initialize() throws Exception {
+	public void initialize() {
 		String clientXml = Cat.getCatHome() + "client.xml";
 		File configFile = new File(clientXml);
 
 		m_logger.info("client xml path " + clientXml);
 
-		try {
-			ClientConfig globalConfig = null;
+		ClientConfig globalConfig = null;
+		String xml = null;
 
-			if (configFile != null) {
-				if (configFile.exists()) {
-					String xml = Files.forIO().readFrom(configFile.getCanonicalFile(), "utf-8");
+		if (configFile != null && configFile.exists()) {
+			try {
+				xml = Files.forIO().readFrom(configFile.getCanonicalFile(), "utf-8");
 
-					globalConfig = DefaultSaxParser.parse(xml);
-					m_logger.info(String.format("Global config file(%s) found.", configFile));
-				} else {
-					m_logger.warn(String.format("Global config file(%s) not found, IGNORED.", configFile));
-					// read from remote TODO
-				}
+				globalConfig = DefaultSaxParser.parse(xml);
+				m_logger.info("Global config file found." + xml);
+			} catch (Exception e) {
+				m_logger.error("error when parse xml " + xml, e);
+				globalConfig = new ClientConfig();
 			}
-			globalConfig.setDomain(String.valueOf(loadProjectName()));
+		} else {
+			try {
+				xml = EnviromentHelper.fetchClientConfig();
 
-			m_config = globalConfig;
-			m_logger.info("init cat with client config:" + m_config);
-		} catch (Exception e) {
-			throw new InitializationException(e.getMessage(), e);
+				globalConfig = DefaultSaxParser.parse(xml);
+				m_logger.info("Global config file found." + xml);
+			} catch (Exception e) {
+				m_logger.error("error when parse remote server xml " + xml, e);
+				globalConfig = new ClientConfig();
+			}
 		}
+		globalConfig.setDomain(String.valueOf(loadProjectName()));
+
+		m_config = globalConfig;
+		m_logger.info("init cat with client config:" + m_config);
 	}
 
 	@Override
-	public void initialize(ClientConfig config) throws InitializationException {
+	public void initialize(ClientConfig config) {
 		try {
 			if (config != null) {
 				m_config = config;
 				m_logger.info("setup cat with config:" + config);
 			}
 		} catch (Exception e) {
-			throw new InitializationException(e.getMessage(), e);
+			m_logger.error(e.getMessage(), e);
+			m_config = new ClientConfig();
 		}
 	}
-
-	// @Override
-	// public void initialize(File configFile) throws InitializationException {
-	// try {
-	// if (configFile != null && configFile.exists()) {
-	// String xml = Files.forIO().readFrom(configFile, "utf-8");
-	//
-	// m_config = DefaultSaxParser.parse(xml);
-	// m_logger.info("override cat config :" + xml);
-	// }
-	// } catch (Exception e) {
-	// throw new InitializationException(e.getMessage(), e);
-	// }
-	// }
 
 	@Override
 	public boolean isAtomicMessage(MessageTree tree) {

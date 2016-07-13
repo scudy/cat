@@ -3,7 +3,6 @@ package com.dianping.cat.message.internal;
 import org.codehaus.plexus.logging.LogEnabled;
 import org.codehaus.plexus.logging.Logger;
 import org.codehaus.plexus.personality.plexus.lifecycle.phase.Initializable;
-import org.codehaus.plexus.personality.plexus.lifecycle.phase.InitializationException;
 
 import com.dianping.cat.message.Message;
 import com.dianping.cat.message.Transaction;
@@ -16,7 +15,7 @@ public class NullMessageManager implements MessageManager, Initializable, LogEna
 	public static final NullMessageManager NULL_MESSAGE_MANAGER = new NullMessageManager();
 
 	@Override
-	public void initialize() throws InitializationException {
+	public void initialize(){
 	}
 
 	@Override

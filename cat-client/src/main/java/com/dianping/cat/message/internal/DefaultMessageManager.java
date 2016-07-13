@@ -11,7 +11,6 @@ import java.util.Stack;
 import org.codehaus.plexus.logging.LogEnabled;
 import org.codehaus.plexus.logging.Logger;
 import org.codehaus.plexus.personality.plexus.lifecycle.phase.Initializable;
-import org.codehaus.plexus.personality.plexus.lifecycle.phase.InitializationException;
 import org.unidal.lookup.ContainerHolder;
 import org.unidal.lookup.annotation.Inject;
 import org.unidal.lookup.annotation.Named;
@@ -193,7 +192,7 @@ public class DefaultMessageManager extends ContainerHolder implements MessageMan
 	}
 
 	@Override
-	public void initialize() throws InitializationException {
+	public void initialize() {
 		m_domain = m_configManager.getDomain();
 		m_hostName = NetworkInterfaceManager.INSTANCE.getLocalHostName();
 		m_ip = NetworkInterfaceManager.INSTANCE.getLocalHostAddress();

@@ -20,9 +20,9 @@ public interface ClientConfigManager {
 
 	public int getTaggedTransactionCacheSize();
 
-	public void initialize() throws Exception;
+	public void initialize();
 	
-	public void initialize(ClientConfig config) throws Exception;
+	public void initialize(ClientConfig config) ;
 
 	public boolean isAtomicMessage(MessageTree tree) ;
 
