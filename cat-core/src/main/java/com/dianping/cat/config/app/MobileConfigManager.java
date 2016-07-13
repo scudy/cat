@@ -328,8 +328,12 @@ public class MobileConfigManager implements Initializable, LogEnabled {
 		}
 	}
 
-	public Integer getCityId(String city) {
+	public Integer getCityId(String nation, String city) {
 		Integer cityId = m_cities.get(city);
+
+		if (cityId == null) {
+			cityId = m_cities.get(nation);
+		}
 
 		if (cityId == null) {
 			cityId = m_cities.get(MobileConstants.OTHER);
