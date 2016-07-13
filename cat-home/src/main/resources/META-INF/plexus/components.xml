@@ -692,10 +692,6 @@
 			</requirements>
 		</component>
 		<component>
-			<role>com.dianping.cat.report.page.appmetric.service.AggregationConfigService</role>
-			<implementation>com.dianping.cat.report.page.appmetric.service.AggregationConfigService</implementation>
-		</component>
-		<component>
 			<role>com.dianping.cat.report.page.appmetric.service.AppMetricService</role>
 			<implementation>com.dianping.cat.report.page.appmetric.service.AppMetricService</implementation>
 		</component>

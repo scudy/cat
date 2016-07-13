@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.net.util.SubnetUtils;
 import org.apache.commons.net.util.SubnetUtils.SubnetInfo;
@@ -79,7 +80,7 @@ public class RouterConfigManager implements Initializable, LogEnabled {
 
 	private Map<String, List<SubnetInfo>> m_subNetInfos = new HashMap<String, List<SubnetInfo>>();
 
-	private Map<String, String> m_ipToGroupInfo = new HashMap<String, String>();
+	private Map<String, String> m_ipToGroupInfo = new ConcurrentHashMap<String, String>();
 
 	private Map<Long, Pair<RouterConfig, Long>> m_routerConfigs = new LinkedHashMap<Long, Pair<RouterConfig, Long>>() {
 		private static final long serialVersionUID = 1L;
@@ -337,7 +338,7 @@ public class RouterConfigManager implements Initializable, LogEnabled {
 		}
 
 		m_subNetInfos = subNetInfos;
-		m_ipToGroupInfo = new HashMap<String, String>();
+		m_ipToGroupInfo = new ConcurrentHashMap<String, String>();
 	}
 
 	private void refreshReportInfo() throws Exception {

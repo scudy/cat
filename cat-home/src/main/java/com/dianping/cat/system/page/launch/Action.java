@@ -1,17 +1,13 @@
-package com.dianping.cat.system.page.router;
+package com.dianping.cat.system.page.launch;
 
 public enum Action implements org.unidal.web.mvc.Action {
-	API("api"),
-
-	JSON("json"),
-
-	XML("xml"),
-
-	BUILD("build"),
-
-	MODEL("model");
+	VIEW("view");
 
 	private String m_name;
+
+	private Action(String name) {
+		m_name = name;
+	}
 
 	public static Action getByName(String name, Action defaultAction) {
 		for (Action action : Action.values()) {
@@ -21,10 +17,6 @@ public enum Action implements org.unidal.web.mvc.Action {
 		}
 
 		return defaultAction;
-	}
-
-	private Action(String name) {
-		m_name = name;
 	}
 
 	@Override

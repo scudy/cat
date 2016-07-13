@@ -1,0 +1,5 @@
+<property-config>
+	<property id="key1" value="value1" />
+	<property id="key2" value="value2" />
+	<property id="key3" value="value3" />
+</property-config>

@@ -1,0 +1,19 @@
+<launch-config>
+	<server-group id="online" title="线上">
+		<server id="10.1.1.1" />
+		<server id="10.1.1.2" />
+		<network id="10.3.0.0/16" />
+		<network id="10.1.0.0/16" />
+		<network id="10.2.0.0/16" />
+	</server-group>
+	<server-group id="default" title="默认">
+		<server id="10.1.1.1" />
+		<server id="10.1.1.2" />
+	</server-group>
+	<server-group id="offline" title="线下">
+		<server id="10.6.1.1" />
+		<server id="10.6.1.2" />
+		<network id="10.6.0.0/16" />
+		<network id="192.168.0.0/16" />
+	</server-group>
+</launch-config>

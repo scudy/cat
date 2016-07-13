@@ -1,3 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <wizard package="com.dianping.cat">
+   <model package="com.dianping.cat.configuration" name="property-config">
+      <sample-model>src/main/resources/config/property-config.xml</sample-model>
+   </model>
 </wizard>

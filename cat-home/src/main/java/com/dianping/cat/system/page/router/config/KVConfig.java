@@ -1,4 +1,4 @@
-package com.dianping.cat.configuration;
+package com.dianping.cat.system.page.router.config;
 
 import java.util.HashMap;
 import java.util.Map;

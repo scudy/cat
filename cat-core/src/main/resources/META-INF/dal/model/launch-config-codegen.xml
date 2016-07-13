@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model>
+  <entity name="launch-config" root="true">
+    <entity-ref name="server-group" type="list" names="server-groups" />
+  </entity>
+  <entity name="server-group">
+    <attribute name="id" value-type="String" />
+    <attribute name="title" value-type="String" />
+    <entity-ref name="server" type="list" names="servers" />
+    <entity-ref name="network" type="list" names="networks" />
+  </entity>
+  <entity name="server">
+    <attribute name="id" value-type="String" />
+  </entity>
+  <entity name="network">
+    <attribute name="id" value-type="String" />
+  </entity>
+</model>
+

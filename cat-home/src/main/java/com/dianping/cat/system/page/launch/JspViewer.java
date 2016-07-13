@@ -1,4 +1,4 @@
-package com.dianping.cat.system.page.router;
+package com.dianping.cat.system.page.launch;
 
 import com.dianping.cat.system.SystemPage;
 import org.unidal.web.mvc.view.BaseJspViewer;
@@ -9,13 +9,8 @@ public class JspViewer extends BaseJspViewer<SystemPage, Action, Context, Model>
 		Action action = model.getAction();
 
 		switch (action) {
-		case API:
-		case JSON:
-		case XML:
-		case BUILD:
-			return JspFile.API.getPath();
-		case MODEL:
-			return JspFile.MODEL.getPath();
+		case VIEW:
+			return JspFile.VIEW.getPath();
 		}
 
 		throw new RuntimeException("Unknown action: " + action);

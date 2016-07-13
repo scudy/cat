@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+  <file path="launch-config-codegen.xml" />
+  <file path="launch-config-model.xml" />
+</manifest>
+

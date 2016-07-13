@@ -3,8 +3,10 @@ package com.dianping.cat.system.page.router;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.ServletException;
 
@@ -17,13 +19,15 @@ import org.unidal.web.mvc.annotation.PayloadMeta;
 import com.dianping.cat.Cat;
 import com.dianping.cat.config.sample.SampleConfigManager;
 import com.dianping.cat.config.server.ServerFilterConfigManager;
-import com.dianping.cat.configuration.KVConfig;
+import com.dianping.cat.configuration.property.entity.Property;
+import com.dianping.cat.configuration.property.entity.PropertyConfig;
 import com.dianping.cat.helper.JsonBuilder;
 import com.dianping.cat.helper.TimeHelper;
 import com.dianping.cat.home.router.entity.Domain;
 import com.dianping.cat.home.router.entity.RouterConfig;
 import com.dianping.cat.home.router.entity.Server;
 import com.dianping.cat.report.task.TaskBuilder;
+import com.dianping.cat.system.page.router.config.KVConfig;
 import com.dianping.cat.system.page.router.config.RouterConfigHandler;
 import com.dianping.cat.system.page.router.config.RouterConfigManager;
 import com.dianping.cat.system.page.router.service.CachedRouterConfigService;
@@ -50,6 +54,18 @@ public class Handler implements PageHandler<Context> {
 	private RouterConfigHandler m_routerConfigHandler;
 
 	private JsonBuilder m_jsonBuilder = new JsonBuilder();
+
+	private Map<String, String> buildKvs(RouterConfig report, String domain, String ip) {
+		Map<String, String> kvs = new HashMap<String, String>();
+		boolean block = m_configManager.shouldBlock(ip);
+
+		kvs.put("block", String.valueOf(block));
+		kvs.put("routers", buildRouterInfo(ip, domain, report));
+		kvs.put("sample", String.valueOf(buildSampleInfo(domain, 1.0)));
+		kvs.put("startTransactionTypes", m_filterManager.getAtomicStartTypes());
+		kvs.put("matchTransactionTypes", m_filterManager.getAtomicMatchTypes());
+		return kvs;
+	}
 
 	private String buildRouterInfo(String ip, String domain, RouterConfig config) {
 		String group = m_configManager.queryServerGroupByIp(ip);
@@ -126,15 +142,22 @@ public class Handler implements PageHandler<Context> {
 			break;
 		case JSON:
 			KVConfig config = new KVConfig();
-			Map<String, String> kvs = config.getKvs();
-			boolean block = m_configManager.shouldBlock(ip);
+			Map<String, String> kvs = buildKvs(report, domain, ip);
 
-			kvs.put("block", String.valueOf(block));
-			kvs.put("routers", buildRouterInfo(ip, domain, report));
-			kvs.put("sample", String.valueOf(buildSampleInfo(domain, 1.0)));
-			kvs.put("startTransactionTypes", m_filterManager.getAtomicStartTypes());
-			kvs.put("matchTransactionTypes", m_filterManager.getAtomicMatchTypes());
+			config.setKvs(kvs);
 			model.setContent(m_jsonBuilder.toJson(config));
+			break;
+		case XML:
+			kvs = buildKvs(report, domain, ip);
+			PropertyConfig property = new PropertyConfig();
+
+			for (Entry<String, String> entry : kvs.entrySet()) {
+				Property p = new Property(entry.getKey());
+
+				p.setValue(entry.getValue());
+				property.addProperty(p);
+			}
+			model.setContent(property.toString());
 			break;
 		case BUILD:
 			Date period = TimeHelper.getCurrentDay(-1);
@@ -146,6 +169,7 @@ public class Handler implements PageHandler<Context> {
 			if (report != null) {
 				model.setContent(report.toString());
 			}
+			break;
 		}
 
 		ctx.getHttpServletResponse().getWriter().write(model.getContent());

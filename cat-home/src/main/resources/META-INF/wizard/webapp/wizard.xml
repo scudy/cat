@@ -80,13 +80,11 @@
          <page name="crash" title="Crash" path="crash" template="default">
             <description>Crash</description>
          </page>
-<<<<<<< HEAD
          <page name="appmetric" title="Appmetric" path="appmetric" template="default">
             <description>Appmetric</description>
-=======
+         </page>
          <page name="applog" title="Applog" path="applog" template="default">
             <description>Applog</description>
->>>>>>> 5ea494a0e894b6dfd35f25534ab8d4de794b5cfd
          </page>
       </module>
       <module name="system" path="s" default="false">
@@ -116,6 +114,9 @@
          </page>
          <page name="permission" title="Permission" path="permission" template="default">
             <description>Permission</description>
+         </page>
+         <page name="launch" title="Launch" path="launch" template="default">
+            <description>Launch</description>
          </page>
       </module>
    </webapp>

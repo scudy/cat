@@ -16,8 +16,8 @@ import com.dianping.cat.Cat;
 import com.dianping.cat.configuration.client.entity.ClientConfig;
 import com.dianping.cat.configuration.client.entity.Server;
 import com.dianping.cat.configuration.client.transform.DefaultSaxParser;
+import com.dianping.cat.configuration.property.entity.PropertyConfig;
 import com.dianping.cat.message.spi.MessageTree;
-import com.site.helper.JsonBuilder;
 
 @Named(type = ClientConfigManager.class)
 public class DefaultClientConfigManager implements LogEnabled, ClientConfigManager {
@@ -32,8 +32,6 @@ public class DefaultClientConfigManager implements LogEnabled, ClientConfigManag
 
 	private String m_routers;
 
-	private JsonBuilder m_jsonBuilder = new JsonBuilder();
-
 	private AtomicTreeParser m_atomicTreeParser = new AtomicTreeParser();
 
 	private Logger m_logger;
@@ -45,9 +43,9 @@ public class DefaultClientConfigManager implements LogEnabled, ClientConfigManag
 
 	@Override
 	public String getDomain() {
-		if(m_config!=null){
+		if (m_config != null) {
 			return m_config.getDomain();
-		}else{
+		} else {
 			return "unknown";
 		}
 	}
@@ -89,7 +87,7 @@ public class DefaultClientConfigManager implements LogEnabled, ClientConfigManag
 				if (httpPort == null || httpPort == 0) {
 					httpPort = 8080;
 				}
-				return String.format("http://%s:%d/cat/s/router?domain=%s&ip=%s&op=json", server.getIp().trim(), httpPort,
+				return String.format("http://%s:%d/cat/s/router?domain=%s&ip=%s&op=xml", server.getIp().trim(), httpPort,
 				      getDomain(), NetworkInterfaceManager.INSTANCE.getLocalHostAddress());
 			}
 		}
@@ -229,14 +227,13 @@ public class DefaultClientConfigManager implements LogEnabled, ClientConfigManag
 		try {
 			InputStream inputstream = Urls.forIO().readTimeout(2000).connectTimeout(1000).openStream(url);
 			String content = Files.forIO().readFrom(inputstream, "utf-8");
-			KVConfig routerConfig = (KVConfig) m_jsonBuilder.parse(content.trim(), KVConfig.class);
-
-			m_routers = routerConfig.getValue("routers");
-			m_sample = Double.valueOf(routerConfig.getValue("sample").trim());
-			m_block = Boolean.valueOf(routerConfig.getValue("block").trim());
-
-			String startTypes = routerConfig.getValue("startTransactionTypes");
-			String matchTypes = routerConfig.getValue("matchTransactionTypes");
+			PropertyConfig routerConfig = com.dianping.cat.configuration.property.transform.DefaultSaxParser.parse(content
+			      .trim());
+			m_routers = routerConfig.findProperty("routers").getValue();
+			m_sample = Double.parseDouble(routerConfig.findProperty("sample").getValue());
+			m_block = Boolean.parseBoolean(routerConfig.findProperty("block").getValue());
+			String startTypes = routerConfig.findProperty("startTransactionTypes").getValue();
+			String matchTypes = routerConfig.findProperty("matchTransactionTypes").getValue();
 
 			m_atomicTreeParser.init(startTypes, matchTypes);
 		} catch (Exception e) {

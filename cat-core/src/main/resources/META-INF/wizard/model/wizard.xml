@@ -48,4 +48,7 @@
    <model package="com.dianping.configuration.app.metric" name="app-metric-config">
       <sample-model>src/main/resources/config/app-metric-config.xml</sample-model>
    </model>
+   <model package="com.dianping.cat.configuration.launch" name="launch-config">
+      <sample-model>src/main/resources/config/launch-config.xml</sample-model>
+   </model>
 </wizard>
