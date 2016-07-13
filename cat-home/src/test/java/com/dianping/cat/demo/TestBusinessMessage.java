@@ -96,7 +96,6 @@ public class TestBusinessMessage {
 		Thread.sleep(1000);
 	}
 
-	@SuppressWarnings("deprecation")
 	@Test
 	public void test() throws Exception {
 		for (int i = 0; i < 1000; i++) {
@@ -144,7 +143,6 @@ public class TestBusinessMessage {
 		Thread.sleep(1000);
 	}
 
-	@SuppressWarnings("deprecation")
 	@Test
 	public void test2() throws Exception {
 		while (true) {
