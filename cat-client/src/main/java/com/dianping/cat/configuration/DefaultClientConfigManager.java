@@ -143,7 +143,7 @@ public class DefaultClientConfigManager implements LogEnabled, ClientConfigManag
 		globalConfig.setDomain(String.valueOf(loadProjectName()));
 
 		m_config = globalConfig;
-		m_logger.info("init cat with client config:" + m_config);
+		m_logger.info("setup cat with default config:" + m_config);
 	}
 
 	@Override
