@@ -175,48 +175,6 @@ public class Cat {
 		}
 	}
 
-	public static void initialize(String... servers) {
-		try {
-			ClientConfig config = new ClientConfig();
-
-			for (String server : servers) {
-				config.addServer(new Server(server));
-			}
-
-			config.setDomain(EnvironmentHelper.loadAppNameByProperty(UNKNOWN));
-
-			initialize(config);
-		} catch (Exception e) {
-			errorHandler(e);
-		}
-	}
-
-	public static void initialize(PlexusContainer container, File configFile) {
-		try {
-			String config = Files.forIO().readFrom(configFile, "utf-8");
-			System.setProperty(CLENT_CONFIG, config);
-		} catch (Exception e) {
-			// ingnore
-		}
-
-		ModuleContext ctx = new DefaultModuleContext(container);
-		Module module = ctx.lookup(Module.class, CatClientModule.ID);
-
-		if (!module.isInitialized()) {
-			ModuleInitializer initializer = ctx.lookup(ModuleInitializer.class);
-
-			initializer.execute(ctx, module);
-		}
-	}
-
-	/**
-	 * @deprecated
-	 * @param configFile
-	 */
-	public static void initialize(File configFile) {
-
-	}
-
 	// this should be called during application initialization time
 	public static void initialize(ClientConfig config) {
 		try {
@@ -239,6 +197,48 @@ public class Cat {
 					}
 				}
 			}
+		} catch (Exception e) {
+			errorHandler(e);
+		}
+	}
+
+	/**
+	 * @deprecated
+	 * @param configFile
+	 */
+	public static void initialize(File configFile) {
+
+	}
+
+	public static void initialize(PlexusContainer container, File configFile) {
+		try {
+			String config = Files.forIO().readFrom(configFile, "utf-8");
+			System.setProperty(CLENT_CONFIG, config);
+		} catch (Exception e) {
+			// ingnore
+		}
+
+		ModuleContext ctx = new DefaultModuleContext(container);
+		Module module = ctx.lookup(Module.class, CatClientModule.ID);
+
+		if (!module.isInitialized()) {
+			ModuleInitializer initializer = ctx.lookup(ModuleInitializer.class);
+
+			initializer.execute(ctx, module);
+		}
+	}
+
+	public static void initialize(String... servers) {
+		try {
+			ClientConfig config = new ClientConfig();
+
+			for (String server : servers) {
+				config.addServer(new Server(server));
+			}
+
+			config.setDomain(EnvironmentHelper.loadAppNameByProperty(UNKNOWN));
+
+			initialize(config);
 		} catch (Exception e) {
 			errorHandler(e);
 		}
@@ -335,8 +335,12 @@ public class Cat {
 		}
 	}
 
+	/**
+	 * @deprecated
+	 * @param name
+	 * @param keyValues
+	 */
 	public static void logMetric(String name, Object... keyValues) {
-		// TO REMOVE ME
 	}
 
 	/**
@@ -558,12 +562,15 @@ public class Cat {
 		}
 	}
 
-	// this should be called when a thread ends to clean some thread local data
+	/**
+	 * @deprecated this should be called when a thread ends to clean some thread local data
+	 */
 	public static void reset() {
-		// remove me
 	}
 
-	// this should be called when a thread starts to create some thread local data
+	/**
+	 * @deprecated this should be called when a thread starts to create some thread local data
+	 */
 	public static void setup(String sessionToken) {
 		try {
 			Cat.getManager().setup();
