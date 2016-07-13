@@ -10,7 +10,7 @@ import com.dianping.cat.Cat;
 
 public class EnvironmentHelper {
 
-	public static final String URL = "http://cat.dianpingoa.com/cat/s/server";
+	public static final String URL = "http://cat.dianpingoa.com/cat/s/launch";
 
 	public static final String PROPERTIES_FILE = "/META-INF/app.properties";
 
