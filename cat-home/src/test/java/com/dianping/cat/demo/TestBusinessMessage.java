@@ -47,7 +47,6 @@ public class TestBusinessMessage {
 			try {
 				m_latch.await();
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -127,9 +126,6 @@ public class TestBusinessMessage {
 			MessageTree tree = (MessageTree) Cat.getManager().getThreadLocalMessageTree();
 
 			tree.setDomain(PayOrder);
-			Cat.logMetric("order", "quantity", 1, "channel", "channel" + i % 5);
-			Cat.logMetric("payment.pending", "amount", i, "channel", "channel" + i % 5);
-			Cat.logMetric("payment.success", "amount", i, "channel", "channel" + i % 5);
 			t.addData("channel=channel" + i % 5);
 			t.complete();
 		}
@@ -141,13 +137,6 @@ public class TestBusinessMessage {
 		}
 		for (int i = 0; i < 900; i++) {
 			Transaction t = Cat.newTransaction("URL", "e");
-			t.complete();
-		}
-		for (int i = 0; i < 500; i++) {
-			Transaction t = Cat.newTransaction("URL", "home");
-			Cat.logMetric("order", "quantity", 1, "channel", "channel" + i % 5);
-			Cat.logMetric("payment.pending", "amount", i, "channel", "channel" + i % 5);
-			Cat.logMetric("payment.success", "amount", i, "channel", "channel" + i % 5);
 			t.complete();
 		}
 
@@ -167,14 +156,6 @@ public class TestBusinessMessage {
 			}
 			for (int i = 0; i < 900; i++) {
 				Transaction t = Cat.newTransaction("URL", "/detail");
-				t.addData("channel=channel" + i % 5);
-				t.complete();
-			}
-			for (int i = 0; i < 500; i++) {
-				Transaction t = Cat.newTransaction("URL", "/order/submitOrder");
-				Cat.logMetric("order", "quantity", 1, "channel", "channel" + i % 5);
-				Cat.logMetric("payment.pending", "amount", i, "channel", "channel" + i % 5);
-				Cat.logMetric("payment.success", "amount", i, "channel", "channel" + i % 5);
 				t.addData("channel=channel" + i % 5);
 				t.complete();
 			}

@@ -109,19 +109,6 @@ public class TestSendMessage {
 	}
 
 	@Test
-	public void sendMetric() throws Exception {
-		for (int i = 0; i < 100; i++) {
-			Transaction t = Cat.getProducer().newTransaction("Type", "Name");
-
-			Cat.logMetric("name", "key1", "value1", "key2", "value2");
-
-			t.complete();
-		}
-
-		Thread.sleep(1000);
-	}
-
-	@Test
 	public void sentHackPigenTransaction() throws Exception {
 		for (int i = 0; i < 200; i++) {
 			Transaction t = Cat.getProducer().newTransaction("PigeonCall", "Method3");
