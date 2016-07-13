@@ -32,20 +32,43 @@ public class CommandFormatManagerTest extends ComponentTestCase {
 
 		Assert.assertEquals("http://m.dianping.com/shopping/mallshoplist/", urls.get(0));
 	}
-	
+
+	@Test
+	public void test3() {
+		CommandFormatConfigManager manager = lookup(CommandFormatConfigManager.class);
+
+		manager.setConfigDao(new ExtendedConfigDao());
+		manager.initialize();
+
+		List<String> urls = manager.handle(1, "www.dianping.com/feedback/order/123");
+
+		System.err.println(urls);
+		Assert.assertEquals("www.dianping.com/feedback/order/get", urls.get(0));
+
+		urls = manager.handle(1, "www.dianping.com/feedback/order");
+
+		System.err.println(urls);
+		Assert.assertEquals("www.dianping.com/feedback/order", urls.get(0));
+		
+		urls = manager.handle(1, "www.dianping.com/feedback/order/");
+
+		System.err.println(urls);
+		Assert.assertEquals("www.dianping.com/feedback/order/", urls.get(0));
+	}
+
 	@Test
 	public void test2() {
 		CommandFormatConfigManager manager = lookup(CommandFormatConfigManager.class);
-		
+
 		manager.setConfigDao(new ExtendedConfigDao());
 		manager.initialize();
-		
+
 		List<String> urls = manager.handle(1, "test");
-		
+
 		Assert.assertEquals("test", urls.get(0));
-		
+
 		urls = manager.handle(1, "www.dianping.com/ugcmtold/dealfeedback/v1/{cityId}/{dealId}&limit=1&offset=0");
-		
+
 		System.err.println(urls);
 		Assert.assertEquals("www.dianping.com/ugcmtold/dealfeedback/v1/", urls.get(0));
 	}

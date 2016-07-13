@@ -107,7 +107,6 @@ public class TestSendMessage {
 		Thread.sleep(1000);
 	}
 
-	@SuppressWarnings("deprecation")
 	@Test
 	public void sentHackPigenTransaction() throws Exception {
 		for (int i = 0; i < 200; i++) {

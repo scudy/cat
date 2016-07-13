@@ -6,4 +6,7 @@
    <rule pattern="www.dianping.com/ugcmtold/dealfeedback/v1/{item}" type="1">
       <command id="www.dianping.com/ugcmtold/dealfeedback/v1/"/>
    </rule>
+   <rule pattern="www.dianping.com/feedback/order/{item}" type="1">
+      <command id="www.dianping.com/feedback/order/get"/>
+   </rule>
 </command-format>
