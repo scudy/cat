@@ -192,9 +192,8 @@ public class Cat {
 	}
 
 	public static void initialize(PlexusContainer container, File configFile) {
-		String config;
 		try {
-			config = Files.forIO().readFrom(configFile, "utf-8");
+			String config = Files.forIO().readFrom(configFile, "utf-8");
 			System.setProperty(CLENT_CONFIG, config);
 		} catch (Exception e) {
 			// ingnore
