@@ -8,7 +8,7 @@ import org.unidal.helper.Urls;
 
 import com.dianping.cat.Cat;
 
-public class EnviromentHelper {
+public class EnvironmentHelper {
 
 	public static final String URL = "http://cat.dianpingoa.com/cat/s/server";
 

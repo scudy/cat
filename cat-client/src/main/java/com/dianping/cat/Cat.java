@@ -14,7 +14,7 @@ import org.unidal.initialization.ModuleContext;
 import org.unidal.initialization.ModuleInitializer;
 import org.unidal.lookup.ContainerLoader;
 
-import com.dianping.cat.configuration.EnviromentHelper;
+import com.dianping.cat.configuration.EnvironmentHelper;
 import com.dianping.cat.configuration.client.entity.ClientConfig;
 import com.dianping.cat.configuration.client.entity.Server;
 import com.dianping.cat.configuration.client.transform.DefaultSaxParser;
@@ -191,7 +191,7 @@ public class Cat {
 				config.addServer(new Server(server));
 			}
 			
-			config.setDomain(EnviromentHelper.loadAppNameByProperty("unknown"));
+			config.setDomain(EnvironmentHelper.loadAppNameByProperty("unknown"));
 
 			initialize(config);
 		} catch (Exception e) {
@@ -232,7 +232,7 @@ public class Cat {
 			String xml = Files.forIO().readFrom(configFile, "utf-8");
 			ClientConfig config = DefaultSaxParser.parse(xml);
 
-			config.setDomain(EnviromentHelper.loadAppNameByProperty(domain));
+			config.setDomain(EnvironmentHelper.loadAppNameByProperty(domain));
 			initialize(config);
 		} catch (Exception e) {
 			errorHandler(e);
@@ -243,7 +243,7 @@ public class Cat {
 		try {
 			ClientConfig config = new ClientConfig();
 
-			config.setDomain(EnviromentHelper.loadAppNameByProperty(domain));
+			config.setDomain(EnvironmentHelper.loadAppNameByProperty(domain));
 
 			for (String server : servers) {
 				Server serverObj = new Server(server);

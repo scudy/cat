@@ -22,7 +22,7 @@ import com.site.helper.JsonBuilder;
 @Named(type = ClientConfigManager.class)
 public class DefaultClientConfigManager implements LogEnabled, ClientConfigManager {
 
-	private static final String PROPERTIES_FILE = EnviromentHelper.PROPERTIES_FILE;
+	private static final String PROPERTIES_FILE = EnvironmentHelper.PROPERTIES_FILE;
 
 	private ClientConfig m_config;
 
@@ -131,7 +131,7 @@ public class DefaultClientConfigManager implements LogEnabled, ClientConfigManag
 			}
 		} else {
 			try {
-				xml = EnviromentHelper.fetchClientConfig();
+				xml = EnvironmentHelper.fetchClientConfig();
 
 				globalConfig = DefaultSaxParser.parse(xml);
 				m_logger.info("Global config file found." + xml);
