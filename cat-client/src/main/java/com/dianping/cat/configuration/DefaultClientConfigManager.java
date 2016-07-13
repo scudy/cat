@@ -45,7 +45,11 @@ public class DefaultClientConfigManager implements LogEnabled, ClientConfigManag
 
 	@Override
 	public String getDomain() {
-		return m_config.getDomain();
+		if(m_config!=null){
+			return m_config.getDomain();
+		}else{
+			return "unknown";
+		}
 	}
 
 	@Override
