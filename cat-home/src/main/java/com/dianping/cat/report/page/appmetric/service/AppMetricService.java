@@ -16,9 +16,8 @@ import com.dianping.cat.helper.JsonBuilder;
 
 @Named
 public class AppMetricService {
-	
-	public static final String METRIC_DOMAIN = "metric_broker_service";
 
+	public static final String METRIC_DOMAIN = "broker_service";
 
 	private static final String OPEN_TSDB_URL = "http://opentsdb.dx.dabai.vip.sankuai.com/api/query";
 
