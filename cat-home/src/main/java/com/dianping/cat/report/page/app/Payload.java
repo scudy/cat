@@ -23,7 +23,7 @@ public class Payload extends AbstractReportPayload<Action, ReportPage> {
 	private String m_query2;
 
 	@FieldMeta("type")
-	private String m_type = QueryType.REQUEST.getName();
+	private String m_type = QueryType.NETWORK_SUCCESS.getName();
 
 	@FieldMeta("groupByField")
 	private AppDataField m_groupByField = AppDataField.CODE;
