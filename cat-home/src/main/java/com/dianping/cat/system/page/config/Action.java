@@ -111,6 +111,8 @@ public enum Action implements org.unidal.web.mvc.Action {
 
 	REPORT_RELOAD_CONFIG_UPDATE("reportReloadConfigUpdate"),
 
+	LAUNCH_CONFIG_UDPATE("launchConfigUpdate"),
+
 	ALL_REPORT_CONFIG("allReportConfig");
 
 	private String m_name;

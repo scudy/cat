@@ -100,6 +100,7 @@ public class Handler implements PageHandler<Context> {
 		case ALL_REPORT_CONFIG:
 		case SAMPLE_CONFIG_UPDATE:
 		case REPORT_RELOAD_CONFIG_UPDATE:
+		case LAUNCH_CONFIG_UDPATE:
 			m_globalConfigProcessor.process(action, payload, model);
 			break;
 

@@ -25,6 +25,7 @@ import com.dianping.cat.system.page.config.Action;
 import com.dianping.cat.system.page.config.ConfigHtmlParser;
 import com.dianping.cat.system.page.config.Model;
 import com.dianping.cat.system.page.config.Payload;
+import com.dianping.cat.system.page.launch.LaunchConfigManager;
 import com.dianping.cat.system.page.router.config.RouterConfigManager;
 
 public class GlobalConfigProcessor {
@@ -61,6 +62,9 @@ public class GlobalConfigProcessor {
 
 	@Inject
 	private ReportReloadConfigManager m_reloadConfigManager;
+
+	@Inject
+	private LaunchConfigManager m_launchConfigManager;
 
 	private boolean deleteProject(Payload payload) {
 		Project proto = new Project();
@@ -188,6 +192,14 @@ public class GlobalConfigProcessor {
 				model.setOpState(m_reloadConfigManager.insert(reportReloadConfig));
 			}
 			model.setContent(m_configHtmlParser.parse(m_reloadConfigManager.getConfig().toString()));
+			break;
+		case LAUNCH_CONFIG_UDPATE:
+			String launchConfig = payload.getContent();
+
+			if (!StringUtils.isEmpty(launchConfig)) {
+				model.setOpState(m_launchConfigManager.insert(launchConfig));
+			}
+			model.setContent(m_configHtmlParser.parse(m_launchConfigManager.getConfig().toString()));
 			break;
 		default:
 			break;

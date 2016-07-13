@@ -14,7 +14,7 @@ import org.unidal.initialization.ModuleContext;
 import org.unidal.initialization.ModuleInitializer;
 import org.unidal.lookup.ContainerLoader;
 
-import com.dianping.cat.configuration.EnviromentHelper;
+import com.dianping.cat.configuration.EnvironmentHelper;
 import com.dianping.cat.configuration.client.entity.ClientConfig;
 import com.dianping.cat.configuration.client.entity.Server;
 import com.dianping.cat.configuration.client.transform.DefaultSaxParser;
@@ -42,11 +42,15 @@ public class Cat {
 
 	private PlexusContainer m_container;
 
+	private static int m_errorCount;
+
 	private static Cat s_instance = new Cat();
 
 	private static volatile boolean s_init = false;
 
-	private static int m_errorCount;
+	public static final String CLENT_CONFIG = "cat-client-config";
+
+	public static final String UNKNOWN = "unknown";
 
 	private static void checkAndInitialize() {
 		try {
@@ -171,18 +175,6 @@ public class Cat {
 		}
 	}
 
-	public static void initialize(PlexusContainer container, File configFile) {
-		ModuleContext ctx = new DefaultModuleContext(container);
-		Module module = ctx.lookup(Module.class, CatClientModule.ID);
-
-		if (!module.isInitialized()) {
-			ModuleInitializer initializer = ctx.lookup(ModuleInitializer.class);
-
-			ctx.setAttribute("cat-client-config-file", configFile);
-			initializer.execute(ctx, module);
-		}
-	}
-
 	public static void initialize(String... servers) {
 		try {
 			ClientConfig config = new ClientConfig();
@@ -190,12 +182,30 @@ public class Cat {
 			for (String server : servers) {
 				config.addServer(new Server(server));
 			}
-			
-			config.setDomain(EnviromentHelper.loadAppNameByProperty("unknown"));
+
+			config.setDomain(EnvironmentHelper.loadAppNameByProperty(UNKNOWN));
 
 			initialize(config);
 		} catch (Exception e) {
 			errorHandler(e);
+		}
+	}
+
+	public static void initialize(PlexusContainer container, File configFile) {
+		try {
+			String config = Files.forIO().readFrom(configFile, "utf-8");
+			System.setProperty(CLENT_CONFIG, config);
+		} catch (Exception e) {
+			// ingnore
+		}
+
+		ModuleContext ctx = new DefaultModuleContext(container);
+		Module module = ctx.lookup(Module.class, CatClientModule.ID);
+
+		if (!module.isInitialized()) {
+			ModuleInitializer initializer = ctx.lookup(ModuleInitializer.class);
+
+			initializer.execute(ctx, module);
 		}
 	}
 
@@ -205,6 +215,8 @@ public class Cat {
 			if (!s_init) {
 				synchronized (s_instance) {
 					if (!s_init) {
+						System.setProperty(Cat.CLENT_CONFIG, config.toString());
+
 						PlexusContainer container = ContainerLoader.getDefaultContainer();
 						ModuleContext ctx = new DefaultModuleContext(container);
 						Module module = ctx.lookup(Module.class, CatClientModule.ID);
@@ -212,7 +224,6 @@ public class Cat {
 						if (!module.isInitialized()) {
 							ModuleInitializer initializer = ctx.lookup(ModuleInitializer.class);
 
-							ctx.setAttribute("cat-client-config", config);
 							initializer.execute(ctx, module);
 						}
 						log("INFO", "Cat is lazy initialized!");
@@ -232,7 +243,7 @@ public class Cat {
 			String xml = Files.forIO().readFrom(configFile, "utf-8");
 			ClientConfig config = DefaultSaxParser.parse(xml);
 
-			config.setDomain(EnviromentHelper.loadAppNameByProperty(domain));
+			config.setDomain(EnvironmentHelper.loadAppNameByProperty(domain));
 			initialize(config);
 		} catch (Exception e) {
 			errorHandler(e);
@@ -243,7 +254,7 @@ public class Cat {
 		try {
 			ClientConfig config = new ClientConfig();
 
-			config.setDomain(EnviromentHelper.loadAppNameByProperty(domain));
+			config.setDomain(EnvironmentHelper.loadAppNameByProperty(domain));
 
 			for (String server : servers) {
 				Server serverObj = new Server(server);

@@ -4925,6 +4925,21 @@
 				<requirement>
 					<role>com.dianping.cat.config.ReportReloadConfigManager</role>
 				</requirement>
+				<requirement>
+					<role>com.dianping.cat.system.page.launch.LaunchConfigManager</role>
+				</requirement>
+			</requirements>
+		</component>
+		<component>
+			<role>com.dianping.cat.system.page.launch.LaunchConfigManager</role>
+			<implementation>com.dianping.cat.system.page.launch.LaunchConfigManager</implementation>
+			<requirements>
+				<requirement>
+					<role>com.dianping.cat.core.config.ConfigDao</role>
+				</requirement>
+				<requirement>
+					<role>com.dianping.cat.config.content.ContentFetcher</role>
+				</requirement>
 			</requirements>
 		</component>
 		<component>
@@ -5307,6 +5322,27 @@
 		<component>
 			<role>com.dianping.cat.system.page.permission.JspViewer</role>
 			<implementation>com.dianping.cat.system.page.permission.JspViewer</implementation>
+			<requirements>
+				<requirement>
+					<role>org.unidal.web.mvc.view.model.ModelHandler</role>
+				</requirement>
+			</requirements>
+		</component>
+		<component>
+			<role>com.dianping.cat.system.page.launch.Handler</role>
+			<implementation>com.dianping.cat.system.page.launch.Handler</implementation>
+			<requirements>
+				<requirement>
+					<role>com.dianping.cat.system.page.launch.JspViewer</role>
+				</requirement>
+				<requirement>
+					<role>com.dianping.cat.system.page.launch.LaunchConfigManager</role>
+				</requirement>
+			</requirements>
+		</component>
+		<component>
+			<role>com.dianping.cat.system.page.launch.JspViewer</role>
+			<implementation>com.dianping.cat.system.page.launch.JspViewer</implementation>
 			<requirements>
 				<requirement>
 					<role>org.unidal.web.mvc.view.model.ModelHandler</role>
