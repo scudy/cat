@@ -77,7 +77,7 @@ public enum JspFile {
 
 	REPORT_RELOAD_CONFIG_UPDATE("/jsp/system/reload/reportReloadConfigUpdate.jsp"),
 
-	LAUNCH_CONFIG_UPDATE("/jsp/system/reload/reportReloadConfigUpdate.jsp"),
+	LAUNCH_CONFIG_UPDATE("/jsp/system/launch/launchConfigUpdate.jsp"),
 
 	ALL_REPORT_CONFIG("/jsp/system/transactionRule/allReportConfig.jsp");
 

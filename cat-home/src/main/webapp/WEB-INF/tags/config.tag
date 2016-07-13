@@ -118,6 +118,9 @@
 							<li id="reportReloadConfigUpdate"><a href="/cat/s/config?op=reportReloadConfigUpdate">
 								<i class="menu-icon fa fa-caret-right"></i>Reload配置</a>
 								<b class="arrow"></b></li>
+							<li id="launchConfigUpdate"><a href="/cat/s/config?op=launchConfigUpdate">
+								<i class="menu-icon fa fa-caret-right"></i>启动配置</a>
+								<b class="arrow"></b></li>
 							<li id="serverConfigUpdate" style="display:none"><a href="/cat/s/config?op=serverConfigUpdate">
 								<i class="menu-icon fa fa-caret-right"></i>服务端配置</a>
 								<b class="arrow"></b></li>
