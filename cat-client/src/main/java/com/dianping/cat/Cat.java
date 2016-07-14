@@ -62,6 +62,9 @@ public class Cat {
 		}
 	}
 
+	/**
+	 * @return create next cat message id
+	 */
 	public static String createMessageId() {
 		try {
 			return Cat.getProducer().createMessageId();
@@ -71,6 +74,9 @@ public class Cat {
 		}
 	}
 
+	/**
+	 * destory cat if stop jvm
+	 */
 	public static void destroy() {
 		try {
 			s_instance.m_container.dispose();
@@ -86,12 +92,18 @@ public class Cat {
 		}
 	}
 
+	/**
+	 * @return current cat config path , default value is /data/appdatas/cat/
+	 */
 	public static String getCatHome() {
 		String catHome = Properties.forString().fromEnv().fromSystem().getProperty("CAT_HOME", "/data/appdatas/cat/");
 
 		return catHome;
 	}
 
+	/**
+	 * @return current cat message tree id
+	 */
 	public static String getCurrentMessageId() {
 		try {
 			MessageTree tree = Cat.getManager().getThreadLocalMessageTree();
@@ -113,10 +125,16 @@ public class Cat {
 		}
 	}
 
+	/**
+	 * @return cat instance
+	 */
 	public static Cat getInstance() {
 		return s_instance;
 	}
 
+	/**
+	 * @return message manager
+	 */
 	public static MessageManager getManager() {
 		try {
 			checkAndInitialize();
@@ -133,6 +151,9 @@ public class Cat {
 		}
 	}
 
+	/**
+	 * @return message producer
+	 */
 	public static MessageProducer getProducer() {
 		try {
 			checkAndInitialize();
@@ -150,7 +171,9 @@ public class Cat {
 		}
 	}
 
-	// this should be called during application initialization time
+	/**
+	 * this should be called during application initialization time
+	 */
 	public static void initialize() {
 		try {
 			if (!s_init) {
@@ -175,7 +198,9 @@ public class Cat {
 		}
 	}
 
-	// this should be called during application initialization time
+	/**
+	 * this should be called during application initialization time
+	 */
 	public static void initialize(ClientConfig config) {
 		try {
 			if (!s_init) {
@@ -210,6 +235,9 @@ public class Cat {
 
 	}
 
+	/**
+	 * this should be called during application initialization time
+	 */
 	public static void initialize(PlexusContainer container, File configFile) {
 		try {
 			String config = Files.forIO().readFrom(configFile, "utf-8");
@@ -228,6 +256,12 @@ public class Cat {
 		}
 	}
 
+	/**
+	 * this should be called during application initialization time
+	 * 
+	 * @param servers
+	 *           cat server ip, with default tcp port 2280, default http port 8080
+	 */
 	public static void initialize(String... servers) {
 		try {
 			ClientConfig config = new ClientConfig();
@@ -244,6 +278,11 @@ public class Cat {
 		}
 	}
 
+	/**
+	 * this should be called during application initialization time
+	 * 
+	 * @param domain
+	 */
 	public static void initializeByDomain(String domain) {
 		try {
 			String path = Cat.getCatHome() + "client.xml";
@@ -258,6 +297,15 @@ public class Cat {
 		}
 	}
 
+	/**
+	 * this should be called during application initialization time
+	 * 
+	 * @param domain
+	 * @param port
+	 * @param httpPort
+	 * @param servers
+	 *           cat server ip list
+	 */
 	public static void initializeByDomain(String domain, int port, int httpPort, String... servers) {
 		try {
 			ClientConfig config = new ClientConfig();
@@ -277,6 +325,13 @@ public class Cat {
 		}
 	}
 
+	/**
+	 * this should be called during application initialization time
+	 * 
+	 * @param domain
+	 * @param servers
+	 *           cat server ip list
+	 */
 	public static void initializeByDomain(String domain, String... servers) {
 		try {
 			initializeByDomain(domain, 2280, 80, servers);
@@ -295,6 +350,12 @@ public class Cat {
 		System.out.println(format.format(new Object[] { new Date(), severity, "cat", message }));
 	}
 
+	/**
+	 * log error to cat
+	 * 
+	 * @param message
+	 * @param cause
+	 */
 	public static void logError(String message, Throwable cause) {
 		try {
 			Cat.getProducer().logError(message, cause);
@@ -303,6 +364,11 @@ public class Cat {
 		}
 	}
 
+	/**
+	 * log error to cat
+	 * 
+	 * @param cause
+	 */
 	public static void logError(Throwable cause) {
 		try {
 			Cat.getProducer().logError(cause);
@@ -311,6 +377,14 @@ public class Cat {
 		}
 	}
 
+	/**
+	 * Log an event in one shot with SUCCESS status.
+	 * 
+	 * @param type
+	 *           event type
+	 * @param name
+	 *           event name
+	 */
 	public static void logEvent(String type, String name) {
 		try {
 			Cat.getProducer().logEvent(type, name);
@@ -319,6 +393,18 @@ public class Cat {
 		}
 	}
 
+	/**
+	 * Log an event in one shot.
+	 * 
+	 * @param type
+	 *           event type
+	 * @param name
+	 *           event name
+	 * @param status
+	 *           "0" means success, otherwise means error code
+	 * @param nameValuePairs
+	 *           name value pairs in the format of "a=1&b=2&..."
+	 */
 	public static void logEvent(String type, String name, String status, String nameValuePairs) {
 		try {
 			Cat.getProducer().logEvent(type, name, status, nameValuePairs);
@@ -327,6 +413,18 @@ public class Cat {
 		}
 	}
 
+	/**
+	 * Log a heartbeat in one shot.
+	 * 
+	 * @param type
+	 *           heartbeat type
+	 * @param name
+	 *           heartbeat name
+	 * @param status
+	 *           "0" means success, otherwise means error code
+	 * @param nameValuePairs
+	 *           name value pairs in the format of "a=1&b=2&..."
+	 */
 	public static void logHeartbeat(String type, String name, String status, String nameValuePairs) {
 		try {
 			Cat.getProducer().logHeartbeat(type, name, status, nameValuePairs);
@@ -484,6 +582,14 @@ public class Cat {
 		}
 	}
 
+	/**
+	 * Log an trace in one shot with SUCCESS status.
+	 * 
+	 * @param type
+	 *           trace type
+	 * @param name
+	 *           trace name
+	 */
 	public static void logTrace(String type, String name) {
 		try {
 			Cat.getProducer().logTrace(type, name);
@@ -492,6 +598,18 @@ public class Cat {
 		}
 	}
 
+	/**
+	 * Log an trace in one shot.
+	 * 
+	 * @param type
+	 *           trace type
+	 * @param name
+	 *           trace name
+	 * @param status
+	 *           "0" means success, otherwise means error code
+	 * @param nameValuePairs
+	 *           name value pairs in the format of "a=1&b=2&..."
+	 */
 	public static void logTrace(String type, String name, String status, String nameValuePairs) {
 		try {
 			Cat.getProducer().logTrace(type, name, status, nameValuePairs);
@@ -508,6 +626,14 @@ public class Cat {
 		return s_instance.m_container.lookup(role, hint);
 	}
 
+	/**
+	 * Create a new event with given type and name.
+	 * 
+	 * @param type
+	 *           event type
+	 * @param name
+	 *           event name
+	 */
 	public static Event newEvent(String type, String name) {
 		try {
 			return Cat.getProducer().newEvent(type, name);
@@ -517,6 +643,15 @@ public class Cat {
 		}
 	}
 
+	/**
+	 * Create a forked transaction for child thread.
+	 * 
+	 * @param type
+	 *           transaction type
+	 * @param name
+	 *           transaction name
+	 * @return forked transaction
+	 */
 	public static ForkedTransaction newForkedTransaction(String type, String name) {
 		try {
 			return Cat.getProducer().newForkedTransaction(type, name);
@@ -526,6 +661,14 @@ public class Cat {
 		}
 	}
 
+	/**
+	 * Create a new heartbeat with given type and name.
+	 * 
+	 * @param type
+	 *           heartbeat type
+	 * @param name
+	 *           heartbeat name
+	 */
 	public static Heartbeat newHeartbeat(String type, String name) {
 		try {
 			return Cat.getProducer().newHeartbeat(type, name);
@@ -535,6 +678,17 @@ public class Cat {
 		}
 	}
 
+	/**
+	 * Create a tagged transaction for another process or thread.
+	 * 
+	 * @param type
+	 *           transaction type
+	 * @param name
+	 *           transaction name
+	 * @param tag
+	 *           tag applied to the transaction
+	 * @return tagged transaction
+	 */
 	public static TaggedTransaction newTaggedTransaction(String type, String name, String tag) {
 		try {
 			return Cat.getProducer().newTaggedTransaction(type, name, tag);
@@ -544,6 +698,14 @@ public class Cat {
 		}
 	}
 
+	/**
+	 * Create a new trace with given type and name.
+	 * 
+	 * @param type
+	 *           trace type
+	 * @param name
+	 *           trace name
+	 */
 	public static Trace newTrace(String type, String name) {
 		try {
 			return Cat.getProducer().newTrace(type, name);
@@ -553,6 +715,14 @@ public class Cat {
 		}
 	}
 
+	/**
+	 * Create a new transaction with given type and name.
+	 * 
+	 * @param type
+	 *           transaction type
+	 * @param name
+	 *           transaction name
+	 */
 	public static Transaction newTransaction(String type, String name) {
 		try {
 			return Cat.getProducer().newTransaction(type, name);
