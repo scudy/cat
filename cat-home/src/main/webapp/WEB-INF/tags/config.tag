@@ -98,7 +98,7 @@
 					</a> <b class="arrow"></b>
 						<ul class="submenu">
 							<li id="alertPolicy"><a href="/cat/s/config?op=alertPolicy">
-								<i class="menu-icon fa fa-caret-right"></i>告警策略</a>
+								<i class="menu-icon fa fa-caret-right"></i>告警的策略</a>
 								<b class="arrow"></b></li>
 							<li id="alertDefaultReceivers"><a href="/cat/s/config?op=alertDefaultReceivers">
 								<i class="menu-icon fa fa-caret-right"></i>默认告警人</a>
@@ -119,7 +119,7 @@
 								<i class="menu-icon fa fa-caret-right"></i>Reload配置</a>
 								<b class="arrow"></b></li>
 							<li id="launchConfigUpdate"><a href="/cat/s/config?op=launchConfigUpdate">
-								<i class="menu-icon fa fa-caret-right"></i>启动配置</a>
+								<i class="menu-icon fa fa-caret-right"></i>启动的配置</a>
 								<b class="arrow"></b></li>
 							<li id="serverConfigUpdate" style="display:none"><a href="/cat/s/config?op=serverConfigUpdate">
 								<i class="menu-icon fa fa-caret-right"></i>服务端配置</a>
